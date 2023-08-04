@@ -1,7 +1,7 @@
 # Magnolia-Cakes-Website
 A website for Magnolia Cakes and Cupcakes
 
-#How to run?
+# How to run?
 
 1. Locate to the project directory and activate the virtual environment by the following command:
 
