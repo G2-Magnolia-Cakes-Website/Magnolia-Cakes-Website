@@ -1,0 +1,34 @@
+[
+  {
+    "tabName": "Gallery",
+    "tabLink": "/gallery"
+  },
+  {
+    "tabName": "Online Store",
+    "tabLink": "/online-store"
+  },
+  {
+    "tabName": "Location",
+    "tabLink": "/location"
+  },
+  {
+    "tabName": "Workshop",
+    "tabLink": "/workshop"
+  },
+  {
+    "tabName": "About Us",
+    "tabLink": "/about-us"
+  },
+  {
+    "tabName": "Contact Us",
+    "tabLink": "/contact-us"
+  },
+  {
+    "tabName": "Get a Quote",
+    "tabLink": "/get-a-quote"
+  },
+  {
+    "tabName": "Terms & Conditions",
+    "tabLink": "/terms-and-conditions"
+  }
+]
