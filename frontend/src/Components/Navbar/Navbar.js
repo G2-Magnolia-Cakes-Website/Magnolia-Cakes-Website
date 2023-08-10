@@ -15,7 +15,11 @@ const Navbar = () => {
 
   const renderTabs = () => {
     return tabs.map((tab) => (
-      <NavbarTab onMenuItemClick={onMenuItemClick} tab={tab} />
+      <NavbarTab
+        key={tab.tabLink}
+        onMenuItemClick={onMenuItemClick}
+        tab={tab}
+      />
     ));
   };
 
