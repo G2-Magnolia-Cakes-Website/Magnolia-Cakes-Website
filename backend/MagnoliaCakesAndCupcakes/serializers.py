@@ -2,12 +2,12 @@
 from rest_framework import serializers
  
 # import the todo data model
-from .models import Todo
+from .models import MagnoliaCakesAndCupcakes
  
 # create a serializer class
-class TodoSerializer(serializers.ModelSerializer):
+class MagnoliaCakesAndCupcakesSerializer(serializers.ModelSerializer):
  
     # create a meta class
     class Meta:
-        model = Todo
-        fields = ('id', 'title','description','completed')
+        model = MagnoliaCakesAndCupcakes
+        fields = ('title')

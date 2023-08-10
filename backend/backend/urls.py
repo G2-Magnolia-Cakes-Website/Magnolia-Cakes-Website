@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 # import views from todo
-from todo import views
+from MagnoliaCakesAndCupcakes import views
 
 # import routers from the REST framework
 # it is necessary for routing
@@ -14,7 +14,7 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 
 # register the router
-router.register(r'tasks',views.TodoView, 'task')
+router.register(r'MagnoliaCakesAndCupcakes',views.MagnoliaCakesAndCupcakesView, 'MagnoliaCakesAndCupcakes')
 
 urlpatterns = [
 	path('admin/', admin.site.urls),

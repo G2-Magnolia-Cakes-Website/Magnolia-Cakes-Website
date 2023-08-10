@@ -4,25 +4,25 @@ from django.shortcuts import render
 from rest_framework import viewsets
 
 # import the TodoSerializer from the serializer file
-from .serializers import TodoSerializer
+from .serializers import MagnoliaCakesAndCupcakesSerializer
 
 # import the Todo model from the models file
-from .models import Todo
+from .models import MagnoliaCakesAndCupcakes
 
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .forms import NewUserForm
 # create a class for the Todo model viewsets
-class TodoView(viewsets.ModelViewSet):
+class MagnoliaCakesAndCupcakesView(viewsets.ModelViewSet):
 
 	# create a serializer class and
 	# assign it to the TodoSerializer class
-	serializer_class = TodoSerializer
+	serializer_class = MagnoliaCakesAndCupcakesSerializer
 
 	# define a variable and populate it
 	# with the Todo list objects
-	queryset = Todo.objects.all()
+	queryset = MagnoliaCakesAndCupcakes.objects.all()
 
 @api_view(['POST'])
 def register(request):
