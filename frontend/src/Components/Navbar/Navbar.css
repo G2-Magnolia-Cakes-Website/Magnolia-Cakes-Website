@@ -8,6 +8,8 @@ nav {
   /* align-items: center; */
   background-color: #ffffff;
   color: white;
+  border-top: 2px solid #efc7c7;
+  border-bottom: 2px solid #efc7c7;
 
   /* keeps navbar at the top */
   position: sticky;
