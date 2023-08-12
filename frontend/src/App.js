@@ -19,11 +19,12 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <PageLayout />
-      <Routes>
-        <Route key="/" path="/" element={<HomePage />} />
-        {routeAllPagesComingSoon()}
-      </Routes>
+      <PageLayout>
+        <Routes>
+          <Route key="/" path="/" element={<HomePage />} />
+          {routeAllPagesComingSoon()}
+        </Routes>
+      </PageLayout>
     </BrowserRouter>
   );
 };

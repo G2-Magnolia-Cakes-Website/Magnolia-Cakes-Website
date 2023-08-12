@@ -1,0 +1,18 @@
+.login {
+  display: block;
+  text-decoration: none;
+  color: #000000;
+  padding: 0.1rem;
+  margin: 1rem 0;
+  font-size: 20px;
+  background: #efc7c7;
+  border-radius: 3px;
+  height: min-content;
+}
+
+button {
+  background-color: #efc7c7;
+  border: none;
+  padding: 5px 10px;
+  text-align: center;
+}

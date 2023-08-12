@@ -1,11 +1,13 @@
 import React from "react";
-import Navbar from "../../Components/Navbar/Navbar";
+import Header from "./Header/Header";
+import "./PageLayout.css";
 
-const PageLayout = () => {
+const PageLayout = (props) => {
   return (
-    <>
-      <Navbar />
-    </>
+    <div className="layout">
+      <Header />
+      {props.children}
+    </div>
   );
 };
 

@@ -1,0 +1,8 @@
+.signup-login-group {
+  display: flex;
+  margin: 0 1.5rem 0 1rem;
+}
+
+.signup-login-group > * {
+  margin: 1rem 5px;
+}

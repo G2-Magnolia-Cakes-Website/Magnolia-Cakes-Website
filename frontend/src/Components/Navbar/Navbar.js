@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import tabs from "../../utils/tabs.json";
 //hamburger menu animation from https://hamburger-react.netlify.app/
 import { Fade as Hamburger } from "hamburger-react";
@@ -6,8 +6,8 @@ import { Fade as Hamburger } from "hamburger-react";
 import "./Navbar.css";
 import NavbarTab from "./NavbarTab";
 
-const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const Navbar = (props) => {
+  const { isMenuOpen, setIsMenuOpen } = props;
 
   const onMenuItemClick = () => {
     setIsMenuOpen(false);
