@@ -43,7 +43,7 @@ nav .menu {
 @media (max-width: 480px) {
   nav .menu {
     display: flex;
-    margin-right: 1rem;
+    flex-direction: row-reverse;
   }
 
   nav {

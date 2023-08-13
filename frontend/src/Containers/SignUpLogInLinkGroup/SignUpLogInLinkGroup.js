@@ -7,7 +7,7 @@ const SignUpLogInLinkGroup = () => {
   return (
     <div className="signup-login-group">
       <LogInLink />
-      <SignUpLink />;
+      <SignUpLink />
     </div>
   );
 };
