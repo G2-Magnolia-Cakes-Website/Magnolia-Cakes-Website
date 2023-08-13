@@ -1,13 +1,10 @@
 .profile-name {
   margin-left: 1rem;
-}
-
-a:not(:hover) {
   color: #000000;
   text-decoration: none;
 }
 
-a:hover {
+.profile-name:hover {
   color: #daa41a;
   text-decoration: underline;
 }
@@ -16,7 +13,6 @@ a:hover {
   .social-media-wrapper {
     width: fit-content;
   }
-  
 
   .profile-name {
     display: none;

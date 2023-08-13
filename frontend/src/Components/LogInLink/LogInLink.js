@@ -1,13 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PAGELINKS } from "../../utils/constants";
 import "./LogInLink.css";
 
 const LogInLink = () => {
+  const navigate = useNavigate();
+
   return (
-    <Link className="login" to={PAGELINKS.LOGIN_LINK}>
-      <button>{PAGELINKS.LOGIN_TEXT}</button>
-    </Link>
+    <button
+      className="login"
+      onClick={() => {
+        navigate(PAGELINKS.LOGIN_LINK);
+      }}
+    >
+      {PAGELINKS.LOGIN_TEXT}
+    </button>
   );
 };
 
