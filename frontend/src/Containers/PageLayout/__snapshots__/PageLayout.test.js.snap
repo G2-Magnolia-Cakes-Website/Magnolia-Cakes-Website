@@ -1,0 +1,327 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` render PageLayout 1`] = `
+<nav>
+  <div
+    className="menu"
+  >
+    <div
+      aria-expanded={false}
+      className="hamburger-react"
+      onClick={[Function]}
+      onKeyUp={[Function]}
+      role="button"
+      style={
+        Object {
+          "cursor": "pointer",
+          "height": "48px",
+          "outline": "none",
+          "position": "relative",
+          "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
+          "userSelect": "none",
+          "width": "48px",
+        }
+      }
+      tabIndex={0}
+    >
+      <div
+        style={
+          Object {
+            "background": "#000000",
+            "height": "3px",
+            "left": "8px",
+            "position": "absolute",
+            "top": "13px",
+            "transform": "none",
+            "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
+            "width": "32px",
+          }
+        }
+      />
+      <div
+        style={
+          Object {
+            "background": "#000000",
+            "height": "3px",
+            "left": "8px",
+            "opacity": "1",
+            "position": "absolute",
+            "top": "23px",
+            "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
+            "width": "32px",
+          }
+        }
+      />
+      <div
+        style={
+          Object {
+            "background": "#000000",
+            "height": "3px",
+            "left": "8px",
+            "position": "absolute",
+            "top": "33px",
+            "transform": "none",
+            "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
+            "width": "32px",
+          }
+        }
+      />
+    </div>
+  </div>
+  <ul
+    className=""
+  >
+    <li
+      onClick={[Function]}
+    >
+      <a
+        className=""
+        href="/gallery"
+        onClick={[Function]}
+      >
+        Gallery
+      </a>
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      <a
+        className=""
+        href="/online-store"
+        onClick={[Function]}
+      >
+        Online Store
+      </a>
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      <a
+        className=""
+        href="/location"
+        onClick={[Function]}
+      >
+        Location
+      </a>
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      <a
+        className=""
+        href="/workshop"
+        onClick={[Function]}
+      >
+        Workshop
+      </a>
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      <a
+        className=""
+        href="/about-us"
+        onClick={[Function]}
+      >
+        About Us
+      </a>
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      <a
+        className=""
+        href="/contact-us"
+        onClick={[Function]}
+      >
+        Contact Us
+      </a>
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      <a
+        className=""
+        href="/get-a-quote"
+        onClick={[Function]}
+      >
+        Get a Quote
+      </a>
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      <a
+        className=""
+        href="/terms-and-conditions"
+        onClick={[Function]}
+      >
+        Terms & Conditions
+      </a>
+    </li>
+  </ul>
+</nav>
+`;
+
+exports[`test PageLayout render PageLayout 1`] = `
+<nav>
+  <div
+    className="menu"
+  >
+    <div
+      aria-expanded={false}
+      className="hamburger-react"
+      onClick={[Function]}
+      onKeyUp={[Function]}
+      role="button"
+      style={
+        Object {
+          "cursor": "pointer",
+          "height": "48px",
+          "outline": "none",
+          "position": "relative",
+          "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
+          "userSelect": "none",
+          "width": "48px",
+        }
+      }
+      tabIndex={0}
+    >
+      <div
+        style={
+          Object {
+            "background": "#000000",
+            "height": "3px",
+            "left": "8px",
+            "position": "absolute",
+            "top": "13px",
+            "transform": "none",
+            "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
+            "width": "32px",
+          }
+        }
+      />
+      <div
+        style={
+          Object {
+            "background": "#000000",
+            "height": "3px",
+            "left": "8px",
+            "opacity": "1",
+            "position": "absolute",
+            "top": "23px",
+            "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
+            "width": "32px",
+          }
+        }
+      />
+      <div
+        style={
+          Object {
+            "background": "#000000",
+            "height": "3px",
+            "left": "8px",
+            "position": "absolute",
+            "top": "33px",
+            "transform": "none",
+            "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
+            "width": "32px",
+          }
+        }
+      />
+    </div>
+  </div>
+  <ul
+    className=""
+  >
+    <li
+      onClick={[Function]}
+    >
+      <a
+        className=""
+        href="/gallery"
+        onClick={[Function]}
+      >
+        Gallery
+      </a>
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      <a
+        className=""
+        href="/online-store"
+        onClick={[Function]}
+      >
+        Online Store
+      </a>
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      <a
+        className=""
+        href="/location"
+        onClick={[Function]}
+      >
+        Location
+      </a>
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      <a
+        className=""
+        href="/workshop"
+        onClick={[Function]}
+      >
+        Workshop
+      </a>
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      <a
+        className=""
+        href="/about-us"
+        onClick={[Function]}
+      >
+        About Us
+      </a>
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      <a
+        className=""
+        href="/contact-us"
+        onClick={[Function]}
+      >
+        Contact Us
+      </a>
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      <a
+        className=""
+        href="/get-a-quote"
+        onClick={[Function]}
+      >
+        Get a Quote
+      </a>
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      <a
+        className=""
+        href="/terms-and-conditions"
+        onClick={[Function]}
+      >
+        Terms & Conditions
+      </a>
+    </li>
+  </ul>
+</nav>
+`;

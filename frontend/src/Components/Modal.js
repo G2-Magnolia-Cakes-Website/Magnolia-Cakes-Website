@@ -1,5 +1,5 @@
 import React, { Component } from "react";
- 
+
 // importing all of these classes from reactstrap module
 import {
   Button,
@@ -10,19 +10,19 @@ import {
   Form,
   FormGroup,
   Input,
-  Label
+  Label,
 } from "reactstrap";
- 
+
 // build a class base component
 class CustomModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeItem: this.props.activeItem
+      activeItem: this.props.activeItem,
     };
   }
   // changes handler to check if a checkbox is checked or not
-  handleChange = e => {
+  handleChange = (e) => {
     let { name, value } = e.target;
     if (e.target.type === "checkbox") {
       value = e.target.checked;
@@ -30,7 +30,7 @@ class CustomModal extends Component {
     const activeItem = { ...this.state.activeItem, [name]: value };
     this.setState({ activeItem });
   };
- 
+
   // rendering modal in the custommodal class received toggle and on save as props,
   render() {
     const { toggle, onSave } = this.props;
@@ -38,9 +38,7 @@ class CustomModal extends Component {
       <Modal isOpen={true} toggle={toggle}>
         <ModalHeader toggle={toggle}> Task Item </ModalHeader>
         <ModalBody>
-         
           <Form>
- 
             {/* 3 formgroups
             1 title label */}
             <FormGroup>
@@ -53,7 +51,7 @@ class CustomModal extends Component {
                 placeholder="Enter Task Title"
               />
             </FormGroup>
- 
+
             {/* 2 description label */}
             <FormGroup>
               <Label for="description">Description</Label>
@@ -65,7 +63,7 @@ class CustomModal extends Component {
                 placeholder="Enter Task Description"
               />
             </FormGroup>
- 
+
             {/* 3 completed label */}
             <FormGroup check>
               <Label for="completed">
@@ -90,4 +88,4 @@ class CustomModal extends Component {
     );
   }
 }
-export default CustomModal
+export default CustomModal;

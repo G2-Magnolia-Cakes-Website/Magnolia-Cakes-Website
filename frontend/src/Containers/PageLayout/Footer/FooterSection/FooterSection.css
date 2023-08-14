@@ -1,0 +1,26 @@
+.footer-section {
+  display: block;
+  max-width: 20rem;
+}
+
+.footer-section h4 {
+  text-align: center;
+  margin-bottom: 15px;
+  /* color: #F1D075; */
+  color: #daa41a;
+}
+
+.footer-section > *:not(:first-child):not(:last-child) {
+  display: block;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 480px) {
+  .footer-section h4 {
+    font-size: medium;
+  }
+
+  .footer-section > *:not(h4) {
+    font-size: small;
+  }
+}
