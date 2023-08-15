@@ -24,5 +24,6 @@ urlpatterns = [
 	# you should be routed to the django Rest framework
 	path('api/', include(router.urls)),
 	path('api/register/', views.register, name='api-register'),
+    path('activate/<uidb64>/<token>', views.activate, name='activate'),
 
 ]
