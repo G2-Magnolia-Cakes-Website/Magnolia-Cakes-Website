@@ -6,11 +6,11 @@ class BackendAuthentication(ModelBackend):
 
     def authenticate(self, request, username=None, password=None, **kwargs):
         """
-        Authenticate the user based on their email and password.
+        Authenticate the user based on their username and password.
         
         Args:
             request: The request object.
-            username: The email address provided for authentication.
+            username: The username provided for authentication.
             password: The password provided for authentication.
         
         Returns:
@@ -18,7 +18,7 @@ class BackendAuthentication(ModelBackend):
         """
         UserModel = get_user_model()
         try:
-            user = UserModel.objects.get(email=username)
+            user = UserModel.objects.get(username=username)
         except UserModel.DoesNotExist:
             return None
         if user.check_password(password):

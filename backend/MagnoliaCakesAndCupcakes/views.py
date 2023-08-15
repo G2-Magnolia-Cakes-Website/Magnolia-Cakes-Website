@@ -42,10 +42,10 @@ def login(request):
         form = AuthenticationForm(request._request, data=request.data)
         
         if form.is_valid():
-            email = request.data.get('username') 
+            username = request.data.get('username') 
             password = request.data.get('password')
             
-            user = authenticate(request._request, username=email, password=password)
+            user = authenticate(request._request, username=username, password=password)
             if user is not None:
                 django_login(request._request, user)  # Use django_login instead of login
                 return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
