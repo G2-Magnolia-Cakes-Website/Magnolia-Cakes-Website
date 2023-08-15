@@ -36,6 +36,8 @@ class MagnoliaCakesAndCupcakesView(viewsets.ModelViewSet):
 @api_view(['POST'])
 def register(request):
     if request.method == 'POST':
+        print("11111111111: ", request)
+        print("22222222222: ", request.data)
         form = NewUserForm(request.data)
         if form.is_valid():
             user = form.save(commit=False)
