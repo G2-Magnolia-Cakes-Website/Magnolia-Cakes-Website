@@ -15,8 +15,6 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .forms import NewUserForm
 
-import logging
-logger = logging.getLogger(__name__)
 # create a class for the Todo model viewsets
 class MagnoliaCakesAndCupcakesView(viewsets.ModelViewSet):
 
@@ -54,5 +52,4 @@ def login(request):
             else:
                 return Response({'message': 'Login failed'}, status=status.HTTP_401_UNAUTHORIZED)
         else:
-            logger.warning(f"Login failed: Form is invalid - Errors: {form.errors}")
             return Response({'message': 'Login failed'}, status=status.HTTP_400_BAD_REQUEST)
