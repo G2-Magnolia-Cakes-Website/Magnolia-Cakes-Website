@@ -16,6 +16,7 @@ router = routers.DefaultRouter()
 # register the router
 router.register(r'MagnoliaCakesAndCupcakes',views.MagnoliaCakesAndCupcakesView, 'MagnoliaCakesAndCupcakes')
 
+
 urlpatterns = [
 	path('admin/', admin.site.urls),
 
@@ -24,5 +25,5 @@ urlpatterns = [
 	# you should be routed to the django Rest framework
 	path('api/', include(router.urls)),
 	path('api/register/', views.register, name='api-register'),
-
+	path('api/login/', views.login, name='api-login'),
 ]
