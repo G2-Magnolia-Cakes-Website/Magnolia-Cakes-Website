@@ -4,6 +4,7 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 import tabs from "./utils/tabs.json";
 import ComingSoonPage from "./Components/ComingSoonPage/ComingSoonPage";
 import HomePage from "./Components/HomePage/HomePage";
+import background from "./utils/background-pink-watercolor.png";
 
 const App = () => {
   // temporary until pages created
@@ -20,10 +21,12 @@ const App = () => {
   return (
     <BrowserRouter>
       <PageLayout>
-        <Routes>
-          <Route key="/" path="/" element={<HomePage />} />
-          {routeAllPagesComingSoon()}
-        </Routes>
+        <div style={{ backgroundImage: `url(${background})` }}>
+          <Routes>
+            <Route key="/" path="/" element={<HomePage />} />
+            {routeAllPagesComingSoon()}
+          </Routes>
+        </div>
       </PageLayout>
     </BrowserRouter>
   );

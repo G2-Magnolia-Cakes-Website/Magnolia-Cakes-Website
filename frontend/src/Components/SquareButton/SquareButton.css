@@ -1,0 +1,29 @@
+.square-button {
+  border: 3px solid white;
+  width: fit-content;
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  padding: 15px 32px;
+  color: white;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+
+  background: linear-gradient(to right, #ede5e3 0%, #efc7c7 70%);
+  /* background: linear-gradient(to right, #ede5e3 50%, #efc7c7 50%); */
+  background-color:  #efc7c7;
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.5s ease-out;
+}
+
+.square-button:not(.active):hover {
+  background-position: left bottom;
+  color: #daa41a;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 480px) {
+  .square-button {
+    text-align: center;
+  }
+}

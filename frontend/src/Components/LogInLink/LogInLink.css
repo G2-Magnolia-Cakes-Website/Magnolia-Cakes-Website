@@ -9,6 +9,7 @@
   border: 2px solid #efc7c7;
   border-radius: 3px;
   text-align: center;
+  transition: 0.5s;
 }
 
 /* Use media query to avoid hover styling when clicked on mobile devices */
