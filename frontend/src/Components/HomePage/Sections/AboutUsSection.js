@@ -1,12 +1,12 @@
 import React from "react";
-import { aboutUsPortrait } from "../../../utils/cover";
 import SquareButton from "../../SquareButton/SquareButton";
 import { useNavigate } from "react-router-dom";
 import { PAGELINKS } from "../../../utils/constants";
+import { aboutUsPortrait } from "../../../utils/cover";
 
 import "./AboutUsSection.css";
 
-const AboutUsSection = () => {
+const AboutUsSection2 = () => {
   const navigate = useNavigate();
 
   const onReadMoreButtonClick = () => {
@@ -15,6 +15,11 @@ const AboutUsSection = () => {
 
   return (
     <div className="about-us-section">
+      <img
+        className="about-us-portrait"
+        src={aboutUsPortrait}
+        alt="About Us Portrait"
+      />
       <div className="about-us-text">
         <h2>About Us</h2>
         <p>
@@ -28,9 +33,8 @@ const AboutUsSection = () => {
         </p>
         <SquareButton buttonText="Read More" onClick={onReadMoreButtonClick} />
       </div>
-      <img src={aboutUsPortrait} alt="About Us" />
     </div>
   );
 };
 
-export default AboutUsSection;
+export default AboutUsSection2;

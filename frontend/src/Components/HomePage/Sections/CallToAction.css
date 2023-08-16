@@ -14,7 +14,7 @@
   background-position: center;
   background-blend-mode: lighten;
   position: absolute;
-  content: '';
+  content: "";
   inset: 0;
   opacity: 0.25;
 }
@@ -76,6 +76,7 @@
 
   .call-to-action-wrapper p {
     text-align: center;
+    margin-bottom: 1.5rem;
   }
 
   .call-to-action-bg .call-to-action-wrapper .logo {
