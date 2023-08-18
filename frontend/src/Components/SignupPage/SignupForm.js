@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link } from "react-router-dom";
-import Popup from 'reactjs-popup';
-import TermsAndConditionsTest from './TermsAndConditionsTest'
+import Popup from './Popup';
 
 export default function SignupForm() {
 
@@ -16,6 +15,8 @@ export default function SignupForm() {
     // States for checking the errors
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState(false);
+
+    const [buttonPopup, setButtonPopup] = useState(false)
 
     // Handling the username change
     const handleUsername = (e) => {
@@ -54,6 +55,9 @@ export default function SignupForm() {
     // Handling the form submission
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // Send API msg to backend
+
         if (username === '' || email === '' || password === '') {
             setError(true);
         } else {
@@ -117,11 +121,12 @@ export default function SignupForm() {
                 <div>
                     <label htmlFor="agree" className="label">
                         <input type="checkbox" className="checkbox" id="agree" onChange={checkboxHandler} /><a className='pad'></a> I agree to
-                        <Popup trigger={<button type="button" className='terms-and-conditions'><b>terms and conditions</b></button>} position="right center">
-                            <TermsAndConditionsTest />
-                        </Popup>
+                        <button type="button" className='terms-and-conditions' onClick={() => setButtonPopup(true)}><b>terms and conditions</b></button>
                     </label>
                 </div>
+
+                <Popup trigger={buttonPopup} setTrigger={setButtonPopup} position="right center">
+                </Popup>
 
                 <button onClick={handleSubmit} disabled={!agree} className="submit-btn"
                     type="submit">
@@ -139,5 +144,3 @@ export default function SignupForm() {
         </div>
     );
 };
-
-// export default SignupForm;
