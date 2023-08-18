@@ -106,20 +106,30 @@
     
     .error {
         display: block;
-        background-color: red;
-        color: white;
-        /* width: fit-content; */
-        height: 50px;
+        background-color:pink;
+        color: red;
+        width: 90%;
+        height: fit-content;
         padding: 5px;
+        border-radius: 10px;
     }
     
     .success {
         display: block;
         background-color: lightblue;
-        color: black;
-        /* width: fit-content; */
-        height: 50px;
+        color: deeppink;
+        width: 90%;
+        height: fit-content;
         padding: 5px;
+        border-radius: 10px;
+    }
+
+    .msgs {
+        display: flex;
+        font-size:medium;
+        font-weight: bold;
+        justify-content: center;
+        vertical-align: middle;
     }
     
     .terms-and-conditions {
@@ -258,20 +268,30 @@
     
     .error {
         display: block;
-        background-color: red;
-        color: white;
-        width: fit-content;
-        height: 50px;
+        background-color:pink;
+        color: red;
+        width: 90%;
+        height:fit-content;
         padding: 5px;
+        border-radius: 10px;
     }
     
     .success {
         display: block;
         background-color: lightblue;
-        color: black;
-        width: fit-content;
-        height: 50px;
+        color: deeppink;
+        width: 90%;
+        height:fit-content;
         padding: 5px;
+        border-radius: 10px;
+    }
+
+    .msgs {
+        display: flex;
+        font-size:x-large;
+        font-weight: bold;
+        justify-content: center;
+        vertical-align: middle;
     }
     
     .terms-and-conditions {
@@ -562,26 +582,30 @@
     
     .error {
         display: block;
-        background-color: red;
-        color: white;
-        /* width: fit-content; */
+        background-color:pink;
+        color: red;
         width: 90%;
-        height: 50px;
+        height:fit-content;
         padding: 5px;
+        border-radius: 10px;
     }
     
     .success {
         display: block;
         background-color: lightblue;
-        color: black;
-        /* width: fit-content; */
+        color: deeppink;
         width: 90%;
-        height: 50px;
+        height:fit-content;
         padding: 5px;
+        border-radius: 10px;
     }
 
     .msgs {
-        font-size: medium;
+        display: flex;
+        font-size:x-large;
+        font-weight: bold;
+        justify-content: center;
+        vertical-align: middle;
     }
     
     .terms-and-conditions {

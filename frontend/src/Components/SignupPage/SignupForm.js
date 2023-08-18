@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Popup from 'reactjs-popup';
 import TermsAndConditionsTest from './TermsAndConditionsTest'
 
-export default function SignupForm({result, failMessage}) {
+export default function SignupForm() {
 
     // States for registration
     const [username, setUsername] = useState('');
@@ -55,10 +55,8 @@ export default function SignupForm({result, failMessage}) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (username === '' || email === '' || password === '') {
-            failMessage("Please enter all the fields")
             setError(true);
         } else {
-            result("User successfully registered!!")
             setSubmitted(true);
             setError(false);
         }
@@ -72,7 +70,7 @@ export default function SignupForm({result, failMessage}) {
                 style={{
                     display: submitted ? '' : 'none',
                 }}>
-                <p className='msgs'>User {username} successfully registered!!</p>
+                <p className='msgs'>Please click the link in your email for verification</p>
             </div>
         );
     };
@@ -85,7 +83,7 @@ export default function SignupForm({result, failMessage}) {
                 style={{
                     display: error ? '' : 'none',
                 }}>
-                <p className='msgs'>Please enter all the fields</p>
+                <div className='msgs'>Please enter all the fields</div>
             </div>
         );
     };
@@ -125,16 +123,17 @@ export default function SignupForm({result, failMessage}) {
                     </label>
                 </div>
 
+                <button onClick={handleSubmit} disabled={!agree} className="submit-btn"
+                    type="submit">
+                    Create Account
+                </button>
+
                 {/* Calling to the methods */}
                 <div className="messages">
                     {errorMessage()}
                     {successMessage()}
                 </div>
 
-                <button onClick={handleSubmit} disabled={!agree} className="submit-btn"
-                    type="submit">
-                    Create Account
-                </button>
             </form>
 
         </div>
