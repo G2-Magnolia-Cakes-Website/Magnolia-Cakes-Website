@@ -4,6 +4,7 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 import tabs from "./utils/tabs.json";
 import ComingSoonPage from "./Components/ComingSoonPage/ComingSoonPage";
 import HomePage from "./Components/HomePage/HomePage";
+import SignupPage from "./Components/SignupPage/SignupPage";
 
 const App = () => {
   // temporary until pages created
@@ -22,6 +23,7 @@ const App = () => {
       <PageLayout>
         <Routes>
           <Route key="/" path="/" element={<HomePage />} />
+          <Route key="/signup" path="/signup" element={<SignupPage />} />
           {routeAllPagesComingSoon()}
         </Routes>
       </PageLayout>
