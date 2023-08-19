@@ -31,7 +31,11 @@ const AboutUsSection2 = () => {
           tellus, non vehicula erat efficitur nec. Nunc ullamcorper eu metus a
           sodales. Integer vitae bibendum ligula.
         </p>
-        <SquareButton buttonText="Read More" onClick={onReadMoreButtonClick} />
+        <SquareButton
+          buttonText="Read More"
+          onClick={onReadMoreButtonClick}
+          isUnfilled={true}
+        />
       </div>
     </div>
   );

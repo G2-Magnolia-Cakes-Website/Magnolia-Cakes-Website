@@ -15,8 +15,8 @@ const CallToAction = () => {
         {logo}
         <h2>Magnolia Cakes and Cupcakes</h2>
         <p>
-          Make every celebration and gathering more tasty with Magnolia Cakes &
-          Cupcakes
+          Delight in unforgettable moments with our exquisite cakes and
+          cupcakes. Order now to experience pure indulgence!
         </p>
         <SquareButton buttonText="Get Started" />
       </div>

@@ -5,19 +5,18 @@
   background-repeat: no-repeat;
 
   color: #fff;
-  width: 100%;
-  height: 100%;
+  min-height: 511px;
+  aspect-ratio: 1280 / 511;
 
   margin: 0;
-  padding-top: 10%;
-  padding-bottom: 10%;
 
   display: block;
-  justify-content: left;
-  align-items: left;
+  align-items: center;
+  justify-content: center;
+  object-fit: cover;
 }
 
-.about-us-section img {
+.about-us-section .about-us-portrait {
   display: block;
   width: 40%;
   height: auto;
@@ -26,35 +25,36 @@
   margin-right: auto;
 }
 
-.about-us-text {
+.about-us-section .about-us-text {
   display: flex;
   flex-direction: column;
   max-width: 50%;
-  justify-content: left;
-  margin: 0;
+  height: 100%;
   align-items: center;
+  justify-content: center;
 }
 
-.about-us-text > * {
+.about-us-section .about-us-text > * {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
-.about-us-text h2 {
+.about-us-section .about-us-text h2 {
   font-size: 64px;
   font-family: "Dancing Script", cursive;
 }
 
-.about-us-text p {
+.about-us-section .about-us-text p {
   font-size: 18px;
   width: 70%;
+  text-align: center;
 }
 
 .about-us-section .about-us-portrait {
   display: none;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .about-us-section {
     background-image: url("../../../utils/cover/about-us-portrait-bg.png");
     background-size: 150%;
@@ -73,6 +73,16 @@
     justify-content: left;
     align-items: left;
   }
+
+  .about-us-text h2 {
+    font-size: 50px;
+    font-family: "Dancing Script", cursive;
+  }
+
+  .about-us-text p {
+    font-size: 16px;
+    width: 70%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -85,7 +95,6 @@
     display: block;
     width: 80%;
     height: auto;
-    margin-top: 2rem;
     margin-bottom: 1rem;
   }
 

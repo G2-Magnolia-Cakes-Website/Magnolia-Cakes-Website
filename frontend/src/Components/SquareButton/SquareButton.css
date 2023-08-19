@@ -16,6 +16,11 @@
   transition: all 0.5s ease-out;
 }
 
+.square-button.unfilled {
+  background: none;
+  background-color: transparent;
+}
+
 .square-button:not(.active):hover {
   background-position: left bottom;
   color: #daa41a;

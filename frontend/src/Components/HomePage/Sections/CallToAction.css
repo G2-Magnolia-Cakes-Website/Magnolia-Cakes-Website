@@ -17,12 +17,19 @@
   content: "";
   inset: 0;
   opacity: 0.25;
+
+  --mask: linear-gradient(to bottom, 
+      rgba(0,0,0, 1) 0,   rgba(0,0,0, 1) 60%, 
+      rgba(0,0,0, 0) 90%, rgba(0,0,0, 0) 0%
+  ) 100% 50% / 100% 100% repeat-x;
+  
+
+  -webkit-mask: var(--mask); 
+  mask: var(--mask);
 }
 
 .call-to-action-wrapper {
   isolation: isolate;
-
-  background-color: #efc7c7;
   margin: 1rem 1rem 5rem 1rem;
   padding: 2rem;
   padding-bottom: 3rem;

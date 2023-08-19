@@ -1,11 +1,14 @@
 import React from "react";
-import CallToAction from "./Sections/CallToAction";
 import AboutUsSection from "./Sections/AboutUsSection";
+import SubheadingDivider from "../SubheadingDivider/SubheadingDivider";
+import CarouselGallery from "../Carousel/CarouselGallery";
 
 const HomePage = () => {
   return (
     <>
-      <CallToAction />
+      <CarouselGallery />
+      {/* <SubheadingDivider subheadingText="Cakes for all occasions" /> */}
+      {/* <SubheadingDivider subheadingText="About Us" /> */}
       <AboutUsSection />
     </>
   );
