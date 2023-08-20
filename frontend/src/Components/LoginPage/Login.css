@@ -1,6 +1,6 @@
 
 .loginPage {
-    height: 1200px;
+    height: fit-content;
 }
 
 .login-image {
@@ -93,7 +93,7 @@
     text-align: center;
     background-color: lightcoral;
     color: white;
-    margin-bottom: 10px;
+    margin-bottom: 130px;
 }
 
 .msgs {
@@ -111,7 +111,7 @@
     .login-image {
         flex-direction: row;
         width: 100%;
-        height: 400px;
+        height: fit-content;
     }
     
     .login-form {
@@ -129,47 +129,31 @@
     }
 }
 
+/* Larger screens */
 @media only screen and (min-width: 600px) {
     
+    .loginPage {
+        margin: 40px;
+    }
+
     .login-image {
-        float: left;
-        width: 40%;
-        max-width: fit-content;
-        min-width: 600px;
-        height: 100%;
+        flex-direction: row;
+        width: 100%;
+        height: fit-content;
     }
     
     .login-form {
-        padding: 100px;
-        float: right;
-        width: 60%;
-        height: 100%;
+        flex-direction: row;
+        width: 100%;
+        height: 60%;
     }
 
     .submit-btn {
-        width: 500px;
+        width: 100%;
     }
 
     .input-login {
-        width: 500px;
-    }
-}
-
-@media only screen and (min-width: 1500px) {
-    
-    .login-image {
-        float: left;
-        width: 40%;
-        max-width: fit-content;
-        min-width: 600px;
-        height: 100%;
-    }
-    
-    .login-form {
-        padding: 100px;
-        float: right;
-        width: 60%;
-        height: 100%;
+        width: 100%;
     }
 
     .submit-btn {
@@ -182,5 +166,46 @@
 
     .messages {
         width: 500px;
+    }
+}
+
+@media only screen and (min-width: 769px) {
+    
+    .login-form {
+        margin-left: 40px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    
+    .loginPage {
+        margin: 0px;
+    }
+    
+    .login-form {
+        margin: 0px;
+    }
+    
+    .login-image {
+        float: left;
+        width: 40%;
+        max-width: fit-content;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .login-form {
+        padding: 100px;
+        float: right;
+        width: 60%;
+        height: 100%;
+    }
+}
+
+@media only screen and (min-width: 1700px) {
+    
+    .login-image {
+        max-width: none;
     }
 }
