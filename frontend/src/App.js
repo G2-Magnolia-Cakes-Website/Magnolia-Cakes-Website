@@ -3,7 +3,7 @@ import PageLayout from "./Containers/PageLayout/PageLayout";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import tabs from "./utils/tabs.json";
 import ComingSoonPage from "./Components/ComingSoonPage/ComingSoonPage";
-import HomePage from "./Components/HomePage/HomePage";
+import HomePage from "./Containers/HomePage/HomePage";
 
 import "./App.css";
 

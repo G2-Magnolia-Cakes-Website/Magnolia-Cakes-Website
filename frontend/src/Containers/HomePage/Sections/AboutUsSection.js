@@ -1,5 +1,5 @@
 import React from "react";
-import SquareButton from "../../SquareButton/SquareButton";
+import SquareButton from "../../../Components/SquareButton/SquareButton";
 import { useNavigate } from "react-router-dom";
 import { PAGELINKS } from "../../../utils/constants";
 import { aboutUsPortrait } from "../../../utils/cover";

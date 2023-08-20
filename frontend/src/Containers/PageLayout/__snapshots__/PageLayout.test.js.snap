@@ -1,327 +1,351 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[` render PageLayout 1`] = `
-<nav>
-  <div
-    className="menu"
-  >
-    <div
-      aria-expanded={false}
-      className="hamburger-react"
-      onClick={[Function]}
-      onKeyUp={[Function]}
-      role="button"
-      style={
-        Object {
-          "cursor": "pointer",
-          "height": "48px",
-          "outline": "none",
-          "position": "relative",
-          "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
-          "userSelect": "none",
-          "width": "48px",
-        }
-      }
-      tabIndex={0}
-    >
-      <div
-        style={
-          Object {
-            "background": "#000000",
-            "height": "3px",
-            "left": "8px",
-            "position": "absolute",
-            "top": "13px",
-            "transform": "none",
-            "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
-            "width": "32px",
-          }
-        }
-      />
-      <div
-        style={
-          Object {
-            "background": "#000000",
-            "height": "3px",
-            "left": "8px",
-            "opacity": "1",
-            "position": "absolute",
-            "top": "23px",
-            "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
-            "width": "32px",
-          }
-        }
-      />
-      <div
-        style={
-          Object {
-            "background": "#000000",
-            "height": "3px",
-            "left": "8px",
-            "position": "absolute",
-            "top": "33px",
-            "transform": "none",
-            "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
-            "width": "32px",
-          }
-        }
-      />
-    </div>
-  </div>
-  <ul
-    className=""
-  >
-    <li
-      onClick={[Function]}
-    >
-      <a
-        className=""
-        href="/gallery"
-        onClick={[Function]}
-      >
-        Gallery
-      </a>
-    </li>
-    <li
-      onClick={[Function]}
-    >
-      <a
-        className=""
-        href="/online-store"
-        onClick={[Function]}
-      >
-        Online Store
-      </a>
-    </li>
-    <li
-      onClick={[Function]}
-    >
-      <a
-        className=""
-        href="/location"
-        onClick={[Function]}
-      >
-        Location
-      </a>
-    </li>
-    <li
-      onClick={[Function]}
-    >
-      <a
-        className=""
-        href="/workshop"
-        onClick={[Function]}
-      >
-        Workshop
-      </a>
-    </li>
-    <li
-      onClick={[Function]}
-    >
-      <a
-        className=""
-        href="/about-us"
-        onClick={[Function]}
-      >
-        About Us
-      </a>
-    </li>
-    <li
-      onClick={[Function]}
-    >
-      <a
-        className=""
-        href="/contact-us"
-        onClick={[Function]}
-      >
-        Contact Us
-      </a>
-    </li>
-    <li
-      onClick={[Function]}
-    >
-      <a
-        className=""
-        href="/get-a-quote"
-        onClick={[Function]}
-      >
-        Get a Quote
-      </a>
-    </li>
-    <li
-      onClick={[Function]}
-    >
-      <a
-        className=""
-        href="/terms-and-conditions"
-        onClick={[Function]}
-      >
-        Terms & Conditions
-      </a>
-    </li>
-  </ul>
-</nav>
-`;
-
 exports[`test PageLayout render PageLayout 1`] = `
-<nav>
+<div
+  className="layout"
+>
   <div
-    className="menu"
+    className="header"
   >
+    <nav>
+      <div
+        className="menu"
+      >
+        <div
+          aria-expanded={false}
+          className="hamburger-react"
+          onClick={[Function]}
+          onKeyUp={[Function]}
+          role="button"
+          style={
+            Object {
+              "cursor": "pointer",
+              "height": "48px",
+              "outline": "none",
+              "position": "relative",
+              "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
+              "userSelect": "none",
+              "width": "48px",
+            }
+          }
+          tabIndex={0}
+        >
+          <div
+            style={
+              Object {
+                "background": "#efc7c7",
+                "height": "3px",
+                "left": "8px",
+                "position": "absolute",
+                "top": "13px",
+                "transform": "none",
+                "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
+                "width": "32px",
+              }
+            }
+          />
+          <div
+            style={
+              Object {
+                "background": "#efc7c7",
+                "height": "3px",
+                "left": "8px",
+                "opacity": "1",
+                "position": "absolute",
+                "top": "23px",
+                "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
+                "width": "32px",
+              }
+            }
+          />
+          <div
+            style={
+              Object {
+                "background": "#efc7c7",
+                "height": "3px",
+                "left": "8px",
+                "position": "absolute",
+                "top": "33px",
+                "transform": "none",
+                "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
+                "width": "32px",
+              }
+            }
+          />
+        </div>
+      </div>
+      <ul
+        className=""
+      >
+        <li
+          onClick={[Function]}
+        >
+          <a
+            aria-current="page"
+            className="active"
+            href="/"
+            onClick={[Function]}
+          >
+            Home
+          </a>
+        </li>
+        <li
+          onClick={[Function]}
+        >
+          <a
+            className=""
+            href="/gallery"
+            onClick={[Function]}
+          >
+            Gallery
+          </a>
+        </li>
+        <li
+          onClick={[Function]}
+        >
+          <a
+            className=""
+            href="/online-store"
+            onClick={[Function]}
+          >
+            Online Store
+          </a>
+        </li>
+        <li
+          onClick={[Function]}
+        >
+          <a
+            className=""
+            href="/location"
+            onClick={[Function]}
+          >
+            Location
+          </a>
+        </li>
+        <li
+          onClick={[Function]}
+        >
+          <a
+            className=""
+            href="/workshop"
+            onClick={[Function]}
+          >
+            Workshop
+          </a>
+        </li>
+        <li
+          onClick={[Function]}
+        >
+          <a
+            className=""
+            href="/about-us"
+            onClick={[Function]}
+          >
+            About Us
+          </a>
+        </li>
+        <li
+          onClick={[Function]}
+        >
+          <a
+            className=""
+            href="/contact-us"
+            onClick={[Function]}
+          >
+            Contact Us
+          </a>
+        </li>
+        <li
+          onClick={[Function]}
+        >
+          <a
+            className=""
+            href="/get-a-quote"
+            onClick={[Function]}
+          >
+            Get a Quote
+          </a>
+        </li>
+        <li
+          onClick={[Function]}
+        >
+          <a
+            className=""
+            href="/cake-flavours-and-servings"
+            onClick={[Function]}
+          >
+            Flavours & Servings
+          </a>
+        </li>
+      </ul>
+    </nav>
     <div
-      aria-expanded={false}
-      className="hamburger-react"
-      onClick={[Function]}
-      onKeyUp={[Function]}
-      role="button"
-      style={
-        Object {
-          "cursor": "pointer",
-          "height": "48px",
-          "outline": "none",
-          "position": "relative",
-          "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
-          "userSelect": "none",
-          "width": "48px",
-        }
-      }
-      tabIndex={0}
+      className="signup-login-group"
     >
-      <div
-        style={
-          Object {
-            "background": "#000000",
-            "height": "3px",
-            "left": "8px",
-            "position": "absolute",
-            "top": "13px",
-            "transform": "none",
-            "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
-            "width": "32px",
-          }
-        }
-      />
-      <div
-        style={
-          Object {
-            "background": "#000000",
-            "height": "3px",
-            "left": "8px",
-            "opacity": "1",
-            "position": "absolute",
-            "top": "23px",
-            "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
-            "width": "32px",
-          }
-        }
-      />
-      <div
-        style={
-          Object {
-            "background": "#000000",
-            "height": "3px",
-            "left": "8px",
-            "position": "absolute",
-            "top": "33px",
-            "transform": "none",
-            "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
-            "width": "32px",
-          }
-        }
-      />
+      <button
+        className="login"
+        onClick={[Function]}
+      >
+        Log In
+      </button>
+      <a
+        className="signup"
+        href="/signup"
+        onClick={[Function]}
+      >
+        Sign Up
+      </a>
     </div>
   </div>
-  <ul
-    className=""
+  <div
+    className="footer"
   >
-    <li
-      onClick={[Function]}
+    <img
+      alt="Magnolia Cake Logo"
+      className="logo"
+      src="Magnolia_Cake_logo.png"
+    />
+    <div
+      className="social-media-links-mobile"
     >
-      <a
-        className=""
-        href="/gallery"
-        onClick={[Function]}
+      <div
+        className="social-media-wrapper"
       >
-        Gallery
-      </a>
-    </li>
-    <li
-      onClick={[Function]}
+        <a
+          href="https://www.facebook.com/magnolia.cake.au?mibextid=ZbWKwL"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="facebook"
+            className="social-media-logo"
+            src="facebook.svg"
+          />
+        </a>
+        <a
+          className="profile-name"
+          href="https://www.facebook.com/magnolia.cake.au?mibextid=ZbWKwL"
+          rel="noreferrer"
+          target="_blank"
+        >
+          Magnolia Cake
+        </a>
+      </div>
+      <div
+        className="social-media-wrapper"
+      >
+        <a
+          href="https://www.instagram.com/cakes_magnolia/?igshid=MzRlODBiNWFlZA"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="instagram"
+            className="social-media-logo"
+            src="instagram.svg"
+          />
+        </a>
+        <a
+          className="profile-name"
+          href="https://www.instagram.com/cakes_magnolia/?igshid=MzRlODBiNWFlZA"
+          rel="noreferrer"
+          target="_blank"
+        >
+          cakes_magnolia
+        </a>
+      </div>
+    </div>
+    <div
+      className="footer-sections-wrapper"
     >
-      <a
-        className=""
-        href="/online-store"
-        onClick={[Function]}
+      <div
+        className="footer-section"
       >
-        Online Store
-      </a>
-    </li>
-    <li
-      onClick={[Function]}
-    >
-      <a
-        className=""
-        href="/location"
-        onClick={[Function]}
+        <h4>
+          Our Location
+        </h4>
+        <p>
+          Melbourne, VIC 3752
+        </p>
+      </div>
+      <div
+        className="footer-section"
       >
-        Location
-      </a>
-    </li>
-    <li
-      onClick={[Function]}
-    >
-      <a
-        className=""
-        href="/workshop"
-        onClick={[Function]}
+        <h4>
+          Contact Us
+        </h4>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </p>
+      </div>
+      <div
+        className="footer-section"
       >
-        Workshop
-      </a>
-    </li>
-    <li
-      onClick={[Function]}
-    >
-      <a
-        className=""
-        href="/about-us"
-        onClick={[Function]}
+        <h4>
+          Terms & Conditions
+        </h4>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </p>
+      </div>
+      <div
+        className="social-media-links"
       >
-        About Us
-      </a>
-    </li>
-    <li
-      onClick={[Function]}
-    >
-      <a
-        className=""
-        href="/contact-us"
-        onClick={[Function]}
-      >
-        Contact Us
-      </a>
-    </li>
-    <li
-      onClick={[Function]}
-    >
-      <a
-        className=""
-        href="/get-a-quote"
-        onClick={[Function]}
-      >
-        Get a Quote
-      </a>
-    </li>
-    <li
-      onClick={[Function]}
-    >
-      <a
-        className=""
-        href="/terms-and-conditions"
-        onClick={[Function]}
-      >
-        Terms & Conditions
-      </a>
-    </li>
-  </ul>
-</nav>
+        <div
+          className="footer-section"
+        >
+          <h4>
+            Follow Us
+          </h4>
+          <div
+            className="social-media-wrapper"
+          >
+            <a
+              href="https://www.facebook.com/magnolia.cake.au?mibextid=ZbWKwL"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="facebook"
+                className="social-media-logo"
+                src="facebook.svg"
+              />
+            </a>
+            <a
+              className="profile-name"
+              href="https://www.facebook.com/magnolia.cake.au?mibextid=ZbWKwL"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Magnolia Cake
+            </a>
+          </div>
+          <div
+            className="social-media-wrapper"
+          >
+            <a
+              href="https://www.instagram.com/cakes_magnolia/?igshid=MzRlODBiNWFlZA"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="instagram"
+                className="social-media-logo"
+                src="instagram.svg"
+              />
+            </a>
+            <a
+              className="profile-name"
+              href="https://www.instagram.com/cakes_magnolia/?igshid=MzRlODBiNWFlZA"
+              rel="noreferrer"
+              target="_blank"
+            >
+              cakes_magnolia
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;
