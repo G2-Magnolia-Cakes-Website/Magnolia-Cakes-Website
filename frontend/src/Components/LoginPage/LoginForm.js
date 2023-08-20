@@ -4,15 +4,16 @@ import { Link } from "react-router-dom";
 export default function LoginForm() {
 
     // States for registration
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     // States for checking the errors
+    const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState(false);
 
-    // Handling the username change
-    const handleUsername = (e) => {
-        setUsername(e.target.value);
+    // Handling the email change
+    const handleEmail = (e) => {
+        setEmail(e.target.value);
         setSubmitted(false);
     };
 
@@ -28,9 +29,10 @@ export default function LoginForm() {
 
         // Send API msg to backend
 
-        if (username === '' || email === '' || password === '') {
+        if (email === '' || password === '') {
             setError(true);
         } else {
+            setSubmitted(true);
             setError(false);
             // Send to homepage
         }
@@ -54,8 +56,8 @@ export default function LoginForm() {
 
             <form>
                 {/* Labels and inputs for form data */}
-                <input onChange={handleUsername} className="input"
-                    value={username} type="text" placeholder='Username' />
+                <input onChange={handleEmail} className="input"
+                    value={email} type="email" placeholder='Email' />
 
                 <input onChange={handlePassword} className="input"
                     value={password} type="password" placeholder='Password' />

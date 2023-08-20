@@ -1,0 +1,39 @@
+
+.loginPage {
+    height: 1000px;
+}
+
+.login-image {
+    background-color: pink;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+    .login-image {
+        flex-direction: row;
+        width: 100%;
+        height: 40%;
+    }
+    
+    .login-form {
+        flex-direction: row;
+        width: 100%;
+        height: 60%;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    
+    .login-image {
+        float: left;
+        width: 40%;
+        height: 100%;
+    }
+    
+    .login-form {
+        float:right;
+        width:60%;
+        height: 100%;
+    }
+}
