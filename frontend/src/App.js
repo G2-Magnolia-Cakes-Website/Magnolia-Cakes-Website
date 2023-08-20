@@ -5,6 +5,8 @@ import tabs from "./utils/tabs.json";
 import ComingSoonPage from "./Components/ComingSoonPage/ComingSoonPage";
 import HomePage from "./Components/HomePage/HomePage";
 
+import "./App.css";
+
 const App = () => {
   // temporary until pages created
   const routeAllPagesComingSoon = () => {
@@ -19,12 +21,14 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <PageLayout>
-        <Routes>
-          <Route key="/" path="/" element={<HomePage />} />
-          {routeAllPagesComingSoon()}
-        </Routes>
-      </PageLayout>
+      <div className="watercolor-bg">
+        <PageLayout>
+          <Routes>
+            <Route key="/" path="/" element={<HomePage />} />
+            {routeAllPagesComingSoon()}
+          </Routes>
+        </PageLayout>
+      </div>
     </BrowserRouter>
   );
 };

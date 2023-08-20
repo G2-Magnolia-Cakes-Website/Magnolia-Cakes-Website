@@ -1,6 +1,13 @@
+.watercolor-bg {
+  background-image: url("./utils/background-pink-watercolor.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
 .App {
   text-align: center;
-  height:100%
+  height: 100%;
 }
 
 .App-logo {

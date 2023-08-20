@@ -1,0 +1,98 @@
+.call-to-action-bg {
+  width: 100%;
+  padding: 1rem;
+  color: #fff;
+  align-items: center;
+  display: flex;
+
+  position: relative;
+}
+
+.call-to-action-bg::before {
+  background-image: url("../../../utils/cover/call-to-action-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: lighten;
+  position: absolute;
+  content: "";
+  inset: 0;
+  opacity: 0.25;
+
+  --mask: linear-gradient(to bottom, 
+      rgba(0,0,0, 1) 0,   rgba(0,0,0, 1) 60%, 
+      rgba(0,0,0, 0) 90%, rgba(0,0,0, 0) 0%
+  ) 100% 50% / 100% 100% repeat-x;
+  
+
+  -webkit-mask: var(--mask); 
+  mask: var(--mask);
+}
+
+.call-to-action-wrapper {
+  isolation: isolate;
+  margin: 1rem 1rem 5rem 1rem;
+  padding: 2rem;
+  padding-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.call-to-action-wrapper h2 {
+  font-size: 64px;
+
+  /* Font from Google Fonts https://fonts.google.com/specimen/Dancing+Script?preview.text=Cakes%20Collection&preview.text_type=custom&category=Handwriting,Monospace */
+  font-family: "Dancing Script", cursive;
+  /* color: #daa41a; */
+}
+
+.call-to-action-wrapper p {
+  text-align: left;
+  font-size: 18px;
+  margin-bottom: 5rem;
+}
+
+.call-to-action-bg .call-to-action-wrapper .logo {
+  display: none;
+}
+
+.call-to-action-bg .logo {
+  display: block;
+  width: 10%;
+  height: auto;
+  min-width: 200px;
+  object-fit: cover;
+  margin-left: auto;
+  margin-right: 1rem;
+
+  isolation: isolate;
+}
+
+@media (max-width: 480px) {
+  .call-to-action-bg .logo {
+    display: none;
+  }
+
+  .call-to-action-wrapper {
+    align-items: center;
+  }
+
+  .call-to-action-wrapper h2 {
+    font-size: 50px;
+    text-align: center;
+  }
+
+  .call-to-action-wrapper p {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .call-to-action-bg .call-to-action-wrapper .logo {
+    display: block;
+    width: 10%;
+    height: auto;
+    min-width: 150px;
+    object-fit: cover;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
