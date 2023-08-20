@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from "react-router-dom";
+import SquareButton from '../SquareButton/SquareButton';
 
 export default function LoginForm() {
 
@@ -46,7 +47,7 @@ export default function LoginForm() {
                 style={{
                     display: error ? '' : 'none',
                 }}>
-                <div className='msgs'>Please enter all the fields</div>
+                <div className='msgs'>Please enter all the fields!</div>
             </div>
         );
     };
@@ -66,6 +67,8 @@ export default function LoginForm() {
                     type="submit">
                     Login
                 </button>
+
+                <div className='signup-question'>Don't have an account? <Link to="/signup" className='signup-link'>Sign up for free</Link></div>
 
                 <div className="messages">
                     {errorMessage()}

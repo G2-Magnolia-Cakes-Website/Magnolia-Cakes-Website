@@ -1,23 +1,29 @@
 import './Login.css';
 import Form from "./LoginForm"
+import magnoliaCakeLogo from "../../utils/Magnolia_Cake_logo.png";
+import birthdayCake from "../../utils/carousel-wedding-ann.jpg"
 
 function LoginPage() {
+    const logo = (
+        <img className="logo" src={magnoliaCakeLogo} alt="Magnolia Cake Logo" />
+    );
+
+    const image = (
+        <img className='login-image' src={birthdayCake} alt='Cake Image' />
+    )
 
     return (
         <div className="loginPage">
             <div className='login-form'>
                 <div className='logo-div'>
-                    <img src='../../utils/Magnolia_Cake_logo.png' alt="Logo" />
+                    {logo}
                 </div>
                 <div>
                     <h1 className='login-header'>Log In</h1>
                 </div>
                 <Form />
             </div>
-            <div className='login-image'>
-                {/* Large image on left */}
-                img
-            </div>
+            {image}
         </div>
     );
 }
