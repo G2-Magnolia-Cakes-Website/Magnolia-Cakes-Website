@@ -1,18 +1,29 @@
-div .header {
+.header {
   display: flex;
   justify-content: space-between;
   background-color: white;
-  border-top: 2px solid #efc7c7;
-  border-bottom: 2px solid #efc7c7;
+  border-top: 3px solid #efc7c7;
+  border-bottom: 3px solid #efc7c7;
   width: 100%;
 
   /* keeps header at the top */
   position: sticky;
   top: 0;
+  z-index: 99;
 }
 
-@media (max-width: 480px) {
-  div .header {
+.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 99;
+  background: white;
+}
+
+@media (max-width: 768px) {
+  .header {
     flex-direction: column;
   }
 }

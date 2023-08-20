@@ -9,7 +9,14 @@
   text-decoration: underline;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 1000px) and (min-width: 880px) {
+  .social-media-wrapper .profile-name {
+    font-size: 14px;
+    margin-left: 0.2rem;
+  }
+}
+
+@media (max-width: 880px) {
   .social-media-wrapper {
     width: fit-content;
   }

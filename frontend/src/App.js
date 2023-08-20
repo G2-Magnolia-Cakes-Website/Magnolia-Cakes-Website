@@ -6,6 +6,8 @@ import ComingSoonPage from "./Components/ComingSoonPage/ComingSoonPage";
 import HomePage from "./Components/HomePage/HomePage";
 import LoginPage from "./Components/LoginPage/LoginPage";
 
+import "./App.css";
+
 const App = () => {
   // temporary until pages created
   const routeAllPagesComingSoon = () => {
@@ -20,13 +22,15 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <PageLayout>
-        <Routes>
-          <Route key="/" path="/" element={<HomePage />} />
-          <Route key="/login" path="/login" element={<LoginPage />} />
-          {routeAllPagesComingSoon()}
-        </Routes>
-      </PageLayout>
+      <div className="watercolor-bg">
+        <PageLayout>
+          <Routes>
+            <Route key="/" path="/" element={<HomePage />} />
+            <Route key="/login" path="/login" element={<LoginPage />} />
+            {routeAllPagesComingSoon()}
+          </Routes>
+        </PageLayout>
+      </div>
     </BrowserRouter>
   );
 };

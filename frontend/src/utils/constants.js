@@ -3,6 +3,7 @@ const PAGELINKS = {
   SIGNUP_TEXT: "Sign Up",
   LOGIN_LINK: "/login",
   LOGIN_TEXT: "Log In",
+  ABOUT_US_LINK: "/about-us",
 };
 
 const FOOTERSECTIONS = {

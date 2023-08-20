@@ -1,5 +1,9 @@
 [
   {
+    "tabName": "Home",
+    "tabLink": "/"
+  },
+  {
     "tabName": "Gallery",
     "tabLink": "/gallery"
   },
@@ -28,7 +32,7 @@
     "tabLink": "/get-a-quote"
   },
   {
-    "tabName": "Cake Flavours",
-    "tabLink": "/cake-flavours"
+    "tabName": "Flavours & Servings",
+    "tabLink": "/cake-flavours-and-servings"
   }
 ]

@@ -9,6 +9,7 @@
   border: 2px solid #efc7c7;
   border-radius: 3px;
   text-align: center;
+  transition: 0.5s;
 }
 
 /* Use media query to avoid hover styling when clicked on mobile devices */
@@ -18,3 +19,11 @@
     border-color: #c09999;
   }
 }
+
+@media (max-width: 1440px) and (min-width: 480px) {
+  .login {
+    font-size: 14px;
+    padding: 7px 10px;
+  }
+}
+
