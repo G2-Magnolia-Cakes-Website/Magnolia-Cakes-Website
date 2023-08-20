@@ -56,10 +56,10 @@ export default function LoginForm() {
 
             <form>
                 {/* Labels and inputs for form data */}
-                <input onChange={handleEmail} className="input"
+                <input onChange={handleEmail} className="input-login"
                     value={email} type="email" placeholder='Email' />
 
-                <input onChange={handlePassword} className="input"
+                <input onChange={handlePassword} className="input-login"
                     value={password} type="password" placeholder='Password' />
 
                 <button onClick={handleSubmit} className="submit-btn"

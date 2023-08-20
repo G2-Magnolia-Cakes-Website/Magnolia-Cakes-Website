@@ -6,8 +6,8 @@ function LoginPage() {
     return (
         <div className="loginPage">
             <div className='login-form'>
-                <div>
-                    {/* Logo */}
+                <div className='logo-div'>
+                    <img src='../../utils/Magnolia_Cake_logo.png' alt="Logo" />
                 </div>
                 <div>
                     <h1 className='login-header'>Log In</h1>

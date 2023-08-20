@@ -7,8 +7,65 @@
     background-color: pink;
 }
 
+.login-form {
+    width: 100%;
+}
+
+.logo-div {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.login-header {
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+    
+.input-login {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid black;
+}
+
+.input-login::placeholder {
+    color: #908D8D;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+    
+.submit-btn {
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 500;
+    border-radius: 5px;
+    font-size: larger;
+    display: block;
+    padding: 5px;
+    margin: 10px auto;
+    background: radial-gradient(circle, rgba(179, 67, 142, 1) 20%, rgba(194, 144, 154, 1) 100%);
+    width: 50%;
+    border: 1px solid #0099cc;
+    transition: 1s ease;
+}
+
+.submit-btn:hover {
+    background: radial-gradient(circle, rgba(194, 144, 154, 1) 20%, rgba(179, 67, 142, 1) 100%);
+}
+
+.submit-btn:disabled,
+button[disabled] {
+    background: pink;
+    color: grey;
+}
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+    
+    .loginPage {
+        margin: 40px;
+    }
 
     .login-image {
         flex-direction: row;
