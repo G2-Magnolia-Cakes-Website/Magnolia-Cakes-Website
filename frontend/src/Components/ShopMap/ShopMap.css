@@ -1,0 +1,19 @@
+.map-container-style {
+  width: 50%;
+  height: inherit;
+}
+
+@media (max-width: 768px) {
+  .map-container-style {
+    width: 100%;
+    margin: 0 auto 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-container-style {
+    width: 90%;
+    height: 300px;
+    margin: 0 auto 0 auto;
+  }
+}

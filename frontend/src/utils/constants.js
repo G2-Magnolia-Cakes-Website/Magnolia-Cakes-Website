@@ -13,9 +13,14 @@ const FOOTERSECTIONS = {
   TERMS_AND_CONDITIONS: "Terms & Conditions",
 };
 
+const SHOPDETAILS = {
+  MAGNOLIA_CAKE_SHOP_NAME: "Magnolia Cakes and Cupcakes",
+  MAGNOLIA_CAKE_GOOGLE_MAPS_LINK: "https://maps.app.goo.gl/idYwJGFTCJ8WejKW6",
+};
+
 const SOCIALMEDIAS = {
   FACEBOOK: "facebook",
   INSTAGRAM: "instagram",
 };
 
-export { PAGELINKS, FOOTERSECTIONS, SOCIALMEDIAS };
+export { PAGELINKS, FOOTERSECTIONS, SHOPDETAILS, SOCIALMEDIAS };
