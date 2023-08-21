@@ -4,6 +4,9 @@ const PAGELINKS = {
   LOGIN_LINK: "/login",
   LOGIN_TEXT: "Log In",
   ABOUT_US_LINK: "/about-us",
+  LOCATION_LINK: "/location",
+  CONTACT_US_LINK: "/contact-us",
+  TERMS_AND_CONDITIONS_LINK: "/terms-and-conditions",
 };
 
 const FOOTERSECTIONS = {

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test LocationPage renders LocationPage 1`] = `
+<div
+  className="location-page-wrapper"
+>
+  <div
+    className="location-info"
+  >
+    <h2>
+      Where to find us?
+    </h2>
+    <p>
+      Melbourne
+      <br />
+      VIC 3752
+    </p>
+    <h2>
+      Business Hours
+    </h2>
+    <p>
+      Monday - Sunday
+      <br />
+      9:00 am - 18:00 pm
+    </p>
+  </div>
+</div>
+`;

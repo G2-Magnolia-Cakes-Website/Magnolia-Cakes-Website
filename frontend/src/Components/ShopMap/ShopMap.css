@@ -3,10 +3,11 @@
   height: inherit;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px) and (min-width: 480px) {
   .map-container-style {
     width: 100%;
     margin: 0 auto 0 auto;
+    height: 400px;
   }
 }
 

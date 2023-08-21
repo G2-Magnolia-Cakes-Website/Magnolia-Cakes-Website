@@ -1,0 +1,50 @@
+[
+  {
+    "pageName": "Home",
+    "pageLink": "/"
+  },
+  {
+    "pageName": "Gallery",
+    "pageLink": "/gallery"
+  },
+  {
+    "pageName": "Online Store",
+    "pageLink": "/online-store"
+  },
+  {
+    "pageName": "Location",
+    "pageLink": "/location"
+  },
+  {
+    "pageName": "Workshop",
+    "pageLink": "/workshop"
+  },
+  {
+    "pageName": "About Us",
+    "pageLink": "/about-us"
+  },
+  {
+    "pageName": "Contact Us",
+    "pageLink": "/contact-us"
+  },
+  {
+    "pageName": "Get a Quote",
+    "pageLink": "/get-a-quote"
+  },
+  {
+    "pageName": "Flavours & Servings",
+    "pageLink": "/cake-flavours-and-servings"
+  },
+  {
+    "pageName": "Sign Up",
+    "pageLink": "/signup"
+  },
+  {
+    "pageName": "Log In",
+    "pageLink": "/login"
+  },
+  {
+    "pageName": "Terms & Conditions",
+    "pageLink": "/terms-and-conditions"
+  }
+]

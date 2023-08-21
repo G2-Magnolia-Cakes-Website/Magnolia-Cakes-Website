@@ -1,7 +1,7 @@
 import React from "react";
 import PageLayout from "./Containers/PageLayout/PageLayout";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import tabs from "./utils/tabs.json";
+import pages from "./utils/all_pages.json";
 import ComingSoonPage from "./Components/ComingSoonPage/ComingSoonPage";
 import HomePage from "./Containers/HomePage/HomePage";
 import LocationPage from "./Containers/LocationPage/LocationPage";
@@ -13,14 +13,14 @@ const App = () => {
 
   // temporary until pages created
   const routeAllPagesComingSoon = () => {
-    return tabs
-      .filter((tab) => {
-        return !nonPlaceHolderPages.includes(tab.tabLink);
+    return pages
+      .filter((page) => {
+        return !nonPlaceHolderPages.includes(page.pageLink);
       })
-      .map((tab) => (
+      .map((page) => (
         <Route
-          key={tab.tabLink}
-          path={tab.tabLink}
+          key={page.pageLink}
+          path={page.pageLink}
           element={<ComingSoonPage />}
         />
       ));
