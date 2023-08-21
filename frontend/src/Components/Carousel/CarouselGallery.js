@@ -18,13 +18,9 @@ import "./CarouselGallery.css";
 
 import slides from "./cake-categories.json";
 import CarouselItem from "./CarouselItem";
-import magnoliaCakeLogo from "../../utils/Magnolia_Cake_logo.png";
-import SquareButton from "../SquareButton/SquareButton";
+import CallToAction from "../../Containers/HomePage/Sections/CallToAction";
 
 const CarouselGallery = () => {
-  const logo = (
-    <img className="logo" src={magnoliaCakeLogo} alt="Magnolia Cake Logo" />
-  );
   return (
     <div>
       <Swiper
@@ -42,19 +38,7 @@ const CarouselGallery = () => {
         effect="fade"
         crossFade={true}
       >
-        <div className="call-to-action-inslide">
-          <div className="call-to-action-wrapper">
-            {logo}
-            <div className="call-to-action-contents">
-              <h2>Magnolia Cakes and Cupcakes</h2>
-              <p>
-                Delight in unforgettable moments with our exquisite cakes and
-                cupcakes. Order now to experience pure indulgence!
-              </p>
-              <SquareButton buttonText="Get Started" />
-            </div>
-          </div>
-        </div>
+        <CallToAction />
         {slides.map((slide) => (
           <SwiperSlide key={slide.image}>
             <CarouselItem image={slide.image} title={slide.title} />

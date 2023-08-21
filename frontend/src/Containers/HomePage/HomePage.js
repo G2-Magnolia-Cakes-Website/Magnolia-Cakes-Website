@@ -1,7 +1,7 @@
 import React from "react";
 import AboutUsSection from "./Sections/AboutUsSection";
-import SubheadingDivider from "../SubheadingDivider/SubheadingDivider";
-import CarouselGallery from "../Carousel/CarouselGallery";
+import SubheadingDivider from "../../Components/SubheadingDivider/SubheadingDivider";
+import CarouselGallery from "../../Components/Carousel/CarouselGallery";
 
 const HomePage = () => {
   return (

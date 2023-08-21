@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test HomePage renders HomePage 1`] = `
+Array [
+  <div>
+    <div
+      className="call-to-action-inslide"
+    >
+      <div
+        className="call-to-action-wrapper"
+      >
+        <img
+          alt="Magnolia Cake Logo"
+          className="logo"
+          src="Magnolia_Cake_logo.png"
+        />
+        <div
+          className="call-to-action-contents"
+        >
+          <h2>
+            Magnolia Cakes and Cupcakes
+          </h2>
+          <p>
+            Delight in unforgettable moments with our exquisite cakes and cupcakes. Order now to experience pure indulgence!
+          </p>
+          <button
+            className="square-button"
+          >
+            Get Started
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="slide-wrapper"
+    >
+      <img
+        alt="Birthday"
+        src="carousel/carousel-birthday.jpg"
+      />
+    </div>
+    <div
+      className="slide-wrapper"
+    >
+      <img
+        alt="Wedding & Anniversary"
+        src="carousel/carousel-wedding-ann.jpg"
+      />
+    </div>
+  </div>,
+  <div
+    className="about-us-section"
+  >
+    <img
+      alt="About Us Portrait"
+      className="about-us-portrait"
+      src="about-us-portrait.jpg"
+    />
+    <div
+      className="about-us-text"
+    >
+      <h2>
+        About Us
+      </h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at rutrum massa. Aliquam faucibus id lacus nec hendrerit. Nunc ac justo eget nibh lobortis pellentesque id eget sapien. In id placerat dui. Vestibulum sollicitudin turpis magna, vel convallis mi dictum in. Pellentesque consequat suscipit velit. Pellentesque vestibulum dui tellus, non vehicula erat efficitur nec. Nunc ullamcorper eu metus a sodales. Integer vitae bibendum ligula.
+      </p>
+      <button
+        className="square-button unfilled"
+        onClick={[Function]}
+      >
+        Read More
+      </button>
+    </div>
+  </div>,
+]
+`;

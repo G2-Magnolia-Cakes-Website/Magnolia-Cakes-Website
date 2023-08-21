@@ -1,6 +1,7 @@
-// import { render, screen } from "@testing-library/react";
+import React from "react";
 import renderer from "react-test-renderer";
-import App from "./App";
+import { BrowserRouter } from "react-router-dom";
+import HomePage from "./HomePage";
 
 jest.mock("swiper/react", () => ({
   Swiper: ({ children }) => children,
@@ -17,9 +18,15 @@ jest.mock("swiper/modules", () => ({
 
 jest.mock("swiper/css", () => jest.fn());
 
-describe("test App", () => {
-  test("renders App", () => {
-    const wrapper = renderer.create(<App />).toJSON();
+describe("test HomePage", () => {
+  it("renders HomePage", () => {
+    const wrapper = renderer
+      .create(
+        <BrowserRouter>
+          <HomePage />
+        </BrowserRouter>
+      )
+      .toJSON();
     expect(wrapper).toMatchSnapshot();
   });
 });
