@@ -25,7 +25,7 @@ INSTALLED_APPS = [
 	'django.contrib.sessions',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
-	'todo',
+	'MagnoliaCakesAndCupcakes',
 	'corsheaders',
 	'rest_framework',
 ]
@@ -120,3 +120,15 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Emailing settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_FROM = 'noreply.magnoliacakes@gmail.com'
+EMAIL_HOST_USER = 'noreply.magnoliacakes@gmail.com'
+EMAIL_HOST_PASSWORD = 'vhyypdlykyimfkqm'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+PASSWORD_RESET_TIMEOUT = 14400 		# How long the verification link is valid for 
