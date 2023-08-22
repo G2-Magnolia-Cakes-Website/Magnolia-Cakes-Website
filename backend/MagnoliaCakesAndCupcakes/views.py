@@ -1,3 +1,6 @@
+from django.shortcuts import render
+from django.contrib.auth import authenticate, login as django_login
+from django.contrib.auth.forms import AuthenticationForm
 # import view sets from the REST framework
 from rest_framework import viewsets
 
@@ -79,3 +82,22 @@ def activate(request, uidb64, token):
     
     return HttpResponse('Activation link is invalid!')
     # return Response({'message': 'Activation link is invalid!'}, status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['POST'])
+def login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request._request, data=request.data)
+        
+        if form.is_valid():
+            username = request.data.get('username') 
+            password = request.data.get('password')
+            
+            user = authenticate(request._request, username=username, password=password)
+            if user is not None:
+                django_login(request._request, user)  # Use django_login instead of login
+                return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
+            else:
+                return Response({'message': 'Login failed'}, status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            return Response({'message': 'Login failed'}, status=status.HTTP_400_BAD_REQUEST)

@@ -16,6 +16,7 @@ router = routers.DefaultRouter()
 # register the router
 router.register(r'MagnoliaCakesAndCupcakes',views.MagnoliaCakesAndCupcakesView, 'MagnoliaCakesAndCupcakes')
 
+
 urlpatterns = [
 	path('admin/', admin.site.urls),
 
@@ -26,4 +27,5 @@ urlpatterns = [
 	path('api/register/', views.register, name='api-register'),
     path('activate/<uidb64>/<token>', views.activate, name='activate'),
 
+	path('api/login/', views.login, name='api-login'),
 ]
