@@ -12,10 +12,6 @@
     "tabLink": "/online-store"
   },
   {
-    "tabName": "Location",
-    "tabLink": "/location"
-  },
-  {
     "tabName": "Workshop",
     "tabLink": "/workshop"
   },
@@ -26,6 +22,10 @@
   {
     "tabName": "Contact Us",
     "tabLink": "/contact-us"
+  },
+  {
+    "tabName": "FAQ",
+    "tabLink": "/faq"
   },
   {
     "tabName": "Get a Quote",

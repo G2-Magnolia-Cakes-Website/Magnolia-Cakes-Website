@@ -10,6 +10,7 @@
   border-radius: 3px;
   text-align: center;
   transition: 0.5s;
+  font-family: "Yantramanav", sans-serif;
 }
 
 /* Use media query to avoid hover styling when clicked on mobile devices */

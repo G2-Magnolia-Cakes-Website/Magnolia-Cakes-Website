@@ -41,7 +41,8 @@
 
 .about-us-section .about-us-text h2 {
   font-size: 80px;
-  font-family: "Pacifico", cursive;
+  /* font-family: "Pacifico", cursive; */
+  font-family: "Dancing Script", cursive;
 }
 
 .about-us-section .about-us-text p {
