@@ -1,0 +1,112 @@
+.call-to-action-inslide {
+  position: absolute;
+  top: 50%;
+  z-index: 9;
+  left: 10%;
+  transform: translateY(-50%);
+}
+
+.call-to-action-inslide .call-to-action-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+}
+
+.call-to-action-inslide .call-to-action-wrapper .call-to-action-contents {
+  color: #fff;
+
+  isolation: isolate;
+  padding: 2rem;
+  padding-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  margin: 3rem;
+}
+
+.call-to-action-inslide .call-to-action-wrapper .call-to-action-contents h2 {
+  font-size: 80px;
+
+  /* Font from Google Fonts https://fonts.google.com/specimen/Dancing+Script?preview.text=Cakes%20Collection&preview.text_type=custom&category=Handwriting,Monospace */
+  font-family: "Pacifico", cursive;
+
+  text-shadow: 4px 4px 5px rgba(0, 0, 0, 0.7);
+}
+
+.call-to-action-inslide .call-to-action-wrapper .call-to-action-contents p {
+  text-align: left;
+  font-size: 24px;
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+
+  text-shadow: 4px 4px 5px rgba(0, 0, 0, 0.7);
+}
+
+.call-to-action-inslide .call-to-action-wrapper .logo {
+  width: 20%;
+  object-fit: contain;
+}
+
+@media (max-width: 1440px) and (min-width: 768px) {
+  .call-to-action-inslide .call-to-action-wrapper .call-to-action-contents p {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .call-to-action-inslide {
+    width: 100%;
+    position: absolute;
+    z-index: 9;
+    margin-top: 1rem;
+    justify-content: center;
+    align-items: center;
+    left: 0%;
+    pointer-events: none;
+  }
+
+  .call-to-action-inslide .call-to-action-wrapper {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    pointer-events: none;
+  }
+
+  .call-to-action-inslide .call-to-action-wrapper .logo {
+    display: block;
+    width: 50%;
+    height: auto;
+    min-width: 150px;
+    object-fit: contain;
+  }
+
+  .call-to-action-inslide .call-to-action-wrapper .call-to-action-contents {
+    top: 0;
+    left: 0;
+    color: #fff;
+    z-index: 999;
+    width: 100%;
+    margin: 0;
+
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .call-to-action-inslide .call-to-action-wrapper .call-to-action-contents h2 {
+    font-size: 50px;
+    text-align: center;
+  }
+
+  .call-to-action-inslide .call-to-action-wrapper .call-to-action-contents p {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .call-to-action-inslide
+    .call-to-action-wrapper
+    .call-to-action-contents
+    button {
+    text-align: center;
+    margin: 0;
+  }
+}
