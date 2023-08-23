@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './TermsAndConditions.css';
 
 function TermsAndConditions({ api }) {
   const [content, setContent] = useState('');
@@ -16,9 +17,13 @@ function TermsAndConditions({ api }) {
   }, [api]);
 
   return (
-    <div>
-      <h1>Terms & Conditions</h1>
-      <p>{content}</p>
+    <div className="container">
+        <div className="title-box">
+        <h1>Terms & Conditions</h1>
+        </div>
+      <div className="content-box">
+      <p dangerouslySetInnerHTML={{ __html: content }} />
+      </div>
     </div>
   );
 }
