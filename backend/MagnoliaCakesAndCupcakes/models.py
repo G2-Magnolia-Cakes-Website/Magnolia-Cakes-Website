@@ -8,3 +8,7 @@ class MagnoliaCakesAndCupcakes(models.Model):
  
         #it will return the title
         return self.title
+
+class TermsAndConditions(models.Model):
+    content = models.TextField()
+    last_updated = models.DateTimeField(auto_now=True)
