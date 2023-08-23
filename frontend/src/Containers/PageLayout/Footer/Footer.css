@@ -17,6 +17,19 @@
   text-align: center;
 }
 
+.footer .footer-sections-wrapper a:not(.social-media-wrapper a) {
+  display: block;
+  text-decoration: none;
+  color: #daa41a;
+  transition: 0.3s;
+  text-align: center;
+}
+
+.footer .footer-sections-wrapper a:not(.active):hover {
+  color: #efc7c7;
+  text-decoration: underline;
+}
+
 .footer .logo {
   display: block;
   width: 10%;
