@@ -2,30 +2,29 @@
   display: flex;
   justify-content: space-between;
   margin: 1.5rem;
+  flex: 1;
 }
 
 .location-page-wrapper .location-info {
   justify-content: center;
   align-items: center;
-  margin: 2rem 5rem 2rem 5rem;
+  margin: auto 5rem auto 5rem;
+  height: inherit;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .location-page-wrapper .location-info h2 {
   font-size: 64px;
-  font-family: "Pacifico", cursive;
-  /* color: #daa41a; */
-
-  /* color: #efc7c7; */
-
-  color: white;
-  text-shadow: 4px 4px 0px #daa41a, 8px 8px 0px #f1d075;
+  /* font-family: "Pacifico", cursive; */
+  font-family: "Dancing Script", cursive;
+  color: #daa41a;
+  /* color: black; */
 }
 
 .location-page-wrapper .location-info p {
   font-size: 24px;
-  color: #daa41a;
-  font-weight: bold;
-  text-shadow: 3px 3px 0px white;
+  color: black;
   margin: 1rem 2rem 0 2rem;
 }
 

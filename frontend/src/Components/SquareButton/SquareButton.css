@@ -6,14 +6,19 @@
   font-size: 18px;
   padding: 15px 32px;
   color: white;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+  font-family: "Yantramanav", sans-serif;
 
   background: linear-gradient(to right, #ede5e3 0%, #efc7c7 70%);
   /* background: linear-gradient(to right, #ede5e3 50%, #efc7c7 50%); */
-  background-color:  #efc7c7;
+  background-color: #efc7c7;
   background-size: 200% 100%;
   background-position: right bottom;
   transition: all 0.5s ease-out;
+}
+
+.square-button.small {
+  border: 2px solid white;
+  padding: 7px 16px;
 }
 
 .square-button.unfilled {
@@ -24,7 +29,6 @@
 .square-button:not(.active):hover {
   background-position: left bottom;
   color: #daa41a;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
 }
 
 @media (max-width: 480px) {

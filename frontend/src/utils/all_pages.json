@@ -12,10 +12,6 @@
     "pageLink": "/online-store"
   },
   {
-    "pageName": "Location",
-    "pageLink": "/location"
-  },
-  {
     "pageName": "Workshop",
     "pageLink": "/workshop"
   },
@@ -26,6 +22,10 @@
   {
     "pageName": "Contact Us",
     "pageLink": "/contact-us"
+  },
+  {
+    "pageName": "FAQ",
+    "pageLink": "/faq"
   },
   {
     "pageName": "Get a Quote",
@@ -46,5 +46,9 @@
   {
     "pageName": "Terms & Conditions",
     "pageLink": "/terms-and-conditions"
+  },
+  {
+    "pageName": "Location",
+    "pageLink": "/location"
   }
 ]
