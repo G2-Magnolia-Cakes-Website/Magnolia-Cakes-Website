@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { Link } from "react-router-dom";
-import SquareButton from '../SquareButton/SquareButton';
+import { Link, useNavigate } from "react-router-dom";
+// import SquareButton from '../SquareButton/SquareButton';
 
 export default function LoginForm() {
+
+    const navigate = useNavigate();
 
     // States for registration
     const [email, setEmail] = useState('');
@@ -25,18 +27,39 @@ export default function LoginForm() {
     };
 
     // Handling the form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Send API msg to backend
 
         if (email === '' || password === '') {
             setError(true);
         } else {
-            setSubmitted(true);
-            setError(false);
-            // Send to homepage
-        }
+            // Send API msg to backend
+            try {
+                let res = await fetch("http://127.0.0.1:8000/api/login/", {
+                    headers: {
+                        'Content-type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                    method: "POST",
+                    body: JSON.stringify({
+                        username: email,
+                        password: password,
+                    }),
+                });
+                let resJson = await res.json();
+                if (res.status === 200) {
+                    setPassword("");
+                    setEmail("");
+                    setSubmitted(true);
+                    setError(false);
+                    navigate("/");
+                } else {
+                    setError(true);
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        }        
     };
 
     // Showing error message if error is true
@@ -47,7 +70,7 @@ export default function LoginForm() {
                 style={{
                     display: error ? '' : 'none',
                 }}>
-                <div className='msgs'>Please enter all the fields!</div>
+                <div className='msgs'>Login failed! Please enter a correct username and password. Note that both fields may be case-sensitive.</div>
             </div>
         );
     };
