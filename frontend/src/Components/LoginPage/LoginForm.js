@@ -55,6 +55,7 @@ export default function LoginForm() {
                     navigate("/");
                 } else {
                     setError(true);
+                    console.log(resJson);
                 }
             } catch (err) {
                 console.log(err);
