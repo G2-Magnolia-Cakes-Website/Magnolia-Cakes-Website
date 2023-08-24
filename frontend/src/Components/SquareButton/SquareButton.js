@@ -3,13 +3,25 @@ import React from "react";
 import "./SquareButton.css";
 
 const SquareButton = (props) => {
-  const { buttonText, onClick, isUnfilled } = props;
+  const { buttonText, onClick, isUnfilled, isSmall } = props;
+
+  const getStyle = () => {
+    if (isUnfilled && !isSmall) {
+      return "square-button unfilled";
+    }
+    if (isSmall && !isUnfilled) {
+      return "square-button small";
+    }
+    if (isSmall && isUnfilled) {
+      return "square-button unfilled small";
+    }
+    return "square-button";
+  };
+
+  console.log(getStyle());
 
   return (
-    <button
-      className={isUnfilled ? "square-button unfilled" : "square-button"}
-      onClick={onClick}
-    >
+    <button className={getStyle()} onClick={onClick}>
       {buttonText}
     </button>
   );

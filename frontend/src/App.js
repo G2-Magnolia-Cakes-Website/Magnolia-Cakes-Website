@@ -1,22 +1,29 @@
 import React from "react";
 import PageLayout from "./Containers/PageLayout/PageLayout";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import tabs from "./utils/tabs.json";
+import pages from "./utils/all_pages.json";
 import ComingSoonPage from "./Components/ComingSoonPage/ComingSoonPage";
 import HomePage from "./Containers/HomePage/HomePage";
+import LocationPage from "./Containers/LocationPage/LocationPage";
 
 import "./App.css";
 
 const App = () => {
+  const nonPlaceHolderPages = ["/location"];
+
   // temporary until pages created
   const routeAllPagesComingSoon = () => {
-    return tabs.map((tab) => (
-      <Route
-        key={tab.tabLink}
-        path={tab.tabLink}
-        element={<ComingSoonPage />}
-      />
-    ));
+    return pages
+      .filter((page) => {
+        return !nonPlaceHolderPages.includes(page.pageLink);
+      })
+      .map((page) => (
+        <Route
+          key={page.pageLink}
+          path={page.pageLink}
+          element={<ComingSoonPage />}
+        />
+      ));
   };
 
   return (
@@ -26,6 +33,11 @@ const App = () => {
           <Routes>
             <Route key="/" path="/" element={<HomePage />} />
             {routeAllPagesComingSoon()}
+            <Route
+              key="/location"
+              path="/location"
+              element={<LocationPage />}
+            />
           </Routes>
         </PageLayout>
       </div>

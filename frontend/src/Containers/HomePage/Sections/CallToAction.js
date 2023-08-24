@@ -11,15 +11,17 @@ const CallToAction = () => {
 
   return (
     <div className="call-to-action-inslide">
-      <div className="call-to-action-wrapper">
-        {logo}
-        <div className="call-to-action-contents">
-          <h2>Magnolia Cakes and Cupcakes</h2>
-          <p>
-            Delight in unforgettable moments with our exquisite cakes and
-            cupcakes. Order now to experience pure indulgence!
-          </p>
+      <div className="call-to-action-contents">
+        <h2> {logo} Magnolia Cakes & Cupcakes</h2>
+        <p>
+          Delight in unforgettable moments with our exquisite cakes and
+          cupcakes. Order now to experience pure indulgence!
+        </p>
+        <div className="regular-button">
           <SquareButton buttonText="Get Started" />
+        </div>
+        <div className="mobile-button">
+          <SquareButton buttonText="Get Started" isSmall />
         </div>
       </div>
     </div>
