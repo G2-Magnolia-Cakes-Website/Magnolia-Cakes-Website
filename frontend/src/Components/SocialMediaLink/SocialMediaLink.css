@@ -1,11 +1,11 @@
 .profile-name {
   margin-left: 1rem;
-  color: #000000;
+  color: #daa41a;
   text-decoration: none;
 }
 
 .profile-name:hover {
-  color: #daa41a;
+  color: #efc7c7;
   text-decoration: underline;
 }
 
