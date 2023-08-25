@@ -9,12 +9,6 @@
   color: #daa41a;
 }
 
-.gallery-section-wrapper .rows-wrapper {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -25,7 +19,7 @@
 /* Create four equal columns that sits next to each other */
 .row .column {
   flex: 25%;
-  max-width: 25%;
+  max-width: 40%;
   padding: 0;
   margin-top: 8px;
   margin-bottom: 8px;
@@ -33,11 +27,6 @@
 
 .row .column:not(:first-child) {
   margin-left: 1rem;
-}
-
-.row .column div {
-  vertical-align: middle;
-  width: 100%;
 }
 
 .row .column div:not(:first-child) {
