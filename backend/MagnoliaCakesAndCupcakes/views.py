@@ -116,3 +116,10 @@ def terms_and_conditions(request):
             serializer.save()
             return Response({'message': 'Terms & Conditions updated'}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def cakes_list(request):
+    if request.method == 'GET':
+        cakes = Cake.objects.all()
+        serializer = CakeSerializer(cakes, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
