@@ -1,0 +1,18 @@
+.gallery-grid-item-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.gallery-grid-item-wrapper h4 {
+    margin-right: 1rem;
+}
+
+.gallery-grid-item-wrapper .gallery-lines-group {
+    /* position: absolute;
+    left: 50px; */
+    /* display: none; */
+}
+
+.gallery-grid-item-wrapper img.gallery-img {
+    width: 70%;
+}
