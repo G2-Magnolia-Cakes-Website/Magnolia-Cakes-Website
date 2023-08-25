@@ -5,10 +5,10 @@ from django.contrib.auth.forms import AuthenticationForm
 from rest_framework import viewsets
 
 # import the TodoSerializer from the serializer file
-from .serializers import MagnoliaCakesAndCupcakesSerializer
+from .serializers import *
 
 # import the Todo model from the models file
-from .models import MagnoliaCakesAndCupcakes
+from .models import *
 
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -101,3 +101,18 @@ def login(request):
                 return Response({'message': 'Login failed'}, status=status.HTTP_401_UNAUTHORIZED)
         else:
             return Response({'message': 'Login failed'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT'])
+def terms_and_conditions(request):
+    if request.method == 'GET':
+        terms = TermsAndConditions.objects.first()
+        serializer = TermsAndConditionsSerializer(terms)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        terms = TermsAndConditions.objects.first()
+        serializer = TermsAndConditionsSerializer(terms, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'Terms & Conditions updated'}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
