@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-// import SquareButton from '../SquareButton/SquareButton';
+import axios from "axios";
 
 export default function LoginForm() {
 
@@ -35,32 +35,45 @@ export default function LoginForm() {
         } else {
             // Send API msg to backend
             try {
-                let res = await fetch("http://127.0.0.1:8000/api/login/", {
-                    headers: {
-                        'Content-type': 'application/json',
-                        'Accept': 'application/json',
-                    },
-                    method: "POST",
-                    body: JSON.stringify({
-                        username: email,
-                        password: password,
-                    }),
-                });
-                let resJson = await res.json();
+
+                const user = {
+                    username: email,
+                    password: password
+                };
+
+                let res = await axios.post('http://localhost:8000/api/token/',
+                    user,
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                        },
+                        withCredentials: true,
+                    }
+                );
+
                 if (res.status === 200) {
                     setPassword("");
                     setEmail("");
                     setSubmitted(true);
                     setError(false);
+
+                    // Initialize the access & refresh token in localstorage.      
+                    localStorage.clear();
+                    localStorage.setItem('access_token', res.data.access);
+                    localStorage.setItem('refresh_token', res.data.refresh);
+                    axios.defaults.headers.common['Authorization'] = `Bearer ${res['access']}`;
+
                     navigate("/");
+                    navigate(0);
                 } else {
                     setError(true);
-                    console.log(resJson);
+                    console.log(res);
                 }
             } catch (err) {
                 console.log(err);
             }
-        }        
+        }
     };
 
     // Showing error message if error is true

@@ -15,6 +15,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .forms import NewUserForm
 
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+
 # Email AUTH
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
@@ -99,3 +102,16 @@ def login(request):
                 return Response({'message': 'Login failed', 'error_messages': 'user does not exist'}, status=status.HTTP_401_UNAUTHORIZED)
         else:
             return Response({'message': 'Login failed', 'error_messages': form.error_messages}, status=status.HTTP_400_BAD_REQUEST)
+
+class LogoutView(APIView):
+     permission_classes = (IsAuthenticated,)
+     def post(self, request):
+          
+          try:
+               refresh_token = request.data["refresh_token"]
+               token = RefreshToken(refresh_token)
+               token.blacklist()
+               return Response(status=status.HTTP_205_RESET_CONTENT)
+          except Exception as e:
+               return Response(status=status.HTTP_400_BAD_REQUEST)
+          

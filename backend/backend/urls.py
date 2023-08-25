@@ -34,6 +34,7 @@ urlpatterns = [
     path('activate/<uidb64>/<token>', views.activate, name='activate'),
 
 	path('api/login/', views.login, name='api-login'),
+    path('api/logout/', views.LogoutView.as_view(), name ='logout'),
     
     # JWT token creation
 	path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
