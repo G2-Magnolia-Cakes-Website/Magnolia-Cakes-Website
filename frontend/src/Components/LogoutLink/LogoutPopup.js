@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function LogoutPopup(props) {
-    
+
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -11,6 +11,8 @@ function LogoutPopup(props) {
 
         // Send API msg to backend
         try {
+
+            console.log("axios.defaults.headers.common['Authorization'] ", axios.defaults.headers.common['Authorization'])
 
             const token = {
                 refresh_token: localStorage.getItem('refresh_token')
@@ -28,8 +30,6 @@ function LogoutPopup(props) {
                 },
                 { withCredentials: true }
             );
-
-            console.log("res ", res)
 
             localStorage.clear();
             axios.defaults.headers.common['Authorization'] = null;
@@ -49,7 +49,10 @@ function LogoutPopup(props) {
             <div className='popup-inner'>
                 <button className='close-btn' onClick={() => props.setTrigger(false)}>X</button>
                 Are you sure you want to logout?
-                <button onClick={handleSubmit}>Yes</button>
+                <div>
+                    <button className='cancel-btn' onClick={() => props.setTrigger(false)}>Cancel</button>
+                    <button className='yes-btn' onClick={handleSubmit}>Yes</button>
+                </div>
             </div>
         </div>
     ) : "";

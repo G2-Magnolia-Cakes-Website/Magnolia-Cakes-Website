@@ -1,4 +1,4 @@
-.login {
+.logout {
     display: block;
     text-decoration: none;
     color: #000000;
@@ -10,30 +10,35 @@
     border-radius: 3px;
     text-align: center;
     transition: 0.5s;
-  }
-  
-  /* Use media query to avoid hover styling when clicked on mobile devices */
-  @media (hover: hover) {
-    .login:hover {
-      background-color: #c09999;
-      border-color: #c09999;
+}
+
+.logout-div {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+/* Use media query to avoid hover styling when clicked on mobile devices */
+@media (hover: hover) {
+    .logout:hover {
+        background-color: #c09999;
+        border-color: #c09999;
     }
-  }
-  
-  @media (max-width: 1440px) and (min-width: 480px) {
-    .login {
-      font-size: 14px;
-      padding: 7px 10px;
+}
+
+@media (max-width: 1440px) and (min-width: 480px) {
+    .logout {
+        font-size: 14px;
+        padding: 7px 10px;
     }
-  }
-  
-  .popup {
+}
+
+.popup {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0, 0, 0, 0.5);
 
     display: flex;
     justify-content: center;
@@ -45,8 +50,12 @@
     padding: 32px;
     width: 100%;
     max-width: 640px;
-    background-color: #FFF;
+    background-color: white;
     border-radius: 25px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
 }
 
 .popup-inner .close-btn {
@@ -57,8 +66,31 @@
     outline: none;
     overflow: hidden;
     border: none;
-    background-color: #FFF;
+    background-color: white;
     font-family: 'Josefin Sans', sans-serif;
     font-size: 18px;
     color: red;
 }
+
+.popup-inner .yes-btn {
+    border: 1px solid red;
+    background-color: lightcoral;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 15px;
+    padding: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.popup-inner .cancel-btn {
+    border: 1px solid pink;
+    background-color: grey;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 15px;
+    padding: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+

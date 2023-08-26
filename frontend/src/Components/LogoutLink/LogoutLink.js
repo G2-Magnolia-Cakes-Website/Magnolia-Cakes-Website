@@ -10,8 +10,8 @@ const LogoutLink = () => {
     const [buttonPopup, setButtonPopup] = useState(false)
 
     return (
-        <div>
-            <button className="login" onClick={() => setButtonPopup(true)}>
+        <div className="logout-div">
+            <button className="logout" onClick={() => setButtonPopup(true)}>
                 Logout
             </button>
             <LogoutPopup trigger={buttonPopup} setTrigger={setButtonPopup} position="right center" />
