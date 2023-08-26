@@ -17,6 +17,7 @@ from .forms import NewUserForm
 
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # Email AUTH
 from django.template.loader import render_to_string
@@ -103,10 +104,11 @@ def login(request):
         else:
             return Response({'message': 'Login failed', 'error_messages': form.error_messages}, status=status.HTTP_400_BAD_REQUEST)
 
+
 class LogoutView(APIView):
      permission_classes = (IsAuthenticated,)
-     def post(self, request):
-          
+
+     def post(self, request):          
           try:
                refresh_token = request.data["refresh_token"]
                token = RefreshToken(refresh_token)

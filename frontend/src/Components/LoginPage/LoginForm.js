@@ -36,6 +36,19 @@ export default function LoginForm() {
             // Send API msg to backend
             try {
 
+                // let response = await fetch("http://127.0.0.1:8000/api/login/", {
+                //     headers: {
+                //         'Content-type': 'application/json',
+                //         'Accept': 'application/json',
+                //     },
+                //     method: "POST",
+                //     body: JSON.stringify({
+                //         username: email,
+                //         password: password,
+                //     }),
+                // });
+                // let resJson = await response.json();
+
                 const user = {
                     username: email,
                     password: password
