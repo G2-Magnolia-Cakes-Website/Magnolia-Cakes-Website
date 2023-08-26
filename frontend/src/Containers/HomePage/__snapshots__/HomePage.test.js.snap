@@ -120,7 +120,9 @@ Array [
               src="white-triangle-line-left.svg"
             />
           </div>
-          <a>
+          <a
+            href="/gallery/christening-and-communion"
+          >
             <img
               alt="Christening & Communion"
               className="gallery-img"
@@ -182,7 +184,9 @@ Array [
               src="white-triangle-line-right.svg"
             />
           </div>
-          <a>
+          <a
+            href="/gallery/cupcakes"
+          >
             <img
               alt="Cupcakes"
               className="gallery-img"

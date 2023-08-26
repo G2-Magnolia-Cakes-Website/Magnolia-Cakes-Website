@@ -25,6 +25,7 @@ const GallerySection = () => {
             src={christeningCover}
             alt="Christening & Communion"
             title="Christening Communion"
+            link="/gallery/christening-and-communion"
           />
         </div>
         <div className="gallery-column">
@@ -39,6 +40,7 @@ const GallerySection = () => {
             src={cupcakesCover}
             alt="Cupcakes"
             title="Cupcakes"
+            link="/gallery/cupcakes"
             isOnRight={true}
           />
         </div>

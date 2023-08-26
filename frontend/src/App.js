@@ -51,6 +51,11 @@ const App = () => {
                 element={<ComingSoonPage />}
               />
               <Route path="/gallery/birthday" element={<ComingSoonPage />} />
+              <Route
+                path="/gallery/christening-and-communion"
+                element={<ComingSoonPage />}
+              />
+              <Route path="/gallery/cupcakes" element={<ComingSoonPage />} />
             </Route>
             {routeAllPagesComingSoon()}
           </Routes>
