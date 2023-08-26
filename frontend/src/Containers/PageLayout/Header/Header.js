@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../../../Components/Navbar/Navbar";
 import "./Header.css";
 import SignUpLogInLinkGroup from "../../SignUpLogInLinkGroup/SignUpLogInLinkGroup";
-import LogoutLink from "../../../Components/LogoutLink/LogoutLink"
+import SignedInGroup from "../../SignedInGroup/SignedInGroup";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <div className="header">
       <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-      {isAuth ? <LogoutLink /> : !isMenuOpen && <SignUpLogInLinkGroup />}
+      {isAuth ? <SignedInGroup /> : !isMenuOpen && <SignUpLogInLinkGroup />}
     </div>
   );
 };

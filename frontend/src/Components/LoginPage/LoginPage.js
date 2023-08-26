@@ -13,17 +13,19 @@ function LoginPage() {
     )
 
     return (
-        <div className="loginPage">
-            <div className='login-form'>
-                <div className='logo-div'>
-                    {logo}
+        <div className='white-background'>
+            <div className="loginPage">
+                <div className='login-form'>
+                    <div className='logo-div'>
+                        {logo}
+                    </div>
+                    <div>
+                        <h1 className='login-header'>Log In</h1>
+                    </div>
+                    <Form />
                 </div>
-                <div>
-                    <h1 className='login-header'>Log In</h1>
-                </div>
-                <Form />
+                {image}
             </div>
-            {image}
         </div>
     );
 }
