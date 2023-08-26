@@ -7,24 +7,34 @@ Array [
       className="call-to-action-inslide"
     >
       <div
-        className="call-to-action-wrapper"
+        className="call-to-action-contents"
       >
-        <img
-          alt="Magnolia Cake Logo"
-          className="logo"
-          src="Magnolia_Cake_logo.png"
-        />
+        <h2>
+           
+          <img
+            alt="Magnolia Cake Logo"
+            className="logo"
+            src="Magnolia_Cake_logo.png"
+          />
+           Magnolia Cakes & Cupcakes
+        </h2>
+        <p>
+          Delight in unforgettable moments with our exquisite cakes and cupcakes. Order now to experience pure indulgence!
+        </p>
         <div
-          className="call-to-action-contents"
+          className="regular-button"
         >
-          <h2>
-            Magnolia Cakes and Cupcakes
-          </h2>
-          <p>
-            Delight in unforgettable moments with our exquisite cakes and cupcakes. Order now to experience pure indulgence!
-          </p>
           <button
             className="square-button"
+          >
+            Get Started
+          </button>
+        </div>
+        <div
+          className="mobile-button"
+        >
+          <button
+            className="square-button small"
           >
             Get Started
           </button>
@@ -46,6 +56,141 @@ Array [
         alt="Wedding & Anniversary"
         src="carousel/carousel-wedding-ann.jpg"
       />
+    </div>
+  </div>,
+  <div
+    className="gallery-section-wrapper"
+  >
+    <h2>
+      Cakes for all occasions
+    </h2>
+    <div
+      className="gallery-row"
+    >
+      <div
+        className="gallery-column"
+      >
+        <div
+          className="gallery-grid-item-wrapper"
+        >
+          <h4>
+            Wedding Anniversary
+          </h4>
+          <div
+            className="gallery-lines-group"
+          >
+            <img
+              alt="gold line"
+              className="gold-line"
+              src="gold-circled-line-left.svg"
+            />
+            <img
+              alt="white line"
+              className="white-line"
+              src="white-triangle-line-left.svg"
+            />
+          </div>
+          <a
+            href="/gallery/wedding-and-anniversary"
+          >
+            <img
+              alt="Wedding & Anniversary"
+              className="gallery-img"
+              src="wedding-and-ann.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="gallery-grid-item-wrapper"
+        >
+          <h4>
+            Christening Communion
+          </h4>
+          <div
+            className="gallery-lines-group"
+          >
+            <img
+              alt="gold line"
+              className="gold-line"
+              src="gold-circled-line-left.svg"
+            />
+            <img
+              alt="white line"
+              className="white-line"
+              src="white-triangle-line-left.svg"
+            />
+          </div>
+          <a>
+            <img
+              alt="Christening & Communion"
+              className="gallery-img"
+              src="christening-communion.jpg"
+            />
+          </a>
+        </div>
+      </div>
+      <div
+        className="gallery-column"
+      >
+        <div
+          className="gallery-grid-item-wrapper row-reverse"
+        >
+          <h4>
+            Birthday
+          </h4>
+          <div
+            className="gallery-lines-group"
+          >
+            <img
+              alt="gold line"
+              className="gold-line"
+              src="gold-circled-line-right.svg"
+            />
+            <img
+              alt="white line"
+              className="white-line"
+              src="white-triangle-line-right.svg"
+            />
+          </div>
+          <a
+            href="/gallery/birthday"
+          >
+            <img
+              alt="Birthday"
+              className="gallery-img"
+              src="birthday.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="gallery-grid-item-wrapper row-reverse"
+        >
+          <h4>
+            Cupcakes
+          </h4>
+          <div
+            className="gallery-lines-group"
+          >
+            <img
+              alt="gold line"
+              className="gold-line"
+              src="gold-circled-line-right.svg"
+            />
+            <img
+              alt="white line"
+              className="white-line"
+              src="white-triangle-line-right.svg"
+            />
+          </div>
+          <a>
+            <img
+              alt="Cupcakes"
+              className="gallery-img"
+              src="cupcakes.jpg"
+            />
+          </a>
+        </div>
+      </div>
     </div>
   </div>,
   <div

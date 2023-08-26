@@ -1,5 +1,10 @@
 import React from "react";
-import { goldCircledLine, whiteTriangleLine } from "../../utils/gallery-lines";
+import {
+  goldCircledLineLeft,
+  whiteTriangleLineLeft,
+  goldCircledLineRight,
+  whiteTriangleLineRight,
+} from "../../utils/gallery-lines";
 
 import "./GalleryGridItem.css";
 
@@ -10,13 +15,44 @@ const GalleryGridItem = (props) => {
     ? "gallery-grid-item-wrapper row-reverse"
     : "gallery-grid-item-wrapper";
 
+  const getGalleryLinesDirection = () => {
+    if (!isOnRight) {
+      return (
+        <div className="gallery-lines-group">
+          <img
+            className="gold-line"
+            src={goldCircledLineLeft}
+            alt="gold line"
+          />
+          <img
+            className="white-line"
+            src={whiteTriangleLineLeft}
+            alt="white line"
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div className="gallery-lines-group">
+          <img
+            className="gold-line"
+            src={goldCircledLineRight}
+            alt="gold line"
+          />
+          <img
+            className="white-line"
+            src={whiteTriangleLineRight}
+            alt="white line"
+          />
+        </div>
+      );
+    }
+  };
+
   return (
     <div className={wrapperStyling}>
       <h4>{title}</h4>
-      <div className="gallery-lines-group">
-        <img className="gold-line" src={goldCircledLine} alt="gold line" />
-        <img className="white-line" src={whiteTriangleLine} alt="white line" />
-      </div>
+      {getGalleryLinesDirection()}
       <a href={link}>
         <img className="gallery-img" src={src} alt={alt} />
       </a>

@@ -1,4 +1,11 @@
-import goldCircledLine from "./gold-circled-line.svg";
-import whiteTriangleLine from "./white-triangle-line.svg";
+import goldCircledLineLeft from "./gold-circled-line-left.svg";
+import whiteTriangleLineLeft from "./white-triangle-line-left.svg";
+import goldCircledLineRight from "./gold-circled-line-right.svg";
+import whiteTriangleLineRight from "./white-triangle-line-right.svg";
 
-export { goldCircledLine, whiteTriangleLine };
+export {
+  goldCircledLineLeft,
+  whiteTriangleLineLeft,
+  goldCircledLineRight,
+  whiteTriangleLineRight,
+};

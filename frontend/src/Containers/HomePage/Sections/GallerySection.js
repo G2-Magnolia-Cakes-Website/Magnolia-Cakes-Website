@@ -13,8 +13,8 @@ const GallerySection = () => {
   return (
     <div className="gallery-section-wrapper">
       <h2>Cakes for all occasions</h2>
-      <div className="row">
-        <div className="column">
+      <div className="gallery-row">
+        <div className="gallery-column">
           <GalleryGridItem
             src={weddingCover}
             alt="Wedding & Anniversary"
@@ -27,7 +27,7 @@ const GallerySection = () => {
             title="Christening Communion"
           />
         </div>
-        <div className="column">
+        <div className="gallery-column">
           <GalleryGridItem
             src={birthdayCover}
             alt="Birthday"
