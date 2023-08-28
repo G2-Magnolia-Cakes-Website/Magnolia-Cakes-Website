@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 
-export default function LoginForm() {
+export default function LoginForm( { api } ) {
 
     const navigate = useNavigate();
 
@@ -54,7 +54,7 @@ export default function LoginForm() {
                     password: password
                 };
 
-                let res = await axios.post('http://localhost:8000/api/token/',
+                let res = await api.post('http://localhost:8000/api/token/',
                     user,
                     {
                         headers: {
@@ -75,7 +75,7 @@ export default function LoginForm() {
                     localStorage.clear();
                     localStorage.setItem('access_token', res.data.access);
                     localStorage.setItem('refresh_token', res.data.refresh);
-                    axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.access}`;
+                    api.defaults.headers.common['Authorization'] = `Bearer ${res.data.access}`;
 
                     navigate("/");
                     navigate(0);

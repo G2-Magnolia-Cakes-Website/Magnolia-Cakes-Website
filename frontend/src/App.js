@@ -49,7 +49,7 @@ const App = () => {
             <Route 
               key="/login" 
               path="/login" 
-              element={<LoginPage />} 
+              element={<LoginPage api={api} />} 
             />
             {routeAllPagesComingSoon()}
           </Routes>

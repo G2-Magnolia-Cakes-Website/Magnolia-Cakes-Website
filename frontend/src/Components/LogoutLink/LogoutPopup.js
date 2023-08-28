@@ -12,8 +12,6 @@ function LogoutPopup(props) {
         // Send API msg to backend
         try {
 
-            console.log("axios.defaults.headers.common['Authorization'] ", axios.defaults.headers.common['Authorization'])
-
             const token = {
                 refresh_token: localStorage.getItem('refresh_token')
             };
@@ -25,7 +23,6 @@ function LogoutPopup(props) {
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
-                        'Authorization': `Bearer ${access}`,
                     }
                 },
                 { withCredentials: true }

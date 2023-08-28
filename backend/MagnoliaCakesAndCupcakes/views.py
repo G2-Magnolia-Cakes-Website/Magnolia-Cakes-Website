@@ -11,13 +11,14 @@ from .serializers import *
 from .models import *
 
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from .forms import NewUserForm
 
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import AllowAny
 
 # Email AUTH
 from django.template.loader import render_to_string
@@ -41,6 +42,7 @@ class MagnoliaCakesAndCupcakesView(viewsets.ModelViewSet):
 	queryset = MagnoliaCakesAndCupcakes.objects.all()
 
 @api_view(['POST'])
+@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
 def register(request):
     if request.method == 'POST':
         form = NewUserForm(request.data)
@@ -52,6 +54,7 @@ def register(request):
         return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
 def activateEmail(request, user, to_email):
     mail_subject = 'Activate your user account.'
     message = render_to_string('template_activate_account.html', {
@@ -67,6 +70,8 @@ def activateEmail(request, user, to_email):
     else:
         return Response({'message': 'Problem sending confirmation email'}, status=status.HTTP_400_BAD_REQUEST)
 
+
+@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
 def activate(request, uidb64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
@@ -86,6 +91,7 @@ def activate(request, uidb64, token):
 
 
 @api_view(['POST'])
+@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
 def login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request._request, data=request.data)
@@ -116,8 +122,10 @@ class LogoutView(APIView):
                return Response(status=status.HTTP_205_RESET_CONTENT)
           except Exception as e:
                return Response(status=status.HTTP_400_BAD_REQUEST)
-          
+
+
 @api_view(['GET', 'PUT'])
+@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
 def terms_and_conditions(request):
     if request.method == 'GET':
         terms = TermsAndConditions.objects.first()

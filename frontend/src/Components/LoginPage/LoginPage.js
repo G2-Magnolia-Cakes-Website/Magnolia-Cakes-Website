@@ -3,7 +3,7 @@ import Form from "./LoginForm"
 import magnoliaCakeLogo from "../../utils/Magnolia_Cake_logo.png";
 import birthdayCake from "../../utils/carousel-wedding-ann.jpg"
 
-function LoginPage() {
+function LoginPage({ api }) {
     const logo = (
         <img className="logo" src={magnoliaCakeLogo} alt="Magnolia Cake Logo" />
     );
@@ -22,7 +22,7 @@ function LoginPage() {
                     <div>
                         <h1 className='login-header'>Log In</h1>
                     </div>
-                    <Form />
+                    <Form api={api} />
                 </div>
                 {image}
             </div>

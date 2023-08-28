@@ -1,6 +1,3 @@
-import React from "react";
-// import { useNavigate } from "react-router-dom";
-import { PAGELINKS } from "../../utils/constants";
 import "./LogoutLink.css";
 import LogoutPopup from "./LogoutPopup.js"
 import { useState } from 'react';
