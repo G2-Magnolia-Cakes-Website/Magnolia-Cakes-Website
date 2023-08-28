@@ -38,7 +38,6 @@ const CarouselGallery = () => {
         effect="fade"
         crossFade={true}
       >
-        <CallToAction />
         {slides.map((slide) => (
           <SwiperSlide key={slide.image}>
             <CarouselItem image={slide.image} title={slide.title} />

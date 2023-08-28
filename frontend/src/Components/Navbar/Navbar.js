@@ -25,11 +25,11 @@ const Navbar = (props) => {
 
   return (
     <nav>
-      <div className="menu">
+      <div className={!isMenuOpen ? "menu" : "menu open"}>
         <Hamburger
           toggled={isMenuOpen}
           toggle={setIsMenuOpen}
-          color={isMenuOpen ? "#000000" : "#efc7c7"}
+          color={isMenuOpen ? "#000000" : "#b76e79"}
         />
       </div>
       <ul className={isMenuOpen ? "open" : ""}>{renderTabs()}</ul>

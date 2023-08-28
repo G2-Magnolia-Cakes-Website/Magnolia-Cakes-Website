@@ -1,118 +1,37 @@
 .footer {
-  background-color: #ede5e3;
+  background-color: transparent;
   width: 100%;
-  display: flex;
-  padding: 1rem 0 1rem 10rem;
-  z-index: 99;
+  padding: 1rem 10rem 1rem 10rem;
+  z-index: 0;
   margin-top: auto;
 }
 
-.footer .footer-sections-wrapper {
-  width: 100%;
+.footer .footer-row {
   display: flex;
+  flex-direction: row;
+  width: 100%;
   justify-content: space-between;
-  padding: 1rem 10rem;
 }
 
-.footer .footer-sections-wrapper p {
-  text-align: center;
+.footer hr {
+  border-top: 2px solid white;
+  opacity: 100%;
 }
 
-.footer .footer-sections-wrapper a:not(.social-media-wrapper a) {
-  display: block;
-  text-decoration: none;
-  color: #daa41a;
-  transition: 0.3s;
-  text-align: center;
-}
-
-.footer .footer-sections-wrapper a:not(.active):hover {
-  color: #efc7c7;
-  text-decoration: underline;
-}
-
-.footer img.logo {
-  display: block;
-  height: auto;
-  width: 200px;
-  object-fit: cover;
-}
-
-.social-media-links-mobile {
-  display: none;
-}
-
-@media (max-width: 1700px) and (min-width: 768px) {
+@media (max-width: 1024px) and (min-width: 768px) {
   .footer {
-    padding-left: 5rem;
-  }
-
-  .footer .footer-sections-wrapper {
-    padding: 1rem 5rem;
-  }
-}
-
-@media (max-width: 1400px) and (min-width: 768px) {
-  .footer {
-    padding-left: 2rem;
-  }
-
-  .footer .footer-sections-wrapper {
-    padding: 1rem 2rem;
-  }
-}
-
-@media (max-width: 1000px) and (min-width: 768px) {
-  .footer {
-    padding-left: 2rem;
-  }
-
-  .footer .footer-sections-wrapper {
-    padding: 1rem 2rem;
-  }
-
-  .footer .footer-sections-wrapper p {
-    font-size: 14px;
+    padding: 1rem 3rem 1rem 3rem;
   }
 }
 
 @media (max-width: 768px) {
   .footer {
-    width: 100%;
+    padding: 3rem 1rem 3rem 1rem;
+  }
+
+  .footer .footer-row {
     flex-direction: column;
-    padding: 2rem 0 0 0;
-    align-items: center;
-  }
-
-  .footer .footer-sections-wrapper {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 1rem;
-  }
-
-  .footer-sections-wrapper > *:not(:last-child) {
-    margin: 0 1rem;
-  }
-
-  .footer img.logo {
-    width: 100px;
-    height: auto;
-  }
-
-  .social-media-links {
-    display: none;
-  }
-
-  .social-media-links-mobile {
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    justify-content: space-between;
-  }
-
-  .social-media-links-mobile > * {
-    margin: 1rem 1rem 0 1rem;
+    justify-content: flex-start;
+    gap: 1.5rem;
   }
 }
