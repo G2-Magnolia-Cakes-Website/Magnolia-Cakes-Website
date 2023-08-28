@@ -32,7 +32,7 @@ urlpatterns = [
 	path('api/', include(router.urls)),
 	path('api/register/', views.register, name='api-register'),
     path('activate/<uidb64>/<token>', views.activate, name='activate'),
-
+	path('api/terms-and-conditions/', views.terms_and_conditions, name='terms-and-conditions'),
 	path('api/login/', views.login, name='api-login'),
     path('api/logout/', views.LogoutView.as_view(), name ='logout'),
     

@@ -15,6 +15,18 @@
   pointer-events: none;
 }
 
+p {
+  font-family: "Yantramanav", sans-serif;
+}
+
+a {
+  font-family: "Yantramanav", sans-serif;
+}
+
+button {
+  font-family: "Yantramanav", sans-serif;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

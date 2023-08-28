@@ -6,14 +6,9 @@
   transform: translateY(-50%);
 }
 
-.call-to-action-inslide .call-to-action-wrapper {
-  display: flex;
-  flex-direction: row;
-  width: fit-content;
-}
-
-.call-to-action-inslide .call-to-action-wrapper .call-to-action-contents {
-  color: #fff;
+.call-to-action-inslide .call-to-action-contents {
+  color: #b76e79;
+  color: black;
 
   isolation: isolate;
   padding: 2rem;
@@ -21,33 +16,38 @@
   display: flex;
   flex-direction: column;
   margin: 3rem;
+  gap: 1rem;
 }
 
-.call-to-action-inslide .call-to-action-wrapper .call-to-action-contents h2 {
+.call-to-action-inslide .call-to-action-contents h2 {
   font-size: 80px;
 
   /* Font from Google Fonts https://fonts.google.com/specimen/Dancing+Script?preview.text=Cakes%20Collection&preview.text_type=custom&category=Handwriting,Monospace */
-  font-family: "Pacifico", cursive;
-
-  text-shadow: 4px 4px 5px rgba(0, 0, 0, 0.7);
+  font-family: "Dancing Script", cursive;
+  color: #b76e79;
 }
 
-.call-to-action-inslide .call-to-action-wrapper .call-to-action-contents p {
+.call-to-action-inslide .call-to-action-contents .logo {
+  width: 130px;
+  object-fit: contain;
+  position: relative;
+  bottom: 10px;
+}
+
+.call-to-action-inslide .call-to-action-contents p {
   text-align: left;
   font-size: 24px;
   margin-top: 2rem;
   margin-bottom: 5rem;
-
-  text-shadow: 4px 4px 5px rgba(0, 0, 0, 0.7);
+  color: black;
 }
 
-.call-to-action-inslide .call-to-action-wrapper .logo {
-  width: 20%;
-  object-fit: contain;
+.call-to-action-inslide .call-to-action-contents .mobile-button {
+  display: none;
 }
 
 @media (max-width: 1440px) and (min-width: 768px) {
-  .call-to-action-inslide .call-to-action-wrapper .call-to-action-contents p {
+  .call-to-action-inslide .call-to-action-contents p {
     font-size: 18px;
   }
 }
@@ -57,32 +57,13 @@
     width: 100%;
     position: absolute;
     z-index: 9;
-    margin-top: 1rem;
     justify-content: center;
     align-items: center;
     left: 0%;
     pointer-events: none;
   }
 
-  .call-to-action-inslide .call-to-action-wrapper {
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    pointer-events: none;
-  }
-
-  .call-to-action-inslide .call-to-action-wrapper .logo {
-    display: block;
-    width: 50%;
-    height: auto;
-    min-width: 150px;
-    object-fit: contain;
-  }
-
-  .call-to-action-inslide .call-to-action-wrapper .call-to-action-contents {
-    top: 0;
-    left: 0;
-    color: #fff;
+  .call-to-action-inslide .call-to-action-contents {
     z-index: 999;
     width: 100%;
     margin: 0;
@@ -92,21 +73,51 @@
     pointer-events: none;
   }
 
-  .call-to-action-inslide .call-to-action-wrapper .call-to-action-contents h2 {
-    font-size: 50px;
+  .call-to-action-inslide .call-to-action-contents .logo {
+    width: 70px;
+    object-fit: contain;
+    position: relative;
+    bottom: 7px;
+  }
+
+  .call-to-action-inslide .call-to-action-contents h2 {
+    font-size: 60px;
     text-align: center;
   }
 
-  .call-to-action-inslide .call-to-action-wrapper .call-to-action-contents p {
+  .call-to-action-inslide .call-to-action-contents p {
     text-align: center;
+    margin-top: 0;
     margin-bottom: 1rem;
+    font-size: 18px;
   }
 
-  .call-to-action-inslide
-    .call-to-action-wrapper
-    .call-to-action-contents
-    button {
+  .call-to-action-inslide .call-to-action-contents button {
     text-align: center;
     margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .call-to-action-inslide .call-to-action-contents {
+    gap: 0.5rem;
+  }
+
+  .call-to-action-inslide .call-to-action-contents h2 {
+    font-size: 40px;
+    text-align: center;
+  }
+
+  .call-to-action-inslide .call-to-action-contents p {
+    font-size: 16px;
+    margin-bottom: 0;
+  }
+
+  .call-to-action-inslide .call-to-action-contents .regular-button {
+    display: none;
+  }
+
+  .call-to-action-inslide .call-to-action-contents .mobile-button {
+    display: block;
   }
 }

@@ -267,6 +267,12 @@ exports[`test PageLayout render PageLayout 1`] = `
         <p>
           Melbourne, VIC 3752
         </p>
+        <a
+          href="/location"
+          onClick={[Function]}
+        >
+          More details
+        </a>
       </div>
       <div
         className="footer-section"
@@ -277,6 +283,12 @@ exports[`test PageLayout render PageLayout 1`] = `
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </p>
+        <a
+          href="/contact-us"
+          onClick={[Function]}
+        >
+          More details
+        </a>
       </div>
       <div
         className="footer-section"
@@ -287,6 +299,12 @@ exports[`test PageLayout render PageLayout 1`] = `
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </p>
+        <a
+          href="/terms-and-conditions"
+          onClick={[Function]}
+        >
+          More details
+        </a>
       </div>
       <div
         className="social-media-links"
