@@ -50,7 +50,8 @@
     "moduleNameMapper": {
       "swiper/react": "swiper/swiper-react.d.ts",
       "swiper/modules": "swiper/types/modules/index.d.ts",
-      "swiper/css": "swiper/swiper.min.css"
+      "swiper/css": "swiper/swiper.min.css",
+      "axios": "axios/dist/node/axios.cjs"
     }
   }
   

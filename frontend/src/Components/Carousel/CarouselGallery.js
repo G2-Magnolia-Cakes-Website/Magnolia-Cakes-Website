@@ -18,7 +18,6 @@ import "./CarouselGallery.css";
 
 import slides from "./cake-categories.json";
 import CarouselItem from "./CarouselItem";
-import CallToAction from "../../Containers/HomePage/Sections/CallToAction";
 
 const CarouselGallery = () => {
   return (
@@ -28,25 +27,18 @@ const CarouselGallery = () => {
         navigation={true}
         pagination={{ clickable: true }}
         keyboard={{ enabled: true }}
-        style={{
-          "--swiper-pagination-color": "#fff",
-        }}
         grabCursor={true}
-        autoplay={{ delay: 5000 }}
+        autoplay={{ delay: 4000 }}
         loop={true}
         centeredSlides={true}
         effect="fade"
-        crossFade={true}
+        // crossFade={true}
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.image}>
             <CarouselItem image={slide.image} title={slide.title} />
           </SwiperSlide>
         ))}
-        {/* <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide> */}
       </Swiper>
     </div>
   );

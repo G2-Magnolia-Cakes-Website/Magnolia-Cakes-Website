@@ -1,9 +1,9 @@
 import React from "react";
-import Header from "./Header/Header";
+import { SHOPDETAILS } from "utils/constants";
+import magnoliaCakeLogo from "utils/Magnolia_Cake_logo.png";
 import Footer from "./Footer/Footer";
-import magnoliaCakeLogo from "../../utils/Magnolia_Cake_logo.png";
+import Header from "./Header/Header";
 import "./PageLayout.css";
-import { SHOPDETAILS } from "../../utils/constants";
 
 const PageLayout = (props) => {
   const logo = (

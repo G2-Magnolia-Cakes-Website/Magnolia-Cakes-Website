@@ -1,14 +1,10 @@
 import React from "react";
-import FooterSection from "./FooterSection/FooterSection";
-import {
-  FOOTERSECTIONS,
-  PAGELINKS,
-  SOCIALMEDIAS,
-} from "../../../utils/constants";
-import SocialMediaLink from "../../../Components/SocialMediaLink/SocialMediaLink";
-import "./Footer.css";
-// import magnoliaCakeLogo from "../../../utils/Magnolia_Cake_logo.png";
 import { Link } from "react-router-dom";
+import FooterSection from "./FooterSection/FooterSection";
+import { FOOTERSECTIONS, PAGELINKS, SOCIALMEDIAS } from "utils/constants";
+import SocialMediaLink from "Components/SocialMediaLink/SocialMediaLink";
+import "./Footer.css";
+// import magnoliaCakeLogo from "utils/Magnolia_Cake_logo.png";
 
 const Footer = () => {
   return (

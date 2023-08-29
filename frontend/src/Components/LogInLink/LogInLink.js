@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { PAGELINKS } from "../../utils/constants";
+import { PAGELINKS } from "utils/constants";
 import "./LogInLink.css";
 
 const LogInLink = () => {

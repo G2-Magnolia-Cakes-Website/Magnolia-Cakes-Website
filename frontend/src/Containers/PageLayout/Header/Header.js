@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import Navbar from "../../../Components/Navbar/Navbar";
-import SignUpLogInLinkGroup from "../../SignUpLogInLinkGroup/SignUpLogInLinkGroup";
+import React, { useEffect, useState } from "react";
+import Navbar from "Components/Navbar/Navbar";
+import SignUpLogInLinkGroup from "Containers/SignUpLogInLinkGroup/SignUpLogInLinkGroup";
 import "./Header.css";
 
 const Header = () => {

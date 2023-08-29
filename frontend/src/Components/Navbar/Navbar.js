@@ -1,10 +1,10 @@
 import React from "react";
-import tabs from "../../utils/tabs.json";
+import tabs from "utils/tabs.json";
 //hamburger menu animation from https://hamburger-react.netlify.app/
 import { Fade as Hamburger } from "hamburger-react";
+import NavbarTab from "./NavbarTab";
 
 import "./Navbar.css";
-import NavbarTab from "./NavbarTab";
 
 const Navbar = (props) => {
   const { isMenuOpen, setIsMenuOpen } = props;
