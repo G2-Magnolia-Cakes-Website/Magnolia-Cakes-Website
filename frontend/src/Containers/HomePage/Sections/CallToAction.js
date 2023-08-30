@@ -1,6 +1,6 @@
 import React from "react";
-import SquareButton from "../../../Components/SquareButton/SquareButton";
-import magnoliaCakeLogo from "../../../utils/Magnolia_Cake_logo.png";
+import SquareButton from "Components/SquareButton/SquareButton";
+import magnoliaCakeLogo from "utils/Magnolia_Cake_logo.png";
 
 import "./CallToAction.css";
 

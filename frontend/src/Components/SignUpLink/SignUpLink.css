@@ -4,6 +4,7 @@
   color: #000000;
   font-size: 20px;
   padding: 7px 10px;
+  font-family: 'ABeeZee', sans-serif;
 }
 
 .signup:not(.active):hover {

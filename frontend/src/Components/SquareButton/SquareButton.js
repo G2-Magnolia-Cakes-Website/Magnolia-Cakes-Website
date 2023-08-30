@@ -18,8 +18,6 @@ const SquareButton = (props) => {
     return "square-button";
   };
 
-  console.log(getStyle());
-
   return (
     <button className={getStyle()} onClick={onClick}>
       {buttonText}
