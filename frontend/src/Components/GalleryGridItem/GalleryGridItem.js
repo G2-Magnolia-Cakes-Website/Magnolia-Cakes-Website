@@ -4,7 +4,7 @@ import {
   whiteTriangleLineLeft,
   goldCircledLineRight,
   whiteTriangleLineRight,
-} from "../../utils/gallery-lines";
+} from "utils/gallery-lines";
 
 import "./GalleryGridItem.css";
 

@@ -4,8 +4,10 @@ import {
   birthdayCover,
   christeningCover,
   cupcakesCover,
-} from "../../../utils/gallery";
-import GalleryGridItem from "../../../Components/GalleryGridItem/GalleryGridItem";
+  anyOccassionCover,
+  kidsBirthdayCover,
+} from "utils/gallery";
+import GalleryGridItem from "Components/GalleryGridItem/GalleryGridItem";
 
 import "./GallerySection.css";
 
@@ -27,6 +29,12 @@ const GallerySection = () => {
             title="Christening Communion"
             link="/gallery/christening-and-communion"
           />
+          <GalleryGridItem
+            src={cupcakesCover}
+            alt="Cupcakes"
+            title="Cupcakes"
+            link="/gallery/cupcakes"
+          />
         </div>
         <div className="gallery-column">
           <GalleryGridItem
@@ -37,10 +45,17 @@ const GallerySection = () => {
             isOnRight={true}
           />
           <GalleryGridItem
-            src={cupcakesCover}
-            alt="Cupcakes"
-            title="Cupcakes"
-            link="/gallery/cupcakes"
+            src={kidsBirthdayCover}
+            alt="Kids Birthday"
+            title="Kids Birthday"
+            link="/gallery/kids-birthday"
+            isOnRight={true}
+          />
+          <GalleryGridItem
+            src={anyOccassionCover}
+            alt="Any Occassion"
+            title="Any Occassion"
+            link="/gallery/any-occassion"
             isOnRight={true}
           />
         </div>
