@@ -4,34 +4,6 @@ exports[`test HomePage renders HomePage 1`] = `
 Array [
   <div>
     <div
-      className="call-to-action-inslide"
-    >
-      <div
-        className="call-to-action-wrapper"
-      >
-        <img
-          alt="Magnolia Cake Logo"
-          className="logo"
-          src="Magnolia_Cake_logo.png"
-        />
-        <div
-          className="call-to-action-contents"
-        >
-          <h2>
-            Magnolia Cakes and Cupcakes
-          </h2>
-          <p>
-            Delight in unforgettable moments with our exquisite cakes and cupcakes. Order now to experience pure indulgence!
-          </p>
-          <button
-            className="square-button"
-          >
-            Get Started
-          </button>
-        </div>
-      </div>
-    </div>
-    <div
       className="slide-wrapper"
     >
       <img

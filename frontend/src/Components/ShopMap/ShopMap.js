@@ -1,8 +1,7 @@
 import React from "react";
-import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
-
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import { SHOPDETAILS } from "utils/constants";
 import "./ShopMap.css";
-import { SHOPDETAILS } from "../../utils/constants";
 
 const magnoliaCakeCoords = {
   lat: -37.630214089441445,

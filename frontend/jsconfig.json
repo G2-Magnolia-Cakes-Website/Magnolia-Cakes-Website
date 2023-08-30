@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "checkJs": true,
+    "jsx": "react",
+    "resolveJsonModule": true
+  },
+  "exclude": ["**/__tests__/**", "**/*.test.js", "**/*.spec.js"]
+}
