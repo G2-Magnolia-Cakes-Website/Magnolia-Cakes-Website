@@ -54,7 +54,9 @@ const GalleryGridItem = (props) => {
       <h4>{title}</h4>
       {getGalleryLinesDirection()}
       <a href={link}>
-        <img className="gallery-img" src={src} alt={alt} />
+        <div className="img-wrapper">
+          <img className="gallery-img" src={src} alt={alt} />
+        </div>
       </a>
     </div>
   );
