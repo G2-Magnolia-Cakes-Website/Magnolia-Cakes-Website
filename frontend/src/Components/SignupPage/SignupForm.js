@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Link } from "react-router-dom";
 import Popup from './Popup';
+import React from 'react';
 
-export default function SignupForm() {
+export default function SignupForm({ api }) {
 
     // States for registration
     const [username, setUsername] = useState('');
@@ -96,31 +97,24 @@ export default function SignupForm() {
         <div className="form">
 
             <form>
-                {/* Labels and inputs for form data */}
-                <input onChange={handleUsername} className="input"
-                    value={username} type="text" placeholder='Username' />
-
-                <input onChange={handleFirstName} className="input"
+                <input onChange={handleFirstName} className="input-signup"
                     value={firstname} type="text" placeholder='First Name' />
 
-                <input onChange={handleLastName} className="input"
+                <input onChange={handleLastName} className="input-signup"
                     value={lastnamename} type="text" placeholder='Last Name' />
 
-                <input onChange={handleEmail} className="input"
+                <input onChange={handleEmail} className="input-signup"
                     value={email} type="email" placeholder='Email' />
 
-                <input onChange={handlePassword} className="input"
+                <input onChange={handlePassword} className="input-signup"
                     value={password} type="password" placeholder='Password' />
 
-                {/* <div>
-                    <label htmlFor="agree" className="label">
-                        <input type="checkbox" className="checkbox" id="agree" onChange={checkboxHandler} /> I agree to <Link to={'/terms'}><b>terms and conditions</b></Link>
-                    </label>
-                </div> */}
+                <input onChange={handlePassword} className="input-signup"
+                    value={password} type="password" placeholder='Confirm Password' />
 
                 <div>
                     <label htmlFor="agree" className="label">
-                        <input type="checkbox" className="checkbox" id="agree" onChange={checkboxHandler} /><a className='pad'></a> I agree to
+                        <input type="checkbox" className="checkbox" id="agree" onChange={checkboxHandler} /><a className='pad'></a> I agree to the
                         <button type="button" className='terms-and-conditions' onClick={() => setButtonPopup(true)}><b>terms and conditions</b></button>
                     </label>
                 </div>
@@ -132,6 +126,8 @@ export default function SignupForm() {
                     type="submit">
                     Create Account
                 </button>
+
+                <div className='signup-question'>Already have an account? <Link to="/login" className='signup-link'>Log in</Link></div>
 
                 {/* Calling to the methods */}
                 <div className="messages">
