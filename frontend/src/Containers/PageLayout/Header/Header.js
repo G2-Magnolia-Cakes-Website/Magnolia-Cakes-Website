@@ -5,6 +5,15 @@ import "./Header.css";
 import SignedInGroup from "../../SignedInGroup/SignedInGroup";
 
 const Header = () => {
+
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem('access_token') !== null) {
+      setIsAuth(true);
+    }
+  }, [isAuth]);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const [headerStyle, setHeaderStyle] = useState("header");
@@ -22,14 +31,6 @@ const Header = () => {
 
     return () => window.removeEventListener("scroll", listenScrollEvent);
   }, []);
-
-  const [isAuth, setIsAuth] = useState(false);
-
-  useEffect(() => {
-    if (localStorage.getItem('access_token') !== null) {
-       setIsAuth(true); 
-     }
-   }, [isAuth]);
 
   return (
     <div className={headerStyle}>
