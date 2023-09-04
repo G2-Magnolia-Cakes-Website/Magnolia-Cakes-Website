@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 // import axios from "axios";
@@ -12,6 +13,8 @@ export default function LoginForm( { api } ) {
 
     // States for checking the errors
     const [error, setError] = useState(false);
+    const defaultErrorMessage = 'Login failed! Please enter a correct username and password. Note that both fields may be case-sensitive.';
+    const [errorMessagePrint, setErrorMessage] = useState(defaultErrorMessage);
 
     // Handling the email change
     const handleEmail = (e) => {
@@ -28,6 +31,7 @@ export default function LoginForm( { api } ) {
         e.preventDefault();
 
         if (email === '' || password === '') {
+            setErrorMessage(defaultErrorMessage);
             setError(true);
         } else {
             // Send API msg to backend
@@ -66,6 +70,7 @@ export default function LoginForm( { api } ) {
                     setPassword("");
                     setEmail("");
                     setError(false);
+                    setErrorMessage(defaultErrorMessage);
 
                     // Initialize the access & refresh token in localstorage.      
                     localStorage.clear();
@@ -76,11 +81,16 @@ export default function LoginForm( { api } ) {
                     navigate("/");
                     navigate(0);
                 } else {
+                    setErrorMessage(defaultErrorMessage);
                     setError(true);
                     console.log(res);
                 }
             } catch (err) {
                 console.log(err);
+                if(err.response.status == 401) {
+                    setErrorMessage(err.response.data['detail'])
+                    setError(true);
+                }
             }
         }
     };
@@ -93,7 +103,7 @@ export default function LoginForm( { api } ) {
                 style={{
                     display: error ? '' : 'none',
                 }}>
-                <div className='msgs'>Login failed! Please enter a correct username and password. Note that both fields may be case-sensitive.</div>
+                <div className='msgs'>{errorMessagePrint}</div>
             </div>
         );
     };
