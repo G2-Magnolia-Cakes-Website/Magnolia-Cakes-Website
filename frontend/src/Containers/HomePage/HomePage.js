@@ -10,9 +10,9 @@ const HomePage = () => {
     <>
       <CarouselGallery />
       {/* <SubheadingDivider subheadingText="Cakes for all occasions" /> */}
-      <DeliverySection />
       {/* <SubheadingDivider subheadingText="About Us" /> */}
       <AboutUsSection />
+      <DeliverySection />
       <LocationPage />
     </>
   );

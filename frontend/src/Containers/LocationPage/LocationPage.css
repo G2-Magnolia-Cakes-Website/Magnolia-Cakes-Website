@@ -52,6 +52,7 @@
 
   .location-page-wrapper .location-info {
     margin: 2rem;
+    padding: 0;
   }
 
   .location-page-wrapper .location-info h2 {

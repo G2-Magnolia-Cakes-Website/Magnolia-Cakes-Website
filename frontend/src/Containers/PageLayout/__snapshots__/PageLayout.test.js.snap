@@ -216,6 +216,21 @@ exports[`test PageLayout render PageLayout 1`] = `
     </div>
   </div>
   <div
+    className="scroll-to-top"
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+  >
+    <img
+      alt="Scroll To Top"
+      className="arrow-up"
+      onClick={[Function]}
+      src="fi-br-arrow-up.svg"
+    />
+  </div>
+  <div
     className="footer"
   >
     <div
