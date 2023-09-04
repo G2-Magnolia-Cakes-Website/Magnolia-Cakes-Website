@@ -1,10 +1,10 @@
 import React from "react";
-import tabs from "../../utils/tabs.json";
+import tabs from "utils/tabs.json";
 //hamburger menu animation from https://hamburger-react.netlify.app/
 import { Fade as Hamburger } from "hamburger-react";
+import NavbarTab from "./NavbarTab";
 
 import "./Navbar.css";
-import NavbarTab from "./NavbarTab";
 
 const Navbar = (props) => {
   const { isMenuOpen, setIsMenuOpen } = props;
@@ -25,11 +25,11 @@ const Navbar = (props) => {
 
   return (
     <nav>
-      <div className="menu">
+      <div className={!isMenuOpen ? "menu" : "menu open"}>
         <Hamburger
           toggled={isMenuOpen}
           toggle={setIsMenuOpen}
-          color={isMenuOpen ? "#000000" : "#efc7c7"}
+          color={isMenuOpen ? "#000000" : "#b76e79"}
         />
       </div>
       <ul className={isMenuOpen ? "open" : ""}>{renderTabs()}</ul>

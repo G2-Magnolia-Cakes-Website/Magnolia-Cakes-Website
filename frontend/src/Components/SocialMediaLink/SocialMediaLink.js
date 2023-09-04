@@ -1,7 +1,7 @@
 import React from "react";
-import socialMedias from "../../utils/socialMedias.json";
-import { SOCIALMEDIAS } from "../../utils/constants";
-import { Facebook, Instagram } from "../../utils/icons";
+import socialMedias from "utils/socialMedias.json";
+import { SOCIALMEDIAS } from "utils/constants";
+import { Facebook, Instagram } from "utils/icons";
 import "./SocialMediaLink.css";
 
 const SocialMediaLink = (props) => {
@@ -14,7 +14,7 @@ const SocialMediaLink = (props) => {
       case SOCIALMEDIAS.INSTAGRAM:
         return Instagram;
       default:
-        throw new Error("Invalid argument ", socialMedia);
+        throw new Error(`Invalid argument ${socialMedia}`);
     }
   };
 
