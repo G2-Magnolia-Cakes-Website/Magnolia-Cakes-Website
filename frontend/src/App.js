@@ -46,7 +46,11 @@ const App = () => {
               path="/terms-and-conditions"
               element={<TermsAndConditionsPage api={api} />}
             />
-            <Route key="/signup" path="/signup" element={<SignupPage />} />
+            <Route 
+              key="/signup" 
+              path="/signup" 
+              element={<SignupPage />} 
+            />
           {routeAllPagesComingSoon()}
           </Routes>
 
