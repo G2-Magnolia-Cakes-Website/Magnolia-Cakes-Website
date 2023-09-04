@@ -11,19 +11,16 @@ export default function LoginForm( { api } ) {
     const [password, setPassword] = useState('');
 
     // States for checking the errors
-    const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState(false);
 
     // Handling the email change
     const handleEmail = (e) => {
         setEmail(e.target.value);
-        setSubmitted(false);
     };
 
     // Handling the password change
     const handlePassword = (e) => {
         setPassword(e.target.value);
-        setSubmitted(false);
     };
 
     // Handling the form submission
@@ -68,7 +65,6 @@ export default function LoginForm( { api } ) {
                 if (res.status === 200) {
                     setPassword("");
                     setEmail("");
-                    setSubmitted(true);
                     setError(false);
 
                     // Initialize the access & refresh token in localstorage.      

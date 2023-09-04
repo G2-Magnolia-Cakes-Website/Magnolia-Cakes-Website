@@ -1,31 +1,30 @@
+/* Prioritised Mobile View */
 
 .loginPage {
-    height: fit-content;
-    background-color: white;
+    min-height: 80vh;
 }
 
 .white-background {
     background-color: white;
 }
 
-.login-image {
-}
+.login-image {}
 
 .login-form {
     width: 100%;
 }
 
-.logo-div {
-}
+.logo-div {}
 
 .logo {
-  width: 20%;
-  object-fit: contain;
-  display: block;
-  width: 50px;
-  height: auto;
-  min-width: 150px;
-  object-fit: contain;
+    margin-top: 50px;
+    width: 20%;
+    object-fit: contain;
+    display: block;
+    width: 50px;
+    height: auto;
+    min-width: 150px;
+    object-fit: contain;
 }
 
 .login-header {
@@ -35,7 +34,7 @@
     font-weight: 600;
     font-size: xx-large;
 }
-    
+
 .input-login {
     display: flex;
     flex-direction: row;
@@ -51,10 +50,10 @@
 .input-login::placeholder {
     color: black;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    text-align:left;
+    text-align: left;
     transform: translateY(10px);
 }
-    
+
 .submit-btn {
     margin-top: 50px;
     padding: 5px 32px;
@@ -66,7 +65,7 @@
     color: white;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
     background: linear-gradient(to right, #ede5e3 0%, #efc7c7 70%);
-    background-color:  #efc7c7;
+    background-color: #efc7c7;
     background-size: 200% 100%;
     background-position: right bottom;
     transition: all 0.5s ease-out;
@@ -104,7 +103,7 @@
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-    
+
     .loginPage {
         margin: 40px;
     }
@@ -114,7 +113,7 @@
         width: 100%;
         height: fit-content;
     }
-    
+
     .login-form {
         flex-direction: row;
         width: 100%;
@@ -132,7 +131,7 @@
 
 /* Larger screens */
 @media only screen and (min-width: 600px) {
-    
+
     .loginPage {
         margin: 40px;
     }
@@ -142,7 +141,7 @@
         width: 100%;
         height: fit-content;
     }
-    
+
     .login-form {
         flex-direction: row;
         width: 100%;
@@ -171,42 +170,33 @@
 }
 
 @media only screen and (min-width: 769px) {
-    
+
     .login-form {
         margin-left: 40px;
     }
 }
 
-@media only screen and (min-width: 1200px) {
-    
+@media only screen and (min-width: 1400px) {
+
     .loginPage {
         margin: 0px;
     }
-    
-    .login-form {
-        margin: 0px;
-    }
-    
+
     .login-image {
         float: left;
         width: 40%;
-        max-width: fit-content;
-        height: 100%;
+        min-height: 100%;
+        /* min-height: fit-content; */
         display: flex;
         justify-content: center;
     }
-    
-    .login-form {
-        padding: 100px;
-        float: right;
-        width: 60%;
-        height: 100%;
-    }
-}
 
-@media only screen and (min-width: 1700px) {
-    
-    .login-image {
-        max-width: none;
+    .login-form {
+        /* margin: 0px; */
+        margin-left: 5%;
+        /* margin-top: 5%; */
+        float: right;
+        width: 55%;
+        /* height: 95%; */
     }
 }
