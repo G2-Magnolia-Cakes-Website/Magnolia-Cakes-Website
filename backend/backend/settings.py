@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "MagnoliaCakesAndCupcakes",
     "corsheaders",
     "rest_framework",
+    "gdstorage",
 ]
 
 MIDDLEWARE = [
@@ -118,6 +119,15 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+
+#
+# Google Drive Storage Settings
+#
+
+GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = (
+    BASE_DIR / "backend" / "magnolia-cake-test-89ac41a38d24.json"
+)
+GOOGLE_DRIVE_STORAGE_MEDIA_ROOT = "/gallery/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

@@ -1,4 +1,8 @@
 from django.db import models
+from gdstorage.storage import GoogleDriveStorage
+
+# Define Google Drive Storage
+gd_storage = GoogleDriveStorage()
 
 
 class MagnoliaCakesAndCupcakes(models.Model):
@@ -16,4 +20,6 @@ class TermsAndConditions(models.Model):
 
 
 class Gallery(models.Model):
-    gallery_image = models.ImageField(null=False, blank=False, upload_to="images/")
+    gallery_image = models.ImageField(
+        null=False, blank=False, upload_to="images/", storage=gd_storage
+    )

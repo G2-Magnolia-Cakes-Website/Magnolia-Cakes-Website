@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "magnolia-cake-test",
+  "private_key_id": "89ac41a38d2450492c9a7f7fb23df1ab1b2b7ce8",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCkY/uoWNui7O2m\n7tl0/JEG4Otua5EvIpsP2S3OfLh1uLy9huEGl7ggFaQ0YYTLQnUCKDNrxP5tkOcS\nlNBVQ4kBdo1lmAYsjz+B41C5DY7+jmNP7XqzQ8Tq4QfEpzscO9m3/AkFAvZgjC3T\nU4/CUmzZnxacIkyPbvWJWtF9IkWOe1a0VtrayGzBqIH17eqh66OXJ9w3qjjvtiGX\nfFO7r7eVT726QcTLdV534WEj1PknAHtH+OWegbfrzQobgrb+6Ly5ntQRdWDt/n0U\nmfS3cVmaf7Fn8W8UjyaS0/lfOYdEbJCSfXVPLFfHsMj5/sa4+vQxw+L5hiwgXCq1\n79Cjs7EbAgMBAAECggEAS0RmCJ3qrk3JwBlzIk+zvVEFKpEAr/KpyZdYFEdhk7Dq\nZeKYLFMSIEqYXM1bpk7+0OaEKK9RCOyECCtvueJKnAtiUSZKiWNrIfbo0lnFY4Lh\nMMrcV7DLO/mde2pQM6ypkkZJAOzqzqjQIIaNd10S7o8bJJDFuhSFQob9DMzAySuu\nPHiROQdvxdOAot4hQipZsp9LPChi3+FWJZg9jSQBo80EJCyC3KImz9bic/sfoCIc\ngM/JFpAjFJQUBfcicVgxuRWZfiTxso4uK/ieqaikK7ru3cHXHeb43l0YFyMUJJaF\nc5X6bP10Zf4r2Dyw5fiU7mzeV3qJS4rcthyUgGUa0QKBgQDeh9SNu+LX54PdylKn\nXnBeWNmEHMWwy17/KexHxTEJkND76xdPW52vaqnPkOV7IoXzcvKWJtBsOrAIAJ2Z\n/naedpr4OQS4X4YFMAmH9JXUZnJAVbj95SDIk7Sfselke8e9hyRr+gIovAmDLak5\n/dox74jjLyVcCVKUEyUcfQcf0QKBgQC9HZFZYS5J2GeVevBBr+Cbzu6MsqMNaPYp\nP953hkrjEWbmNiKjqvLSqph/ImIcofarywGX5rGcMFeM50Yc37sKXkU58hcsS6LO\n4xghOJSzsUbZZq0YHVBSPMEVAU7uOEkTk1gzRPtIaymsa4BjsXHk4jkdn0c1ILCC\nT1NoMPMJKwKBgQCg4qdkCZEJ89I8yghUBU1MiQRKJdsv5Pk7lf3ELec0OUU+vUtP\nDrfEmWNINEQVcHJT/qkwscNCXHPkdT18lqMAElQcXmzxN+7XVVGuv8CLnb3Akbl7\npuq62T9fretFwNA6ULiecFSbSse91Ydh7AySydG4Ht/t2LehYu4T2LkL4QKBgACV\nOL93xza/DgKt8FOjgSO5zY5tdocyDaAu7DaeGVj90r1e6VhrzHfNws6Rgo/oB+Sb\nqZOYSG/czkhG5jZskh0EEV6OWnfue7/7fzWLARpUr403/cyXOoomWcoAyQd+8Oq4\nh4sQ6V1dxzEa27hy8ZDtCZQHy6ZkRWcBa5ZkoDslAoGAVt3XYbBy+mQ87/HAZIaB\n8XlD9CBK8ls0BYBqJ8cRkEZFoLjL9AbrAqj/u4HiOAS3otnoGPPnRF2lJk+bR40X\n+oG2T0CAIn/J0DAGydKEq/W6upYySk3Sk0D6AQNCIXuyswggE4+QTWB4Z9BvKZyO\naQBVVavTQ086LpijL5besQs=\n-----END PRIVATE KEY-----\n",
+  "client_email": "magnoliacakes@magnolia-cake-test.iam.gserviceaccount.com",
+  "client_id": "116098806291952732405",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/magnoliacakes%40magnolia-cake-test.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
