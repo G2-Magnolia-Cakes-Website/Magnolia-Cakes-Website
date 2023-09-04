@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from "react-router-dom";
-import Popup from './Popup';
+import Popup from './TCPopup';
 import React from 'react';
 
 export default function SignupForm({ api }) {
@@ -119,7 +119,7 @@ export default function SignupForm({ api }) {
                     </label>
                 </div>
 
-                <Popup trigger={buttonPopup} setTrigger={setButtonPopup} position="right center">
+                <Popup trigger={buttonPopup} setTrigger={setButtonPopup} api={api} position="right center">
                 </Popup>
 
                 <button onClick={handleSubmit} disabled={!agree} className="submit-btn"
