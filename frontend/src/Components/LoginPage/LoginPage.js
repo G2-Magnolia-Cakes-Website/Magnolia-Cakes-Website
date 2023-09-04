@@ -16,13 +16,15 @@ function LoginPage({ api }) {
         <div className='white-background'>
             <div className="loginPage">
                 <div className='login-form'>
-                    <div className='logo-div'>
-                        {logo}
+                    <div className='centre-form'>
+                        <div className='logo-div'>
+                            {logo}
+                        </div>
+                        <div>
+                            <h1 className='login-header'>Log In</h1>
+                        </div>
+                        <Form api={api} />
                     </div>
-                    <div>
-                        <h1 className='login-header'>Log In</h1>
-                    </div>
-                    <Form api={api} />
                 </div>
                 {image}
             </div>
