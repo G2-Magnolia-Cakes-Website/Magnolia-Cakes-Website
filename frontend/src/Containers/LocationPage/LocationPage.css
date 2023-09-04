@@ -17,9 +17,10 @@
 .location-page-wrapper .location-info h2 {
   font-size: 64px;
   /* font-family: "Pacifico", cursive; */
-  font-family: "Dancing Script", cursive;
-  color: #daa41a;
-  /* color: black; */
+  /* font-family: "Dancing Script", cursive; */
+  font-family: "Satisfy", cursive;
+  /* color: #daa41a; */
+  color: black;
 }
 
 .location-page-wrapper .location-info p {
