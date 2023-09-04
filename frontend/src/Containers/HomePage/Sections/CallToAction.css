@@ -1,0 +1,123 @@
+.call-to-action-inslide {
+  position: absolute;
+  top: 50%;
+  z-index: 9;
+  left: 10%;
+  transform: translateY(-50%);
+}
+
+.call-to-action-inslide .call-to-action-contents {
+  color: #b76e79;
+  color: black;
+
+  isolation: isolate;
+  padding: 2rem;
+  padding-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  margin: 3rem;
+  gap: 1rem;
+}
+
+.call-to-action-inslide .call-to-action-contents h2 {
+  font-size: 80px;
+
+  /* Font from Google Fonts https://fonts.google.com/specimen/Dancing+Script?preview.text=Cakes%20Collection&preview.text_type=custom&category=Handwriting,Monospace */
+  font-family: "Dancing Script", cursive;
+  color: #b76e79;
+}
+
+.call-to-action-inslide .call-to-action-contents .logo {
+  width: 130px;
+  object-fit: contain;
+  position: relative;
+  bottom: 10px;
+}
+
+.call-to-action-inslide .call-to-action-contents p {
+  text-align: left;
+  font-size: 24px;
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+  color: black;
+}
+
+.call-to-action-inslide .call-to-action-contents .mobile-button {
+  display: none;
+}
+
+@media (max-width: 1440px) and (min-width: 768px) {
+  .call-to-action-inslide .call-to-action-contents p {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .call-to-action-inslide {
+    width: 100%;
+    position: absolute;
+    z-index: 9;
+    justify-content: center;
+    align-items: center;
+    left: 0%;
+    pointer-events: none;
+  }
+
+  .call-to-action-inslide .call-to-action-contents {
+    z-index: 999;
+    width: 100%;
+    margin: 0;
+
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .call-to-action-inslide .call-to-action-contents .logo {
+    width: 70px;
+    object-fit: contain;
+    position: relative;
+    bottom: 7px;
+  }
+
+  .call-to-action-inslide .call-to-action-contents h2 {
+    font-size: 60px;
+    text-align: center;
+  }
+
+  .call-to-action-inslide .call-to-action-contents p {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 18px;
+  }
+
+  .call-to-action-inslide .call-to-action-contents button {
+    text-align: center;
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .call-to-action-inslide .call-to-action-contents {
+    gap: 0.5rem;
+  }
+
+  .call-to-action-inslide .call-to-action-contents h2 {
+    font-size: 40px;
+    text-align: center;
+  }
+
+  .call-to-action-inslide .call-to-action-contents p {
+    font-size: 16px;
+    margin-bottom: 0;
+  }
+
+  .call-to-action-inslide .call-to-action-contents .regular-button {
+    display: none;
+  }
+
+  .call-to-action-inslide .call-to-action-contents .mobile-button {
+    display: block;
+  }
+}

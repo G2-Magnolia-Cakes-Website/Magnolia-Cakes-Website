@@ -1,0 +1,122 @@
+.about-us-section {
+  background-image: url("../../../utils/cover/about-us-portrait-bg.png");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  color: #fff;
+  min-height: 511px;
+  aspect-ratio: 1280 / 511;
+
+  margin: 0;
+
+  display: block;
+  align-items: center;
+  justify-content: center;
+  object-fit: cover;
+}
+
+.about-us-section .about-us-portrait {
+  display: block;
+  width: 40%;
+  height: auto;
+  min-width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-us-section .about-us-text {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-us-section .about-us-text > * {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.about-us-section .about-us-text h2 {
+  font-size: 80px;
+  /* font-family: "Pacifico", cursive; */
+  font-family: "Dancing Script", cursive;
+}
+
+.about-us-section .about-us-text p {
+  font-size: 25px;
+  width: 70%;
+  text-align: center;
+}
+
+.about-us-section .about-us-portrait {
+  display: none;
+}
+
+@media (max-width: 1440px) and (min-width: 768px) {
+  .about-us-section .about-us-text h2 {
+    font-size: 50px;
+  }
+
+  .about-us-section .about-us-text p {
+    font-size: 18px;
+    width: 60%;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  .about-us-section .about-us-text > * {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .about-us-section .about-us-text h2 {
+    font-size: 45px;
+  }
+
+  .about-us-section .about-us-text p {
+    font-size: 16px;
+    width: 60%;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-us-section {
+    background-image: none;
+    padding: 0;
+    aspect-ratio: auto;
+    margin-top: 2.5rem;
+    width: 100%;
+  }
+
+  .about-us-section .about-us-portrait {
+    display: block;
+    width: 80%;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+
+  .about-us-section .about-us-text {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .about-us-section .about-us-text h2 {
+    text-align: center;
+    font-size: 50px;
+    color: #daa41a;
+  }
+
+  .about-us-section .about-us-text p {
+    font-size: 16px;
+    width: 100%;
+    color: black;
+  }
+}

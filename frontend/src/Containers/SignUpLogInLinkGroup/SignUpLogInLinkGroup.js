@@ -1,6 +1,6 @@
 import React from "react";
-import SignUpLink from "../../Components/SignUpLink/SignUpLink";
-import LogInLink from "../../Components/LogInLink/LogInLink";
+import SignUpLink from "Components/SignUpLink/SignUpLink";
+import LogInLink from "Components/LogInLink/LogInLink";
 import "./SignUpLogInLinkGroup.css";
 
 const SignUpLogInLinkGroup = () => {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { PAGELINKS } from "../../utils/constants";
+import { PAGELINKS } from "utils/constants";
 import "./SignUpLink.css";
 
 const SignUpLink = () => {

@@ -1,12 +1,12 @@
 .active {
-  text-decoration: underline;
+  color: #b76e79;
 }
 
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   color: white;
 }
 
@@ -26,11 +26,12 @@ nav ul li a {
   color: #000000;
   padding: 1rem;
   margin: 0 2rem;
+  transition: 0.3s;
+  font-family: "ABeeZee", sans-serif;
 }
 
 nav ul li a:not(.active):hover {
-  color: #efc7c7;
-  text-decoration: underline;
+  color: #b76e79;
 }
 
 nav .menu {
@@ -40,19 +41,66 @@ nav .menu {
   right: 0.5rem;
 }
 
-@media (max-width: 480px) {
-  nav .menu {
-    display: flex;
-    flex-direction: row-reverse;
+nav ul.tabs-short {
+  display: none;
+}
+
+@media (max-width: 1900px) and (min-width: 480px) {
+  nav ul li {
+    font-size: 16px;
   }
 
+  nav ul li a {
+    padding: 1rem;
+    margin: 0 1rem;
+  }
+}
+
+@media (max-width: 1530px) and (min-width: 480px) {
+  nav ul li {
+    font-size: 16px;
+  }
+
+  nav ul li a {
+    padding: 1rem;
+    margin: 0;
+  }
+}
+
+@media (max-width: 1200px) and (min-width: 480px) {
+  nav ul li {
+    font-size: 16px;
+  }
+
+  nav ul li a {
+    padding: 0.5rem;
+    margin: 0;
+  }
+}
+
+@media (max-width: 835px) and (min-width: 480px) {
+  nav ul li {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
   nav {
     flex-direction: column;
     align-items: flex-start;
   }
 
+  nav .menu {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  nav .menu.open {
+    margin-top: 1rem;
+  }
+
   nav ul {
-    background-color: #efc7c7;
+    background-color: transparent;
     display: none;
     flex-direction: column;
     width: 100%;
@@ -61,6 +109,7 @@ nav .menu {
 
   nav ul.open {
     display: flex;
+    margin-top: 1rem;
   }
 
   nav ul li {

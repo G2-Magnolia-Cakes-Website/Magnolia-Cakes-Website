@@ -1,15 +1,15 @@
 [
   {
+    "tabName": "Home",
+    "tabLink": "/"
+  },
+  {
     "tabName": "Gallery",
     "tabLink": "/gallery"
   },
   {
     "tabName": "Online Store",
     "tabLink": "/online-store"
-  },
-  {
-    "tabName": "Location",
-    "tabLink": "/location"
   },
   {
     "tabName": "Workshop",
@@ -24,11 +24,15 @@
     "tabLink": "/contact-us"
   },
   {
+    "tabName": "FAQ",
+    "tabLink": "/faq"
+  },
+  {
     "tabName": "Get a Quote",
     "tabLink": "/get-a-quote"
   },
   {
-    "tabName": "Cake Flavours",
-    "tabLink": "/cake-flavours"
+    "tabName": "Flavours & Servings",
+    "tabLink": "/cake-flavours-and-servings"
   }
 ]

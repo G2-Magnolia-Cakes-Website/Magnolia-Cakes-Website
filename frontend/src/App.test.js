@@ -1,19 +1,25 @@
 // import { render, screen } from "@testing-library/react";
 import renderer from "react-test-renderer";
 import App from "./App";
-import { BrowserRouter } from "react-router-dom";
 
-test("renders learn react link", () => {
-  // render(<App />);
-  // const linkElement = screen.getByText(/learn react/i);
-  // expect(linkElement).toBeInTheDocument();
+jest.mock("swiper/react", () => ({
+  Swiper: ({ children }) => children,
+  SwiperSlide: ({ children }) => children,
+}));
 
-  const wrapper = renderer
-    .create(
-      // <BrowserRouter>
-      <App />
-      // </BrowserRouter>
-    )
-    .toJSON();
-  expect(wrapper).toMatchSnapshot();
+jest.mock("swiper/modules", () => ({
+  Autoplay: (props) => null,
+  EffectFade: (props) => null,
+  Navigation: (props) => null,
+  Pagination: (props) => null,
+  Keyboard: (props) => null,
+}));
+
+jest.mock("swiper/css", () => jest.fn());
+
+describe("test App", () => {
+  test("renders App", () => {
+    const wrapper = renderer.create(<App />).toJSON();
+    expect(wrapper).toMatchSnapshot();
+  });
 });

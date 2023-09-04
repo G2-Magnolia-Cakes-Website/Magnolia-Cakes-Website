@@ -1,5 +1,42 @@
-div .layout {
-    width: 100%;
+.layout {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+}
+
+.layout .business-name-wrapper {
+  padding: 1rem 3rem 1rem 3rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.layout .business-name-wrapper .logo {
+  width: 100px;
+  object-fit: contain;
+}
+
+.layout .business-name-wrapper h1.business-name {
+  font-family: "Satisfy", cursive;
+  font-size: 45px;
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .layout .business-name-wrapper {
+    padding: 0.5rem 1rem 0.5rem 1rem;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .layout .business-name-wrapper .logo {
+    width: 70px;
+  }
+
+  .layout .business-name-wrapper h1.business-name {
+    font-size: 24px;
+  }
 }

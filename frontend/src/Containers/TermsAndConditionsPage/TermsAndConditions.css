@@ -1,0 +1,38 @@
+/* Set the height of the main container to full viewport height */
+.container {
+    min-height: 75vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; 
+    padding-top: 20px; 
+    padding-bottom: 20px; 
+}
+  
+  /* Style the white box around the content */
+  .content-box {
+    padding: 40px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    color: #000;
+
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .title-box{
+    color: #FFF;
+    align-items: center;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 5px;
+  }
+  

@@ -1,0 +1,13 @@
+.slide-wrapper {
+  display: flex;
+  width: 100%;
+  max-height: 228px;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 480px) {
+  .slide-wrapper {
+    height: 228px;
+  }
+}
