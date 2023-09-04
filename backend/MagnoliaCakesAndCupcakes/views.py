@@ -60,7 +60,7 @@ def activateEmail(request, user, to_email):
         'token': account_activation_token.make_token(user),
         'protocol': 'https' if request.is_secure() else 'http'
     })
-    email = EmailMessage(mail_subject, message, "omeryalavac@outlook.com", to=[to_email])
+    email = EmailMessage(mail_subject, message, "noreply.magnoliacakes@gmail.com", to=[to_email])
     if email.send():
         return Response({'message': 'Please click the verification link for your account through your email'}, status=status.HTTP_201_CREATED)
     else:
