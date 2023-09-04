@@ -2,6 +2,7 @@ import './Login.css';
 import Form from "./LoginForm"
 import magnoliaCakeLogo from "../../utils/Magnolia_Cake_logo.png";
 import birthdayCake from "../../utils/carousel-wedding-ann.jpg"
+import React from 'react';
 
 function LoginPage({ api }) {
     const logo = (
