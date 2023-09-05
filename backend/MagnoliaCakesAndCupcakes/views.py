@@ -122,4 +122,15 @@ def cakes_list(request):
     if request.method == 'GET':
         cakes = Cake.objects.all()
         serializer = CakeSerializer(cakes, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        # Create a list to store the updated cake data with image URLs
+        cakes_with_image_urls = []
+
+        for cake_data in serializer.data:
+            cake = Cake.objects.get(id=cake_data['id'])
+            # Add the image URL to the cake data
+            cake_data['image'] = cake.picture.url
+            cakes_with_image_urls.append(cake_data)
+
+        return Response(cakes_with_image_urls, status=status.HTTP_200_OK)
+

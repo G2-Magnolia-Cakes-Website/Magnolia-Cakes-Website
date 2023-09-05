@@ -6,6 +6,7 @@ import ComingSoonPage from "./Components/ComingSoonPage/ComingSoonPage";
 import HomePage from "./Containers/HomePage/HomePage";
 import LocationPage from "./Containers/LocationPage/LocationPage";
 import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAndConditionsPage";
+import OnlineStorePage from "./Containers/OnlineStorePage/OnlineStorePage";
 import axios from "axios";
 import "./App.css";
 
@@ -39,6 +40,11 @@ const App = () => {
               key="/location"
               path="/location"
               element={<LocationPage />}
+            />
+            <Route
+              key="/online-store"
+              path="/online-store"
+              element={<OnlineStorePage api={api}/>}
             />
             <Route
               key="/terms-and-conditions"
