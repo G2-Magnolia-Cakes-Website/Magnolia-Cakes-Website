@@ -10,14 +10,14 @@
   border-radius: 3px;
   text-align: center;
   transition: 0.5s;
-  font-family: 'ABeeZee', sans-serif;
+  font-family: "ABeeZee", sans-serif;
 }
 
 /* Use media query to avoid hover styling when clicked on mobile devices */
 @media (hover: hover) {
   .login:hover {
-    background-color: #c09999;
-    border-color: #c09999;
+    background-color: #834b54;
+    border-color: #834b54;
   }
 }
 

@@ -8,8 +8,7 @@
 }
 
 .signup:not(.active):hover {
-  color: #efc7c7;
-  text-decoration: underline;
+  color: #b76e79;
 }
 
 @media (max-width: 1440px) and (min-width: 480px) {
