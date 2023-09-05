@@ -39,15 +39,12 @@ class MagnoliaCakesAndCupcakesView(viewsets.ModelViewSet):
 @api_view(['POST'])
 def register(request):
     if request.method == 'POST':
-        print("11111111111: ", request)
-        print("22222222222: ", request.data)
         form = NewUserForm(request.data)
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
             user.save()
-            activateEmail(request, user, form.cleaned_data.get('email'))
-            return Response({'message': 'User registered successfully. Please complete verification by clicking the link sent to your email.'}, status=status.HTTP_201_CREATED)
+            return activateEmail(request, user, form.cleaned_data.get('email'))
         return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -60,11 +57,12 @@ def activateEmail(request, user, to_email):
         'token': account_activation_token.make_token(user),
         'protocol': 'https' if request.is_secure() else 'http'
     })
-    email = EmailMessage(mail_subject, message, "noreply.magnoliacakes@gmail.com", to=[to_email])
+    email = EmailMessage(mail_subject, message, to=[to_email])
     if email.send():
-        return Response({'message': 'Please click the verification link for your account through your email'}, status=status.HTTP_201_CREATED)
+        return Response({'message': 'User registered successfully. Please complete verification by clicking the link sent to your email.'}, status=status.HTTP_201_CREATED)
     else:
         return Response({'message': 'Problem sending confirmation email'}, status=status.HTTP_400_BAD_REQUEST)
+    
 
 def activate(request, uidb64, token):
     try:

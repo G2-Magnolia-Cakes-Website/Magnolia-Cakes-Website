@@ -123,9 +123,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Emailing settings
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = 'noreply.magnoliacakes@gmail.com'
+SERVER_EMAIL = 'noreply.magnoliacakes@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_FROM = 'noreply.magnoliacakes@gmail.com'
 EMAIL_HOST_USER = 'noreply.magnoliacakes@gmail.com'
 EMAIL_HOST_PASSWORD = 'vhyypdlykyimfkqm'
 EMAIL_PORT = 587

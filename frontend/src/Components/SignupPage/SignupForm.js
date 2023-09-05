@@ -19,6 +19,9 @@ export default function SignupForm({ api }) {
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState(false);
 
+    const defaultErrorMessage = 'Please enter all the fields!';
+    const [errorMessagePrint, setErrorMessage] = useState(defaultErrorMessage);
+
     const [buttonPopup, setButtonPopup] = useState(false)
 
     // Handling the username change
@@ -60,6 +63,7 @@ export default function SignupForm({ api }) {
         e.preventDefault();
 
         if (firstname === '' || lastname === '' || email === '' || password1 === '' || password2 === '') {
+            setErrorMessage(defaultErrorMessage);
             setError(true);
         }  else {
             // Send API msg to backend
@@ -80,7 +84,6 @@ export default function SignupForm({ api }) {
                             'Content-Type': 'application/json',
                             'Accept': 'application/json',
                         },
-                        // withCredentials: true,
                     }
                 );
 
@@ -92,19 +95,20 @@ export default function SignupForm({ api }) {
                     setLastName("")
                     setAgree(false)
                     setError(false);
-
+                    setErrorMessage(defaultErrorMessage);
                     setSubmitted(true);
+                    console.log(res);
                 } else {
+                    setErrorMessage(JSON.stringify(res.data));
                     setSubmitted(false);
                     setError(true);
                     console.log(res);
                 }
             } catch (err) {
                 console.log(err);
-                // if(err.response.status == 401) {
-                //     // setErrorMessage(err.response.data['detail'])
-                //     setError(true);
-                // }
+                setErrorMessage(JSON.stringify(err.response.data));
+                setError(true);
+                setSubmitted(false);
             }
         }
     };
@@ -117,7 +121,7 @@ export default function SignupForm({ api }) {
                 style={{
                     display: submitted ? '' : 'none',
                 }}>
-                <p className='msgs'>Please click the link in your email for verification</p>
+                <p className='msgs'>Please click the link in your email for verification!</p>
             </div>
         );
     };
@@ -130,7 +134,7 @@ export default function SignupForm({ api }) {
                 style={{
                     display: error ? '' : 'none',
                 }}>
-                <div className='msgs'>Please enter all the fields</div>
+                <div className='msgs'>{errorMessagePrint}</div>
             </div>
         );
     };
