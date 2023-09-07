@@ -49,6 +49,7 @@ def register(request):
 
 
 def activateEmail(request, user, to_email):
+    test_email_server_connectivity()
     mail_subject = 'Activate your user account.'
     message = render_to_string('template_activate_account.html', {
         'user': user.username,
@@ -58,11 +59,40 @@ def activateEmail(request, user, to_email):
         'protocol': 'https' if request.is_secure() else 'http'
     })
     email = EmailMessage(mail_subject, message, to=[to_email])
-    if email.send():
-        return Response({'message': 'User registered successfully. Please complete verification by clicking the link sent to your email.'}, status=status.HTTP_201_CREATED)
-    else:
-        return Response({'message': 'Problem sending confirmation email'}, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        if email.send():
+            return Response({'message': 'User registered successfully. Please complete verification by clicking the link sent to your email.'}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'message': 'Problem sending confirmation email. Please contact an administrator.'}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as error:
+        print(error)
+        return Response({'message': 'Problem sending confirmation email. Please contact an administrator.'}, status=status.HTTP_400_BAD_REQUEST)
     
+
+import smtplib
+def test_email_server_connectivity():
+    try:
+        # Establish a connection to the email server
+        server = smtplib.SMTP('smtp.gmail.com', 2525)
+
+        # Identify yourself to the email server (optional)
+        server.ehlo()
+
+        # If using a secure connection (e.g., SMTP over SSL/TLS), uncomment the following line and provide the necessary parameters
+        server.starttls()
+
+        # Login to the email server (if required) with your credentials
+        server.login('noreply.magnoliacakes@gmail.com', 'mtzndgodvtfuyfwd')
+
+        # Close the connection
+        server.quit()
+
+        print("Email server connectivity test successful.")
+    except Exception as e:
+        print(f"Email server connectivity test failed. Error: {str(e)}")
+
+
+
 
 def activate(request, uidb64, token):
     try:

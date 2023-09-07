@@ -99,14 +99,42 @@ export default function SignupForm({ api }) {
                     setSubmitted(true);
                     console.log(res);
                 } else {
-                    setErrorMessage(JSON.stringify(res.data));
+                    if (res.data["password1"]) {
+                        setErrorMessage(res.data["password1"]);
+                    } else if (res.data["password2"]) {
+                        setErrorMessage(res.data["password2"]);
+                    } else if (res.data["username"]) {
+                        setErrorMessage(res.data["username"]);
+                    } else if (res.data["first_name"]) {
+                        setErrorMessage(res.data["first_name"]);
+                    } else if (res.data["last_name"]) {
+                        setErrorMessage(res.data["last_name"]);
+                    } else if (res.data["message"]) {
+                        setErrorMessage(res.data["message"]);
+                    } else { 
+                        setErrorMessage("Error: Something went wrong!");
+                    }
                     setSubmitted(false);
                     setError(true);
                     console.log(res);
                 }
             } catch (err) {
                 console.log(err);
-                setErrorMessage(JSON.stringify(err.response.data));
+                if (err.response.data["password1"]) {
+                    setErrorMessage(err.response.data["password1"]);
+                } else if (err.response.data["password2"]) {
+                    setErrorMessage(err.response.data["password2"]);
+                } else if (err.response.data["username"]) {
+                    setErrorMessage(err.response.data["username"]);
+                } else if (err.response.data["first_name"]) {
+                    setErrorMessage(err.response.data["first_name"]);
+                } else if (err.response.data["last_name"]) {
+                    setErrorMessage(err.response.data["last_name"]);
+                } else if (err.response.data["message"]) {
+                    setErrorMessage(err.response.data["message"]);
+                } else { 
+                    setErrorMessage("Error: Something went wrong!");
+                }
                 setError(true);
                 setSubmitted(false);
             }
@@ -121,7 +149,7 @@ export default function SignupForm({ api }) {
                 style={{
                     display: submitted ? '' : 'none',
                 }}>
-                <p className='msgs'>Please click the link in your email for verification!</p>
+                <p className='msgs'>You have successfully registered, {firstname} {lastname}. Please click the link in your email, {email}, for verification!</p>
             </div>
         );
     };
