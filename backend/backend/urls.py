@@ -6,6 +6,12 @@ from django.urls import path, include
 # import views from todo
 from MagnoliaCakesAndCupcakes import views
 
+# JWT token creation
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 # import routers from the REST framework
 # it is necessary for routing
 from rest_framework import routers
@@ -28,4 +34,9 @@ urlpatterns = [
     path('activate/<uidb64>/<token>', views.activate, name='activate'),
 	path('api/terms-and-conditions/', views.terms_and_conditions, name='terms-and-conditions'),
 	path('api/login/', views.login, name='api-login'),
+    path('api/logout/', views.LogoutView.as_view(), name ='logout'),
+    
+    # JWT token creation
+	path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

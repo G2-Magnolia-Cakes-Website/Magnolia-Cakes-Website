@@ -11,9 +11,14 @@ from .serializers import *
 from .models import *
 
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from .forms import NewUserForm
+
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import AllowAny
 
 # Email AUTH
 from django.template.loader import render_to_string
@@ -37,20 +42,19 @@ class MagnoliaCakesAndCupcakesView(viewsets.ModelViewSet):
 	queryset = MagnoliaCakesAndCupcakes.objects.all()
 
 @api_view(['POST'])
+@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
 def register(request):
     if request.method == 'POST':
-        print("11111111111: ", request)
-        print("22222222222: ", request.data)
         form = NewUserForm(request.data)
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
             user.save()
-            activateEmail(request, user, form.cleaned_data.get('email'))
-            return Response({'message': 'User registered successfully. Please complete verification by clicking the link sent to your email.'}, status=status.HTTP_201_CREATED)
+            return activateEmail(request, user, form.cleaned_data.get('email'))
         return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
 def activateEmail(request, user, to_email):
     mail_subject = 'Activate your user account.'
     message = render_to_string('template_activate_account.html', {
@@ -60,12 +64,14 @@ def activateEmail(request, user, to_email):
         'token': account_activation_token.make_token(user),
         'protocol': 'https' if request.is_secure() else 'http'
     })
-    email = EmailMessage(mail_subject, message, "omeryalavac@outlook.com", to=[to_email])
+    email = EmailMessage(mail_subject, message, "noreply.magnoliacakes@gmail.com", to=[to_email])
     if email.send():
-        return Response({'message': 'Please click the verification link for your account through your email'}, status=status.HTTP_201_CREATED)
+        return Response({'message': 'User registered successfully. Please complete verification by clicking the link sent to your email.'}, status=status.HTTP_201_CREATED)
     else:
         return Response({'message': 'Problem sending confirmation email'}, status=status.HTTP_400_BAD_REQUEST)
 
+
+@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
 def activate(request, uidb64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
@@ -85,9 +91,11 @@ def activate(request, uidb64, token):
 
 
 @api_view(['POST'])
+@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
 def login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request._request, data=request.data)
+        print("form ", form.error_messages)
         
         if form.is_valid():
             username = request.data.get('username') 
@@ -98,11 +106,26 @@ def login(request):
                 django_login(request._request, user)  # Use django_login instead of login
                 return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
             else:
-                return Response({'message': 'Login failed'}, status=status.HTTP_401_UNAUTHORIZED)
+                return Response({'message': 'Login failed', 'error_messages': 'user does not exist'}, status=status.HTTP_401_UNAUTHORIZED)
         else:
-            return Response({'message': 'Login failed'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'Login failed', 'error_messages': form.error_messages}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LogoutView(APIView):
+     permission_classes = (IsAuthenticated,)
+
+     def post(self, request):          
+          try:
+               refresh_token = request.data["refresh_token"]
+               token = RefreshToken(refresh_token)
+               token.blacklist()
+               return Response(status=status.HTTP_205_RESET_CONTENT)
+          except Exception as e:
+               return Response(status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET', 'PUT'])
+@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
 def terms_and_conditions(request):
     if request.method == 'GET':
         terms = TermsAndConditions.objects.first()
