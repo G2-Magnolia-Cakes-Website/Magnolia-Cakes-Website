@@ -90,10 +90,7 @@ export default function SignupForm({ api }) {
                 if (res.status === 201) {
                     setPassword1("");
                     setPassword2("");
-                    setEmail("");
-                    setFirstName("")
-                    setLastName("")
-                    setAgree(false)
+                    
                     setError(false);
                     setErrorMessage(defaultErrorMessage);
                     setSubmitted(true);
@@ -149,7 +146,7 @@ export default function SignupForm({ api }) {
                 style={{
                     display: submitted ? '' : 'none',
                 }}>
-                <p className='msgs'>You have successfully registered, {firstname} {lastname}. Please click the link in your email, {email}, for verification!</p>
+                <p className='msgs'>You have successfully registered, {firstname} {lastname}! Please click the link in your email, {email}, for verification.</p>
             </div>
         );
     };

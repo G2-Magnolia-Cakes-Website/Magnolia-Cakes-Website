@@ -29,6 +29,7 @@ from django.core.mail import EmailMessage
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.http import HttpResponse
+from django.conf import settings
 
 # create a class for the Todo model viewsets
 class MagnoliaCakesAndCupcakesView(viewsets.ModelViewSet):
@@ -50,16 +51,17 @@ def register(request):
             user = form.save(commit=False)
             user.is_active = False
             user.save()
-            return activateEmail(request, user, form.cleaned_data.get('email'))
+            return activateEmail(request, user, form.cleaned_data.get('username'))
         return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
 def activateEmail(request, user, to_email):
-    test_email_server_connectivity()
+    # test_email_server_connectivity()
     mail_subject = 'Activate your user account.'
     message = render_to_string('template_activate_account.html', {
-        'user': user.username,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
         'domain': get_current_site(request).domain,
         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
         'token': account_activation_token.make_token(user),
@@ -67,37 +69,13 @@ def activateEmail(request, user, to_email):
     })
     email = EmailMessage(mail_subject, message, to=[to_email])
     try:
-        if email.send():
+        if email.send(fail_silently=False):
             return Response({'message': 'User registered successfully. Please complete verification by clicking the link sent to your email.'}, status=status.HTTP_201_CREATED)
         else:
             return Response({'message': 'Problem sending confirmation email. Please contact an administrator.'}, status=status.HTTP_400_BAD_REQUEST)
     except Exception as error:
         print(error)
         return Response({'message': 'Problem sending confirmation email. Please contact an administrator.'}, status=status.HTTP_400_BAD_REQUEST)
-    
-
-import smtplib
-def test_email_server_connectivity():
-    try:
-        # Establish a connection to the email server
-        server = smtplib.SMTP('smtp.gmail.com', 2525)
-
-        # Identify yourself to the email server (optional)
-        server.ehlo()
-
-        # If using a secure connection (e.g., SMTP over SSL/TLS), uncomment the following line and provide the necessary parameters
-        server.starttls()
-
-        # Login to the email server (if required) with your credentials
-        server.login('noreply.magnoliacakes@gmail.com', 'mtzndgodvtfuyfwd')
-
-        # Close the connection
-        server.quit()
-
-        print("Email server connectivity test successful.")
-    except Exception as e:
-        print(f"Email server connectivity test failed. Error: {str(e)}")
-
 
 
 

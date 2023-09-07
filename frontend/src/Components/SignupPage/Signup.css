@@ -126,7 +126,7 @@
     background-position: right bottom;
     transition: all 0.5s ease-out;
 }
-    
+
 .submit-btn:disabled,
 button[disabled] {
     background: lightgrey;
@@ -156,9 +156,19 @@ button[disabled] {
 
 .messages {
     text-align: center;
+    margin-bottom: 130px;
+}
+
+.error {
     background-color: lightcoral;
     color: white;
-    margin-bottom: 130px;
+    font-family: inter;
+}
+
+.success {
+    background-color: rgb(190, 255, 190);
+    color: black;
+    font-family: inter;
 }
 
 .msgs {
@@ -241,7 +251,7 @@ button[disabled] {
     }
 
     .centre-form {
-        flex-direction:column;
+        flex-direction: column;
     }
 
     .signup-image {
