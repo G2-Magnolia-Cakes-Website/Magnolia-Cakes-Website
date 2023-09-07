@@ -49,6 +49,7 @@ def register(request):
         form = NewUserForm(request.data)
         if form.is_valid():
             user = form.save(commit=False)
+            user.username = user.username.lower()
             user.is_active = False
             user.save()
             return activateEmail(request, user, form.cleaned_data.get('username'))
@@ -107,7 +108,7 @@ def login(request):
         print("form ", form.error_messages)
         
         if form.is_valid():
-            username = request.data.get('username') 
+            username = request.data.get('username').lower()
             password = request.data.get('password')
             
             user = authenticate(request._request, username=username, password=password)
