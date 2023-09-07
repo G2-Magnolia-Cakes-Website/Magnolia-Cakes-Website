@@ -23,13 +23,8 @@ const AboutUsSection2 = () => {
       <div className="about-us-text">
         <h2>About Us</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at rutrum
-          massa. Aliquam faucibus id lacus nec hendrerit. Nunc ac justo eget
-          nibh lobortis pellentesque id eget sapien. In id placerat dui.
-          Vestibulum sollicitudin turpis magna, vel convallis mi dictum in.
-          Pellentesque consequat suscipit velit. Pellentesque vestibulum dui
-          tellus, non vehicula erat efficitur nec. Nunc ullamcorper eu metus a
-          sodales. Integer vitae bibendum ligula.
+          Got a cake idea, whether conventional or wild? Let's craft it together
+          with love and care.
         </p>
         <SquareButton
           buttonText="Read More"

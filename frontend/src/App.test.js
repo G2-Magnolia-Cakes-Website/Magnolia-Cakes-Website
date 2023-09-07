@@ -17,6 +17,8 @@ jest.mock("swiper/modules", () => ({
 
 jest.mock("swiper/css", () => jest.fn());
 
+window.scrollTo = jest.fn();
+
 describe("test App", () => {
   test("renders App", () => {
     const wrapper = renderer.create(<App />).toJSON();
