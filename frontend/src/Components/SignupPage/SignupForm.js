@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Popup from './TCPopup';
 import React from 'react';
 
 export default function SignupForm({ api }) {
-
-    const navigate = useNavigate();
 
     // States for registration
     const [firstname, setFirstName] = useState('');
@@ -199,7 +197,6 @@ export default function SignupForm({ api }) {
 
                 <div className='signup-question'>Already have an account? <Link to="/login" className='signup-link'>Log in</Link></div>
 
-                {/* Calling to the methods */}
                 <div className="messages">
                     {errorMessage()}
                     {successMessage()}
