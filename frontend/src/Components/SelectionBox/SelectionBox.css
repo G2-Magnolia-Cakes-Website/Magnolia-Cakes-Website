@@ -1,0 +1,6 @@
+.form-label,
+.form-select {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}

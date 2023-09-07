@@ -8,11 +8,16 @@ import LocationPage from "./Containers/LocationPage/LocationPage";
 import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAndConditionsPage";
 import axios from "axios";
 import "./App.css";
+import GetAQuote from "Containers/GetAQuote/GetAQuote";
 
 const App = () => {
-  const nonPlaceHolderPages = ["/location"];
+  const nonPlaceHolderPages = [
+    "/location",
+    "/terms-and-conditions",
+    "/get-a-quote",
+  ];
   const api = axios.create({
-    baseURL: 'http://127.0.0.1:8000/',  // Replace with your backend server URL
+    baseURL: "http://127.0.0.1:8000/", // Replace with your backend server URL
   });
   // temporary until pages created
   const routeAllPagesComingSoon = () => {
@@ -45,9 +50,13 @@ const App = () => {
               path="/terms-and-conditions"
               element={<TermsAndConditionsPage api={api} />}
             />
+            <Route
+              key="/get-a-quote"
+              path="/get-a-quote"
+              element={<GetAQuote />}
+            />
             {routeAllPagesComingSoon()}
           </Routes>
-
         </PageLayout>
       </div>
     </BrowserRouter>

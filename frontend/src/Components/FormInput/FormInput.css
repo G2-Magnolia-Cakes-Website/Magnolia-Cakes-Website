@@ -1,0 +1,10 @@
+.form-label,
+.form-input {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.form-input {
+  flex-direction: row;
+}
