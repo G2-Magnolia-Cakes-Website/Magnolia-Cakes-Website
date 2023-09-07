@@ -223,16 +223,96 @@ exports[`test App renders App 1`] = `
         className="slide-wrapper"
       >
         <img
-          alt="Birthday"
-          src="carousel/carousel-birthday.jpg"
+          alt="Christening & Communion"
+          src="carousel/carousel-1.jpg"
         />
       </div>
       <div
         className="slide-wrapper"
       >
         <img
-          alt="Wedding & Anniversary"
-          src="carousel/carousel-wedding-ann.jpg"
+          alt="Kids Birthday 1"
+          src="carousel/carousel-2.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Any Occassion 1"
+          src="carousel/carousel-3.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Birthday 1"
+          src="carousel/carousel-4.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Kids Birthday 2"
+          src="carousel/carousel-5.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Birthday 2"
+          src="carousel/carousel-6.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Birthday 3"
+          src="carousel/carousel-7.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Birthday 4"
+          src="carousel/carousel-8.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Kids Birthday 3"
+          src="carousel/carousel-9.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Kids Birthday 4"
+          src="carousel/carousel-10.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Kids Birthday 5"
+          src="carousel/carousel-11.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Birthday 5"
+          src="carousel/carousel-12.jpg"
         />
       </div>
     </div>
@@ -390,7 +470,7 @@ exports[`test App renders App 1`] = `
           About Us
         </h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at rutrum massa. Aliquam faucibus id lacus nec hendrerit. Nunc ac justo eget nibh lobortis pellentesque id eget sapien. In id placerat dui. Vestibulum sollicitudin turpis magna, vel convallis mi dictum in. Pellentesque consequat suscipit velit. Pellentesque vestibulum dui tellus, non vehicula erat efficitur nec. Nunc ullamcorper eu metus a sodales. Integer vitae bibendum ligula.
+          Got a cake idea, whether conventional or wild? Let's craft it together with love and care.
         </p>
         <button
           className="square-button unfilled"
@@ -399,6 +479,30 @@ exports[`test App renders App 1`] = `
           Read More
         </button>
       </div>
+    </div>
+    <div
+      className="delivery-section"
+    >
+      <p>
+        Delivery available
+      </p>
+      <img
+        alt="Delivery Car"
+        className="delivery-car"
+        src="car.svg"
+      />
+      <p
+        className="desktop-view"
+      >
+        reach us at 0422-733-882
+      </p>
+      <p
+        className="mobile-view"
+      >
+        reach us at 
+        <br />
+         0422-733-882
+      </p>
     </div>
     <div
       className="location-page-wrapper"
@@ -423,6 +527,21 @@ exports[`test App renders App 1`] = `
           9:00 am - 18:00 pm
         </p>
       </div>
+    </div>
+    <div
+      className="scroll-to-top"
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      <img
+        alt="Scroll To Top"
+        className="arrow-up"
+        onClick={[Function]}
+        src="fi-br-arrow-up.svg"
+      />
     </div>
     <div
       className="footer"
