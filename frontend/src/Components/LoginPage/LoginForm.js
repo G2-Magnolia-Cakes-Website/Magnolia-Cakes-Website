@@ -81,16 +81,26 @@ export default function LoginForm( { api } ) {
                     navigate("/");
                     navigate(0);
                 } else {
-                    setErrorMessage(defaultErrorMessage);
+                    if (res.data["detail"]) {
+                        setErrorMessage(res.data["detail"]);
+                    } else if (res.data["message"]) {
+                        setErrorMessage(res.data["message"]);
+                    } else { 
+                        setErrorMessage(defaultErrorMessage);
+                    }
                     setError(true);
                     console.log(res);
                 }
             } catch (err) {
                 console.log(err);
-                if(err.response.status == 401) {
-                    setErrorMessage(err.response.data['detail'])
-                    setError(true);
+                if (err.response.data["detail"]) {
+                    setErrorMessage(err.response.data["detail"]);
+                } else if (err.response.data["message"]) {
+                    setErrorMessage(err.response.data["message"]);
+                } else { 
+                    setErrorMessage(defaultErrorMessage);
                 }
+                setError(true);
             }
         }
     };
