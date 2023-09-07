@@ -4,6 +4,7 @@ import { GetAQuoteBg } from "utils/get-a-quote";
 import "./GetAQuote.css";
 import FormInput from "Components/FormInput/FormInput";
 import SelectionBox from "Components/SelectionBox/SelectionBox";
+import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
 
 const GetAQuote = () => {
   const flavours = [
@@ -34,15 +35,35 @@ const GetAQuote = () => {
         <p className="tiny-red-message">* indicates field is required</p>
         <form>
           <div className="double-column-div">
-            <FormInput labelText="Name" inputName="name" inputType="text" />
-            <FormInput labelText="Mobile" inputName="mobile" inputType="tel" />
+            <FormInput
+              labelText="Name"
+              inputName="name"
+              inputType="text"
+              isRequired
+              placeholder="Enter Name"
+            />
+
+            <FormInput
+              labelText="Mobile"
+              inputName="mobile"
+              inputType="tel"
+              placeholder="Enter Mobile"
+            />
           </div>
-          <FormInput labelText="Email" inputName="email" inputType="email" />
+          <FormInput
+            labelText="Email"
+            inputName="email"
+            inputType="email"
+            isRequired
+            placeholder="Enter Your Email"
+          />
           <div className="double-column-div">
             <FormInput
               labelText="Servings"
               inputName="servings"
               inputType="number"
+              isRequired
+              placeholder="E.g., 12"
             />
             <SelectionBox
               selectLabel="Coffee or standard serves"
@@ -54,7 +75,12 @@ const GetAQuote = () => {
               inputType="date"
             />
             <SelectionBox selectLabel="Flavour" options={flavours} />
-            <FormInput labelText="Extra" inputName="extra" inputType="text" />
+            <FormInput
+              labelText="Extra"
+              inputName="extra"
+              inputType="text"
+              placeholder="Acrylic Toppers"
+            />
             <FormInput
               labelText="Upload Your File"
               inputName="file"
@@ -64,8 +90,14 @@ const GetAQuote = () => {
               labelText="Message"
               inputName="message"
               inputType="text"
+              placeholder="Enter Your Message"
             />
-            <button type="submit">Submit</button>
+            <RoseGoldButton
+              buttonText="Submit"
+              buttonType="submit"
+              height="36px"
+              margin="auto 0 8px"
+            />
           </div>
         </form>
       </div>
