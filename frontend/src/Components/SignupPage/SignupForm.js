@@ -189,14 +189,13 @@ export default function SignupForm({ api }) {
                         <button type="button" className='terms-and-conditions' onClick={() => setButtonPopup(true)}><b>terms and conditions</b></button>
                     </label>
                 </div>
-
-                <Popup trigger={buttonPopup} setTrigger={setButtonPopup} api={api} position="right center">
-                </Popup>
-
+                
                 <button onClick={handleSubmit} disabled={!agree} className="submit-btn"
                     type="submit">
                     Create Account
                 </button>
+
+                <Popup trigger={buttonPopup} setTrigger={setButtonPopup} api={api} position="right center"></Popup>
 
                 <div className='signup-question'>Already have an account? <Link to="/login" className='signup-link'>Log in</Link></div>
 
