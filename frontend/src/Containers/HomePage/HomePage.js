@@ -1,8 +1,9 @@
 import React from "react";
 import AboutUsSection from "./Sections/AboutUsSection";
-import SubheadingDivider from "../../Components/SubheadingDivider/SubheadingDivider";
-import CarouselGallery from "../../Components/Carousel/CarouselGallery";
-import LocationPage from "../LocationPage/LocationPage";
+import SubheadingDivider from "Components/SubheadingDivider/SubheadingDivider";
+import CarouselGallery from "Components/Carousel/CarouselGallery";
+import LocationPage from "Containers/LocationPage/LocationPage";
+import DeliverySection from "./Sections/DeliverySection";
 
 const HomePage = () => {
   return (
@@ -11,6 +12,7 @@ const HomePage = () => {
       {/* <SubheadingDivider subheadingText="Cakes for all occasions" /> */}
       {/* <SubheadingDivider subheadingText="About Us" /> */}
       <AboutUsSection />
+      <DeliverySection />
       <LocationPage />
     </>
   );

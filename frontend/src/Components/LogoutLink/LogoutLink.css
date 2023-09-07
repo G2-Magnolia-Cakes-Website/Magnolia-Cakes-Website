@@ -1,0 +1,118 @@
+.logout {
+    display: block;
+    text-decoration: none;
+    color: white;
+    padding: 3px 10px;
+    margin: 1rem 0;
+    font-size: 20px;
+    background-color: #b76e79;
+    border: 2px solid #b76e79;
+    border-radius: 3px;
+    text-align: center;
+    transition: 0.5s;
+    font-family: 'ABeeZee', sans-serif;
+}
+
+.logout-div {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+/* Use media query to avoid hover styling when clicked on mobile devices */
+@media (hover: hover) {
+    .logout:hover {
+        background-color: #c09999;
+        border-color: #c09999;
+    }
+}
+
+@media (max-width: 1440px) and (min-width: 480px) {
+    .logout {
+        font-size: 14px;
+        padding: 7px 10px;
+    }
+}
+
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-inner {
+    border: 2px solid black;
+    position: relative;
+    padding: 32px;
+    width: 100%;
+    max-width: 640px;
+    background-color: #fbd8d0;
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    font-family: 'ABeeZee', sans-serif;
+}
+
+.popup-inner .close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    cursor: pointer;
+    outline: none;
+    overflow: hidden;
+    border: none;
+    background-color: #fbd8d0;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: darkred;
+}
+
+.popup-inner .yes-btn {
+    background-color: #b76e79;
+    border: 2px solid #b76e79;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 15px;
+    padding: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 5px;
+    font-weight: 600;
+    font-family: 'ABeeZee', sans-serif;
+    transition: 0.5s;
+}
+
+.popup-inner .yes-btn:hover {
+    background-color: #c09999;
+    border-color: #c09999;
+}
+
+.popup-inner .cancel-btn {
+    border: 1px solid dark dark grey;
+    background-color: grey;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 15px;
+    padding: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 5px;
+    font-weight: 600;
+    font-family: 'ABeeZee', sans-serif;
+    transition: 0.5s;
+}
+
+.popup-inner .cancel-btn:hover {
+    background-color: #c09999;
+    border-color: #c09999;
+}

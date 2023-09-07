@@ -21,7 +21,7 @@ const ShopMap = () => {
     setMap(map);
   }, []);
 
-  const onUnmount = React.useCallback(function callback(map) {
+  const onUnmount = React.useCallback(function callback() {
     setMap(null);
   }, []);
 
@@ -40,13 +40,11 @@ const ShopMap = () => {
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
-      {/* Child components, such as markers, info windows, etc. */}
       <Marker
         title={SHOPDETAILS.MAGNOLIA_CAKE_SHOP_NAME}
         position={magnoliaCakeCoords}
         onClick={openMapInNewTab}
       />
-      <></>
     </GoogleMap>
   ) : (
     <></>

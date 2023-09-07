@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import PageLayout from "./Containers/PageLayout/PageLayout";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes, BrowserRouter, useLocation } from "react-router-dom";
 import pages from "./utils/all_pages.json";
 import ComingSoonPage from "./Components/ComingSoonPage/ComingSoonPage";
 import HomePage from "./Containers/HomePage/HomePage";
+import LoginPage from "./Components/LoginPage/LoginPage";
 import LocationPage from "./Containers/LocationPage/LocationPage";
 import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAndConditionsPage";
 import axios from "axios";
 import "./App.css";
 import GetAQuote from "Containers/GetAQuote/GetAQuote";
 
+const Wrapper = ({ children }) => {
+  const location = useLocation();
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+  return children;
+};
+
 const App = () => {
   const nonPlaceHolderPages = [
     "/location",
     "/terms-and-conditions",
     "/get-a-quote",
+    "login",
   ];
   const api = axios.create({
     baseURL: "http://127.0.0.1:8000/", // Replace with your backend server URL
@@ -36,29 +46,36 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <div className="watercolor-bg">
-        <PageLayout>
-          <Routes>
-            <Route key="/" path="/" element={<HomePage />} />
-            <Route
-              key="/location"
-              path="/location"
-              element={<LocationPage />}
-            />
-            <Route
-              key="/terms-and-conditions"
-              path="/terms-and-conditions"
-              element={<TermsAndConditionsPage api={api} />}
-            />
-            <Route
-              key="/get-a-quote"
-              path="/get-a-quote"
-              element={<GetAQuote />}
-            />
-            {routeAllPagesComingSoon()}
-          </Routes>
-        </PageLayout>
-      </div>
+      <Wrapper>
+        <div className="watercolor-bg">
+          <PageLayout>
+            <Routes>
+              <Route key="/" path="/" element={<HomePage />} />
+              <Route
+                key="/location"
+                path="/location"
+                element={<LocationPage />}
+              />
+              <Route
+                key="/terms-and-conditions"
+                path="/terms-and-conditions"
+                element={<TermsAndConditionsPage api={api} />}
+              />
+              <Route
+                key="/login"
+                path="/login"
+                element={<LoginPage api={api} />}
+              />
+              <Route
+                key="/get-a-quote"
+                path="/get-a-quote"
+                element={<GetAQuote />}
+              />
+              {routeAllPagesComingSoon()}
+            </Routes>
+          </PageLayout>
+        </div>
+      </Wrapper>
     </BrowserRouter>
   );
 };

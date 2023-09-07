@@ -3,6 +3,8 @@ const PAGELINKS = {
   SIGNUP_TEXT: "Sign Up",
   LOGIN_LINK: "/login",
   LOGIN_TEXT: "Log In",
+  LOGOUT_LINK: "/logout",
+  LOGOUT_TEXT: "Log Out",
   ABOUT_US_LINK: "/about-us",
   LOCATION_LINK: "/location",
   CONTACT_US_LINK: "/contact-us",
