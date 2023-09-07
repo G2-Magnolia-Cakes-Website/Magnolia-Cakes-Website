@@ -4,6 +4,7 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 import pages from "./utils/all_pages.json";
 import ComingSoonPage from "./Components/ComingSoonPage/ComingSoonPage";
 import HomePage from "./Containers/HomePage/HomePage";
+import LoginPage from "./Components/LoginPage/LoginPage";
 import LocationPage from "./Containers/LocationPage/LocationPage";
 import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAndConditionsPage";
 import axios from "axios";
@@ -50,6 +51,11 @@ const App = () => {
               key="/signup" 
               path="/signup" 
               element={<SignupPage api={api} />} 
+            />
+            <Route 
+              key="/login" 
+              path="/login" 
+              element={<LoginPage api={api} />} 
             />
           {routeAllPagesComingSoon()}
           </Routes>
