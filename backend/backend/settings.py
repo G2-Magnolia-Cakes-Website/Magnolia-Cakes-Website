@@ -142,12 +142,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # Emailing settings
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_FROM = "noreply.magnoliacakes@gmail.com"
-EMAIL_HOST_USER = "noreply.magnoliacakes@gmail.com"
-EMAIL_HOST_PASSWORD = "vhyypdlykyimfkqm"
-EMAIL_PORT = 587
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_FROM = 'noreply.magnoliacakes@gmail.com'
+DEFAULT_FROM_EMAIL = 'noreply.magnoliacakes@gmail.com'
+SERVER_EMAIL = 'noreply.magnoliacakes@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'noreply.magnoliacakes@gmail.com'
+EMAIL_HOST_PASSWORD = 'mtzndgodvtfuyfwd'
+EMAIL_PORT = 587 
 EMAIL_USE_TLS = True
-
-PASSWORD_RESET_TIMEOUT = 14400  # How long the verification link is valid for
+PASSWORD_RESET_TIMEOUT = 14400 		# How long the verification link is valid for 

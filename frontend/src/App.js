@@ -9,6 +9,7 @@ import LocationPage from "./Containers/LocationPage/LocationPage";
 import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAndConditionsPage";
 import axios from "axios";
 import "./App.css";
+import SignupPage from "./Components/SignupPage/SignupPage";
 
 const Wrapper = ({ children }) => {
   const location = useLocation();
@@ -67,6 +68,11 @@ const App = () => {
                 />
                 <Route path="/gallery/cupcakes" element={<ComingSoonPage />} />
               </Route>
+              <Route
+                key="/signup"
+                path="/signup"
+                element={<SignupPage api={api} />}
+              />
               <Route
                 key="/login"
                 path="/login"
