@@ -317,6 +317,145 @@ exports[`test App renders App 1`] = `
       </div>
     </div>
     <div
+      className="gallery-section-wrapper"
+    >
+      <h2>
+        Cakes for all occasions
+      </h2>
+      <div
+        className="gallery-row"
+      >
+        <div
+          className="gallery-column"
+        >
+          <div
+            className="gallery-grid-item-wrapper"
+          >
+            <h4>
+              Wedding Anniversary
+            </h4>
+            <div
+              className="gallery-lines-group"
+            >
+              <img
+                alt="gold line"
+                className="gold-line"
+                src="gold-circled-line-left.svg"
+              />
+              <img
+                alt="white line"
+                className="white-line"
+                src="white-triangle-line-left.svg"
+              />
+            </div>
+            <a
+              href="/gallery/wedding-and-anniversary"
+            >
+              <img
+                alt="Wedding & Anniversary"
+                className="gallery-img"
+                src="wedding-and-ann.jpg"
+              />
+            </a>
+          </div>
+          <div
+            className="gallery-grid-item-wrapper"
+          >
+            <h4>
+              Christening Communion
+            </h4>
+            <div
+              className="gallery-lines-group"
+            >
+              <img
+                alt="gold line"
+                className="gold-line"
+                src="gold-circled-line-left.svg"
+              />
+              <img
+                alt="white line"
+                className="white-line"
+                src="white-triangle-line-left.svg"
+              />
+            </div>
+            <a
+              href="/gallery/christening-and-communion"
+            >
+              <img
+                alt="Christening & Communion"
+                className="gallery-img"
+                src="christening-communion.jpg"
+              />
+            </a>
+          </div>
+        </div>
+        <div
+          className="gallery-column"
+        >
+          <div
+            className="gallery-grid-item-wrapper row-reverse"
+          >
+            <h4>
+              Birthday
+            </h4>
+            <div
+              className="gallery-lines-group"
+            >
+              <img
+                alt="gold line"
+                className="gold-line"
+                src="gold-circled-line-right.svg"
+              />
+              <img
+                alt="white line"
+                className="white-line"
+                src="white-triangle-line-right.svg"
+              />
+            </div>
+            <a
+              href="/gallery/birthday"
+            >
+              <img
+                alt="Birthday"
+                className="gallery-img"
+                src="birthday.jpg"
+              />
+            </a>
+          </div>
+          <div
+            className="gallery-grid-item-wrapper row-reverse"
+          >
+            <h4>
+              Cupcakes
+            </h4>
+            <div
+              className="gallery-lines-group"
+            >
+              <img
+                alt="gold line"
+                className="gold-line"
+                src="gold-circled-line-right.svg"
+              />
+              <img
+                alt="white line"
+                className="white-line"
+                src="white-triangle-line-right.svg"
+              />
+            </div>
+            <a
+              href="/gallery/cupcakes"
+            >
+              <img
+                alt="Cupcakes"
+                className="gallery-img"
+                src="cupcakes.jpg"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
       className="about-us-section"
     >
       <img

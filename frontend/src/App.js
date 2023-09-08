@@ -19,7 +19,7 @@ const Wrapper = ({ children }) => {
 };
 
 const App = () => {
-  const nonPlaceHolderPages = ["/location"];
+  const nonPlaceHolderPages = ["/location", "/terms-and-conditions"];
   const api = axios.create({
     baseURL: "http://127.0.0.1:8000/", // Replace with your backend server URL
   });
@@ -55,6 +55,18 @@ const App = () => {
                 path="/terms-and-conditions"
                 element={<TermsAndConditionsPage api={api} />}
               />
+              <Route path="/gallery" element={<ComingSoonPage />}>
+                <Route
+                  path="/gallery/wedding-and-anniversary"
+                  element={<ComingSoonPage />}
+                />
+                <Route path="/gallery/birthday" element={<ComingSoonPage />} />
+                <Route
+                  path="/gallery/christening-and-communion"
+                  element={<ComingSoonPage />}
+                />
+                <Route path="/gallery/cupcakes" element={<ComingSoonPage />} />
+              </Route>
               <Route
                 key="/login"
                 path="/login"

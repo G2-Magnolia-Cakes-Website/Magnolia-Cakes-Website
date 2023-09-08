@@ -2,6 +2,8 @@
 import renderer from "react-test-renderer";
 import App from "./App";
 
+jest.mock("axios");
+
 jest.mock("swiper/react", () => ({
   Swiper: ({ children }) => children,
   SwiperSlide: ({ children }) => children,
