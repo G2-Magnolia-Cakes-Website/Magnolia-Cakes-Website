@@ -1,10 +1,11 @@
 import React from "react";
 import { GetAQuoteBg } from "utils/get-a-quote";
-
-import "./GetAQuote.css";
 import FormInput from "Components/FormInput/FormInput";
 import SelectionBox from "Components/SelectionBox/SelectionBox";
 import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
+import Dropzone from "Components/Dropzone/Dropzone";
+
+import "./GetAQuote.css";
 
 const GetAQuote = () => {
   const flavours = [
@@ -81,11 +82,12 @@ const GetAQuote = () => {
               inputType="text"
               placeholder="Acrylic Toppers"
             />
-            <FormInput
+            {/* <FormInput
               labelText="Upload Your File"
               inputName="file"
               inputType="file"
-            />
+            /> */}
+            <Dropzone />
             <FormInput
               labelText="Message"
               inputName="message"
