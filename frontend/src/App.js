@@ -10,6 +10,7 @@ import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAnd
 import axios from "axios";
 import "./App.css";
 import GetAQuote from "Containers/GetAQuote/GetAQuote";
+import SignupPage from "./Components/SignupPage/SignupPage";
 
 const Wrapper = ({ children }) => {
   const location = useLocation();
@@ -60,6 +61,23 @@ const App = () => {
                 key="/terms-and-conditions"
                 path="/terms-and-conditions"
                 element={<TermsAndConditionsPage api={api} />}
+              />
+              <Route path="/gallery" element={<ComingSoonPage />}>
+                <Route
+                  path="/gallery/wedding-and-anniversary"
+                  element={<ComingSoonPage />}
+                />
+                <Route path="/gallery/birthday" element={<ComingSoonPage />} />
+                <Route
+                  path="/gallery/christening-and-communion"
+                  element={<ComingSoonPage />}
+                />
+                <Route path="/gallery/cupcakes" element={<ComingSoonPage />} />
+              </Route>
+              <Route
+                key="/signup"
+                path="/signup"
+                element={<SignupPage api={api} />}
               />
               <Route
                 key="/login"

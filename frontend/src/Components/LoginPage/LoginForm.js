@@ -17,7 +17,7 @@ export default function LoginForm( { api } ) {
 
     // Handling the email change
     const handleEmail = (e) => {
-        setEmail(e.target.value);
+        setEmail(e.target.value.toLowerCase());
     };
 
     // Handling the password change
@@ -109,7 +109,7 @@ export default function LoginForm( { api } ) {
 
             <form>
                 {/* Labels and inputs for form data */}
-                <input onChange={handleEmail} className="input-login"
+                <input onChange={handleEmail} className="input-login" autoCapitalize="none"
                     value={email} type="email" placeholder='Email' />
 
                 <input onChange={handlePassword} className="input-login"
