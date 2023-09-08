@@ -4,6 +4,7 @@ import magnoliaCakeLogo from "utils/Magnolia_Cake_logo.png";
 import Footer from "./Footer/Footer";
 import Header from "./Header/Header";
 import "./PageLayout.css";
+import ScrollToTop from "Components/ScrollToTop/ScrollToTop";
 
 const PageLayout = (props) => {
   const logo = (
@@ -18,6 +19,7 @@ const PageLayout = (props) => {
       </div>
       <Header />
       {props.children}
+      <ScrollToTop />
       <Footer />
     </div>
   );
