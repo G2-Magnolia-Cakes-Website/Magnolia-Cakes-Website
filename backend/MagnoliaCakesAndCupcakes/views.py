@@ -12,8 +12,9 @@ from .serializers import *
 from .models import *
 
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, renderer_classes
 from rest_framework.response import Response
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 from .forms import GetAQuoteForm, NewUserForm
 
 from rest_framework.views import APIView
@@ -196,6 +197,10 @@ def terms_and_conditions(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(["GET", "POST"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
 def get_a_quote(request):
     if request.method == "GET":
         form = GetAQuoteForm()
@@ -208,7 +213,7 @@ def get_a_quote(request):
             file = request.FILES.getlist("file")
 
             email = EmailMessage(
-                subject, message, to=["kimt12531@gmail.com"], bcc=[user_email]
+                subject, message, to=["kimt12531@gmail.com"], cc=[user_email]
             )
 
             for f in file:
@@ -216,11 +221,20 @@ def get_a_quote(request):
 
             try:
                 email.send()
-            except BadHeaderError:
-                return HttpResponse("Invalid header found.")
-            return redirect("success")
+            except Exception as error:
+                return Response(
+                    {
+                        "message": "Problem sending email. Please contact an administrator."
+                    },
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            return Response(
+                "Success! Request for quote submitted.", status=status.HTTP_200_OK
+            )
+        else:
+            return Response(
+                {"message": "Contact failed"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
     return render(request, "email.html", {"form": form})
-
-
-def get_a_quote_success(request):
-    return HttpResponse("Success! Request for quote submitted.")

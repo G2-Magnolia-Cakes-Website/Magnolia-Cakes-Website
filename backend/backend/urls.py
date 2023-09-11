@@ -43,7 +43,6 @@ urlpatterns = [
     path("api/login/", views.login, name="api-login"),
     path("api/logout/", views.LogoutView.as_view(), name="logout"),
     path("api/contact/", views.get_a_quote, name="contact"),
-    path("api/success/", views.get_a_quote_success, name="success"),
     
     # JWT token creation
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),

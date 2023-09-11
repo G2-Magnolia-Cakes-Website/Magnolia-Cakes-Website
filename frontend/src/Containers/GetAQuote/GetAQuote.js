@@ -7,8 +7,8 @@ import Dropzone from "Components/Dropzone/Dropzone";
 
 import "./GetAQuote.css";
 
-const GetAQuote = () => {
-  const flavours = [
+const GetAQuote = ({ api }) => {
+  const flavoursList = [
     "Standard",
     "Chocolate",
     "Vanilla",
@@ -19,19 +19,57 @@ const GetAQuote = () => {
     "Carrot & Cinnamon",
   ];
 
-  const name = useRef("");
-  const mobile = useRef("");
-  const email = useRef("");
-  const servings = useRef(0);
-  const [serves, setServes] = useState(null);
+  const servesList = ["Coffee", "Standard"];
+
+  const name = useRef(null);
+  const mobile = useRef(null);
+  const email = useRef(null);
+  const servings = useRef(null);
+  const [serves, setServes] = useState(servesList[0]);
   const date = useRef(null);
-  const [flavour, setFlavour] = useState(null);
+  const [flavour, setFlavour] = useState(flavoursList[0]);
   const extra = useRef(null);
   const message = useRef(null);
 
-  const sendEmailHandler = (e) => {
+  const sendEmailHandler = async (e) => {
     e.preventDefault();
-    alert("Form is submitted.");
+
+    console.log("kim", date.current.value);
+
+    const body = `
+      Name: ${name.current.value}
+      Mobile: ${mobile.current.value}
+      Email: ${email.current.value}
+      Servings: ${servings.current.value}
+      Serves: ${serves}
+      Date: ${date.current.value}
+      Flavour: ${flavour}
+      Extra: ${extra.current.value}
+      Message: ${message.current.value}
+    `;
+
+    const data = {
+      email: email.current.value,
+      subject: `${name.current.value} Requests a Quote`,
+      message: body,
+    };
+
+    try {
+      let res = await api.post("http://localhost:8000/api/contact/", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Accept: "multipart/form-data",
+        },
+      });
+
+      if (res.status === 200) {
+        console.log("Yay");
+      }
+    } catch (err) {
+      console.log("Nay", err);
+    }
+
+    // alert("Form is submitted.");
   };
 
   return (
@@ -49,12 +87,7 @@ const GetAQuote = () => {
           </p>
         </div>
         <p className="tiny-red-message">* indicates field is required</p>
-        <form
-          onSubmit={sendEmailHandler}
-          action="mailto:kimt12531@gmail.com"
-          method="POST"
-          encType="multipart/form-data"
-        >
+        <form onSubmit={sendEmailHandler}>
           <div className="double-column-div">
             <FormInput
               labelText="Name"
@@ -92,7 +125,7 @@ const GetAQuote = () => {
             />
             <SelectionBox
               selectLabel="Coffee or standard serves"
-              options={["Coffee", "Standard"]}
+              options={servesList}
               setOption={setServes}
             />
             <FormInput
@@ -103,7 +136,7 @@ const GetAQuote = () => {
             />
             <SelectionBox
               selectLabel="Flavour"
-              options={flavours}
+              options={flavoursList}
               setOption={setFlavour}
             />
             <FormInput
@@ -111,12 +144,14 @@ const GetAQuote = () => {
               inputName="extra"
               inputType="text"
               placeholder="Acrylic Toppers"
+              inputRef={extra}
             />
             <FormInput
               labelText="Message"
               inputName="message"
               inputType="text"
               placeholder="Enter Your Message"
+              inputRef={message}
             />
           </div>
           <Dropzone />

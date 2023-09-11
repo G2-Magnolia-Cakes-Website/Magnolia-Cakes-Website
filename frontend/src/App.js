@@ -30,6 +30,7 @@ const App = () => {
   const api = axios.create({
     baseURL: "http://127.0.0.1:8000/", // Replace with your backend server URL
   });
+
   // temporary until pages created
   const routeAllPagesComingSoon = () => {
     return pages
@@ -87,7 +88,7 @@ const App = () => {
               <Route
                 key="/get-a-quote"
                 path="/get-a-quote"
-                element={<GetAQuote />}
+                element={<GetAQuote api={api} />}
               />
               {routeAllPagesComingSoon()}
             </Routes>
