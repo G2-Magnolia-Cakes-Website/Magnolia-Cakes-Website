@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { GetAQuoteBg } from "utils/get-a-quote";
 import FormInput from "Components/FormInput/FormInput";
 import SelectionBox from "Components/SelectionBox/SelectionBox";
@@ -19,6 +19,21 @@ const GetAQuote = () => {
     "Carrot & Cinnamon",
   ];
 
+  const name = useRef("");
+  const mobile = useRef("");
+  const email = useRef("");
+  const servings = useRef(0);
+  const [serves, setServes] = useState(null);
+  const date = useRef(null);
+  const [flavour, setFlavour] = useState(null);
+  const extra = useRef(null);
+  const message = useRef(null);
+
+  const sendEmailHandler = (e) => {
+    e.preventDefault();
+    alert("Form is submitted.");
+  };
+
   return (
     <div className="get-a-quote">
       <img className="cake-img" src={GetAQuoteBg} alt="cake" />
@@ -34,7 +49,12 @@ const GetAQuote = () => {
           </p>
         </div>
         <p className="tiny-red-message">* indicates field is required</p>
-        <form>
+        <form
+          onSubmit={sendEmailHandler}
+          action="mailto:kimt12531@gmail.com"
+          method="POST"
+          encType="multipart/form-data"
+        >
           <div className="double-column-div">
             <FormInput
               labelText="Name"
@@ -42,6 +62,7 @@ const GetAQuote = () => {
               inputType="text"
               isRequired
               placeholder="Enter Name"
+              inputRef={name}
             />
 
             <FormInput
@@ -49,6 +70,7 @@ const GetAQuote = () => {
               inputName="mobile"
               inputType="tel"
               placeholder="Enter Mobile"
+              inputRef={mobile}
             />
           </div>
           <FormInput
@@ -57,6 +79,7 @@ const GetAQuote = () => {
             inputType="email"
             isRequired
             placeholder="Enter Your Email"
+            inputRef={email}
           />
           <div className="double-column-div">
             <FormInput
@@ -65,17 +88,24 @@ const GetAQuote = () => {
               inputType="number"
               isRequired
               placeholder="E.g., 12"
+              inputRef={servings}
             />
             <SelectionBox
               selectLabel="Coffee or standard serves"
               options={["Coffee", "Standard"]}
+              setOption={setServes}
             />
             <FormInput
               labelText="Date of Event"
               inputName="date-of-event"
               inputType="date"
+              inputRef={date}
             />
-            <SelectionBox selectLabel="Flavour" options={flavours} />
+            <SelectionBox
+              selectLabel="Flavour"
+              options={flavours}
+              setOption={setFlavour}
+            />
             <FormInput
               labelText="Extra"
               inputName="extra"

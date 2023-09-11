@@ -3,7 +3,8 @@ import React from "react";
 import "./FormInput.css";
 
 const FormInput = (props) => {
-  const { labelText, inputName, inputType, isRequired, placeholder } = props;
+  const { labelText, inputName, inputType, isRequired, placeholder, inputRef } =
+    props;
 
   const asterisk = isRequired ? "*" : "";
 
@@ -17,6 +18,8 @@ const FormInput = (props) => {
         id={inputName}
         className="form-input"
         placeholder={placeholder}
+        required={isRequired}
+        ref={inputRef}
       ></input>
     </label>
   );
