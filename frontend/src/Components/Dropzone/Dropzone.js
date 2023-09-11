@@ -9,16 +9,17 @@ const baseStyle = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  borderWidth: 1,
+  borderWidth: 2,
   borderRadius: 2,
-  borderColor: "#908D8D",
+  borderColor: "#BAB6B6",
   borderStyle: "dashed",
   backgroundColor: "#fafafa",
   color: "#bdbdbd",
   outline: "none",
   transition: "border .24s ease-in-out",
-  height: "36px",
-  margin: "auto 0 8px",
+  height: "fit-content",
+  margin: "auto 0 16px",
+  padding: "5px",
 };
 
 const focusedStyle = {
@@ -82,7 +83,7 @@ const Dropzone = () => {
         <p className="dropzone-text">Drop the files here ...</p>
       ) : (
         <p className="dropzone-text">
-          Drag 'n' drop some files here, or click to select files
+          Drag some files here, or click to select files
         </p>
       )}
     </div>

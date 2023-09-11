@@ -82,25 +82,20 @@ const GetAQuote = () => {
               inputType="text"
               placeholder="Acrylic Toppers"
             />
-            {/* <FormInput
-              labelText="Upload Your File"
-              inputName="file"
-              inputType="file"
-            /> */}
-            <Dropzone />
             <FormInput
               labelText="Message"
               inputName="message"
               inputType="text"
               placeholder="Enter Your Message"
             />
-            <RoseGoldButton
-              buttonText="Submit"
-              buttonType="submit"
-              height="36px"
-              margin="auto 0 8px"
-            />
           </div>
+          <Dropzone />
+          <RoseGoldButton
+            buttonText="Submit"
+            buttonType="submit"
+            height="36px"
+            margin="auto 0 8px"
+          />
         </form>
       </div>
     </div>
