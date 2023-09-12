@@ -16,3 +16,8 @@ class TermsAndConditionsSerializer(serializers.ModelSerializer):
     class Meta:
         model = TermsAndConditions
         fields = ('id', 'content', 'last_updated')
+
+class CakeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cake
+        fields = '__all__'

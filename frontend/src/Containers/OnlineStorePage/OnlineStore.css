@@ -1,0 +1,23 @@
+.cakes-list {
+    margin: 50px;
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: space-between;
+  }
+.cake-item {
+    width: calc(20%); 
+    background-color: white; 
+    border-radius: 10px; 
+    padding: 10px; 
+    display: flex; /* Use flexbox to center items */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    text-align: center; /* Center-align text */
+    margin: 10px;
+    margin-bottom: 20px;
+  }
+.image {
+    width: 300px;
+    height: 300px;
+    /*Must ensure that all uploaded image is in square shape*/
+  }
