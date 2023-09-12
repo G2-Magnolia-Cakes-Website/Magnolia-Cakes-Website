@@ -1,8 +1,7 @@
 import React from "react";
-import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
-
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import { SHOPDETAILS } from "utils/constants";
 import "./ShopMap.css";
-import { SHOPDETAILS } from "../../utils/constants";
 
 const magnoliaCakeCoords = {
   lat: -37.630214089441445,
@@ -22,7 +21,7 @@ const ShopMap = () => {
     setMap(map);
   }, []);
 
-  const onUnmount = React.useCallback(function callback(map) {
+  const onUnmount = React.useCallback(function callback() {
     setMap(null);
   }, []);
 
@@ -41,13 +40,11 @@ const ShopMap = () => {
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
-      {/* Child components, such as markers, info windows, etc. */}
       <Marker
         title={SHOPDETAILS.MAGNOLIA_CAKE_SHOP_NAME}
         position={magnoliaCakeCoords}
         onClick={openMapInNewTab}
       />
-      <></>
     </GoogleMap>
   ) : (
     <></>

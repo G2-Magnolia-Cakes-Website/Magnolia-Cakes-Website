@@ -4,11 +4,11 @@
   color: #000000;
   font-size: 20px;
   padding: 7px 10px;
+  font-family: 'ABeeZee', sans-serif;
 }
 
 .signup:not(.active):hover {
-  color: #efc7c7;
-  text-decoration: underline;
+  color: #b76e79;
 }
 
 @media (max-width: 1440px) and (min-width: 480px) {

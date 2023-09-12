@@ -1,5 +1,5 @@
 import React from "react";
-import ShopMap from "../../Components/ShopMap/ShopMap";
+import ShopMap from "Components/ShopMap/ShopMap";
 
 import "./LocationPage.css";
 

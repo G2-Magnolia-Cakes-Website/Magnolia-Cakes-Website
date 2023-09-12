@@ -3,10 +3,13 @@ const PAGELINKS = {
   SIGNUP_TEXT: "Sign Up",
   LOGIN_LINK: "/login",
   LOGIN_TEXT: "Log In",
+  LOGOUT_LINK: "/logout",
+  LOGOUT_TEXT: "Log Out",
   ABOUT_US_LINK: "/about-us",
   LOCATION_LINK: "/location",
   CONTACT_US_LINK: "/contact-us",
   TERMS_AND_CONDITIONS_LINK: "/terms-and-conditions",
+  FAQ: "/faq",
 };
 
 const FOOTERSECTIONS = {
@@ -14,6 +17,7 @@ const FOOTERSECTIONS = {
   CONTACT_US: "Contact Us",
   OUR_LOCATION: "Our Location",
   TERMS_AND_CONDITIONS: "Terms & Conditions",
+  FAQ: "FAQs",
 };
 
 const SHOPDETAILS = {

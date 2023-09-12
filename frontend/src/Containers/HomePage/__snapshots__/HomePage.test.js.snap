@@ -4,48 +4,239 @@ exports[`test HomePage renders HomePage 1`] = `
 Array [
   <div>
     <div
-      className="call-to-action-inslide"
+      className="slide-wrapper"
+    >
+      <img
+        alt="Christening & Communion"
+        src="carousel/carousel-1.jpg"
+      />
+    </div>
+    <div
+      className="slide-wrapper"
+    >
+      <img
+        alt="Kids Birthday 1"
+        src="carousel/carousel-2.jpg"
+      />
+    </div>
+    <div
+      className="slide-wrapper"
+    >
+      <img
+        alt="Any Occassion 1"
+        src="carousel/carousel-3.jpg"
+      />
+    </div>
+    <div
+      className="slide-wrapper"
+    >
+      <img
+        alt="Birthday 1"
+        src="carousel/carousel-4.jpg"
+      />
+    </div>
+    <div
+      className="slide-wrapper"
+    >
+      <img
+        alt="Kids Birthday 2"
+        src="carousel/carousel-5.jpg"
+      />
+    </div>
+    <div
+      className="slide-wrapper"
+    >
+      <img
+        alt="Birthday 2"
+        src="carousel/carousel-6.jpg"
+      />
+    </div>
+    <div
+      className="slide-wrapper"
+    >
+      <img
+        alt="Birthday 3"
+        src="carousel/carousel-7.jpg"
+      />
+    </div>
+    <div
+      className="slide-wrapper"
+    >
+      <img
+        alt="Birthday 4"
+        src="carousel/carousel-8.jpg"
+      />
+    </div>
+    <div
+      className="slide-wrapper"
+    >
+      <img
+        alt="Kids Birthday 3"
+        src="carousel/carousel-9.jpg"
+      />
+    </div>
+    <div
+      className="slide-wrapper"
+    >
+      <img
+        alt="Kids Birthday 4"
+        src="carousel/carousel-10.jpg"
+      />
+    </div>
+    <div
+      className="slide-wrapper"
+    >
+      <img
+        alt="Kids Birthday 5"
+        src="carousel/carousel-11.jpg"
+      />
+    </div>
+    <div
+      className="slide-wrapper"
+    >
+      <img
+        alt="Birthday 5"
+        src="carousel/carousel-12.jpg"
+      />
+    </div>
+  </div>,
+  <div
+    className="gallery-section-wrapper"
+  >
+    <h2>
+      Cakes for all occasions
+    </h2>
+    <div
+      className="gallery-row"
     >
       <div
-        className="call-to-action-wrapper"
+        className="gallery-column"
       >
-        <img
-          alt="Magnolia Cake Logo"
-          className="logo"
-          src="Magnolia_Cake_logo.png"
-        />
         <div
-          className="call-to-action-contents"
+          className="gallery-grid-item-wrapper"
         >
-          <h2>
-            Magnolia Cakes and Cupcakes
-          </h2>
-          <p>
-            Delight in unforgettable moments with our exquisite cakes and cupcakes. Order now to experience pure indulgence!
-          </p>
-          <button
-            className="square-button"
+          <h4>
+            Wedding Anniversary
+          </h4>
+          <div
+            className="gallery-lines-group"
           >
-            Get Started
-          </button>
+            <img
+              alt="gold line"
+              className="gold-line"
+              src="gold-circled-line-left.svg"
+            />
+            <img
+              alt="white line"
+              className="white-line"
+              src="white-triangle-line-left.svg"
+            />
+          </div>
+          <a
+            href="/gallery/wedding-and-anniversary"
+          >
+            <img
+              alt="Wedding & Anniversary"
+              className="gallery-img"
+              src="wedding-and-ann.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="gallery-grid-item-wrapper"
+        >
+          <h4>
+            Christening Communion
+          </h4>
+          <div
+            className="gallery-lines-group"
+          >
+            <img
+              alt="gold line"
+              className="gold-line"
+              src="gold-circled-line-left.svg"
+            />
+            <img
+              alt="white line"
+              className="white-line"
+              src="white-triangle-line-left.svg"
+            />
+          </div>
+          <a
+            href="/gallery/christening-and-communion"
+          >
+            <img
+              alt="Christening & Communion"
+              className="gallery-img"
+              src="christening-communion.jpg"
+            />
+          </a>
         </div>
       </div>
-    </div>
-    <div
-      className="slide-wrapper"
-    >
-      <img
-        alt="Birthday"
-        src="carousel/carousel-birthday.jpg"
-      />
-    </div>
-    <div
-      className="slide-wrapper"
-    >
-      <img
-        alt="Wedding & Anniversary"
-        src="carousel/carousel-wedding-ann.jpg"
-      />
+      <div
+        className="gallery-column"
+      >
+        <div
+          className="gallery-grid-item-wrapper row-reverse"
+        >
+          <h4>
+            Birthday
+          </h4>
+          <div
+            className="gallery-lines-group"
+          >
+            <img
+              alt="gold line"
+              className="gold-line"
+              src="gold-circled-line-right.svg"
+            />
+            <img
+              alt="white line"
+              className="white-line"
+              src="white-triangle-line-right.svg"
+            />
+          </div>
+          <a
+            href="/gallery/birthday"
+          >
+            <img
+              alt="Birthday"
+              className="gallery-img"
+              src="birthday.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="gallery-grid-item-wrapper row-reverse"
+        >
+          <h4>
+            Cupcakes
+          </h4>
+          <div
+            className="gallery-lines-group"
+          >
+            <img
+              alt="gold line"
+              className="gold-line"
+              src="gold-circled-line-right.svg"
+            />
+            <img
+              alt="white line"
+              className="white-line"
+              src="white-triangle-line-right.svg"
+            />
+          </div>
+          <a
+            href="/gallery/cupcakes"
+          >
+            <img
+              alt="Cupcakes"
+              className="gallery-img"
+              src="cupcakes.jpg"
+            />
+          </a>
+        </div>
+      </div>
     </div>
   </div>,
   <div
@@ -63,7 +254,7 @@ Array [
         About Us
       </h2>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at rutrum massa. Aliquam faucibus id lacus nec hendrerit. Nunc ac justo eget nibh lobortis pellentesque id eget sapien. In id placerat dui. Vestibulum sollicitudin turpis magna, vel convallis mi dictum in. Pellentesque consequat suscipit velit. Pellentesque vestibulum dui tellus, non vehicula erat efficitur nec. Nunc ullamcorper eu metus a sodales. Integer vitae bibendum ligula.
+        Got a cake idea, whether conventional or wild? Let's craft it together with love and care.
       </p>
       <button
         className="square-button unfilled"
@@ -72,6 +263,30 @@ Array [
         Read More
       </button>
     </div>
+  </div>,
+  <div
+    className="delivery-section"
+  >
+    <p>
+      Delivery available
+    </p>
+    <img
+      alt="Delivery Car"
+      className="delivery-car"
+      src="car.svg"
+    />
+    <p
+      className="desktop-view"
+    >
+      reach us at 0422-733-882
+    </p>
+    <p
+      className="mobile-view"
+    >
+      reach us at 
+      <br />
+       0422-733-882
+    </p>
   </div>,
   <div
     className="location-page-wrapper"
