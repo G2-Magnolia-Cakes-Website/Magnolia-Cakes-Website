@@ -7,6 +7,7 @@ import HomePage from "./Containers/HomePage/HomePage";
 import LoginPage from "./Components/LoginPage/LoginPage";
 import LocationPage from "./Containers/LocationPage/LocationPage";
 import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAndConditionsPage";
+import OnlineStorePage from "./Containers/OnlineStorePage/OnlineStorePage";
 import axios from "axios";
 import "./App.css";
 import SignupPage from "./Components/SignupPage/SignupPage";
