@@ -149,3 +149,21 @@ def terms_and_conditions(request):
             serializer.save()
             return Response({'message': 'Terms & Conditions updated'}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def cakes_list(request):
+    if request.method == 'GET':
+        cakes = Cake.objects.all()
+        serializer = CakeSerializer(cakes, many=True)
+        
+        # Create a list to store the updated cake data with image URLs
+        cakes_with_image_urls = []
+
+        for cake_data in serializer.data:
+            cake = Cake.objects.get(id=cake_data['id'])
+            # Add the image URL to the cake data
+            cake_data['image'] = cake.picture.url
+            cakes_with_image_urls.append(cake_data)
+
+        return Response(cakes_with_image_urls, status=status.HTTP_200_OK)
+

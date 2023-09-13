@@ -9,6 +9,7 @@ import LocationPage from "./Containers/LocationPage/LocationPage";
 import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAndConditionsPage";
 import SignupPage from "./Components/SignupPage/SignupPage";
 import FAQsPage from "./Components/FAQs/FAQsPage";
+import OnlineStorePage from "./Containers/OnlineStorePage/OnlineStorePage";
 import axios from "axios";
 import "./App.css";
 
