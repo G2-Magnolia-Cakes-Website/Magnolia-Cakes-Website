@@ -8,6 +8,7 @@ import LoginPage from "./Components/LoginPage/LoginPage";
 import LocationPage from "./Containers/LocationPage/LocationPage";
 import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAndConditionsPage";
 import OnlineStorePage from "./Containers/OnlineStorePage/OnlineStorePage";
+import FlavoursAndServings from "Containers/FlavoursAndServings/FlavoursAndServings";
 import axios from "axios";
 import "./App.css";
 import SignupPage from "./Components/SignupPage/SignupPage";
@@ -21,7 +22,11 @@ const Wrapper = ({ children }) => {
 };
 
 const App = () => {
-  const nonPlaceHolderPages = ["/location", "/terms-and-conditions"];
+  const nonPlaceHolderPages = [
+    "/location",
+    "/terms-and-conditions",
+    "/flavours-and-servings",
+  ];
   const api = axios.create({
     baseURL: "http://127.0.0.1:8000/", // Replace with your backend server URL
   });
@@ -78,6 +83,11 @@ const App = () => {
                 key="/login"
                 path="/login"
                 element={<LoginPage api={api} />}
+              />
+              <Route
+                key="/flavours-and-servings"
+                path="/flavours-and-servings"
+                element={<FlavoursAndServings />}
               />
               {routeAllPagesComingSoon()}
             </Routes>
