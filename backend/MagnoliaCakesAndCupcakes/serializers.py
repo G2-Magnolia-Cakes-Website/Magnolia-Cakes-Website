@@ -21,3 +21,13 @@ class CakeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cake
         fields = '__all__'
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FAQCategories
+        fields = '__all__'
+
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Questions
+        fields = '__all__'
