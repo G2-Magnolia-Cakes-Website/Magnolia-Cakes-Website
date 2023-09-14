@@ -20,24 +20,35 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 
 # register the router
-router.register(r'MagnoliaCakesAndCupcakes',views.MagnoliaCakesAndCupcakesView, 'MagnoliaCakesAndCupcakes')
+router.register(
+    r"MagnoliaCakesAndCupcakes",
+    views.MagnoliaCakesAndCupcakesView,
+    "MagnoliaCakesAndCupcakes",
+)
 
 
 urlpatterns = [
-	path('admin/', admin.site.urls),
-
-	# add another path to the url patterns
-	# when you visit the localhost:8000/api
-	# you should be routed to the django Rest framework
-	path('api/', include(router.urls)),
-	path('api/register/', views.register, name='api-register'),
-    path('activate/<uidb64>/<token>', views.activate, name='activate'),
-	path('api/terms-and-conditions/', views.terms_and_conditions, name='terms-and-conditions'),
-	path('api/login/', views.login, name='api-login'),
- 	path('api/cakes/', views.cakes_list, name='cake-list'),
-    path('api/logout/', views.LogoutView.as_view(), name ='logout'),
-    
+    path("admin/", admin.site.urls),
+    # add another path to the url patterns
+    # when you visit the localhost:8000/api
+    # you should be routed to the django Rest framework
+    path("api/", include(router.urls)),
+    path("api/register/", views.register, name="api-register"),
+    path("activate/<uidb64>/<token>", views.activate, name="activate"),
+    path(
+        "api/terms-and-conditions/",
+        views.terms_and_conditions,
+        name="terms-and-conditions",
+    ),
+    path("api/login/", views.login, name="api-login"),
+    path("api/cakes/", views.cakes_list, name="cake-list"),
+    path("api/logout/", views.LogoutView.as_view(), name="logout"),
+    path(
+        "api/flavours-and-servings/",
+        views.flavours_and_servings,
+        name="flavours-and-servings",
+    ),
     # JWT token creation
-	path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
