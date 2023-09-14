@@ -24,10 +24,10 @@ class CakeSerializer(serializers.ModelSerializer):
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = FAQCategories
+        model = FAQCategory
         fields = '__all__'
 
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Questions
+        model = Question
         fields = '__all__'

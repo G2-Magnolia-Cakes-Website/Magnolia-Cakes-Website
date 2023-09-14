@@ -5,5 +5,5 @@ from .models import *
 
 admin.site.register(TermsAndConditions)
 admin.site.register(Cake)
-admin.site.register(FAQCategories)
-admin.site.register(Questions)
+admin.site.register(FAQCategory)
+admin.site.register(Question)

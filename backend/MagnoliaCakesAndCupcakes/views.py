@@ -151,6 +151,7 @@ def terms_and_conditions(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
+@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
 def cakes_list(request):
     if request.method == 'GET':
         cakes = Cake.objects.all()
@@ -167,3 +168,19 @@ def cakes_list(request):
 
         return Response(cakes_with_image_urls, status=status.HTTP_200_OK)
 
+@api_view(['GET', 'PUT'])
+@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
+def faq_categories_list(request):
+    if request.method == 'GET':
+        categories = FAQCategory.objects.all()
+        serializer = CategorySerializer(categories, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET', 'PUT'])
+@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
+def faq_questions_list(request):
+    if request.method == 'GET':
+        questions = Question.objects.all()
+        serializer = QuestionSerializer(questions, many=True)
+        return Response(serializer.data)
+    

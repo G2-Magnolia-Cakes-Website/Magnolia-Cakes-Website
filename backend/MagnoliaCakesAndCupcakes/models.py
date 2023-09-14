@@ -33,7 +33,7 @@ class Cake(models.Model):
             self.picture.name = f'{self.name}.png'  # You can change the file extension if needed
         super(Cake, self).save(*args, **kwargs)
 
-class FAQCategories(models.Model):
+class FAQCategory(models.Model):
     title = models.CharField(max_length=100)
 
     class Meta:
@@ -42,10 +42,10 @@ class FAQCategories(models.Model):
     def __str__(self):
         return self.title
 
-class Questions(models.Model):
+class Question(models.Model):
     question = models.CharField(max_length=150)
     answer = models.TextField()
-    categories = models.ManyToManyField(FAQCategories)
+    category = models.ManyToManyField(FAQCategory)
 
     class Meta:
         ordering = ["question"]

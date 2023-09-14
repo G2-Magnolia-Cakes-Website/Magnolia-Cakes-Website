@@ -4,28 +4,45 @@ import Question from './Question'
 
 function FAQsPage({ api }) {
 
-    const all = 'All'
+    const all = { 'id': -1, 'title': 'All' };
     const [selectedCategory, setCategory] = useState(all);
     const [categoryList, setCategoryList] = useState([]);
     const [questions, setQuestions] = useState([]);
 
     // Handling the email change
-    const handleSelectedCategory = (e) => {
-        setCategory(e.target.value);
+    const handleSelectedCategory = (category) => {
+        setCategory(category);
     };
 
     // Filter the questions based on the selected category
-    const filteredQuestions = selectedCategory === all ? questions : questions.filter(question => question.category === selectedCategory);
+    const filteredQuestions = selectedCategory.id !== all.id
+        ? questions.filter(question => question.category.includes(selectedCategory.id))
+        : questions;
 
     useEffect(() => {
+
         // Initial API get list of categories
-        var exampleList = ["Category 1", "Category 2"]
-        exampleList.unshift(all);
-        setCategoryList(exampleList);
+        api.get('/api/faq/categories/')
+            .then(response => {
+                // Set the retrieved categories in the state
+                var exampleList = response.data;
+                exampleList.unshift(all);
+                setCategoryList(exampleList);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
 
         // Initial API get list of questions
-        var questionsList = ["Question 1", "Question 2"]
-        setQuestions(questionsList);
+        api.get('/api/faq/questions/')
+            .then(response => {
+                // Set the retrieved categories in the state
+                var questionsList = response.data;
+                setQuestions(questionsList);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
     }, [api]);
 
     return (
@@ -35,16 +52,23 @@ function FAQsPage({ api }) {
             </div>
             <div className='FAQ-categories'>
                 {categoryList.map((category) => (
-                    <button value={category} onClick={handleSelectedCategory}>
-                        {/* {category.name} */}
-                        {category}
+                    <button
+                        key={category.id} // Add a unique key for each button
+                        value={category.title}
+                        onClick={() => handleSelectedCategory(category)}
+                    >
+                        {category.title}
                     </button>
                 ))}
-                {selectedCategory}
             </div>
             <div className='FAQ-questions'>
                 {filteredQuestions.map((question) => (
-                    <Question api={api} question_name={question} />
+                    <Question
+                        key={question.id} // Add a unique key for each question
+                        api={api}
+                        question_name={question.question}
+                        answer={question.answer}
+                    />
                 ))}
             </div>
         </div>
