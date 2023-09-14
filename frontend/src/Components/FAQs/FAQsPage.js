@@ -66,7 +66,6 @@ function FAQsPage({ api }) {
                 {filteredQuestions.map((question) => (
                     <Question
                         key={question.id} // Add a unique key for each question
-                        api={api}
                         question_name={question.question}
                         answer={question.answer}
                     />

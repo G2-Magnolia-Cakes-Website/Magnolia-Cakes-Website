@@ -10,12 +10,19 @@
     font-weight: bold;
     font-family: Yantramanav;
     font-size: 64px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .FAQ-categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     margin-top: 10px;
     margin-bottom: 20px;
-}
+    width: 90%;
+  }
+  
 
 .FAQ-category {
     font-weight: bold;
@@ -40,6 +47,7 @@
 
 .FAQ-questions {
     margin-bottom: 50px;
+    width: 600px;
 }
 
 .Question {
@@ -50,11 +58,11 @@
     color: white;
     border: none;
     padding: 25px;
-    width: 700px;
     margin-top: 10px;
     border-radius: 10px;
     text-align: left;
     letter-spacing: 1px;
+    width: 100%;
 }
 
 .Answer {
@@ -64,7 +72,20 @@
     font-size: 16px;
     border: solid 1px black;
     border-radius: 10px;
-    width: 700px;
     padding: 30px;
     padding-top: 40px;
+    width: 100%;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 650px) {
+    
+    .FAQ-header {
+        font-size: 50px;
+    }
+
+    .FAQ-questions {
+        width: 90%;
+    }
+    
 }
