@@ -4,7 +4,7 @@ entrypoint: gunicorn -b :$PORT backend.wsgi
 env_variables:
   DJANGO_SECRET_KEY: 'django-insecure-_c3!4)8+yce2l-ju@gz@b6(e0$00y@xhx7+lxk1p==k+pyqko3'
   DJANGO_SETTINGS_MODULE: 'backend.settings'
-  APPENGINE_URL: https://magnolia-cakes-and-cupcakes.ts.r.appspot.com
+  APPENGINE_URL: https://backend-dot-magnolia-cakes-and-cupcakes.ts.r.appspot.com/
 
 manual_scaling:
   instances: 1
@@ -14,3 +14,10 @@ handlers:
   static_dir: static/
 - url: /.*
   script: auto
+
+resources:
+  cpu: 1
+  memory_gb: 0.5
+  disk_size_gb: 10
+
+service: backend

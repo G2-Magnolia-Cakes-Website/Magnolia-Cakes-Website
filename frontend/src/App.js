@@ -22,9 +22,13 @@ const Wrapper = ({ children }) => {
 
 const App = () => {
   const nonPlaceHolderPages = ["/location", "/terms-and-conditions"];
-  const api = axios.create({
-    baseURL: "http://127.0.0.1:8000/", // Replace with your backend server URL
-  });
+  const isProduction = process.env.NODE_ENV === "production";
+   // Define the base URL based on the environment, only one of them should be used at a time
+  const baseURL = "https://backend-dot-magnolia-cakes-and-cupcakes.ts.r.appspot.com/"; // Uncomment this before deploying
+  //const baseURL = "http://127.0.0.1:8000/"; // Uncomment this when you run it locally
+ const api = axios.create({
+   baseURL,
+ });
   // temporary until pages created
   const routeAllPagesComingSoon = () => {
     return pages
@@ -52,6 +56,11 @@ const App = () => {
                 path="/location"
                 element={<LocationPage />}
               />
+              <Route
+              key="/online-store"
+              path="/online-store"
+              element={<OnlineStorePage api={api}/>}
+            />
               <Route
                 key="/terms-and-conditions"
                 path="/terms-and-conditions"

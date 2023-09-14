@@ -1,0 +1,23 @@
+runtime: nodejs20  # Use the appropriate runtime version
+
+handlers:
+  - url: /static
+    static_dir: build/static
+  - url: /.*
+    static_files: build/index.html
+    upload: build/index.html
+
+env_variables:
+  REACT_APP_API_BASE_URL: "https://backend-dot-magnolia-cakes-and-cupcakes.ts.r.appspot.com/"
+  REACT_APP_ENVIRONMENT: "production"
+
+
+manual_scaling:
+  instances: 1
+
+resources:
+  cpu: 1
+  memory_gb: 0.5
+  disk_size_gb: 10
+
+service: frontend
