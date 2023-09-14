@@ -10,9 +10,9 @@ function Question({ api, question_name, answer }) {
     };
 
     return (
-        <div className="Question">
+        <div>
 
-            <button onClick={handleQuestion}>{question_name}</button>
+            <button className='Question' onClick={handleQuestion}>{question_name.toUpperCase()}</button>
 
             {openQuestion &&
                 <div className='Answer'>

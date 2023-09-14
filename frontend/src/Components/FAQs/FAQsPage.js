@@ -55,9 +55,10 @@ function FAQsPage({ api }) {
                     <button
                         key={category.id} // Add a unique key for each button
                         value={category.title}
+                        className= {category.id === selectedCategory.id ? "selected-category" : "FAQ-category"}
                         onClick={() => handleSelectedCategory(category)}
                     >
-                        {category.title}
+                        {category.title.toUpperCase()}
                     </button>
                 ))}
             </div>
