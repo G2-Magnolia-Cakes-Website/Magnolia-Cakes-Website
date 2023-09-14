@@ -22,6 +22,9 @@ function Question({ question_name, answer }) {
 
             <button className='Question' onClick={handleQuestion}>
                 {addQuestionMark(question_name.toUpperCase())}
+                <span className='Symbol'>
+                    {openQuestion ? '\u2193' : '\u2192'}
+                </span>
             </button>
 
             {openQuestion &&

@@ -21,8 +21,7 @@
     margin-top: 10px;
     margin-bottom: 20px;
     width: 90%;
-  }
-  
+}
 
 .FAQ-category {
     font-weight: bold;
@@ -48,6 +47,12 @@
 .FAQ-questions {
     margin-bottom: 50px;
     width: 600px;
+    /* display: flex;
+    align-items: center; */
+}
+
+.Symbol {
+    margin-left: 5px;
 }
 
 .Question {
@@ -63,6 +68,9 @@
     text-align: left;
     letter-spacing: 1px;
     width: 100%;
+
+    display: flex;
+    justify-content: space-between;
 }
 
 .Answer {
@@ -79,7 +87,7 @@
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 650px) {
-    
+
     .FAQ-header {
         font-size: 50px;
     }
@@ -87,5 +95,5 @@
     .FAQ-questions {
         width: 90%;
     }
-    
+
 }
