@@ -269,7 +269,5 @@ def faq_questions_list(request):
 def flavours_and_servings_info(request):
     if request.method == "GET":
         flavours_servings_info = FlavoursAndServingsInfo.objects.first()
-        serializer = FlavoursAndServingsInfoSerializer(
-            flavours_servings_info, many=True
-        )
+        serializer = FlavoursAndServingsInfoSerializer(flavours_servings_info)
         return Response(serializer.data)
