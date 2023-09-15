@@ -39,6 +39,28 @@ class Cake(models.Model):
         super(Cake, self).save(*args, **kwargs)
 
 
+class FAQCategory(models.Model):
+    title = models.CharField(max_length=100)
+
+    class Meta:
+        ordering = ["title"]
+
+    def __str__(self):
+        return self.title
+
+
+class Question(models.Model):
+    question = models.CharField(max_length=150)
+    answer = models.TextField()
+    category = models.ManyToManyField(FAQCategory)
+
+    class Meta:
+        ordering = ["question"]
+
+    def __str__(self):
+        return self.question
+
+
 class FlavoursAndServings(models.Model):
     title = models.CharField(max_length=100)
     list = models.TextField()
