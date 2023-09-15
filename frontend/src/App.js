@@ -11,6 +11,7 @@ import OnlineStorePage from "./Containers/OnlineStorePage/OnlineStorePage";
 import axios from "axios";
 import "./App.css";
 import SignupPage from "./Components/SignupPage/SignupPage";
+import AboutUsPage from "Containers/AboutUsPage/AboutUsPage";
 
 const Wrapper = ({ children }) => {
   const location = useLocation();
@@ -23,12 +24,13 @@ const Wrapper = ({ children }) => {
 const App = () => {
   const nonPlaceHolderPages = ["/location", "/terms-and-conditions"];
   const isProduction = process.env.NODE_ENV === "production";
-   // Define the base URL based on the environment, only one of them should be used at a time
-  const baseURL = "https://backend-dot-magnolia-cakes-and-cupcakes.ts.r.appspot.com/"; // Uncomment this before deploying
-  //const baseURL = "http://127.0.0.1:8000/"; // Uncomment this when you run it locally
- const api = axios.create({
-   baseURL,
- });
+  // Define the base URL based on the environment, only one of them should be used at a time
+  const baseURL =
+    "https://backend-dot-magnolia-cakes-and-cupcakes.ts.r.appspot.com/"; // Uncomment this before deploying
+  // const baseURL = "http://127.0.0.1:8000/"; // Uncomment this when you run it locally
+  const api = axios.create({
+    baseURL,
+  });
   // temporary until pages created
   const routeAllPagesComingSoon = () => {
     return pages
@@ -57,14 +59,19 @@ const App = () => {
                 element={<LocationPage />}
               />
               <Route
-              key="/online-store"
-              path="/online-store"
-              element={<OnlineStorePage api={api}/>}
-            />
+                key="/online-store"
+                path="/online-store"
+                element={<OnlineStorePage api={api} />}
+              />
               <Route
                 key="/terms-and-conditions"
                 path="/terms-and-conditions"
                 element={<TermsAndConditionsPage api={api} />}
+              />
+              <Route
+                key="about-us"
+                path="about-us"
+                element={<AboutUsPage api={api} />}
               />
               <Route path="/gallery" element={<ComingSoonPage />}>
                 <Route

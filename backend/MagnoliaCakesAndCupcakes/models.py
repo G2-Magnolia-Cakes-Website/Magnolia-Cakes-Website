@@ -32,3 +32,7 @@ class Cake(models.Model):
         if self.picture and hasattr(self.picture, 'name'):
             self.picture.name = f'{self.name}.png'  # You can change the file extension if needed
         super(Cake, self).save(*args, **kwargs)
+
+class AboutUs(models.Model):
+    content = models.TextField()
+    last_updated = models.DateTimeField(auto_now=True)
