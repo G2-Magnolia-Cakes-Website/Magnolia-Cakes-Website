@@ -188,7 +188,7 @@ exports[`test PageLayout render PageLayout 1`] = `
           >
             <a
               className=""
-              href="/cake-flavours-and-servings"
+              href="/flavours-and-servings"
               onClick={[Function]}
             >
               Flavours & Servings
