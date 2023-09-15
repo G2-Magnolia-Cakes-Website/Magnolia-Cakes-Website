@@ -31,7 +31,7 @@ const App = () => {
   // Define the base URL based on the environment, only one of them should be used at a time
   const baseURL =
     "https://backend-dot-magnolia-cakes-and-cupcakes.ts.r.appspot.com/"; // Uncomment this before deploying
-  //const baseURL = "http://127.0.0.1:8000/"; // Uncomment this when you run it locally
+  // const baseURL = "http://127.0.0.1:8000/"; // Uncomment this when you run it locally
   const api = axios.create({
     baseURL,
   });
@@ -56,7 +56,7 @@ const App = () => {
         <div className="watercolor-bg">
           <PageLayout>
             <Routes>
-              <Route key="/" path="/" element={<HomePage />} />
+              <Route key="/" path="/" element={<HomePage api={api} />} />
               <Route
                 key="/location"
                 path="/location"
@@ -71,6 +71,11 @@ const App = () => {
                 key="/terms-and-conditions"
                 path="/terms-and-conditions"
                 element={<TermsAndConditionsPage api={api} />}
+              />
+              <Route
+                key="/flavours-and-servings"
+                path="/flavours-and-servings"
+                element={<FlavoursAndServings api={api} />}
               />
               <Route path="/gallery" element={<ComingSoonPage />}>
                 <Route
@@ -93,11 +98,6 @@ const App = () => {
                 key="/login"
                 path="/login"
                 element={<LoginPage api={api} />}
-              />
-              <Route
-                key="/flavours-and-servings"
-                path="/flavours-and-servings"
-                element={<FlavoursAndServings api={api} />}
               />
               {routeAllPagesComingSoon()}
             </Routes>

@@ -7,14 +7,14 @@ import DeliverySection from "./Sections/DeliverySection";
 import GallerySection from "./Sections/GallerySection";
 import FlavoursAndServings from "Containers/FlavoursAndServings/FlavoursAndServings";
 
-const HomePage = () => {
+const HomePage = ({ api }) => {
   return (
     <>
       <CarouselGallery />
       <GallerySection />
       {/* <SubheadingDivider subheadingText="Cakes for all occasions" /> */}
       <AboutUsSection />
-      <FlavoursAndServings />
+      <FlavoursAndServings api={api} />
       <DeliverySection />
       <LocationPage />
     </>
