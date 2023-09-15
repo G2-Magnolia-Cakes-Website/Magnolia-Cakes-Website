@@ -28,4 +28,4 @@ class CakeSerializer(serializers.ModelSerializer):
 class FlavoursAndServingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = FlavoursAndServings
-        fields = ("title", "list", "last_updated")
+        fields = "__all__"

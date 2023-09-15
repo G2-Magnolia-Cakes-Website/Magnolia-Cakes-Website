@@ -87,7 +87,7 @@ const App = () => {
               <Route
                 key="/flavours-and-servings"
                 path="/flavours-and-servings"
-                element={<FlavoursAndServings />}
+                element={<FlavoursAndServings api={api} />}
               />
               {routeAllPagesComingSoon()}
             </Routes>

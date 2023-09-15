@@ -221,7 +221,7 @@ def cakes_list(request):
 def flavours_and_servings(request):
     if request.method == "GET":
         flavours_servings_lists = FlavoursAndServings.objects.all()
-        serializer = FlavoursAndServingsSerializer(flavours_servings_lists)
+        serializer = FlavoursAndServingsSerializer(flavours_servings_lists, many=True)
         return Response(serializer.data)
 
     if request.method == "POST":
@@ -231,5 +231,7 @@ def flavours_and_servings(request):
             flavours_servings_list.title = flavours_servings_list.title
             flavours_servings_list.list = flavours_servings_list.list
             flavours_servings_list.save()
-            return Response( {"message": "Flavours & Servings updated"}, status=status.HTTP_200_OK)
+            return Response(
+                {"message": "Flavours & Servings updated"}, status=status.HTTP_200_OK
+            )
         return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)

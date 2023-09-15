@@ -5,12 +5,14 @@ import "./List.css";
 const List = (props) => {
   const { listTitle, listOptions } = props;
 
+  const listOptionsArray = listOptions.split(", ");
+
   return (
     <div className="list-wrapper">
       <h4>{listTitle}</h4>
       <ul>
-        {listOptions.map((op) => (
-          <li>{op}</li>
+        {listOptionsArray.map((op) => (
+          <li key={op}>{op}</li>
         ))}
       </ul>
     </div>
