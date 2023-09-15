@@ -10,6 +10,6 @@ A website for Magnolia Cakes and Cupcakes
 
 2. Navigate to 'frontend' and run this command:
 
-### `npm run`
+### `npm i && npm start`
 
 3. Enjoy
