@@ -7,10 +7,11 @@ import HomePage from "./Containers/HomePage/HomePage";
 import LoginPage from "./Components/LoginPage/LoginPage";
 import LocationPage from "./Containers/LocationPage/LocationPage";
 import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAndConditionsPage";
+import SignupPage from "./Components/SignupPage/SignupPage";
+import FAQsPage from "./Components/FAQs/FAQsPage";
 import OnlineStorePage from "./Containers/OnlineStorePage/OnlineStorePage";
 import axios from "axios";
 import "./App.css";
-import SignupPage from "./Components/SignupPage/SignupPage";
 
 const Wrapper = ({ children }) => {
   const location = useLocation();
@@ -87,6 +88,11 @@ const App = () => {
                 key="/login"
                 path="/login"
                 element={<LoginPage api={api} />}
+              />
+              <Route
+                key="/faq"
+                path="/faq"
+                element={<FAQsPage api={api} />}
               />
               {routeAllPagesComingSoon()}
             </Routes>
