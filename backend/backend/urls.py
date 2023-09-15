@@ -40,10 +40,13 @@ urlpatterns = [
         views.terms_and_conditions,
         name="terms-and-conditions",
     ),
-    path("api/about-us/", views.about_us, name="about-us"),
     path("api/login/", views.login, name="api-login"),
-    path("api/cakes/", views.cakes_list, name="cake-list"),
     path("api/logout/", views.LogoutView.as_view(), name="logout"),
+    path("api/cakes/", views.cakes_list, name="cake-list"),
+    path("api/faq/categories/", views.faq_categories_list, name="faq-categories-list"),
+    path("api/faq/questions/", views.faq_questions_list, name="faq-questions-list"),
+    path("api/about-us/", views.about_us, name="about-us"),
+    
     # JWT token creation
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
