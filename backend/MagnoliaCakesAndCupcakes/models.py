@@ -32,3 +32,23 @@ class Cake(models.Model):
         if self.picture and hasattr(self.picture, 'name'):
             self.picture.name = f'{self.name}.png'  # You can change the file extension if needed
         super(Cake, self).save(*args, **kwargs)
+
+class FAQCategory(models.Model):
+    title = models.CharField(max_length=100)
+
+    class Meta:
+        ordering = ["title"]
+
+    def __str__(self):
+        return self.title
+
+class Question(models.Model):
+    question = models.CharField(max_length=150)
+    answer = models.TextField()
+    category = models.ManyToManyField(FAQCategory)
+
+    class Meta:
+        ordering = ["question"]
+
+    def __str__(self):
+        return self.question
