@@ -5,6 +5,7 @@ import pages from "./utils/all_pages.json";
 import ComingSoonPage from "./Components/ComingSoonPage/ComingSoonPage";
 import HomePage from "./Containers/HomePage/HomePage";
 import LoginPage from "./Components/LoginPage/LoginPage";
+import PasswordPage from "./Components/ForgotPassword/ForgotPasswordPage";
 import LocationPage from "./Containers/LocationPage/LocationPage";
 import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAndConditionsPage";
 import SignupPage from "./Components/SignupPage/SignupPage";
@@ -88,6 +89,11 @@ const App = () => {
                 key="/login"
                 path="/login"
                 element={<LoginPage api={api} />}
+              />
+              <Route
+                key="/forgot-password"
+                path="/forgot-password"
+                element={<PasswordPage api={api} />}
               />
               <Route
                 key="/faq"

@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 
-export default function LoginForm({ api }) {
+export default function ForgotPasswordForm({ api }) {
 
     const navigate = useNavigate();
 
@@ -113,16 +113,12 @@ export default function LoginForm({ api }) {
                     value={email} type="email" placeholder='Email' />
 
                 <input onChange={handlePassword} className="input-login"
-                    value={password} type="password" placeholder='Password' />
+                    value={password} type="password" placeholder='New Password' />
 
                 <button onClick={handleSubmit} className="submit-btn"
                     type="submit">
-                    Login
+                    Submit
                 </button>
-
-                <div className='signup-question'>Don't have an account? <Link to="/signup" className='signup-link'>Sign up for free</Link></div>
-
-                <div className='signup-question'><Link to="/forgot-password" className='signup-link'>Forgot your password?</Link></div>
 
                 <div className="messages">
                     {errorMessage()}
