@@ -75,7 +75,7 @@ export default function SignupForm({ api }) {
                     password2: password2
                 };
 
-                let res = await api.post('http://localhost:8000/api/register/',
+                let res = await api.post('/api/register/',
                     user,
                     {
                         headers: {
