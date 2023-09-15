@@ -30,12 +30,20 @@ class FlavoursAndServingsSerializer(serializers.ModelSerializer):
         model = FlavoursAndServings
         fields = "__all__"
 
+
+class FlavoursAndServingsInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FlavoursAndServingsInfo
+        fields = "__all__"
+
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = FAQCategory
-        fields = '__all__'
+        fields = "__all__"
+
 
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = '__all__'
+        fields = "__all__"

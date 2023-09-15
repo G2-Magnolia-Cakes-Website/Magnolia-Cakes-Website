@@ -50,6 +50,11 @@ urlpatterns = [
         views.flavours_and_servings,
         name="flavours-and-servings",
     ),
+    path(
+        "api/flavours-and-servings-info/",
+        views.flavours_and_servings_info,
+        name="flavours-and-servings-info",
+    ),
     # JWT token creation
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),

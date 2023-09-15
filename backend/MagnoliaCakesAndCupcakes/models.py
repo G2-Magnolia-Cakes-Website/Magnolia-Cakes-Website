@@ -65,3 +65,9 @@ class FlavoursAndServings(models.Model):
     title = models.CharField(max_length=100)
     list = models.TextField()
     last_updated = models.DateTimeField(auto_now=True)
+
+
+class FlavoursAndServingsInfo(models.Model):
+    heading = models.CharField(max_length=200)
+    description = models.TextField()
+    extra_points = models.TextField()

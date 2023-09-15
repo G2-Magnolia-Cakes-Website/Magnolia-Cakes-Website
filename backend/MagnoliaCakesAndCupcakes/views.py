@@ -195,8 +195,11 @@ def terms_and_conditions(request):
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET'])
-@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
 def cakes_list(request):
     if request.method == "GET":
         cakes = Cake.objects.all()
@@ -236,19 +239,37 @@ def flavours_and_servings(request):
             )
         return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'PUT'])
-@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
+
+@api_view(["GET", "PUT"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
 def faq_categories_list(request):
-    if request.method == 'GET':
+    if request.method == "GET":
         categories = FAQCategory.objects.all()
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data)
 
-@api_view(['GET', 'PUT'])
-@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
+
+@api_view(["GET", "PUT"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
 def faq_questions_list(request):
-    if request.method == 'GET':
+    if request.method == "GET":
         questions = Question.objects.all()
         serializer = QuestionSerializer(questions, many=True)
         return Response(serializer.data)
-    
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def flavours_and_servings_info(request):
+    if request.method == "GET":
+        flavours_servings_info = FlavoursAndServingsInfo.objects.first()
+        serializer = FlavoursAndServingsInfoSerializer(
+            flavours_servings_info, many=True
+        )
+        return Response(serializer.data)
