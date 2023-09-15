@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set "VIRTUAL_ENV=C:\Users\Omer Yalavac\Desktop\Capstone Project\Magnolia-Cakes-Website\dar"
+set VIRTUAL_ENV=C:\Users\nucle\Documents\IT_Master\Sem_3\Capstone\Magnolia-Cakes-Website\django-todo-react\dar
 
 if not defined PROMPT set PROMPT=$P$G
 
@@ -19,7 +19,7 @@ set _OLD_VIRTUAL_PROMPT=%PROMPT%
 set PROMPT=(dar) %PROMPT%
 
 if defined PYTHONHOME set _OLD_VIRTUAL_PYTHONHOME=%PYTHONHOME%
-set "PYTHONHOME=C:\Users\Omer Yalavac\AppData\Local\Programs\Python\Python311"
+set PYTHONHOME=
 
 if defined _OLD_VIRTUAL_PATH set PATH=%_OLD_VIRTUAL_PATH%
 if not defined _OLD_VIRTUAL_PATH set _OLD_VIRTUAL_PATH=%PATH%
