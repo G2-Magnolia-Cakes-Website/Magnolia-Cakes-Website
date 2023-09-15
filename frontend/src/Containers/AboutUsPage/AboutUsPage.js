@@ -4,7 +4,8 @@ import { aboutUsPortrait } from "utils/cover";
 import "./AboutUsPage.css";
 
 const AboutUsPage = ({ api }) => {
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState([]);
+  const [currentKey, setCurrentKey] = useState(0);
 
   useEffect(() => {
     // Make a GET request using the passed api instance
@@ -12,8 +13,11 @@ const AboutUsPage = ({ api }) => {
       .get("/api/about-us/")
       .then((response) => {
         // Set the retrieved content in the state
-        setContent(response.data.content);
-        console.log(response.data.content);
+        setContent(
+          response.data.content
+            .split("\n")
+            .filter((paragraph) => paragraph !== "\r")
+        );
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -31,8 +35,8 @@ const AboutUsPage = ({ api }) => {
       </div>
       <div className="page-content">
         <h1>About Us</h1>
-        {content.split("\n").map((paragraph) => (
-          <p>{paragraph}</p>
+        {content.map((paragraph) => (
+          <p key={content.indexOf(paragraph)}>{paragraph}</p>
         ))}
       </div>
     </div>
