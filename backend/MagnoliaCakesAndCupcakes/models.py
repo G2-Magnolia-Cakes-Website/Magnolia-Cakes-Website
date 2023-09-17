@@ -39,6 +39,11 @@ class Cake(models.Model):
         super(Cake, self).save(*args, **kwargs)
 
 
+class AboutUs(models.Model):
+    content = models.TextField()
+    last_updated = models.DateTimeField(auto_now=True)
+
+
 class FAQCategory(models.Model):
     title = models.CharField(max_length=100)
 

@@ -37,6 +37,13 @@ class FlavoursAndServingsInfoSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class AboutUsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AboutUs
+        fields = ("id", "content", "last_updated")
+        fields = "__all__"
+
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = FAQCategory

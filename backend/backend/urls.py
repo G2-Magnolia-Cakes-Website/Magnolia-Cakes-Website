@@ -55,6 +55,8 @@ urlpatterns = [
         views.flavours_and_servings_info,
         name="flavours-and-servings-info",
     ),
+    path("api/about-us/", views.about_us, name="about-us"),
+    
     # JWT token creation
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
