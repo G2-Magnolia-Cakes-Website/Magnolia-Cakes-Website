@@ -1,21 +1,24 @@
 from django.db import models
- 
+
+
 class MagnoliaCakesAndCupcakes(models.Model):
-    title=models.CharField(max_length=150)
- 
+    title = models.CharField(max_length=150)
+
     # string representation of the class
     def __str__(self):
- 
-        #it will return the title
+        # it will return the title
         return self.title
+
 
 class TermsAndConditions(models.Model):
     content = models.TextField()
     last_updated = models.DateTimeField(auto_now=True)
-    
+
+
 def upload_to(instance, filename):
     # Upload the image to a 'cakes' directory with the filename as the cake's name
-    return f'cakes/{filename}'
+    return f"cakes/{filename}"
+
 
 class Cake(models.Model):
     name = models.CharField(max_length=100)
@@ -29,9 +32,17 @@ class Cake(models.Model):
 
     def save(self, *args, **kwargs):
         # Rename the uploaded image to match the cake's name
-        if self.picture and hasattr(self.picture, 'name'):
-            self.picture.name = f'{self.name}.png'  # You can change the file extension if needed
+        if self.picture and hasattr(self.picture, "name"):
+            self.picture.name = (
+                f"{self.name}.png"  # You can change the file extension if needed
+            )
         super(Cake, self).save(*args, **kwargs)
+
+
+class AboutUs(models.Model):
+    content = models.TextField()
+    last_updated = models.DateTimeField(auto_now=True)
+
 
 class FAQCategory(models.Model):
     title = models.CharField(max_length=100)
@@ -41,6 +52,7 @@ class FAQCategory(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class Question(models.Model):
     question = models.CharField(max_length=150)

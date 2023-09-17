@@ -28,21 +28,25 @@ router.register(
 
 
 urlpatterns = [
-	path('admin/', admin.site.urls),
-
-	# add another path to the url patterns
-	# when you visit the localhost:8000/api
-	# you should be routed to the django Rest framework
-	path('api/', include(router.urls)),
-	path('api/register/', views.register, name='api-register'),
-    path('activate/<uidb64>/<token>', views.activate, name='activate'),
-	path('api/terms-and-conditions/', views.terms_and_conditions, name='terms-and-conditions'),
-	path('api/login/', views.login, name='api-login'),
-    path('api/logout/', views.LogoutView.as_view(), name ='logout'),
- 	path('api/cakes/', views.cakes_list, name='cake-list'),
- 	path('api/faq/categories/', views.faq_categories_list, name='faq-categories-list'),
- 	path('api/faq/questions/', views.faq_questions_list, name='faq-questions-list'),
-     path("api/contact/", views.get_a_quote, name="contact"),
+    path("admin/", admin.site.urls),
+    # add another path to the url patterns
+    # when you visit the localhost:8000/api
+    # you should be routed to the django Rest framework
+    path("api/", include(router.urls)),
+    path("api/register/", views.register, name="api-register"),
+    path("activate/<uidb64>/<token>", views.activate, name="activate"),
+    path(
+        "api/terms-and-conditions/",
+        views.terms_and_conditions,
+        name="terms-and-conditions",
+    ),
+    path("api/login/", views.login, name="api-login"),
+    path("api/logout/", views.LogoutView.as_view(), name="logout"),
+    path("api/cakes/", views.cakes_list, name="cake-list"),
+    path("api/faq/categories/", views.faq_categories_list, name="faq-categories-list"),
+    path("api/faq/questions/", views.faq_questions_list, name="faq-questions-list"),
+    path("api/contact/", views.get_a_quote, name="contact"),
+    path("api/about-us/", views.about_us, name="about-us"),
     
     # JWT token creation
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),

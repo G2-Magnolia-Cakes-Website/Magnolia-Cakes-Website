@@ -258,6 +258,25 @@ def cakes_list(request):
 
         return Response(cakes_with_image_urls, status=status.HTTP_200_OK)
 
+
+@api_view(["GET", "PUT"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def about_us(request):
+    if request.method == "GET":
+        about_us = AboutUs.objects.first()
+        serializer = AboutUsSerializer(about_us)
+        return Response(serializer.data)
+
+    elif request.method == "PUT":
+        about_us = AboutUs.objects.first()
+        serializer = AboutUsSerializer(about_us, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "About Us updated"}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 @api_view(['GET', 'PUT'])
 @permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
 def faq_categories_list(request):
