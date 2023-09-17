@@ -32,7 +32,10 @@ export default function ForgotPasswordForm({ api }) {
         e.preventDefault();
 
         if (password === '' || confirmPassword === '') {
-            setErrorMessage(defaultErrorMessage);
+            setErrorMessage("Please put a value for both password and confirm password!");
+            setError(true);
+        } else if (password ===  confirmPassword) {
+            setErrorMessage("Password and confirm password do not match!");
             setError(true);
         } else {
             // Send API msg to backend
