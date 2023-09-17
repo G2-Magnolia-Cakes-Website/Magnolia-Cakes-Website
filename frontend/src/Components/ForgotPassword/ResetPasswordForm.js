@@ -1,38 +1,55 @@
 import React from 'react';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 export default function ForgotPasswordForm({ api }) {
 
+    // Get token
+    // const { token } = useParams();
+
     // States for registration
-    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     // States for checking the errors
     const [error, setError] = useState(false);
     const [submitted, setSubmitted] = useState(false);
-    const defaultErrorMessage = 'Reset password failed! Please enter a correct email.';
+    const defaultErrorMessage = 'Reset password failed!';
     const [errorMessagePrint, setErrorMessage] = useState(defaultErrorMessage);
 
     // Handling the email change
-    const handleEmail = (e) => {
-        setEmail(e.target.value.toLowerCase());
+    const handlePassword = (e) => {
+        setPassword(e.target.value);
+    };
+
+    // Handling the email change
+    const handleConfirmPassword = (e) => {
+        setConfirmPassword(e.target.value);
     };
 
     // Handling the form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (email === '') {
+        if (password === '' || confirmPassword === '') {
             setErrorMessage(defaultErrorMessage);
             setError(true);
         } else {
             // Send API msg to backend
             try {
 
+                // Get the token from the URL query parameters
+                const searchParams = new URLSearchParams(window.location.search);
+                const token = searchParams.get('token');
+
                 const user = {
-                    email: email
+                    password: password,
+                    token: token
                 };
 
-                let res = await api.post('/api/reset/password/',
+                const url = '/api/reset/password/confirm/?token=' + token
+
+                let res = await api.post(url,
                     user,
                     {
                         headers: {
@@ -51,8 +68,10 @@ export default function ForgotPasswordForm({ api }) {
                     setSubmitted(false);
                     if (res.data["detail"]) {
                         setErrorMessage(res.data["detail"]);
-                    } else if (res.data["email"]) {
-                        setErrorMessage(res.data["email"]);
+                    } else if (res.data["token"]) {
+                        setErrorMessage(res.data["token"]);
+                    } else if (res.data["password"]) {
+                        setErrorMessage(res.data["password"]);
                     } else if (res.data["message"]) {
                         setErrorMessage(res.data["message"]);
                     } else {
@@ -66,8 +85,10 @@ export default function ForgotPasswordForm({ api }) {
                 console.log(err);
                 if (err.response.data["detail"]) {
                     setErrorMessage(err.response.data["detail"]);
-                } else if (err.response.data["email"]) {
-                    setErrorMessage(err.response.data["email"]);
+                } else if (err.response.data["token"]) {
+                    setErrorMessage(err.response.data["token"]);
+                } else if (err.response.data["password"]) {
+                    setErrorMessage(err.response.data["password"]);
                 } else if (err.response.data["message"]) {
                     setErrorMessage(err.response.data["message"]);
                 } else {
@@ -86,7 +107,7 @@ export default function ForgotPasswordForm({ api }) {
                 style={{
                     display: submitted ? '' : 'none',
                 }}>
-                <p className='msgs'>Please click the link in your email, {email}, to set your new password.</p>
+                <p className='msgs'>You have successfully changed your password.</p>
             </div>
         );
     };
@@ -109,14 +130,17 @@ export default function ForgotPasswordForm({ api }) {
 
             <form>
                 {/* Labels and inputs for form data */}
-                <input onChange={handleEmail} className="input-login" autoCapitalize="none"
-                    value={email} type="email" placeholder='Email' />
+                <input onChange={handlePassword} className="input-login"
+                    value={password} type="password" placeholder='New Password' />
+
+                <input onChange={handleConfirmPassword} className="input-login"
+                    value={confirmPassword} type="password" placeholder='Confirm New Password' />
 
                 <button onClick={handleSubmit} className="submit-btn"
                     type="submit">
                     Submit
                 </button>
-                
+
                 <div className="messages">
                     {errorMessage()}
                     {successMessage()}

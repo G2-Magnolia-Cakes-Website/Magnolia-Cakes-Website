@@ -58,7 +58,6 @@ def register(request):
 
 @permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
 def activateEmail(request, user, to_email):
-    # test_email_server_connectivity()
     mail_subject = 'Activate your user account.'
     message = render_to_string('template_activate_account.html', {
         'first_name': user.first_name,
@@ -168,7 +167,7 @@ def cakes_list(request):
 
         return Response(cakes_with_image_urls, status=status.HTTP_200_OK)
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET'])
 @permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
 def faq_categories_list(request):
     if request.method == 'GET':
@@ -176,11 +175,26 @@ def faq_categories_list(request):
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data)
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET'])
 @permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
 def faq_questions_list(request):
     if request.method == 'GET':
         questions = Question.objects.all()
         serializer = QuestionSerializer(questions, many=True)
         return Response(serializer.data)
-    
+
+# @api_view(['POST'])
+# @permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
+# def reset_password(request):
+#     if request.method == 'POST':
+#         form = AuthenticationForm(request._request, data=request.data)
+#         print("form ", form.error_messages)
+#         return Response(form.error_messages)
+        # Validate email
+        # Compare pass1 - pass2
+        # validate password
+        # generate link
+        # send mail
+
+# def confirmed reset password
+

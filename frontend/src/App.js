@@ -6,6 +6,7 @@ import ComingSoonPage from "./Components/ComingSoonPage/ComingSoonPage";
 import HomePage from "./Containers/HomePage/HomePage";
 import LoginPage from "./Components/LoginPage/LoginPage";
 import PasswordPage from "./Components/ForgotPassword/ForgotPasswordPage";
+import PasswordResetPage from "./Components/ForgotPassword/ResetPasswordPage";
 import LocationPage from "./Containers/LocationPage/LocationPage";
 import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAndConditionsPage";
 import SignupPage from "./Components/SignupPage/SignupPage";
@@ -26,8 +27,8 @@ const App = () => {
   const nonPlaceHolderPages = ["/location", "/terms-and-conditions"];
   const isProduction = process.env.NODE_ENV === "production";
    // Define the base URL based on the environment, only one of them should be used at a time
-  const baseURL = "https://backend-dot-magnolia-cakes-and-cupcakes.ts.r.appspot.com/"; // Uncomment this before deploying
-  //const baseURL = "http://127.0.0.1:8000/"; // Uncomment this when you run it locally
+  // const baseURL = "https://backend-dot-magnolia-cakes-and-cupcakes.ts.r.appspot.com/"; // Uncomment this before deploying
+  const baseURL = "http://127.0.0.1:8000/"; // Uncomment this when you run it locally
  const api = axios.create({
    baseURL,
  });
@@ -94,6 +95,11 @@ const App = () => {
                 key="/forgot-password"
                 path="/forgot-password"
                 element={<PasswordPage api={api} />}
+              />
+              <Route
+                key="/reset-password"
+                path="/reset-password"
+                element={<PasswordResetPage api={api} />}
               />
               <Route
                 key="/faq"
