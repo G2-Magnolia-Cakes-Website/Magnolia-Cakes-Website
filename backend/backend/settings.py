@@ -3,6 +3,7 @@ from pathlib import Path
 from google.oauth2 import service_account
 from google.cloud import storage
 from datetime import timedelta
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -12,10 +13,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-_c3!4)8+yce2l-ju@gz@b6(e0$00y@xhx7+lxk1p==k+pyqko3"
+SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
@@ -91,11 +92,11 @@ WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'magnolia-cakes-and-cupcakes',
-        'USER': 'minh',
-        'PASSWORD': 'minh',
-        'HOST': '34.129.95.36',
-        'PORT': '5432',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
         'CONN_MAX_AGE': None,
     }
 }
@@ -163,16 +164,16 @@ EMAIL_FROM = 'noreply.magnoliacakes@gmail.com'
 DEFAULT_FROM_EMAIL = 'noreply.magnoliacakes@gmail.com'
 SERVER_EMAIL = 'noreply.magnoliacakes@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'noreply.magnoliacakes@gmail.com'
-EMAIL_HOST_PASSWORD = 'mtzndgodvtfuyfwd'
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587 
 EMAIL_USE_TLS = True
 PASSWORD_RESET_TIMEOUT = 14400 		# How long the verification link is valid for 
 
-GS_BUCKET_NAME = 'magnolia-cakes-product'
-GS_PROJECT_ID = 'magnolia-cakes-and-cupcakes'
+GS_BUCKET_NAME = config('GS_BUCKET_NAME')
+GS_PROJECT_ID = config('GS_PROJECT_ID')
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    'secrets/magnolia-cakes-and-cupcakes-c7473a50a1fd.json'
+    'secrets/alpine-avatar-399423-1e794a435a02.json'
 )
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 MEDIA_URL = f'https://storage.googleapis.com/{GS_BUCKET_NAME}/'
