@@ -2,9 +2,9 @@ runtime: python39
 entrypoint: gunicorn -b :$PORT backend.wsgi
 
 env_variables:
-  DJANGO_SECRET_KEY: 'django-insecure-_c3!4)8+yce2l-ju@gz@b6(e0$00y@xhx7+lxk1p==k+pyqko3'
+  DJANGO_SECRET_KEY: ${env("/backend/.env")}
   DJANGO_SETTINGS_MODULE: 'backend.settings'
-  APPENGINE_URL: https://backend-dot-magnolia-cakes-and-cupcakes.ts.r.appspot.com/
+  APPENGINE_URL: https://backend-dot-alpine-avatar-399423.ts.r.appspot.com
 
 manual_scaling:
   instances: 1
