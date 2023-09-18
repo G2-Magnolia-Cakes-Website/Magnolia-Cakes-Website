@@ -4,12 +4,47 @@ import SignUpLogInLinkGroup from "Containers/SignUpLogInLinkGroup/SignUpLogInLin
 import "./Header.css";
 import SignedInGroup from "../../SignedInGroup/SignedInGroup";
 
-const Header = () => {
+const Header = ({ api }) => {
 
   const [isAuth, setIsAuth] = useState(false);
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     if (localStorage.getItem('access_token') !== null) {
+
+      const fetchUser = async () => {
+        try {
+          // get user
+          const token = {
+            access_token: localStorage.getItem('access_token')
+          };
+
+          let res = await api.get('/api/user/',
+            token,
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+              },
+              withCredentials: true,
+            }
+          );
+          console.log(api.defaults.headers.common);
+
+          if (res.status === 200) {
+            console.log(res.data);
+            // setUser(...);
+          } else {
+            console.log(res);
+          }
+
+        } catch (err) {
+          console.log(api.defaults.headers.common);
+          console.log(err);
+        }
+      };
+
+      fetchUser();
       setIsAuth(true);
     }
   }, [isAuth]);

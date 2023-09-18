@@ -1,3 +1,4 @@
+import React from "react";
 import "./LogoutLink.css";
 import LogoutPopup from "./LogoutPopup.js"
 import { useState } from 'react';

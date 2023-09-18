@@ -20,6 +20,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 # Email AUTH
 from django.template.loader import render_to_string
@@ -168,6 +169,7 @@ class LogoutView(APIView):
     def post(self, request):
         try:
             refresh_token = request.data["refresh_token"]
+            print(refresh_token)
             token = RefreshToken(refresh_token)
             token.blacklist()
             return Response(status=status.HTTP_205_RESET_CONTENT)
@@ -247,4 +249,20 @@ def faq_questions_list(request):
         questions = Question.objects.all()
         serializer = QuestionSerializer(questions, many=True)
         return Response(serializer.data)
-    
+
+@api_view(['GET'])
+def get_user(request):
+    if request.method == 'GET':
+        print(request.user)
+        user = request.user
+        serializer = UserSerializer(user, many=True)
+        return Response(serializer.data)
+
+class UserAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+
+    def get(self, request):
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data)

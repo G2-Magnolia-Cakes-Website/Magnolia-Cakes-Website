@@ -41,6 +41,7 @@ urlpatterns = [
         name="terms-and-conditions",
     ),
     path("api/login/", views.login, name="api-login"),
+    path("api/user/", views.get_user, name="get-user"),
     path("api/logout/", views.LogoutView.as_view(), name="logout"),
     path("api/cakes/", views.cakes_list, name="cake-list"),
     path("api/faq/categories/", views.faq_categories_list, name="faq-categories-list"),

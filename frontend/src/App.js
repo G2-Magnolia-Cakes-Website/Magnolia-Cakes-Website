@@ -23,14 +23,17 @@ const Wrapper = ({ children }) => {
 };
 
 const App = () => {
+
   const nonPlaceHolderPages = ["/location", "/terms-and-conditions"];
   // Define the base URL based on the environment, only one of them should be used at a time
   const baseURL =
-    "https://backend-dot-alpine-avatar-399423.ts.r.appspot.com/"; // Uncomment this before deploying
-  // const baseURL = "http://127.0.0.1:8000/"; // Uncomment this when you run it locally
+    // "https://backend-dot-alpine-avatar-399423.ts.r.appspot.com/"; // Uncomment this before deploying
+    "http://127.0.0.1:8000/"; // Uncomment this when you run it locally
+
   const api = axios.create({
     baseURL,
   });
+  
   // temporary until pages created
   const routeAllPagesComingSoon = () => {
     return pages
@@ -50,7 +53,7 @@ const App = () => {
     <BrowserRouter>
       <Wrapper>
         <div className="watercolor-bg">
-          <PageLayout>
+          <PageLayout api={api}>
             <Routes>
               <Route key="/" path="/" element={<HomePage />} />
               <Route
