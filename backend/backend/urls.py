@@ -46,6 +46,18 @@ urlpatterns = [
     path("api/faq/categories/", views.faq_categories_list, name="faq-categories-list"),
     path("api/faq/questions/", views.faq_questions_list, name="faq-questions-list"),
     path("api/about-us/", views.about_us, name="about-us"),
+    path("api/footer-location/", views.FooterLocation, name="footer-location"),
+    path("api/footer-contact-us/", views.FooterContactUs, name="footer-contact-us"),
+    path(
+        "api/footer-business-hrs/",
+        views.FooterBusinessHours,
+        name="footer-business-hrs",
+    ),
+    path(
+        "api/social-medias/",
+        views.SocialMedias,
+        name="social-medias",
+    ),
     
     # JWT token creation
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),

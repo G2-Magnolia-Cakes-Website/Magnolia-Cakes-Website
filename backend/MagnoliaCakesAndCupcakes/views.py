@@ -195,8 +195,11 @@ def terms_and_conditions(request):
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET'])
-@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
 def cakes_list(request):
     if request.method == "GET":
         cakes = Cake.objects.all()
@@ -231,20 +234,69 @@ def about_us(request):
             serializer.save()
             return Response({"message": "About Us updated"}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-@api_view(['GET', 'PUT'])
-@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
+
+
+@api_view(["GET", "PUT"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
 def faq_categories_list(request):
-    if request.method == 'GET':
+    if request.method == "GET":
         categories = FAQCategory.objects.all()
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data)
 
-@api_view(['GET', 'PUT'])
-@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
+
+@api_view(["GET", "PUT"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
 def faq_questions_list(request):
-    if request.method == 'GET':
+    if request.method == "GET":
         questions = Question.objects.all()
         serializer = QuestionSerializer(questions, many=True)
         return Response(serializer.data)
-    
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def footer_location(request):
+    if request.method == "GET":
+        footer_location = FooterLocation.objects.first()
+        serializer = FooterLocationSerializer(footer_location)
+        return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def footer_contact_us(request):
+    if request.method == "GET":
+        footer_contact = FooterContactUs.objects.first()
+        serializer = FooterContactUsSerializer(footer_contact)
+        return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def footer_business_hrs(request):
+    if request.method == "GET":
+        footer_bushrs = FooterBusinessHours.objects.first()
+        serializer = FooterBusinessHoursSerializer(footer_bushrs)
+        return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def social_medias(request):
+    if request.method == "GET":
+        social_media_accounts = SocialMedias.objects.all()
+        serializer = SocialMediasSerializer(social_media_accounts)
+        return Response(serializer.data)

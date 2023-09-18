@@ -43,6 +43,14 @@ class AboutUs(models.Model):
     content = models.TextField()
     last_updated = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return "About Us"
+
+    def save(self, *args, **kwargs):
+        if self.__class__.objects.count():
+            self.pk = self.__class__.objects.first().pk
+        super().save(*args, **kwargs)
+
 
 class FAQCategory(models.Model):
     title = models.CharField(max_length=100)
@@ -64,3 +72,70 @@ class Question(models.Model):
 
     def __str__(self):
         return self.question
+
+
+class FooterLocation(models.Model):
+    section_heading = models.CharField(max_length=150)
+    location_address = models.TextField()
+
+    class Meta:
+        ordering = ["section_heading"]
+        verbose_name_plural = "Footer Location"
+
+    def __str__(self):
+        return self.section_heading
+
+    def save(self, *args, **kwargs):
+        if self.__class__.objects.count():
+            self.pk = self.__class__.objects.first().pk
+        super().save(*args, **kwargs)
+
+
+class FooterContactUs(models.Model):
+    section_heading = models.CharField(max_length=150)
+    contact_us_info = models.TextField()
+
+    class Meta:
+        ordering = ["section_heading"]
+        verbose_name_plural = "Footer Contact Us"
+
+    def __str__(self):
+        return self.section_heading
+
+    def save(self, *args, **kwargs):
+        if self.__class__.objects.count():
+            self.pk = self.__class__.objects.first().pk
+        super().save(*args, **kwargs)
+
+
+class FooterBusinessHours(models.Model):
+    business_hrs_info = models.TextField()
+
+    class Meta:
+        verbose_name_plural = "Footer Business Hours"
+
+    def __str__(self):
+        return "Business Hours"
+
+    def save(self, *args, **kwargs):
+        if self.__class__.objects.count():
+            self.pk = self.__class__.objects.first().pk
+        super().save(*args, **kwargs)
+
+
+class SocialMedias(models.Model):
+    CHOICES = (
+        ("facebook", "Facebook"),
+        ("instagram", "Instagram"),
+    )
+
+    social_media_platform = models.CharField(max_length=300, choices=CHOICES)
+    account_name = models.CharField(max_length=150)
+    account_link = models.TextField()
+
+    class Meta:
+        ordering = ["social_media_platform"]
+        verbose_name_plural = "Social Medias"
+
+    def __str__(self):
+        return self.account_name
