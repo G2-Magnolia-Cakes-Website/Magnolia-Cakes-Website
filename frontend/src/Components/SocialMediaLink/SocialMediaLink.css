@@ -16,6 +16,10 @@
   color: #b76e79;
 }
 
+.social-media-logo {
+  width: 40px;
+}
+
 @media (max-width: 480px) {
   .social-media-wrapper .profile-name {
     display: none;
