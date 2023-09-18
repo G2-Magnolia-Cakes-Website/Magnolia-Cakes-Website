@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.files.storage import default_storage
 
 
 class MagnoliaCakesAndCupcakes(models.Model):
@@ -38,6 +39,13 @@ class Cake(models.Model):
             )
         super(Cake, self).save(*args, **kwargs)
 
+    def delete(self, *args, **kwargs):
+        # Delete the associated image from Google Cloud Storage
+        if self.picture and hasattr(self.picture, "name"):
+            image_path = self.picture.name
+            default_storage.delete(image_path)
+
+        super(Cake, self).delete(*args, **kwargs)
 
 class AboutUs(models.Model):
     content = models.TextField()
