@@ -5,11 +5,10 @@ import "./Header.css";
 import SignedInGroup from "../../SignedInGroup/SignedInGroup";
 
 const Header = () => {
-
   const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem('access_token') !== null) {
+    if (localStorage.getItem("access_token") !== null) {
       setIsAuth(true);
     }
   }, [isAuth]);
