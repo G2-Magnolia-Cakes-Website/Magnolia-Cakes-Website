@@ -41,7 +41,7 @@ export default function LoginForm({ api }) {
                     password: password
                 };
 
-                let res = await api.post('http://localhost:8000/api/token/',
+                let res = await api.post('/api/token/',
                     user,
                     {
                         headers: {
