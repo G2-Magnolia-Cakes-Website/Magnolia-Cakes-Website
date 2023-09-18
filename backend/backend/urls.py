@@ -46,16 +46,16 @@ urlpatterns = [
     path("api/faq/categories/", views.faq_categories_list, name="faq-categories-list"),
     path("api/faq/questions/", views.faq_questions_list, name="faq-questions-list"),
     path("api/about-us/", views.about_us, name="about-us"),
-    path("api/footer-location/", views.FooterLocation, name="footer-location"),
-    path("api/footer-contact-us/", views.FooterContactUs, name="footer-contact-us"),
+    path("api/footer-location/", views.footer_location, name="footer-location"),
+    path("api/footer-contact-us/", views.footer_contact_us, name="footer-contact-us"),
     path(
         "api/footer-business-hrs/",
-        views.FooterBusinessHours,
+        views.footer_business_hrs,
         name="footer-business-hrs",
     ),
     path(
         "api/social-medias/",
-        views.SocialMedias,
+        views.social_medias,
         name="social-medias",
     ),
     

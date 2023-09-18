@@ -298,5 +298,5 @@ def footer_business_hrs(request):
 def social_medias(request):
     if request.method == "GET":
         social_media_accounts = SocialMedias.objects.all()
-        serializer = SocialMediasSerializer(social_media_accounts)
+        serializer = SocialMediasSerializer(social_media_accounts, many=True)
         return Response(serializer.data)

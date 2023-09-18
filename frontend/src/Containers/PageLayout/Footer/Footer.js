@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FooterSection from "./FooterSection/FooterSection";
 import { FOOTERSECTIONS, PAGELINKS, SOCIALMEDIAS } from "utils/constants";
@@ -6,22 +6,90 @@ import SocialMediaLink from "Components/SocialMediaLink/SocialMediaLink";
 import "./Footer.css";
 // import magnoliaCakeLogo from "utils/Magnolia_Cake_logo.png";
 
-const Footer = () => {
+const Footer = ({ api }) => {
+  const [location, setLocation] = useState({
+    section_heading: FOOTERSECTIONS.OUR_LOCATION,
+    location_address: "Melbourne, VIC",
+  });
+  const [contact, setContact] = useState({
+    section_heading: FOOTERSECTIONS.CONTACT_US,
+    contact_us_info: "",
+  });
+  const [businessHrs, setBusinessHrs] = useState([]);
+  const [socialMedias, setSocialMedias] = useState([]);
+
+  useEffect(() => {
+    // Make a GET request using the passed api instance
+    api
+      .get("/api/footer-location/")
+      .then((response) => {
+        // Set the retrieved content in the state
+        setLocation(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+
+    api
+      .get("api/footer-contact-us/")
+      .then((response) => {
+        // Set the retrieved content in the state
+        setContact(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+
+    api
+      .get("api/footer-business-hrs/")
+      .then((response) => {
+        // Set the retrieved content in the state
+        setBusinessHrs(
+          parseLineSeperatedString(response.data.business_hrs_info)
+        );
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+
+    api
+      .get("api/social-medias/")
+      .then((response) => {
+        // Set the retrieved content in the state
+        console.log(response.data);
+        setSocialMedias(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [api]);
+
+  const parseLineSeperatedString = (content) => {
+    return content.replaceAll("\r", "").split("\n");
+  };
+
   return (
     <div className="footer">
       <div className="footer-row">
-        <FooterSection headerText={FOOTERSECTIONS.OUR_LOCATION}>
-          <p>Melbourne Victoria 3752</p>
+        <FooterSection headerText={location.section_heading}>
+          <p>{location.location_address}</p>
           <Link to={PAGELINKS.LOCATION_LINK}>Click here to view map</Link>
         </FooterSection>
-        <FooterSection headerText={FOOTERSECTIONS.CONTACT_US}>
-          <p>Email: magnolia.cake.au@gmail.com</p>
-          <p>Phone: 0422-733-882</p>
+        <FooterSection headerText={contact.section_heading}>
+          {parseLineSeperatedString(contact.contact_us_info).map((info) => (
+            <p key={contact.contact_us_info.indexOf(info)}>{info}</p>
+          ))}
         </FooterSection>
         <FooterSection headerText={FOOTERSECTIONS.FOLLOW_US}>
           <div className="social-medias">
-            <SocialMediaLink socialMedia={SOCIALMEDIAS.FACEBOOK} />
-            <SocialMediaLink socialMedia={SOCIALMEDIAS.INSTAGRAM} />
+            {socialMedias.map((platform) => (
+              <SocialMediaLink
+                key={platform.id}
+                socialMedia={platform.social_media_platform}
+                account_name={platform.account_name}
+                account_link={platform.account_link}
+              />
+            ))}
           </div>
         </FooterSection>
       </div>
@@ -29,11 +97,9 @@ const Footer = () => {
       <div className="footer-row">
         <FooterSection>
           <div className="business-hours">
-            <p>Business Hours</p>
-            <p>Monday - Friday</p>
-            <p>9:00 am - 18:00 pm</p>
-            <p>Saturday - Sunday</p>
-            <p>9:00 am - 17:00 pm</p>
+            {businessHrs.map((info) => (
+              <p key={businessHrs.indexOf(info)}>{info}</p>
+            ))}
           </div>
         </FooterSection>
         <FooterSection>

@@ -51,7 +51,7 @@ const App = () => {
     <BrowserRouter>
       <Wrapper>
         <div className="watercolor-bg">
-          <PageLayout>
+          <PageLayout api={api}>
             <Routes>
               <Route key="/" path="/" element={<HomePage />} />
               <Route
