@@ -1,7 +1,7 @@
 .form-label,
 .form-input {
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   text-align: left;
 }
 
@@ -11,7 +11,7 @@
 }
 
 .form-label .form-input {
-  flex-direction: row;
+  /* flex-direction: row; */
   height: 36px;
   width: 100%;
   border: 1px solid #a6a6a6;
@@ -29,8 +29,4 @@
 
 .form-label .form-input::placeholder {
   font-family: "Yantramanav", sans-serif;
-}
-
-@media (max-width: 768px) {
-  
 }

@@ -1,17 +1,15 @@
 import React from "react";
-import "./Signup.css";
+// import "./Signup.css";
 import Form from "./SignupForm";
 import magnoliaCakeLogo from "utils/Magnolia_Cake_logo.png";
-import birthdayCake from "utils/carousel-wedding-ann.jpg";
+import birthdayCake from "utils/wedding-ann.jpg";
 
 function SignupPage({ api }) {
   const logo = (
     <img className="logo" src={magnoliaCakeLogo} alt="Magnolia Cake Logo" />
   );
 
-  const image = (
-    <img className="signup-image" src={birthdayCake} alt="Cake Image" />
-  );
+  const image = <img className="signup-image" src={birthdayCake} alt="Cake" />;
 
   return (
     <div className="white-background">
