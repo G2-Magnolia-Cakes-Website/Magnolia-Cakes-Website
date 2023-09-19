@@ -8,7 +8,7 @@ handlers:
     upload: build/index.html
 
 env_variables:
-  REACT_APP_API_BASE_URL: "https://backend-dot-magnolia-cakes-and-cupcakes.ts.r.appspot.com/"
+  REACT_APP_API_BASE_URL: "https://backend-dot-alpine-avatar-399423.ts.r.appspot.com/"
   REACT_APP_ENVIRONMENT: "production"
 
 
