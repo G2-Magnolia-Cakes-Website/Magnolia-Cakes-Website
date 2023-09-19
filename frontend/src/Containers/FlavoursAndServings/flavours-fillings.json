@@ -1,7 +1,7 @@
 [
   {
     "title": "Cake & Cupcake Flavours",
-    "options": ["Standard", "Chocolate", "Vanilla"]
+    "options": ["Chocolate", "Vanilla"]
   },
   {
     "title": "Specialty Flavours",
@@ -16,7 +16,6 @@
   {
     "title": "Fillings",
     "options": [
-      "Standard",
       "Chocolate",
       "Vanilla Bean",
       "Cream Cookies",

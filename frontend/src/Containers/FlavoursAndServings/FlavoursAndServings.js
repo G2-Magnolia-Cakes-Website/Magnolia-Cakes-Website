@@ -9,15 +9,21 @@ const FlavoursAndServings = ({ api }) => {
   const [flavServInfo, setFlavServInfo] = useState({
     heading: "",
     description: "",
-    extra_points: "",
+    extra_points: [],
   });
+
+  const parseExtraPoints = (extraPointsData) => {
+    return extraPointsData
+      .replaceAll("\r", "")
+      .split("\n")
+      .filter((x) => x);
+  };
 
   useEffect(() => {
     // Make a GET request using the passed api instance
     api
       .get("/api/flavours-and-servings/")
       .then((response) => {
-        console.log(response.data);
         // Set the retrieved content in the state
         setFlavServLists(
           response.data.sort((a, b) => {
@@ -32,7 +38,11 @@ const FlavoursAndServings = ({ api }) => {
     api
       .get("/api/flavours-and-servings-info/")
       .then((response) => {
-        setFlavServInfo(response.data);
+        setFlavServInfo({
+          heading: response.data.heading,
+          description: response.data.description,
+          extra_points: parseExtraPoints(response.data.extra_points),
+        });
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -53,8 +63,8 @@ const FlavoursAndServings = ({ api }) => {
         ))}
       </div>
       <ul className="extra-info">
-        {flavServInfo.extra_points.split("\n").map((point) => (
-          <li>{point}</li>
+        {flavServInfo.extra_points.map((point) => (
+          <li key={flavServInfo.extra_points.indexOf(point)}>{point}</li>
         ))}
       </ul>
     </div>
