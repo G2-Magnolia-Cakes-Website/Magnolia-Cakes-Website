@@ -16,7 +16,7 @@ function LogoutPopup(props) {
                 refresh_token: localStorage.getItem('refresh_token')
             };
 
-            let res = await axios.post('http://localhost:8000/api/logout/',
+            let res = await axios.post('/api/logout/',
                 JSON.stringify(token),
                 {
                     headers: {
