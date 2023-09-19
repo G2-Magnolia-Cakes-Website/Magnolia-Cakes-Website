@@ -15,8 +15,8 @@ class MagnoliaCakesAndCupcakesSerializer(serializers.ModelSerializer):
 
 class TermsAndConditionsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = TermsAndConditions
-        fields = ("id", "content", "last_updated")
+        model = TermsAndCondition
+        fields = '__all__'
 
 
 class CakeSerializer(serializers.ModelSerializer):
