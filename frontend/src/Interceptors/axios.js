@@ -12,12 +12,9 @@ axios.interceptors.response.use(resp => resp, async error => {
         const response = await axios.post('/token/refresh/',
             { refresh: localStorage.getItem('refresh_token') },
             {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                withCredentials: true,
-            }
+                headers: { 'Content-Type': 'application/json', },
+                withCredentials: true
+            },
         );
 
         if (response.status === 200) {
