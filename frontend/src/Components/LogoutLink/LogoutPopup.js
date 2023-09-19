@@ -27,7 +27,7 @@ function LogoutPopup(props) {
                 }
             );
 
-            if (res.status == 205) {
+            if (res.status === 205) {
                 localStorage.clear();
                 axios.defaults.headers.common['Authorization'] = null;
 
