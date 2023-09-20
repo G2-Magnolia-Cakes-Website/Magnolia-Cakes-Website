@@ -30,7 +30,7 @@ const App = () => {
     "/flavours-and-servings",
   ];
   // Define the base URL based on the environment, only one of them should be used at a time
-  // const baseURL = "https://backend-dot-alpine-avatar-399423.ts.r.appspot.com/"; // Uncomment this before deploying
+  //const baseURL = "https://backend-dot-alpine-avatar-399423.ts.r.appspot.com/"; // Uncomment this before deploying
   const baseURL = "http://127.0.0.1:8000/"; // Uncomment this when you run it locally
   const api = axios.create({
     baseURL,

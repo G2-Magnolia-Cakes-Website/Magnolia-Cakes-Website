@@ -11,10 +11,14 @@ class MagnoliaCakesAndCupcakes(models.Model):
         return self.title
 
 
-class TermsAndConditions(models.Model):
-    content = models.TextField()
-    last_updated = models.DateTimeField(auto_now=True)
+class TermsAndCondition(models.Model):
+    policy_name =  models.CharField(max_length=100)
+    policy_content = models.TextField()
+    class Meta:
+        ordering = ["policy_name"]
 
+    def __str__(self):
+        return self.policy_name
 
 def upload_to(instance, filename):
     # Upload the image to a 'cakes' directory with the filename as the cake's name
