@@ -1,6 +1,13 @@
 from django.db import models
+from django.conf import settings
 from django.core.files.storage import default_storage
 
+# Reset Password
+from django.dispatch import receiver
+from django.template.loader import render_to_string
+from django.urls import reverse
+from django.core.mail import EmailMessage
+from django_rest_passwordreset.signals import reset_password_token_created
 
 class MagnoliaCakesAndCupcakes(models.Model):
     title = models.CharField(max_length=150)
@@ -107,3 +114,34 @@ class FlavoursAndServingsInfo(models.Model):
 
     class Meta:
         verbose_name_plural = "Flavours and Servings Info"
+
+
+@receiver(reset_password_token_created)
+def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
+
+    # send an e-mail to the user
+    reset_password_link = f"{settings.FRONTEND_APP_URL}/reset-password/?token={reset_password_token.key}"
+    
+    context = {
+        'current_user': reset_password_token.user,
+        'firstname': reset_password_token.user.first_name,
+        'lastname': reset_password_token.user.last_name,
+        'email': reset_password_token.user.email,
+        'reset_password_link': reset_password_link
+    }
+
+    # render email text
+    email_message = render_to_string('user_reset_password.html', context)
+
+    mail_subject = "Password Reset for {title}".format(title="Magnolia Cakes")
+
+    msg = EmailMessage(
+        mail_subject,
+        # message:
+        email_message,
+        # from:
+        settings.EMAIL_FROM,
+        # to:
+        [reset_password_token.user.email]
+    )
+    msg.send()

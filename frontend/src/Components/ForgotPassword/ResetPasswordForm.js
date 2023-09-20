@@ -1,74 +1,80 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
-export default function LoginForm({ api }) {
+export default function ForgotPasswordForm({ api }) {
 
-    const navigate = useNavigate();
+    // Get token
+    // const { token } = useParams();
 
     // States for registration
-    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     // States for checking the errors
     const [error, setError] = useState(false);
-    const defaultErrorMessage = 'Login failed! Please enter a correct username and password. Note that both fields may be case-sensitive.';
+    const [submitted, setSubmitted] = useState(false);
+    const defaultErrorMessage = 'Reset password failed!';
     const [errorMessagePrint, setErrorMessage] = useState(defaultErrorMessage);
 
     // Handling the email change
-    const handleEmail = (e) => {
-        setEmail(e.target.value.toLowerCase());
-    };
-
-    // Handling the password change
     const handlePassword = (e) => {
         setPassword(e.target.value);
+    };
+
+    // Handling the email change
+    const handleConfirmPassword = (e) => {
+        setConfirmPassword(e.target.value);
     };
 
     // Handling the form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (email === '' || password === '') {
-            setErrorMessage(defaultErrorMessage);
+        if (password === '' || confirmPassword === '') {
+            setErrorMessage("Please put a value for both password and confirm password!");
+            setError(true);
+        } else if (password !== confirmPassword) {
+            setErrorMessage("Password and confirm password do not match!");
             setError(true);
         } else {
             // Send API msg to backend
             try {
 
+                // Get the token from the URL query parameters
+                const searchParams = new URLSearchParams(window.location.search);
+                const token = searchParams.get('token');
+
                 const user = {
-                    username: email,
-                    password: password
+                    password: password,
+                    token: token
                 };
 
-                let res = await api.post('/api/token/',
+                const url = '/api/reset/password/confirm/?token=' + token
+
+                let res = await api.post(url,
                     user,
                     {
                         headers: {
                             'Content-Type': 'application/json',
                             'Accept': 'application/json',
                         },
-                        withCredentials: true,
                     }
                 );
 
                 if (res.status === 200) {
-                    setPassword("");
-                    setEmail("");
+                    console.log(res);
+                    setSubmitted(true);
                     setError(false);
                     setErrorMessage(defaultErrorMessage);
-
-                    // Initialize the access & refresh token in localstorage.      
-                    localStorage.clear();
-                    localStorage.setItem('access_token', res.data.access);
-                    localStorage.setItem('refresh_token', res.data.refresh);
-                    api.defaults.headers.common['Authorization'] = `Bearer ${res.data.access}`;
-
-                    navigate("/");
-                    navigate(0);
                 } else {
+                    setSubmitted(false);
                     if (res.data["detail"]) {
                         setErrorMessage(res.data["detail"]);
+                    } else if (res.data["token"]) {
+                        setErrorMessage(res.data["token"]);
+                    } else if (res.data["password"]) {
+                        setErrorMessage(res.data["password"]);
                     } else if (res.data["message"]) {
                         setErrorMessage(res.data["message"]);
                     } else {
@@ -78,9 +84,14 @@ export default function LoginForm({ api }) {
                     console.log(res);
                 }
             } catch (err) {
+                setSubmitted(false);
                 console.log(err);
                 if (err.response.data["detail"]) {
                     setErrorMessage(err.response.data["detail"]);
+                } else if (err.response.data["token"]) {
+                    setErrorMessage(err.response.data["token"]);
+                } else if (err.response.data["password"]) {
+                    setErrorMessage(err.response.data["password"]);
                 } else if (err.response.data["message"]) {
                     setErrorMessage(err.response.data["message"]);
                 } else {
@@ -89,6 +100,19 @@ export default function LoginForm({ api }) {
                 setError(true);
             }
         }
+    };
+
+    // Showing success message
+    const successMessage = () => {
+        return (
+            <div
+                className="success"
+                style={{
+                    display: submitted ? '' : 'none',
+                }}>
+                <p className='msgs'>You have successfully changed your password.</p>
+            </div>
+        );
     };
 
     // Showing error message if error is true
@@ -109,23 +133,20 @@ export default function LoginForm({ api }) {
 
             <form>
                 {/* Labels and inputs for form data */}
-                <input onChange={handleEmail} className="input-login" autoCapitalize="none"
-                    value={email} type="email" placeholder='Email' />
-
                 <input onChange={handlePassword} className="input-login"
-                    value={password} type="password" placeholder='Password' />
+                    value={password} type="password" placeholder='New Password' />
+
+                <input onChange={handleConfirmPassword} className="input-login"
+                    value={confirmPassword} type="password" placeholder='Confirm New Password' />
 
                 <button onClick={handleSubmit} className="submit-btn"
                     type="submit">
-                    Login
+                    Submit
                 </button>
-
-                <div className='signup-question'>Don't have an account? <Link to="/signup" className='signup-link'>Sign up for free</Link></div>
-
-                <div className='signup-question'><Link to="/forgot-password" className='signup-link'>Forgot your password?</Link></div>
 
                 <div className="messages">
                     {errorMessage()}
+                    {successMessage()}
                 </div>
 
             </form>

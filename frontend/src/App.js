@@ -5,6 +5,8 @@ import pages from "./utils/all_pages.json";
 import ComingSoonPage from "./Components/ComingSoonPage/ComingSoonPage";
 import HomePage from "./Containers/HomePage/HomePage";
 import LoginPage from "./Components/LoginPage/LoginPage";
+import PasswordPage from "./Components/ForgotPassword/ForgotPasswordPage";
+import PasswordResetPage from "./Components/ForgotPassword/ResetPasswordPage";
 import LocationPage from "./Containers/LocationPage/LocationPage";
 import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAndConditionsPage";
 import SignupPage from "./Components/SignupPage/SignupPage";
@@ -104,7 +106,21 @@ const App = () => {
                 path="/login"
                 element={<LoginPage api={api} />}
               />
-              <Route key="/faq" path="/faq" element={<FAQsPage api={api} />} />
+              <Route
+                key="/forgot-password"
+                path="/forgot-password"
+                element={<PasswordPage api={api} />}
+              />
+              <Route
+                key="/reset-password"
+                path="/reset-password"
+                element={<PasswordResetPage api={api} />}
+              />
+              <Route
+                key="/faq"
+                path="/faq"
+                element={<FAQsPage api={api} />}
+              />
               {routeAllPagesComingSoon()}
             </Routes>
           </PageLayout>

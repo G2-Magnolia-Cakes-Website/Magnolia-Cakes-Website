@@ -1,18 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
 
-export default function LoginForm({ api }) {
-
-    const navigate = useNavigate();
+export default function ForgotPasswordForm({ api }) {
 
     // States for registration
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
 
     // States for checking the errors
     const [error, setError] = useState(false);
-    const defaultErrorMessage = 'Login failed! Please enter a correct username and password. Note that both fields may be case-sensitive.';
+    const [submitted, setSubmitted] = useState(false);
+    const defaultErrorMessage = 'Reset password failed! Please enter a correct email.';
     const [errorMessagePrint, setErrorMessage] = useState(defaultErrorMessage);
 
     // Handling the email change
@@ -20,16 +17,11 @@ export default function LoginForm({ api }) {
         setEmail(e.target.value.toLowerCase());
     };
 
-    // Handling the password change
-    const handlePassword = (e) => {
-        setPassword(e.target.value);
-    };
-
     // Handling the form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (email === '' || password === '') {
+        if (email === '') {
             setErrorMessage(defaultErrorMessage);
             setError(true);
         } else {
@@ -37,38 +29,30 @@ export default function LoginForm({ api }) {
             try {
 
                 const user = {
-                    username: email,
-                    password: password
+                    email: email
                 };
 
-                let res = await api.post('/api/token/',
+                let res = await api.post('/api/reset/password/',
                     user,
                     {
                         headers: {
                             'Content-Type': 'application/json',
                             'Accept': 'application/json',
                         },
-                        withCredentials: true,
                     }
                 );
 
                 if (res.status === 200) {
-                    setPassword("");
-                    setEmail("");
+                    console.log(res);
+                    setSubmitted(true);
                     setError(false);
                     setErrorMessage(defaultErrorMessage);
-
-                    // Initialize the access & refresh token in localstorage.      
-                    localStorage.clear();
-                    localStorage.setItem('access_token', res.data.access);
-                    localStorage.setItem('refresh_token', res.data.refresh);
-                    api.defaults.headers.common['Authorization'] = `Bearer ${res.data.access}`;
-
-                    navigate("/");
-                    navigate(0);
                 } else {
+                    setSubmitted(false);
                     if (res.data["detail"]) {
                         setErrorMessage(res.data["detail"]);
+                    } else if (res.data["email"]) {
+                        setErrorMessage(res.data["email"]);
                     } else if (res.data["message"]) {
                         setErrorMessage(res.data["message"]);
                     } else {
@@ -78,9 +62,12 @@ export default function LoginForm({ api }) {
                     console.log(res);
                 }
             } catch (err) {
+                setSubmitted(false);
                 console.log(err);
                 if (err.response.data["detail"]) {
                     setErrorMessage(err.response.data["detail"]);
+                } else if (err.response.data["email"]) {
+                    setErrorMessage(err.response.data["email"]);
                 } else if (err.response.data["message"]) {
                     setErrorMessage(err.response.data["message"]);
                 } else {
@@ -89,6 +76,19 @@ export default function LoginForm({ api }) {
                 setError(true);
             }
         }
+    };
+
+    // Showing success message
+    const successMessage = () => {
+        return (
+            <div
+                className="success"
+                style={{
+                    display: submitted ? '' : 'none',
+                }}>
+                <p className='msgs'>Please click the link in your email, {email}, to set your new password.</p>
+            </div>
+        );
     };
 
     // Showing error message if error is true
@@ -112,20 +112,14 @@ export default function LoginForm({ api }) {
                 <input onChange={handleEmail} className="input-login" autoCapitalize="none"
                     value={email} type="email" placeholder='Email' />
 
-                <input onChange={handlePassword} className="input-login"
-                    value={password} type="password" placeholder='Password' />
-
                 <button onClick={handleSubmit} className="submit-btn"
                     type="submit">
-                    Login
+                    Submit
                 </button>
-
-                <div className='signup-question'>Don't have an account? <Link to="/signup" className='signup-link'>Sign up for free</Link></div>
-
-                <div className='signup-question'><Link to="/forgot-password" className='signup-link'>Forgot your password?</Link></div>
-
+                
                 <div className="messages">
                     {errorMessage()}
+                    {successMessage()}
                 </div>
 
             </form>

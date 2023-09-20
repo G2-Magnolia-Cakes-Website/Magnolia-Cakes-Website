@@ -64,7 +64,6 @@ def register(request):
     [AllowAny]
 )  ###### Add this to allow users to access despite not being logged in
 def activateEmail(request, user, to_email):
-    # test_email_server_connectivity()
     mail_subject = "Activate your user account."
     message = render_to_string(
         "template_activate_account.html",
@@ -269,11 +268,8 @@ def faq_categories_list(request):
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data)
 
-
-@api_view(["GET", "PUT"])
-@permission_classes(
-    [AllowAny]
-)  ###### Add this to allow users to access despite not being logged in
+@api_view(['GET'])
+@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
 def faq_questions_list(request):
     if request.method == "GET":
         questions = Question.objects.all()
