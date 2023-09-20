@@ -9,9 +9,7 @@ function ResetPasswordPage({ api }) {
     <img className="logo" src={magnoliaCakeLogo} alt="Magnolia Cake Logo" />
   );
 
-  const image = (
-    <img className="login-image" src={birthdayCake} alt="Cake Image" />
-  );
+  const image = <img className="login-image" src={birthdayCake} alt="Cake" />;
 
   return (
     <div className="white-background">
