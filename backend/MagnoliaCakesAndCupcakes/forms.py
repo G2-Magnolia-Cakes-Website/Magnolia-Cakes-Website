@@ -54,9 +54,12 @@ class MultipleFileField(forms.FileField):
             result = single_file_clean(data, initial)
         return result
 
-
 class GetAQuoteForm(forms.Form):
     email = forms.CharField(required=True)
     subject = forms.CharField(required=True)
     message = forms.CharField(widget=forms.Textarea, required=True)
     file = MultipleFileField(required=False)
+
+class FavourServingsForm(forms.Form):
+    title = forms.CharField(max_length=100)
+    list = forms.Textarea()

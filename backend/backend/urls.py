@@ -46,9 +46,22 @@ urlpatterns = [
     path("api/faq/categories/", views.faq_categories_list, name="faq-categories-list"),
     path("api/faq/questions/", views.faq_questions_list, name="faq-questions-list"),
     path("api/contact/", views.get_a_quote, name="contact"),
+    path(
+        "api/flavours-and-servings/",
+        views.flavours_and_servings,
+        name="flavours-and-servings",
+    ),
+    path(
+        "api/flavours-and-servings-info/",
+        views.flavours_and_servings_info,
+        name="flavours-and-servings-info",
+    ),
     path("api/about-us/", views.about_us, name="about-us"),
     
     # JWT token creation
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    
+	# Reset password
+	path("api/reset/password/", include("django_rest_passwordreset.urls", namespace="password_reset")),
 ]

@@ -7,7 +7,7 @@ const CarouselItem = (props) => {
 
   return (
     <div className="slide-wrapper">
-      <img src={"carousel/" + image} alt={title} />
+      <img src={process.env.PUBLIC_URL + "carousel/" + image} alt={title} />
     </div>
   );
 };

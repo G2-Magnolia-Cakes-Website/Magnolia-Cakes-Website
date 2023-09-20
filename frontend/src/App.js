@@ -5,12 +5,15 @@ import pages from "./utils/all_pages.json";
 import ComingSoonPage from "./Components/ComingSoonPage/ComingSoonPage";
 import HomePage from "./Containers/HomePage/HomePage";
 import LoginPage from "./Components/LoginPage/LoginPage";
+import PasswordPage from "./Components/ForgotPassword/ForgotPasswordPage";
+import PasswordResetPage from "./Components/ForgotPassword/ResetPasswordPage";
 import LocationPage from "./Containers/LocationPage/LocationPage";
 import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAndConditionsPage";
 import SignupPage from "./Components/SignupPage/SignupPage";
 import FAQsPage from "./Components/FAQs/FAQsPage";
 import OnlineStorePage from "./Containers/OnlineStorePage/OnlineStorePage";
 import GetAQuote from "Containers/GetAQuote/GetAQuote";
+import FlavoursAndServings from "Containers/FlavoursAndServings/FlavoursAndServings";
 import AboutUsPage from "Containers/AboutUsPage/AboutUsPage";
 import axios from "axios";
 import "./App.css";
@@ -24,7 +27,11 @@ const Wrapper = ({ children }) => {
 };
 
 const App = () => {
-  const nonPlaceHolderPages = ["/location", "/terms-and-conditions"];
+  const nonPlaceHolderPages = [
+    "/location",
+    "/terms-and-conditions",
+    "/flavours-and-servings",
+  ];
   // Define the base URL based on the environment, only one of them should be used at a time
   //const baseURL = "https://backend-dot-alpine-avatar-399423.ts.r.appspot.com/"; // Uncomment this before deploying
   const baseURL = "http://127.0.0.1:8000/"; // Uncomment this when you run it locally
@@ -52,7 +59,7 @@ const App = () => {
         <div className="watercolor-bg">
           <PageLayout>
             <Routes>
-              <Route key="/" path="/" element={<HomePage />} />
+              <Route key="/" path="/" element={<HomePage api={api} />} />
               <Route
                 key="/location"
                 path="/location"
@@ -67,6 +74,11 @@ const App = () => {
                 key="/terms-and-conditions"
                 path="/terms-and-conditions"
                 element={<TermsAndConditionsPage api={api} />}
+              />
+              <Route
+                key="/flavours-and-servings"
+                path="/flavours-and-servings"
+                element={<FlavoursAndServings api={api} />}
               />
               <Route
                 key="about-us"
@@ -99,6 +111,17 @@ const App = () => {
                 key="/get-a-quote"
                 path="/get-a-quote"
                 element={<GetAQuote api={api} />}
+              />
+              <Route key="/faq" path="/faq" element={<FAQsPage api={api} />} />
+              <Route
+                key="/forgot-password"
+                path="/forgot-password"
+                element={<PasswordPage api={api} />}
+              />
+              <Route
+                key="/reset-password"
+                path="/reset-password"
+                element={<PasswordResetPage api={api} />}
               />
               <Route key="/faq" path="/faq" element={<FAQsPage api={api} />} />
               {routeAllPagesComingSoon()}

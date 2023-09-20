@@ -15,7 +15,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes, renderer_classes
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
-from .forms import GetAQuoteForm, NewUserForm
+from .forms import FavourServingsForm, GetAQuoteForm, NewUserForm
 
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -65,7 +65,6 @@ def register(request):
     [AllowAny]
 )  ###### Add this to allow users to access despite not being logged in
 def activateEmail(request, user, to_email):
-    # test_email_server_connectivity()
     mail_subject = "Activate your user account."
     message = render_to_string(
         "template_activate_account.html",
@@ -240,8 +239,10 @@ def get_a_quote(request):
     return render(request, "email.html", {"form": form})
 
 
-@api_view(['GET'])
-@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
 def cakes_list(request):
     if request.method == "GET":
         cakes = Cake.objects.all()
@@ -263,6 +264,29 @@ def cakes_list(request):
 @permission_classes(
     [AllowAny]
 )  ###### Add this to allow users to access despite not being logged in
+def flavours_and_servings(request):
+    if request.method == "GET":
+        flavours_servings_lists = FlavoursAndServings.objects.all()
+        serializer = FlavoursAndServingsSerializer(flavours_servings_lists, many=True)
+        return Response(serializer.data)
+
+    if request.method == "POST":
+        form = FavourServingsForm(request.data)
+        if form.is_valid():
+            flavours_servings_list = form.save(commit=False)
+            flavours_servings_list.title = flavours_servings_list.title
+            flavours_servings_list.list = flavours_servings_list.list
+            flavours_servings_list.save()
+            return Response(
+                {"message": "Flavours & Servings updated"}, status=status.HTTP_200_OK
+            )
+        return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET", "PUT"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
 def about_us(request):
     if request.method == "GET":
         about_us = AboutUs.objects.first()
@@ -276,20 +300,36 @@ def about_us(request):
             serializer.save()
             return Response({"message": "About Us updated"}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-@api_view(['GET', 'PUT'])
-@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
+
+
+@api_view(["GET", "PUT"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
 def faq_categories_list(request):
-    if request.method == 'GET':
+    if request.method == "GET":
         categories = FAQCategory.objects.all()
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data)
 
-@api_view(['GET', 'PUT'])
-@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
 def faq_questions_list(request):
-    if request.method == 'GET':
+    if request.method == "GET":
         questions = Question.objects.all()
         serializer = QuestionSerializer(questions, many=True)
         return Response(serializer.data)
-    
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def flavours_and_servings_info(request):
+    if request.method == "GET":
+        flavours_servings_info = FlavoursAndServingsInfo.objects.first()
+        serializer = FlavoursAndServingsInfoSerializer(flavours_servings_info)
+        return Response(serializer.data)
