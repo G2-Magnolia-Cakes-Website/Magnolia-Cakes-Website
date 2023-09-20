@@ -12,6 +12,7 @@ import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAnd
 import SignupPage from "./Components/SignupPage/SignupPage";
 import FAQsPage from "./Components/FAQs/FAQsPage";
 import OnlineStorePage from "./Containers/OnlineStorePage/OnlineStorePage";
+import FlavoursAndServings from "Containers/FlavoursAndServings/FlavoursAndServings";
 import AboutUsPage from "Containers/AboutUsPage/AboutUsPage";
 import axios from "axios";
 import "./App.css";
@@ -25,11 +26,14 @@ const Wrapper = ({ children }) => {
 };
 
 const App = () => {
-  const nonPlaceHolderPages = ["/location", "/terms-and-conditions"];
+  const nonPlaceHolderPages = [
+    "/location",
+    "/terms-and-conditions",
+    "/flavours-and-servings",
+  ];
   // Define the base URL based on the environment, only one of them should be used at a time
-  const baseURL =
-    "https://backend-dot-alpine-avatar-399423.ts.r.appspot.com/"; // Uncomment this before deploying
-  // const baseURL = "http://127.0.0.1:8000/"; // Uncomment this when you run it locally
+  //const baseURL = "https://backend-dot-alpine-avatar-399423.ts.r.appspot.com/"; // Uncomment this before deploying
+  const baseURL = "http://127.0.0.1:8000/"; // Uncomment this when you run it locally
   const api = axios.create({
     baseURL,
   });
@@ -54,7 +58,7 @@ const App = () => {
         <div className="watercolor-bg">
           <PageLayout>
             <Routes>
-              <Route key="/" path="/" element={<HomePage />} />
+              <Route key="/" path="/" element={<HomePage api={api} />} />
               <Route
                 key="/location"
                 path="/location"
@@ -69,6 +73,11 @@ const App = () => {
                 key="/terms-and-conditions"
                 path="/terms-and-conditions"
                 element={<TermsAndConditionsPage api={api} />}
+              />
+              <Route
+                key="/flavours-and-servings"
+                path="/flavours-and-servings"
+                element={<FlavoursAndServings api={api} />}
               />
               <Route
                 key="about-us"

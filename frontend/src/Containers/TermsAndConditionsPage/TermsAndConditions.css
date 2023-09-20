@@ -1,38 +1,71 @@
-/* Set the height of the main container to full viewport height */
-.container {
-    min-height: 75vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between; 
-    padding-top: 20px; 
-    padding-bottom: 20px; 
+.TermsAndConditionsPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-  
-  /* Style the white box around the content */
-  .content-box {
-    padding: 40px;
-    border-radius: 10px;
-    background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 1000px;
-    width: 100%;
-    margin: 0 auto;
-    color: #000;
 
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+.PageHeader {
+  text-align: center;
+  color: #B76E79;
+  font-weight: bold;
+  font-family: Yantramanav;
+  font-size: 64px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+
+.PolicyList {
+  margin-bottom: 50px;
+  width: 600px;
+  /* display: flex;
+  align-items: center; */
+}
+
+.Symbol {
+  margin-left: 5px;
+}
+
+.Policy {
+  font-weight: bold;
+  font-family: Yantramanav;
+  font-size: 20px;
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 25px;
+  margin-top: 10px;
+  border-radius: 10px;
+  text-align: left;
+  letter-spacing: 1px;
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.PolicyContent {
+  transform: translateY(-20px);
+  background-color: transparent;
+  font-family: Yantramanav;
+  font-size: 16px;
+  border: solid 1px black;
+  border-radius: 10px;
+  padding: 30px;
+  padding-top: 40px;
+  width: 100%;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 650px) {
+
+  .FAQ-header {
+      font-size: 50px;
   }
 
-  .title-box{
-    color: #FFF;
-    align-items: center;
-    font-size: 40px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin-bottom: 5px;
+  .FAQ-questions {
+      width: 90%;
   }
-  
+
+}
