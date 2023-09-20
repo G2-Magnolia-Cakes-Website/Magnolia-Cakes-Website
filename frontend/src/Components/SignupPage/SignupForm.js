@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Popup from "./TCPopup";
 import React from "react";
+import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
+import FormInput from "Components/FormInput/FormInput";
 
 export default function SignupForm({ api }) {
   // States for registration
@@ -169,25 +171,41 @@ export default function SignupForm({ api }) {
   };
 
   return (
-    <div className="form">
-      <form>
-        <input
+    <div className="signup-form">
+      <form onSubmit={handleSubmit}>
+        {/* <input
           onChange={handleFirstName}
           className="input-signup"
           value={firstname}
           type="text"
           placeholder="First Name"
+        /> */}
+
+        <FormInput
+          onChange={handleFirstName}
+          value={firstname}
+          inputName="firstname"
+          inputType="text"
+          placeholder="First Name"
         />
 
-        <input
+        {/* <input
           onChange={handleLastName}
           className="input-signup"
           value={lastname}
           type="text"
           placeholder="Last Name"
+        /> */}
+
+        <FormInput
+          onChange={handleLastName}
+          value={lastname}
+          inputName="lastname"
+          inputType="text"
+          placeholder="Last Name"
         />
 
-        <input
+        {/* <input
           onChange={handleEmail}
           className="input-signup"
           value={email}
@@ -201,17 +219,41 @@ export default function SignupForm({ api }) {
           value={password1}
           type="password"
           placeholder="Password"
+        /> */}
+
+        <FormInput
+          onChange={handleEmail}
+          value={email}
+          inputName="email"
+          inputType="email"
+          placeholder="Email"
         />
 
-        <input
+        <FormInput
+          onChange={handlePassword1}
+          value={password1}
+          inputName="password1"
+          inputType="password"
+          placeholder="Password"
+        />
+
+        {/* <input
           onChange={handlePassword2}
           className="input-signup"
           value={password2}
           type="password"
           placeholder="Confirm Password"
+        /> */}
+
+        <FormInput
+          onChange={handlePassword2}
+          value={password2}
+          inputName="password2"
+          inputType="password"
+          placeholder="Confirm Password"
         />
 
-        <div>
+        <div className="terms-conditions-check">
           <label htmlFor="agree" className="label">
             <input
               type="checkbox"
@@ -219,25 +261,35 @@ export default function SignupForm({ api }) {
               id="agree"
               onChange={checkboxHandler}
             />
-            <a className="pad"></a> I agree to the
-            <button
-              type="button"
-              className="terms-and-conditions"
-              onClick={() => setButtonPopup(true)}
-            >
-              <b>terms and conditions</b>
-            </button>
+            <p>
+              I agree to the{" "}
+              <button
+                type="button"
+                className="terms-and-conditions"
+                onClick={() => setButtonPopup(true)}
+              >
+                <b>Terms and Conditions</b>
+              </button>
+            </p>
           </label>
         </div>
 
-        <button
+        {/* <button
           onClick={handleSubmit}
           disabled={!agree}
           className="submit-btn"
           type="submit"
         >
           Create Account
-        </button>
+        </button> */}
+
+        <RoseGoldButton
+          buttonText="Create Account"
+          buttonType="submit"
+          height="36px"
+          margin="auto 0 8px"
+          // disabled={!agree}
+        />
 
         <Popup
           trigger={buttonPopup}
