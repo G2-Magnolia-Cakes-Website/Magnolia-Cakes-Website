@@ -1,3 +1,7 @@
 *.pyc
 *.sqlite3
 /dar
+alpine-avatar-399423-1e794a435a02.json
+.env
+backend/backend/.env
+backend/secrets/alpine-avatar-399423-1e794a435a02.json

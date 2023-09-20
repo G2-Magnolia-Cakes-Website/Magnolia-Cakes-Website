@@ -17,15 +17,15 @@ function LogoutPopup(props) {
             };
             let access = localStorage.getItem('access_token');
 
-            let res = await axios.post('http://localhost:8000/api/logout/',
+            let res = await axios.post('/api/logout/',
                 JSON.stringify(token),
                 {
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
-                    }
+                    },
+                    withCredentials: true
                 },
-                { withCredentials: true }
             );
 
             localStorage.clear();

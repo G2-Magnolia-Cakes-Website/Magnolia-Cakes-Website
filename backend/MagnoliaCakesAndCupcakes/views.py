@@ -182,12 +182,12 @@ class LogoutView(APIView):
 )  ###### Add this to allow users to access despite not being logged in
 def terms_and_conditions(request):
     if request.method == "GET":
-        terms = TermsAndConditions.objects.first()
-        serializer = TermsAndConditionsSerializer(terms)
+        terms = TermsAndCondition.objects.all()
+        serializer = TermsAndConditionsSerializer(terms, many=True)
         return Response(serializer.data)
 
     elif request.method == "PUT":
-        terms = TermsAndConditions.objects.first()
+        terms = TermsAndCondition.objects.first()
         serializer = TermsAndConditionsSerializer(terms, data=request.data)
         if serializer.is_valid():
             serializer.save()
