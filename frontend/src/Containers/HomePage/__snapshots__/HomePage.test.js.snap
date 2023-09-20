@@ -135,11 +135,15 @@ Array [
           <a
             href="/gallery/wedding-and-anniversary"
           >
-            <img
-              alt="Wedding & Anniversary"
-              className="gallery-img"
-              src="wedding-and-ann.jpg"
-            />
+            <div
+              className="img-wrapper"
+            >
+              <img
+                alt="Wedding & Anniversary"
+                className="gallery-img"
+                src="wedding-and-ann.jpg"
+              />
+            </div>
           </a>
         </div>
         <div
@@ -165,11 +169,49 @@ Array [
           <a
             href="/gallery/christening-and-communion"
           >
+            <div
+              className="img-wrapper"
+            >
+              <img
+                alt="Christening & Communion"
+                className="gallery-img"
+                src="christening-communion.jpg"
+              />
+            </div>
+          </a>
+        </div>
+        <div
+          className="gallery-grid-item-wrapper"
+        >
+          <h4>
+            Cupcakes
+          </h4>
+          <div
+            className="gallery-lines-group"
+          >
             <img
-              alt="Christening & Communion"
-              className="gallery-img"
-              src="christening-communion.jpg"
+              alt="gold line"
+              className="gold-line"
+              src="gold-circled-line-left.svg"
             />
+            <img
+              alt="white line"
+              className="white-line"
+              src="white-triangle-line-left.svg"
+            />
+          </div>
+          <a
+            href="/gallery/cupcakes"
+          >
+            <div
+              className="img-wrapper"
+            >
+              <img
+                alt="Cupcakes"
+                className="gallery-img"
+                src="cupcakes.jpg"
+              />
+            </div>
           </a>
         </div>
       </div>
@@ -199,18 +241,22 @@ Array [
           <a
             href="/gallery/birthday"
           >
-            <img
-              alt="Birthday"
-              className="gallery-img"
-              src="birthday.jpg"
-            />
+            <div
+              className="img-wrapper"
+            >
+              <img
+                alt="Birthday"
+                className="gallery-img"
+                src="birthday.jpg"
+              />
+            </div>
           </a>
         </div>
         <div
           className="gallery-grid-item-wrapper row-reverse"
         >
           <h4>
-            Cupcakes
+            Kids Birthday
           </h4>
           <div
             className="gallery-lines-group"
@@ -227,13 +273,51 @@ Array [
             />
           </div>
           <a
-            href="/gallery/cupcakes"
+            href="/gallery/kids-birthday"
+          >
+            <div
+              className="img-wrapper"
+            >
+              <img
+                alt="Kids Birthday"
+                className="gallery-img"
+                src="kids-birthday.jpg"
+              />
+            </div>
+          </a>
+        </div>
+        <div
+          className="gallery-grid-item-wrapper row-reverse"
+        >
+          <h4>
+            Any Occassion
+          </h4>
+          <div
+            className="gallery-lines-group"
           >
             <img
-              alt="Cupcakes"
-              className="gallery-img"
-              src="cupcakes.jpg"
+              alt="gold line"
+              className="gold-line"
+              src="gold-circled-line-right.svg"
             />
+            <img
+              alt="white line"
+              className="white-line"
+              src="white-triangle-line-right.svg"
+            />
+          </div>
+          <a
+            href="/gallery/any-occassion"
+          >
+            <div
+              className="img-wrapper"
+            >
+              <img
+                alt="Any Occassion"
+                className="gallery-img"
+                src="any-occassion.jpg"
+              />
+            </div>
           </a>
         </div>
       </div>
@@ -263,6 +347,31 @@ Array [
         Read More
       </button>
     </div>
+  </div>,
+  <div
+    className="flavours-and-servings"
+  >
+    <h1>
+      Our Flavours
+    </h1>
+    <p
+      className="description"
+    >
+      Our focus extends beyond designing beautiful cakes; we are dedicated to using exclusively premium quality ingredients. This unwavering commitment guarantees that the cake for your special occasion not only looks stunning but also delivers an unparalleled taste experience, ensuring your celebration is truly remarkable.
+    </p>
+    <div
+      className="flav-serv-lists"
+    />
+    <ul
+      className="extra-info"
+    >
+      <li>
+        If you have any special flavour suggestions that are not currently on our menu, please feel free to contact us. We are always expanding and eager to introduce new flavours to our offerings. Your input is valuable to us, and we would love to hear your ideas for unique and exciting flavours.
+      </li>
+      <li>
+        Please note that selecting our specially flavoured cakes will incur an additional cost, which will be determined in accordance with the size of the cake chosen.
+      </li>
+    </ul>
   </div>,
   <div
     className="delivery-section"

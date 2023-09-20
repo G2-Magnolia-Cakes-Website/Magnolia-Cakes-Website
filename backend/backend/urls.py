@@ -45,6 +45,16 @@ urlpatterns = [
     path("api/cakes/", views.cakes_list, name="cake-list"),
     path("api/faq/categories/", views.faq_categories_list, name="faq-categories-list"),
     path("api/faq/questions/", views.faq_questions_list, name="faq-questions-list"),
+    path(
+        "api/flavours-and-servings/",
+        views.flavours_and_servings,
+        name="flavours-and-servings",
+    ),
+    path(
+        "api/flavours-and-servings-info/",
+        views.flavours_and_servings_info,
+        name="flavours-and-servings-info",
+    ),
     path("api/about-us/", views.about_us, name="about-us"),
     
     # JWT token creation

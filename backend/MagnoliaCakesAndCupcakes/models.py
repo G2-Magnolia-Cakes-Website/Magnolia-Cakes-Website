@@ -51,6 +51,7 @@ class Cake(models.Model):
 
         super(Cake, self).delete(*args, **kwargs)
 
+
 class AboutUs(models.Model):
     content = models.TextField()
     last_updated = models.DateTimeField(auto_now=True)
@@ -76,3 +77,33 @@ class Question(models.Model):
 
     def __str__(self):
         return self.question
+
+
+class FlavoursAndServings(models.Model):
+    title = models.CharField(max_length=100)
+    list = models.TextField()
+    last_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.title}"
+
+    class Meta:
+        ordering = ["title"]
+        verbose_name_plural = "Flavours and Servings Lists"
+
+
+class FlavoursAndServingsInfo(models.Model):
+    heading = models.CharField(max_length=200)
+    description = models.TextField()
+    extra_points = models.TextField()
+
+    def save(self, *args, **kwargs):
+        if self.__class__.objects.count():
+            self.pk = self.__class__.objects.first().pk
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return "Flavours and Servings Info"
+
+    class Meta:
+        verbose_name_plural = "Flavours and Servings Info"
