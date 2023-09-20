@@ -9,41 +9,39 @@ const Header = ({ api }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState(null)
 
-  useEffect(() => {
-    if (localStorage.getItem('access_token') !== null) {
+  const fetchUser = async () => {
+    try {
+      // get user
 
-      const fetchUser = async () => {
-        try {
-          // get user
-          const token = {
-            access_token: localStorage.getItem('access_token')
-          };
-
-          let res = await api.get('/api/user/',
-            token,
-            {
-              headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-              },
-              withCredentials: true,
-            }
-          );
-          console.log(api.defaults.headers.common);
-
-          if (res.status === 200) {
-            console.log(res.data);
-            // setUser(...);
-          } else {
-            console.log(res);
-          }
-
-        } catch (err) {
-          console.log(api.defaults.headers.common);
-          console.log(err);
+      let res = await api.get('/api/user/',
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+          },
+          withCredentials: true,
         }
-      };
+      );
+      console.log(api.defaults.headers.common);
 
+      if (res.status === 200) {
+        console.log(res.data);
+        setUser(res.data);
+      } else {
+        console.log(res);
+      }
+
+    } catch (err) {
+      console.log(api.defaults.headers.common);
+      console.log(err);
+      console.log(err.response.data);
+    }
+  };
+
+  useEffect(() => {
+    const access_token = localStorage.getItem('access_token');
+    if (access_token !== null) {
       fetchUser();
       setIsAuth(true);
     }
@@ -71,7 +69,7 @@ const Header = ({ api }) => {
     <div className={headerStyle}>
       <div className="navbar-signup-login-group">
         <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-        {isAuth ? <SignedInGroup /> : !isMenuOpen && <SignUpLogInLinkGroup />}
+        {isAuth ? <SignedInGroup api={api} user={user} /> : !isMenuOpen && <SignUpLogInLinkGroup />}
       </div>
     </div>
   );

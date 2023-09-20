@@ -255,7 +255,7 @@ def get_user(request):
     if request.method == 'GET':
         print(request.user)
         user = request.user
-        serializer = UserSerializer(user, many=True)
+        serializer = UserSerializer(user)
         return Response(serializer.data)
 
 class UserAPIView(APIView):

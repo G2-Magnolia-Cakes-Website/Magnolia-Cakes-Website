@@ -3,7 +3,7 @@ import "./LogoutLink.css";
 import LogoutPopup from "./LogoutPopup.js"
 import { useState } from 'react';
 
-const LogoutLink = () => {
+const LogoutLink = ( { api } ) => {
 
     const [buttonPopup, setButtonPopup] = useState(false)
 
@@ -12,7 +12,7 @@ const LogoutLink = () => {
             <button className="logout" onClick={() => setButtonPopup(true)}>
                 Logout
             </button>
-            <LogoutPopup trigger={buttonPopup} setTrigger={setButtonPopup} position="right center" />
+            <LogoutPopup trigger={buttonPopup} setTrigger={setButtonPopup} api={api} position="right center" />
         </div>
     );
 };

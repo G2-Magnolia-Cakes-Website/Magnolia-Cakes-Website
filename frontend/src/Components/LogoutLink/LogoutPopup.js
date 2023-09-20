@@ -16,12 +16,13 @@ function LogoutPopup(props) {
                 refresh_token: localStorage.getItem('refresh_token')
             };
 
-            let res = await axios.post('/api/logout/',
+            let res = await props.api.post('/api/logout/',
                 JSON.stringify(token),
                 {
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
                     },
                     withCredentials: true,
                 }
@@ -29,7 +30,7 @@ function LogoutPopup(props) {
 
             if (res.status === 205) {
                 localStorage.clear();
-                axios.defaults.headers.common['Authorization'] = null;
+                props.api.defaults.headers.common['Authorization'] = null;
 
                 props.setTrigger(false)
 
