@@ -1,0 +1,48 @@
+.list-wrapper h4 {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 24px;
+  color: #daa41a;
+  margin-bottom: 1rem;
+}
+
+.list-wrapper ul li {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.list-wrapper ul li::marker {
+  font-size: 20px;
+}
+
+@media (max-width: 1440px) {
+  .list-wrapper h4 {
+    font-size: 21px;
+  }
+
+  .list-wrapper ul li {
+    font-size: 21px;
+  }
+}
+
+@media (max-width: 768px) {
+  .list-wrapper h4 {
+    font-size: 18px;
+  }
+
+  .list-wrapper ul li {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .list-wrapper h4 {
+    font-size: 16px;
+    margin-bottom: 0.5rem;
+  }
+
+  .list-wrapper ul li {
+    font-size: 16px;
+  }
+}

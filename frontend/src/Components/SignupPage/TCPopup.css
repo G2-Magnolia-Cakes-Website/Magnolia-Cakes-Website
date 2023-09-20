@@ -8,16 +8,19 @@
 
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: left;
+    overflow-y: auto;
 }
 
 .popup-inner {
     position: relative;
     padding: 32px;
     width: 100%;
-    max-width: 640px;
+    max-width: 800px;
     background-color: #FFF;
     border-radius: 25px;
+    max-height: 40vh;
+    overflow-y: auto;
 }
 
 .popup-inner .close-btn {
@@ -32,4 +35,16 @@
     font-family: 'Josefin Sans', sans-serif;
     font-size: 18px;
     color: red;
+}
+
+.popup-inner h2 {
+    text-align: left; /* Align the heading to the left */
+    font-size: 20px; /* Adjust the font size for h2 */
+    margin-bottom: 10px; /* Add some margin to separate h2 from p */
+}
+
+.popup-inner p {
+    text-align: left; /* Align paragraphs to the left */
+    font-size: 16px; /* Adjust the font size for paragraphs */
+    margin-bottom: 10px; /* Add some margin between paragraphs */
 }

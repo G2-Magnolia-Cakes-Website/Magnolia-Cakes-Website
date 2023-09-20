@@ -27,6 +27,8 @@ function LogoutPopup(props) {
                     withCredentials: true,
                 }
             );
+            console.log(axios.defaults.headers.common['Authorization']);
+            console.log(res);
 
             if (res.status === 205) {
                 localStorage.clear();
