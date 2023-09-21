@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function LogoutPopup(props) {
@@ -11,13 +10,15 @@ function LogoutPopup(props) {
 
         // Send API msg to backend
         try {
+            console.log(props.api.defaults.headers.common['Authorization']);
+            console.log(localStorage.getItem('access_token'));
 
             const token = {
                 refresh_token: localStorage.getItem('refresh_token')
             };
 
             let res = await props.api.post('/api/logout/',
-                JSON.stringify(token),
+                token,
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -28,6 +29,7 @@ function LogoutPopup(props) {
                 }
             );
             console.log(props.api.defaults.headers.common['Authorization']);
+            console.log(localStorage.getItem('access_token'));
             console.log(res);
 
             if (res.status === 205) {
@@ -44,6 +46,7 @@ function LogoutPopup(props) {
 
         } catch (err) {
             console.log(props.api.defaults.headers.common['Authorization']);
+            console.log(localStorage.getItem('access_token'));
             console.log(err);
         }
     };

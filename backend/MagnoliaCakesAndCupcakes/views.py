@@ -168,7 +168,6 @@ class LogoutView(APIView):
     def post(self, request):
         try:
             refresh_token = request.data["refresh_token"]
-            print(refresh_token)
             token = RefreshToken(refresh_token)
             token.blacklist()
             return Response(status=status.HTTP_205_RESET_CONTENT)
@@ -293,7 +292,6 @@ def flavours_and_servings_info(request):
 @api_view(['GET'])
 def get_user(request):
     if request.method == 'GET':
-        print(request.user)
         user = request.user
         serializer = UserSerializer(user)
         return Response(serializer.data)

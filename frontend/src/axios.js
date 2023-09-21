@@ -23,16 +23,25 @@ const refreshToken = async () => {
                 withCredentials: true
             },
         );
+
         if (response.status === 200) {
+            console.log("success")
+
             // Update the access token in local storage
             localStorage.setItem('access_token', response.data.access);
             localStorage.setItem('refresh_token', response.data.refresh);
+
             // Return the refreshed access token
-            return response.data.access;
+            return {
+                access: response.data.access,
+                refresh: response.data.refresh,
+            };
+
         } else {
             console.log(response);
             return Promise.reject(response);
         }
+
     } catch (error) {
         console.log(error);
         console.log(error.response.data);
@@ -49,15 +58,44 @@ instance.interceptors.response.use((response) => response, async (error) => {
         console.log("inside if");
         try {
             // Perform token refreshing logic here
-            const refreshedAccessToken = await refreshToken(); // Call your token refreshing function
-            instance.defaults.headers.common['Authorization'] = `Bearer ${refreshedAccessToken}`;
+            const { access, refresh } = await refreshToken(); // Call your token refreshing function
+            instance.defaults.headers.common['Authorization'] = `Bearer ${access}`;
             console.log("worked");
+            console.log(access);
+
+            // Update the refresh token in error.config data
+            error.config.data = JSON.stringify({ refresh_token: refresh });
+
+            // Update the Authorization header in error.config
+            error.config.headers['Authorization'] = `Bearer ${access}`;
+
             // Retry the original request
             return instance.request(error.config);
+
         } catch (refreshError) {
+            // Handle token refreshing error or logout the user
             console.error("Issue with refreshing access token!");
             console.error(refreshError);
-            // Handle token refreshing error or logout the user
+
+            console.log(error.config.url)
+            // Check the URL of the original request
+            if (error.config.url !== '/api/logout/') {
+                console.log("logging out!")
+                const token = { refresh_token: localStorage.getItem('refresh_token') };
+
+                let res = await instance.post('/api/logout/',
+                    token,
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                        },
+                        withCredentials: true,
+                    }
+                );
+            }
+
             localStorage.clear();
             instance.defaults.headers.common['Authorization'] = null;
             // window.location.reload();

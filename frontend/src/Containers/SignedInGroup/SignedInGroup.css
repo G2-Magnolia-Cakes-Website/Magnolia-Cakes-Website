@@ -1,0 +1,8 @@
+.signedin-group {
+    display: flex;
+    margin: 0 1.5rem 0 1rem;
+  }
+  
+  .signedin-group > * {
+    margin: 1rem 0.5rem;
+  }

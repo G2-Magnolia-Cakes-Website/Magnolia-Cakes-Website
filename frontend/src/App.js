@@ -14,7 +14,9 @@ import FAQsPage from "./Components/FAQs/FAQsPage";
 import OnlineStorePage from "./Containers/OnlineStorePage/OnlineStorePage";
 import FlavoursAndServings from "Containers/FlavoursAndServings/FlavoursAndServings";
 import AboutUsPage from "Containers/AboutUsPage/AboutUsPage";
+import UserProfilePage from "Components/UserProfile/ProfilePage"
 import "./App.css";
+import { PAGELINKS } from "utils/constants";
 
 import api from './axios'; // Import the axios instance
 
@@ -127,3 +129,9 @@ const App = () => {
   );
 };
 export default App;
+
+              {/* <Route
+                key={PAGELINKS.PROFILE_LINK}
+                path={PAGELINKS.PROFILE_LINK}
+                element={<UserProfilePage api={api} />}
+              /> */}

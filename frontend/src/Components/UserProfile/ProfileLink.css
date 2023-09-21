@@ -1,0 +1,21 @@
+.profile-link {
+    display: flex;
+    text-decoration: none;
+    color: #000000;
+    font-size: 20px;
+    padding: 7px 10px;
+    font-family: 'ABeeZee', sans-serif;
+    align-items: center;
+  }
+  
+  .profile-link:not(.active):hover {
+    color: #b76e79;
+  }
+  
+  @media (max-width: 1440px) and (min-width: 480px) {
+    .profile-link {
+      font-size: 14px;
+      padding: 7px 10px;
+    }
+  }
+  

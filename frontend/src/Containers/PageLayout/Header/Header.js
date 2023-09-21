@@ -23,7 +23,6 @@ const Header = ({ api }) => {
           withCredentials: true,
         }
       );
-      console.log(api.defaults.headers.common);
 
       if (res.status === 200) {
         console.log(res.data);
@@ -33,7 +32,6 @@ const Header = ({ api }) => {
       }
 
     } catch (err) {
-      console.log(api.defaults.headers.common);
       console.log(err);
       console.log(err.response.data);
     }
@@ -45,7 +43,7 @@ const Header = ({ api }) => {
       fetchUser();
       setIsAuth(true);
     }
-  }, [isAuth]);
+  }, [isAuth, api]);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 

@@ -1,13 +1,13 @@
 import React from "react";
 import LogoutLink from "../../Components/LogoutLink/LogoutLink";
+import ProfileLink from "../../Components/UserProfile/ProfileLink"
+import "./SignedInGroup.css";
 
 const SignedInGroup = ( { api, user } ) => {
-    console.log(user);
     return (
-        <div>
-            {/* TODO username + profile page link */}
-            {/* Welcome {user.first_name} {user.last_name}! */}
+        <div className="signedin-group">
             <LogoutLink api={api} />
+            <ProfileLink user={user} />
         </div>
     );
 };
