@@ -27,7 +27,7 @@ function LogoutPopup(props) {
                     withCredentials: true,
                 }
             );
-            console.log(axios.defaults.headers.common['Authorization']);
+            console.log(props.api.defaults.headers.common['Authorization']);
             console.log(res);
 
             if (res.status === 205) {
@@ -43,6 +43,7 @@ function LogoutPopup(props) {
             }
 
         } catch (err) {
+            console.log(props.api.defaults.headers.common['Authorization']);
             console.log(err);
         }
     };
