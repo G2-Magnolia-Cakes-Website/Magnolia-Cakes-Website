@@ -4,7 +4,7 @@ import magnoliaCakeLogo from "../../utils/Magnolia_Cake_logo.png";
 import birthdayCake from "../../utils/carousel-wedding-ann.jpg"
 import React from 'react';
 
-function LoginPage({ api }) {
+function LoginPage({ api, handleLoginSuccess }) {
     const logo = (
         <img className="logo" src={magnoliaCakeLogo} alt="Magnolia Cake Logo" />
     );
@@ -24,7 +24,7 @@ function LoginPage({ api }) {
                         <div>
                             <h1 className='login-header'>Log In</h1>
                         </div>
-                        <Form api={api} />
+                        <Form api={api} handleLoginSuccess={handleLoginSuccess} />
                     </div>
                 </div>
                 {image}

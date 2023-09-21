@@ -1,10 +1,13 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from '../../AuthContext';
 
-export default function LoginForm({ api }) {
+export default function LoginForm({ api, handleLoginSuccess}) {
 
     const navigate = useNavigate();
+
+    const { setUser } = useContext(AuthContext);
 
     // States for registration
     const [email, setEmail] = useState('');
@@ -64,8 +67,14 @@ export default function LoginForm({ api }) {
                     localStorage.setItem('refresh_token', res.data.refresh);
                     api.defaults.headers.common['Authorization'] = `Bearer ${res.data.access}`;
 
+                    console.log(res.data);
+
+                    // setUser({ email });
+                    getUserDetails();
+
+                    handleLoginSuccess(); // Call the callback function to update the isAuth state in the App component
+
                     navigate("/");
-                    navigate(0);
                 } else {
                     if (res.data["detail"]) {
                         setErrorMessage(res.data["detail"]);
@@ -90,6 +99,34 @@ export default function LoginForm({ api }) {
             }
         }
     };
+
+    const getUserDetails = async (e) => {
+        try {
+            // get user
+      
+            let res = await api.get('/api/user/',
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json',
+                  'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                },
+                withCredentials: true,
+              }
+            );
+      
+            if (res.status === 200) {
+              console.log(res.data);
+              setUser(res.data);
+            } else {
+              console.log(res);
+            }
+      
+          } catch (err) {
+            console.log(err);
+            console.log(err.response.data);
+          }
+    }
 
     // Showing error message if error is true
     const errorMessage = () => {

@@ -17,7 +17,7 @@ const PageLayout = (props) => {
         {logo}
         <h1 className="business-name">{SHOPDETAILS.MAGNOLIA_CAKE_SHOP_NAME}</h1>
       </div>
-      <Header api={props.api} />
+      <Header api={props.api} isAuth={props.isAuth} setIsAuth={props.setIsAuth} />
       {props.children}
       <ScrollToTop />
       <Footer />

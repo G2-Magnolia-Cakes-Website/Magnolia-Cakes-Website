@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import PageLayout from "./Containers/PageLayout/PageLayout";
 import { Route, Routes, BrowserRouter, useLocation } from "react-router-dom";
 import pages from "./utils/all_pages.json";
@@ -19,6 +19,7 @@ import "./App.css";
 import { PAGELINKS } from "utils/constants";
 
 import api from './axios'; // Import the axios instance
+import { AuthProvider } from './AuthContext';
 
 const Wrapper = ({ children }) => {
   const location = useLocation();
@@ -29,13 +30,20 @@ const Wrapper = ({ children }) => {
 };
 
 const App = () => {
+
+  const [isAuth, setIsAuth] = useState(false);
+
+  const handleLoginSuccess = () => {
+    setIsAuth(true);
+  };
+
   const nonPlaceHolderPages = [
     "/location",
     "/terms-and-conditions",
     "/flavours-and-servings",
   ];
   // Define the base URL based on the environment, only one of them should be used at a time
-  
+
   // temporary until pages created
   const routeAllPagesComingSoon = () => {
     return pages
@@ -52,85 +60,91 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter>
-      <Wrapper>
-        <div className="watercolor-bg">
-          <PageLayout api={api}>
-            <Routes>
-              <Route key="/" path="/" element={<HomePage api={api} />} />
-              <Route
-                key="/location"
-                path="/location"
-                element={<LocationPage />}
-              />
-              <Route
-                key="/online-store"
-                path="/online-store"
-                element={<OnlineStorePage api={api} />}
-              />
-              <Route
-                key="/terms-and-conditions"
-                path="/terms-and-conditions"
-                element={<TermsAndConditionsPage api={api} />}
-              />
-              <Route
-                key="/flavours-and-servings"
-                path="/flavours-and-servings"
-                element={<FlavoursAndServings api={api} />}
-              />
-              <Route
-                key="about-us"
-                path="about-us"
-                element={<AboutUsPage api={api} />}
-              />
-              <Route path="/gallery" element={<ComingSoonPage />}>
-                <Route
-                  path="/gallery/wedding-and-anniversary"
-                  element={<ComingSoonPage />}
+    <AuthProvider>
+      <BrowserRouter>
+        <Wrapper>
+          <div className="watercolor-bg">
+            <PageLayout api={api} isAuth={isAuth} setIsAuth={setIsAuth}>
+              <Routes>
+                <Route 
+                  key="/" 
+                  path="/" 
+                  element={<HomePage api={api} />} 
                 />
-                <Route path="/gallery/birthday" element={<ComingSoonPage />} />
                 <Route
-                  path="/gallery/christening-and-communion"
-                  element={<ComingSoonPage />}
+                  key="/location"
+                  path="/location"
+                  element={<LocationPage />}
                 />
-                <Route path="/gallery/cupcakes" element={<ComingSoonPage />} />
-              </Route>
-              <Route
-                key="/signup"
-                path="/signup"
-                element={<SignupPage api={api} />}
-              />
-              <Route
-                key="/login"
-                path="/login"
-                element={<LoginPage api={api} />}
-              />
-              <Route
-                key="/forgot-password"
-                path="/forgot-password"
-                element={<PasswordPage api={api} />}
-              />
-              <Route
-                key="/reset-password"
-                path="/reset-password"
-                element={<PasswordResetPage api={api} />}
-              />
-              <Route
-                key="/faq"
-                path="/faq"
-                element={<FAQsPage api={api} />}
-              />
-              {routeAllPagesComingSoon()}
-            </Routes>
-          </PageLayout>
-        </div>
-      </Wrapper>
-    </BrowserRouter>
+                <Route
+                  key="/online-store"
+                  path="/online-store"
+                  element={<OnlineStorePage api={api} />}
+                />
+                <Route
+                  key="/terms-and-conditions"
+                  path="/terms-and-conditions"
+                  element={<TermsAndConditionsPage api={api} />}
+                />
+                <Route
+                  key="/flavours-and-servings"
+                  path="/flavours-and-servings"
+                  element={<FlavoursAndServings api={api} />}
+                />
+                <Route
+                  key="about-us"
+                  path="about-us"
+                  element={<AboutUsPage api={api} />}
+                />
+                <Route path="/gallery" element={<ComingSoonPage />}>
+                  <Route
+                    path="/gallery/wedding-and-anniversary"
+                    element={<ComingSoonPage />}
+                  />
+                  <Route path="/gallery/birthday" element={<ComingSoonPage />} />
+                  <Route
+                    path="/gallery/christening-and-communion"
+                    element={<ComingSoonPage />}
+                  />
+                  <Route path="/gallery/cupcakes" element={<ComingSoonPage />} />
+                </Route>
+                <Route
+                  key="/signup"
+                  path="/signup"
+                  element={<SignupPage api={api} />}
+                />
+                <Route
+                  key="/login"
+                  path="/login"
+                  element={<LoginPage api={api} handleLoginSuccess={handleLoginSuccess} />}
+                />
+                <Route
+                  key="/forgot-password"
+                  path="/forgot-password"
+                  element={<PasswordPage api={api} />}
+                />
+                <Route
+                  key="/reset-password"
+                  path="/reset-password"
+                  element={<PasswordResetPage api={api} />}
+                />
+                <Route
+                  key="/faq"
+                  path="/faq"
+                  element={<FAQsPage api={api} />}
+                />
+                {routeAllPagesComingSoon()}
+              </Routes>
+            </PageLayout>
+          </div>
+        </Wrapper>
+      </BrowserRouter>
+    </AuthProvider>
   );
 };
 export default App;
 
-              {/* <Route
+{/* <Route
                 key={PAGELINKS.PROFILE_LINK}
                 path={PAGELINKS.PROFILE_LINK}
                 element={<UserProfilePage api={api} />}
