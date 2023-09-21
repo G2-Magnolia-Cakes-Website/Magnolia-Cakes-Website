@@ -34,19 +34,33 @@ const GetAQuote = ({ api }) => {
   const sendEmailHandler = async (e) => {
     e.preventDefault();
 
-    console.log("kim", date.current.value);
+    const bodyContent = {
+      Name: name.current.value,
+      Mobile: mobile.current.value,
+      Email: email.current.value,
+      Servings: servings.current.value,
+      Serves: serves,
+      Date: date.current.value,
+      Flavour: flavour,
+      Extra: extra.current.value,
+      Message: message.current.value,
+    };
 
-    const body = `
-      Name: ${name.current.value}
-      Mobile: ${mobile.current.value}
-      Email: ${email.current.value}
-      Servings: ${servings.current.value}
-      Serves: ${serves}
-      Date: ${date.current.value}
-      Flavour: ${flavour}
-      Extra: ${extra.current.value}
-      Message: ${message.current.value}
-    `;
+    //     const body = `
+    //       Name: ${name.current.value}
+    // Mobile: ${mobile.current.value}
+    // Email: ${email.current.value}
+    // Servings: ${servings.current.value}
+    // Serves: ${serves}
+    // Date: ${date.current.value}
+    // Flavour: ${flavour}
+    // Extra: ${extra.current.value}
+    // Message: ${message.current.value}
+    //     `;
+
+    const body = Object.keys(bodyContent)
+      .map((key) => `${key}: ${bodyContent[key]}`)
+      .join("\n");
 
     const data = {
       email: email.current.value,
@@ -58,18 +72,17 @@ const GetAQuote = ({ api }) => {
       let res = await api.post("http://localhost:8000/api/contact/", data, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Accept: "multipart/form-data",
         },
       });
 
       if (res.status === 200) {
-        console.log("Yay");
+        console.log("Form submit success.");
+        alert("Form is submitted.");
       }
     } catch (err) {
-      console.log("Nay", err);
+      console.log("Form submit error.", err);
+      alert("Form could not be submitted.");
     }
-
-    // alert("Form is submitted.");
   };
 
   return (
