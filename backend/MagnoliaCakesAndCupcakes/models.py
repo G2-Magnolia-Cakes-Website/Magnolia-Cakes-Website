@@ -154,6 +154,9 @@ class FlavoursAndServingsInfo(models.Model):
     description = models.TextField()
     extra_points = models.TextField()
 
+    class Meta:
+        verbose_name_plural = "Flavours and Servings Info"
+
     def save(self, *args, **kwargs):
         if self.__class__.objects.count():
             self.pk = self.__class__.objects.first().pk
@@ -179,9 +182,6 @@ class SocialMedias(models.Model):
 
     def __str__(self):
         return self.account_name
-
-    class Meta:
-        verbose_name_plural = "Flavours and Servings Info"
 
 
 @receiver(reset_password_token_created)
