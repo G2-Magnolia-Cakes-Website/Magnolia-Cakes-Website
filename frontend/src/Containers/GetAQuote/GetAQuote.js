@@ -168,6 +168,7 @@ const GetAQuote = ({ api }) => {
               isRequired
               placeholder="E.g., 12"
               inputRef={servings}
+              min="1"
             />
             <SelectionBox
               selectLabel="Coffee or standard serves"

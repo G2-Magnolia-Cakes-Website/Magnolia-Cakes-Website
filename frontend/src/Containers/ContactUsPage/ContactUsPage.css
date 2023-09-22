@@ -1,0 +1,77 @@
+.contact-us-page .contact-us-card {
+  padding: 6rem 10rem;
+  border-radius: 10px;
+  justify-content: center;
+  z-index: 50;
+  /* position: relative;
+  top: -400px; */
+  width: 950px;
+  margin: 5rem auto 5rem auto;
+
+  background-color: white;
+  justify-content: center;
+  text-align: center;
+}
+
+.contact-us-page .contact-us-card h1 {
+  font-family: "Yantramanav", sans-serif;
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.tiny-red-message {
+  text-align: left;
+  color: red;
+  margin-top: 1rem;
+}
+
+@media (max-width: 1440px) {
+  .contact-us-page .contact-us-card {
+    width: 70%;
+    padding: 5rem 8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-us-page .contact-us-card {
+    padding: 3rem 5rem;
+  }
+
+  .contact-us-page .contact-us-card h1 {
+    font-size: 42px;
+    margin-bottom: 1.5rem;
+  }
+
+  .double-column-div {
+    column-gap: 1rem;
+  }
+}
+
+@media (max-width: 735px) {
+  .double-column-div {
+    display: block;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-us-page .contact-us-card {
+    padding: 2rem 3rem;
+  }
+
+  .contact-us-page .contact-us-card h1 {
+    font-size: 36px;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-us-page .contact-us-card h1 {
+    font-size: 32px;
+  }
+
+  .contact-us-page .contact-us-card {
+    width: 85%;
+    padding: 1rem 2rem;
+  }
+}

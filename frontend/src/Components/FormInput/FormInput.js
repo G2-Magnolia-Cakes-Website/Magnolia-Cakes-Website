@@ -13,6 +13,8 @@ const FormInput = (props) => {
     value,
     onChange,
     autoCapitalize,
+    min,
+    max,
   } = props;
 
   const asterisk = isRequired ? "*" : "";
@@ -32,6 +34,8 @@ const FormInput = (props) => {
         value={value}
         onChange={onChange}
         autoCapitalize={autoCapitalize}
+        min={min}
+        max={max}
       ></input>
     </label>
   );

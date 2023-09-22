@@ -20,12 +20,12 @@
     "tabLink": "/about-us"
   },
   {
-    "tabName": "Contact Us",
-    "tabLink": "/contact-us"
-  },
-  {
     "tabName": "FAQ",
     "tabLink": "/faq"
+  },
+  {
+    "tabName": "Contact Us",
+    "tabLink": "/contact-us"
   },
   {
     "tabName": "Get a Quote",
