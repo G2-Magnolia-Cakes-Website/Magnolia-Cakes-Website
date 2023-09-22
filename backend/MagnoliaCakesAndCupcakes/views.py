@@ -211,8 +211,10 @@ def contact(request):
             message = form.cleaned_data["message"]
             file = request.FILES.getlist("file")
 
+            admin_email = ContactUsEmail.objects.first()
+
             email = EmailMessage(
-                subject, message, to=["kimt12531@gmail.com"], cc=[user_email]
+                subject, message, to=[admin_email.your_email], cc=[user_email]
             )
 
             for f in file:
