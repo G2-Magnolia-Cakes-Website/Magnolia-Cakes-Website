@@ -77,6 +77,25 @@
   width: 100%;
 }
 
+.files-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.files-list .file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  word-break: break-all;
+}
+
+.files-list .file-item button {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+}
+
 @media (max-width: 1440px) {
   .get-a-quote .get-a-quote-card.white {
     padding: 5rem 8rem;
@@ -149,5 +168,9 @@
 
   .get-a-quote .get-a-quote-card.white {
     padding: 1rem 2rem;
+  }
+
+  .files-list .file-item {
+    width: 90%;
   }
 }

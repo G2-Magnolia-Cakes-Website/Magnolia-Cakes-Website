@@ -34,7 +34,9 @@ const rejectStyle = {
   borderColor: "#ff1744",
 };
 
-const Dropzone = () => {
+const Dropzone = (props) => {
+  const { setFiles } = props;
+
   const onDrop = useCallback((acceptedFiles) => {
     // Do something with the files
     acceptedFiles.forEach((file) => {
@@ -46,6 +48,9 @@ const Dropzone = () => {
         // Do whatever you want with the file contents
         const binaryStr = reader.result;
         console.log(binaryStr);
+        console.log(file.name);
+
+        setFiles((curr) => [...curr, file]);
       };
       reader.readAsArrayBuffer(file);
     });
@@ -58,7 +63,7 @@ const Dropzone = () => {
     isDragAccept,
     isDragReject,
     isDragActive,
-  } = useDropzone({ onDrop });
+  } = useDropzone({ onDrop, multiple: true });
 
   const style = useMemo(
     () => ({
@@ -71,22 +76,28 @@ const Dropzone = () => {
   );
 
   return (
-    <div
-      {...getRootProps({
-        // @ts-ignore
-        style,
-      })}
-    >
-      <input {...getInputProps()} />
-      <img className="cloud-arrow-up" src={CloudArrowUp} alt={"upload-file"} />
-      {isDragActive ? (
-        <p className="dropzone-text">Drop the files here ...</p>
-      ) : (
-        <p className="dropzone-text">
-          Drag some files here, or click to select files
-        </p>
-      )}
-    </div>
+    <>
+      <div
+        {...getRootProps({
+          // @ts-ignore
+          style,
+        })}
+      >
+        <input {...getInputProps()} />
+        <img
+          className="cloud-arrow-up"
+          src={CloudArrowUp}
+          alt={"upload-file"}
+        />
+        {isDragActive ? (
+          <p className="dropzone-text">Drop the files here ...</p>
+        ) : (
+          <p className="dropzone-text">
+            Drag some files here, or click to select files
+          </p>
+        )}
+      </div>
+    </>
   );
 };
 
