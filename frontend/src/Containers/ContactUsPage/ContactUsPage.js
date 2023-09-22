@@ -11,12 +11,49 @@ const ContactUsPage = ({ api }) => {
   const email = useRef(null);
   const message = useRef(null);
 
+  const sendEmailHandler = async (e) => {
+    e.preventDefault();
+
+    const bodyContent = {
+      Name: name.current.value,
+      Mobile: mobile.current.value,
+      Email: email.current.value,
+      Message: message.current.value,
+    };
+
+    const body = Object.keys(bodyContent)
+      .map((key) => `${key}: ${bodyContent[key]}`)
+      .join("\n");
+
+    const data = {
+      email: email.current.value,
+      subject: `${name.current.value} Sends a Message via Contact Us`,
+      message: body,
+    };
+
+    try {
+      let res = await api.post("/api/contact/", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (res.status === 200) {
+        console.log("Form submit success.");
+        alert("Form is submitted.");
+      }
+    } catch (err) {
+      console.log("Form submit error.", err);
+      alert("Form could not be submitted.");
+    }
+  };
+
   return (
     <div className="contact-us-page">
       <div className="contact-us-card">
         <h1>Contact Us</h1>
         <p className="tiny-red-message">* indicates field is required</p>
-        <form>
+        <form onSubmit={sendEmailHandler}>
           <div className="double-column-div">
             <FormInput
               labelText="Name"

@@ -80,7 +80,7 @@ const GetAQuote = ({ api }) => {
     }
 
     try {
-      let res = await api.post("http://localhost:8000/api/contact/", formData, {
+      let res = await api.post("/api/contact/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
