@@ -100,14 +100,11 @@ const GetAQuote = ({ api }) => {
     const newFiles = [...files];
     newFiles.splice(newFiles.indexOf(file), 1);
     setFiles(newFiles);
-    console.log("kim r", files);
   };
 
   const clearFiles = () => {
     setFiles([]);
   };
-
-  console.log("kim", files);
 
   const filesList = files.map((file) => (
     <li className="file-item" key={file.name + files.indexOf(file)}>
