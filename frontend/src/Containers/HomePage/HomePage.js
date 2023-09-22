@@ -16,7 +16,7 @@ const HomePage = ({ api }) => {
       <AboutUsSection />
       <FlavoursAndServings api={api} />
       <DeliverySection />
-      <LocationPage />
+      <LocationPage api={api} />
     </>
   );
 };

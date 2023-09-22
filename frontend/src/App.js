@@ -63,7 +63,7 @@ const App = () => {
               <Route
                 key="/location"
                 path="/location"
-                element={<LocationPage />}
+                element={<LocationPage api={api} />}
               />
               <Route
                 key="/online-store"
