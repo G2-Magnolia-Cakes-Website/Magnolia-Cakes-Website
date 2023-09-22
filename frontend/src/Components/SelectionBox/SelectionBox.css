@@ -1,0 +1,19 @@
+.form-label,
+.form-select {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.form-label .form-select {
+  border: 1px solid #a6a6a6;
+  height: 36px;
+  border-radius: 0;
+}
+
+.form-label .form-select:focus {
+  outline: none;
+  border: 2px solid #b76e79;
+  border-radius: 4px;
+  box-shadow: none;
+}

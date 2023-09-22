@@ -15,15 +15,11 @@
   pointer-events: none;
 }
 
-p {
-  font-family: "Yantramanav", sans-serif;
-}
-
-a {
-  font-family: "Yantramanav", sans-serif;
-}
-
-button {
+p,
+a,
+button,
+input,
+label {
   font-family: "Yantramanav", sans-serif;
 }
 

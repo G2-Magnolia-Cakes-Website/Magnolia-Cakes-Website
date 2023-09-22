@@ -12,6 +12,7 @@ import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAnd
 import SignupPage from "./Components/SignupPage/SignupPage";
 import FAQsPage from "./Components/FAQs/FAQsPage";
 import OnlineStorePage from "./Containers/OnlineStorePage/OnlineStorePage";
+import GetAQuote from "Containers/GetAQuote/GetAQuote";
 import FlavoursAndServings from "Containers/FlavoursAndServings/FlavoursAndServings";
 import AboutUsPage from "Containers/AboutUsPage/AboutUsPage";
 import axios from "axios";
@@ -107,6 +108,12 @@ const App = () => {
                 element={<LoginPage api={api} />}
               />
               <Route
+                key="/get-a-quote"
+                path="/get-a-quote"
+                element={<GetAQuote api={api} />}
+              />
+              <Route key="/faq" path="/faq" element={<FAQsPage api={api} />} />
+              <Route
                 key="/forgot-password"
                 path="/forgot-password"
                 element={<PasswordPage api={api} />}
@@ -116,11 +123,7 @@ const App = () => {
                 path="/reset-password"
                 element={<PasswordResetPage api={api} />}
               />
-              <Route
-                key="/faq"
-                path="/faq"
-                element={<FAQsPage api={api} />}
-              />
+              <Route key="/faq" path="/faq" element={<FAQsPage api={api} />} />
               {routeAllPagesComingSoon()}
             </Routes>
           </PageLayout>
