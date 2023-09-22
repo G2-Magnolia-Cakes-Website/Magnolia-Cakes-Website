@@ -25,6 +25,12 @@ class CakeSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class SliderImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SliderImage
+        fields = "__all__"
+
+
 class FlavoursAndServingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = FlavoursAndServings

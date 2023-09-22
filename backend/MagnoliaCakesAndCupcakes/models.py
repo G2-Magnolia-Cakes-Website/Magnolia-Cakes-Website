@@ -62,6 +62,36 @@ class Cake(models.Model):
         super(Cake, self).delete(*args, **kwargs)
 
 
+class SliderImage(models.Model):
+    def upload_to_slider(instance, filename):
+        # Upload the image to a 'cakes' directory with the filename as the cake's name
+        return f"slider/{filename}"
+
+    name = models.CharField(max_length=100)
+    image = models.ImageField(
+        upload_to=upload_to_slider
+    )  # Use the custom upload function
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        # Rename the uploaded image to match the cake's name
+        if self.image and hasattr(self.image, "name"):
+            self.image.name = (
+                f"{self.name}.png"  # You can change the file extension if needed
+            )
+        super(SliderImage, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        # Delete the associated image from Google Cloud Storage
+        if self.image and hasattr(self.image, "name"):
+            image_path = self.image.name
+            default_storage.delete(image_path)
+
+        super(SliderImage, self).delete(*args, **kwargs)
+
+
 class AboutUs(models.Model):
     content = models.TextField()
     last_updated = models.DateTimeField(auto_now=True)

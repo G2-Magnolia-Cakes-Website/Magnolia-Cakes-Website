@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FooterSection from "./FooterSection/FooterSection";
-import { FOOTERSECTIONS, PAGELINKS, SOCIALMEDIAS } from "utils/constants";
+import { FOOTERSECTIONS, PAGELINKS } from "utils/constants";
 import SocialMediaLink from "Components/SocialMediaLink/SocialMediaLink";
 import "./Footer.css";
 // import magnoliaCakeLogo from "utils/Magnolia_Cake_logo.png";
@@ -56,7 +56,6 @@ const Footer = ({ api }) => {
       .get("api/social-medias/")
       .then((response) => {
         // Set the retrieved content in the state
-        console.log(response.data);
         setSocialMedias(response.data);
       })
       .catch((error) => {

@@ -260,6 +260,27 @@ def cakes_list(request):
         return Response(cakes_with_image_urls, status=status.HTTP_200_OK)
 
 
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def slider_images(request):
+    if request.method == "GET":
+        images = SliderImage.objects.all()
+        serializer = SliderImageSerializer(images, many=True)
+
+        # Create a list to store the updated cake data with image URLs
+        images_with_urls = []
+
+        for image_data in serializer.data:
+            imageObject = SliderImage.objects.get(id=image_data["id"])
+            # Add the image URL to the cake data
+            image_data["image"] = imageObject.image.url
+            images_with_urls.append(image_data)
+
+        return Response(images_with_urls, status=status.HTTP_200_OK)
+
+
 @api_view(["GET", "PUT"])
 @permission_classes(
     [AllowAny]

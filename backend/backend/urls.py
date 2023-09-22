@@ -74,11 +74,11 @@ urlpatterns = [
         views.location_page_content,
         name="location-page",
     ),
-
+    path("api/slider-images/", views.slider_images, name="slider-images"),
+    
     # JWT token creation
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    
     # Reset password
     path(
         "api/reset/password/",
