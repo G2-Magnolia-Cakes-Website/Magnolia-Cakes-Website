@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { GetAQuoteBg } from "utils/get-a-quote";
 import FormInput from "Components/FormInput/FormInput";
 import SelectionBox from "Components/SelectionBox/SelectionBox";
@@ -7,6 +7,7 @@ import Dropzone from "Components/Dropzone/Dropzone";
 
 import "./GetAQuote.css";
 import { Cross } from "hamburger-react";
+import FormTextArea from "Components/FormTextArea/FormTextArea";
 
 const GetAQuote = ({ api }) => {
   const flavoursList = [
@@ -187,21 +188,24 @@ const GetAQuote = ({ api }) => {
               options={flavoursList}
               setOption={setFlavour}
             />
-            <FormInput
-              labelText="Extra"
-              inputName="extra"
-              inputType="text"
-              placeholder="Acrylic Toppers"
-              inputRef={extra}
-            />
-            <FormInput
-              labelText="Message"
-              inputName="message"
-              inputType="text"
-              placeholder="Enter Your Message"
-              inputRef={message}
-            />
           </div>
+
+          <FormTextArea
+            labelText="Extra"
+            inputName="extra"
+            inputType="text"
+            placeholder="Acrylic Toppers"
+            inputRef={extra}
+          />
+
+          <FormTextArea
+            labelText="Message"
+            inputName="message"
+            inputType="text"
+            placeholder="Enter Your Message"
+            inputRef={message}
+          />
+
           <Dropzone setFiles={setFiles} />
 
           <RoseGoldButton
