@@ -78,3 +78,9 @@ class SocialMediasSerializer(serializers.ModelSerializer):
     class Meta:
         model = SocialMedias
         fields = "__all__"
+
+
+class LocationPageContentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LocationPageContent
+        fields = "__all__"

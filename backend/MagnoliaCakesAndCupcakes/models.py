@@ -221,3 +221,21 @@ def password_reset_token_created(
         [reset_password_token.user.email],
     )
     msg.send()
+
+
+class LocationPageContent(models.Model):
+    location_heading = models.CharField(max_length=200)
+    location_info = models.TextField()
+    business_hours_heading = models.CharField(max_length=200)
+    business_hours_info = models.TextField()
+
+    class Meta:
+        verbose_name_plural = "Location Page Content"
+
+    def save(self, *args, **kwargs):
+        if self.__class__.objects.count():
+            self.pk = self.__class__.objects.first().pk
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return "Location Page Content"

@@ -69,11 +69,19 @@ urlpatterns = [
         views.social_medias,
         name="social-medias",
     ),
-    
+    path(
+        "api/location-page/",
+        views.location_page_content,
+        name="location-page",
+    ),
+
     # JWT token creation
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     
-	# Reset password
-	path("api/reset/password/", include("django_rest_passwordreset.urls", namespace="password_reset")),
+    # Reset password
+    path(
+        "api/reset/password/",
+        include("django_rest_passwordreset.urls", namespace="password_reset"),
+    ),
 ]

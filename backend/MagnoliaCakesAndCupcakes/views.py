@@ -377,3 +377,14 @@ def flavours_and_servings_info(request):
         flavours_servings_info = FlavoursAndServingsInfo.objects.first()
         serializer = FlavoursAndServingsInfoSerializer(flavours_servings_info)
         return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def location_page_content(request):
+    if request.method == "GET":
+        location_page_content = LocationPageContent.objects.first()
+        serializer = LocationPageContentSerializer(location_page_content)
+        return Response(serializer.data)
