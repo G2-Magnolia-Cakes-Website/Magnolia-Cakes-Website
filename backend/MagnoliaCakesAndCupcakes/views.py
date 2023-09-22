@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login as django_login
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -12,9 +12,10 @@ from .serializers import *
 from .models import *
 
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, renderer_classes
 from rest_framework.response import Response
-from .forms import NewUserForm
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
+from .forms import FavourServingsForm, GetAQuoteForm, NewUserForm
 
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -26,7 +27,7 @@ from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, send_mail, BadHeaderError
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.http import HttpResponse
@@ -64,7 +65,6 @@ def register(request):
     [AllowAny]
 )  ###### Add this to allow users to access despite not being logged in
 def activateEmail(request, user, to_email):
-    # test_email_server_connectivity()
     mail_subject = "Activate your user account."
     message = render_to_string(
         "template_activate_account.html",
@@ -181,12 +181,12 @@ class LogoutView(APIView):
 )  ###### Add this to allow users to access despite not being logged in
 def terms_and_conditions(request):
     if request.method == "GET":
-        terms = TermsAndConditions.objects.first()
-        serializer = TermsAndConditionsSerializer(terms)
+        terms = TermsAndCondition.objects.all()
+        serializer = TermsAndConditionsSerializer(terms, many=True)
         return Response(serializer.data)
 
     elif request.method == "PUT":
-        terms = TermsAndConditions.objects.first()
+        terms = TermsAndCondition.objects.first()
         serializer = TermsAndConditionsSerializer(terms, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -194,6 +194,49 @@ def terms_and_conditions(request):
                 {"message": "Terms & Conditions updated"}, status=status.HTTP_200_OK
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET", "POST"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def get_a_quote(request):
+    if request.method == "GET":
+        form = GetAQuoteForm()
+    else:
+        form = GetAQuoteForm(request.POST, request.FILES)
+        if form.is_valid():
+            user_email = form.cleaned_data["email"]
+            subject = form.cleaned_data["subject"]
+            message = form.cleaned_data["message"]
+            file = request.FILES.getlist("file")
+
+            email = EmailMessage(
+                subject, message, to=["kimt12531@gmail.com"], cc=[user_email]
+            )
+
+            for f in file:
+                email.attach(f.name, f.read(), f.content_type)
+
+            try:
+                email.send()
+            except Exception as error:
+                return Response(
+                    {
+                        "message": "Problem sending email. Please contact an administrator."
+                    },
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            return Response(
+                "Success! Request for quote submitted.", status=status.HTTP_200_OK
+            )
+        else:
+            return Response(
+                {"message": "Contact failed"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+    return render(request, "email.html", {"form": form})
 
 
 @api_view(["GET"])
@@ -215,6 +258,29 @@ def cakes_list(request):
             cakes_with_image_urls.append(cake_data)
 
         return Response(cakes_with_image_urls, status=status.HTTP_200_OK)
+
+
+@api_view(["GET", "PUT"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def flavours_and_servings(request):
+    if request.method == "GET":
+        flavours_servings_lists = FlavoursAndServings.objects.all()
+        serializer = FlavoursAndServingsSerializer(flavours_servings_lists, many=True)
+        return Response(serializer.data)
+
+    if request.method == "POST":
+        form = FavourServingsForm(request.data)
+        if form.is_valid():
+            flavours_servings_list = form.save(commit=False)
+            flavours_servings_list.title = flavours_servings_list.title
+            flavours_servings_list.list = flavours_servings_list.list
+            flavours_servings_list.save()
+            return Response(
+                {"message": "Flavours & Servings updated"}, status=status.HTTP_200_OK
+            )
+        return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["GET", "PUT"])
@@ -247,7 +313,7 @@ def faq_categories_list(request):
         return Response(serializer.data)
 
 
-@api_view(["GET", "PUT"])
+@api_view(["GET"])
 @permission_classes(
     [AllowAny]
 )  ###### Add this to allow users to access despite not being logged in
@@ -299,4 +365,15 @@ def social_medias(request):
     if request.method == "GET":
         social_media_accounts = SocialMedias.objects.all()
         serializer = SocialMediasSerializer(social_media_accounts, many=True)
+        return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def flavours_and_servings_info(request):
+    if request.method == "GET":
+        flavours_servings_info = FlavoursAndServingsInfo.objects.first()
+        serializer = FlavoursAndServingsInfoSerializer(flavours_servings_info)
         return Response(serializer.data)

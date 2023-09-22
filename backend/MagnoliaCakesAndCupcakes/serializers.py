@@ -15,13 +15,25 @@ class MagnoliaCakesAndCupcakesSerializer(serializers.ModelSerializer):
 
 class TermsAndConditionsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = TermsAndConditions
-        fields = ("id", "content", "last_updated")
+        model = TermsAndCondition
+        fields = "__all__"
 
 
 class CakeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cake
+        fields = "__all__"
+
+
+class FlavoursAndServingsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FlavoursAndServings
+        fields = "__all__"
+
+
+class FlavoursAndServingsInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FlavoursAndServingsInfo
         fields = "__all__"
 
 
@@ -55,10 +67,12 @@ class FooterContactUsSerializer(serializers.ModelSerializer):
         model = FooterContactUs
         fields = "__all__"
 
+
 class FooterBusinessHoursSerializer(serializers.ModelSerializer):
     class Meta:
         model = FooterBusinessHours
         fields = "__all__"
+
 
 class SocialMediasSerializer(serializers.ModelSerializer):
     class Meta:

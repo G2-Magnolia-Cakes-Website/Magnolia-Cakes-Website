@@ -1,0 +1,176 @@
+.get-a-quote {
+  flex: 1;
+}
+
+.get-a-quote .cake-img {
+  width: 100%;
+  aspect-ratio: 1412/559;
+}
+
+.get-a-quote .cards {
+  display: flex;
+  gap: 10rem;
+  justify-content: center;
+  z-index: 50;
+  position: relative;
+  top: -400px;
+}
+
+.get-a-quote .get-a-quote-card {
+  padding: 6rem 10rem;
+  border-radius: 10px;
+  justify-content: center;
+  z-index: 50;
+  position: relative;
+  top: -400px;
+  width: 950px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.get-a-quote .cards .get-a-quote-card.pink {
+  background-color: #b76e79;
+  color: white;
+}
+
+.get-a-quote .get-a-quote-card.white {
+  background-color: white;
+  justify-content: center;
+  text-align: center;
+}
+
+.get-a-quote .get-a-quote-card.white h2 {
+  font-family: "Yantramanav", sans-serif;
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.get-a-quote .get-a-quote-card.white .grey-info-card {
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 10px;
+  width: fit-content;
+  background-color: #d9d9d9;
+}
+
+.get-a-quote .get-a-quote-card.white .grey-info-card p {
+  font-size: 20px;
+  margin: 0;
+}
+
+.tiny-red-message {
+  text-align: left;
+  color: red;
+  margin-top: 1rem;
+}
+
+.double-column-div {
+  display: inline-grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 2rem;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.double-column-div > * {
+  width: 100%;
+}
+
+.files-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.files-list .file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  word-break: break-all;
+}
+
+.files-list .file-item button {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+}
+
+@media (max-width: 1440px) {
+  .get-a-quote .get-a-quote-card.white {
+    padding: 5rem 8rem;
+  }
+
+  .get-a-quote .get-a-quote-card.white .grey-info-card p {
+    font-size: 18px;
+  }
+
+  .get-a-quote .get-a-quote-card {
+    width: 70%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .get-a-quote .get-a-quote-card {
+    top: -200px;
+  }
+
+  .get-a-quote .get-a-quote-card.white .grey-info-card p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .get-a-quote .get-a-quote-card {
+    top: -150px;
+  }
+
+  .get-a-quote .get-a-quote-card.white {
+    padding: 3rem 5rem;
+  }
+
+  .get-a-quote .get-a-quote-card.white h2 {
+    font-size: 42px;
+    margin-bottom: 1.5rem;
+  }
+
+  .double-column-div {
+    column-gap: 1rem;
+  }
+}
+
+@media (max-width: 735px) {
+  .double-column-div {
+    display: block;
+  }
+}
+
+@media (max-width: 600px) {
+  .get-a-quote .get-a-quote-card.white {
+    padding: 2rem 3rem;
+  }
+
+  .get-a-quote .get-a-quote-card.white h2 {
+    font-size: 36px;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .get-a-quote .get-a-quote-card.white h2 {
+    font-size: 32px;
+  }
+
+  .get-a-quote .get-a-quote-card {
+    top: -50px;
+    width: 85%;
+  }
+
+  .get-a-quote .get-a-quote-card.white {
+    padding: 1rem 2rem;
+  }
+
+  .files-list .file-item {
+    width: 90%;
+  }
+}

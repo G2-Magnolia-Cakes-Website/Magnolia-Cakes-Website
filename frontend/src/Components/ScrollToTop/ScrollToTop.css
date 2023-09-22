@@ -7,15 +7,9 @@
   background-color: #b76e79;
   padding: 1rem;
   border-radius: 50%;
-  opacity: 0.50;
+  opacity: 0.5;
   justify-content: center;
-}
-
-@media (max-width: 768px) {
-  .scroll-to-top {
-    bottom: 50px;
-    right: 50px;
-  }
+  aspect-ratio: 1/1;
 }
 
 @media (max-width: 768px) {

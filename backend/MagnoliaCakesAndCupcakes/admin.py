@@ -11,8 +11,9 @@ class SocialMediasAdmin(admin.ModelAdmin):
     )
 
 
-admin.site.register(TermsAndConditions)
+admin.site.register(TermsAndCondition)
 admin.site.register(Cake)
+admin.site.register(FlavoursAndServings)
 admin.site.register(AboutUs)
 admin.site.register(FAQCategory)
 admin.site.register(Question)
@@ -20,3 +21,4 @@ admin.site.register(FooterLocation)
 admin.site.register(FooterContactUs)
 admin.site.register(FooterBusinessHours)
 admin.site.register(SocialMedias, SocialMediasAdmin)
+admin.site.register(FlavoursAndServingsInfo)
