@@ -63,4 +63,7 @@ urlpatterns = [
     
 	# Reset password
 	path("api/reset/password/", include("django_rest_passwordreset.urls", namespace="password_reset")),
+ 
+    path("api/gallery/categories/", views.gallery_categories_list, name="gallery_categories_list"),
+    path("api/gallery/items/", views.gallery_items_list, name="gallery_items_list"),
 ]

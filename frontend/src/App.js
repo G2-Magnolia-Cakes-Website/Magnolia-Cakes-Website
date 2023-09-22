@@ -9,6 +9,7 @@ import PasswordPage from "./Components/ForgotPassword/ForgotPasswordPage";
 import PasswordResetPage from "./Components/ForgotPassword/ResetPasswordPage";
 import LocationPage from "./Containers/LocationPage/LocationPage";
 import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAndConditionsPage";
+import GalleryPage from "./Containers/GalleryPage/GalleryPage"
 import SignupPage from "./Components/SignupPage/SignupPage";
 import FAQsPage from "./Components/FAQs/FAQsPage";
 import OnlineStorePage from "./Containers/OnlineStorePage/OnlineStorePage";
@@ -84,7 +85,10 @@ const App = () => {
                 path="about-us"
                 element={<AboutUsPage api={api} />}
               />
-              <Route path="/gallery" element={<ComingSoonPage />}>
+              <Route 
+                path="/gallery"
+                key ="/gallery"
+                element={<GalleryPage api ={api} />}>
                 <Route
                   path="/gallery/wedding-and-anniversary"
                   element={<ComingSoonPage />}
