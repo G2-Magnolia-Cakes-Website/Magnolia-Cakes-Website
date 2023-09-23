@@ -15,7 +15,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes, renderer_classes
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
-from .forms import FavourServingsForm, GetAQuoteForm, NewUserForm
+from .forms import ContactForm, FavourServingsForm, NewUserForm
 
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -200,19 +200,21 @@ def terms_and_conditions(request):
 @permission_classes(
     [AllowAny]
 )  ###### Add this to allow users to access despite not being logged in
-def get_a_quote(request):
+def contact(request):
     if request.method == "GET":
-        form = GetAQuoteForm()
+        form = ContactForm()
     else:
-        form = GetAQuoteForm(request.POST, request.FILES)
+        form = ContactForm(request.POST, request.FILES)
         if form.is_valid():
             user_email = form.cleaned_data["email"]
             subject = form.cleaned_data["subject"]
             message = form.cleaned_data["message"]
             file = request.FILES.getlist("file")
 
+            admin_email = ContactUsEmail.objects.first()
+
             email = EmailMessage(
-                subject, message, to=["kimt12531@gmail.com"], cc=[user_email]
+                subject, message, to=[admin_email.your_email], cc=[user_email]
             )
 
             for f in file:

@@ -17,6 +17,7 @@ import FlavoursAndServings from "Containers/FlavoursAndServings/FlavoursAndServi
 import AboutUsPage from "Containers/AboutUsPage/AboutUsPage";
 import axios from "axios";
 import "./App.css";
+import ContactUsPage from "Containers/ContactUsPage/ContactUsPage";
 
 const Wrapper = ({ children }) => {
   const location = useLocation();
@@ -111,6 +112,11 @@ const App = () => {
                 key="/get-a-quote"
                 path="/get-a-quote"
                 element={<GetAQuote api={api} />}
+              />
+              <Route
+                key="/contact-us"
+                path="/contact-us"
+                element={<ContactUsPage api={api} />}
               />
               <Route key="/faq" path="/faq" element={<FAQsPage api={api} />} />
               <Route

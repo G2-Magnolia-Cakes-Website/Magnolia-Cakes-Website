@@ -164,6 +164,11 @@ class FooterContactUs(models.Model):
 class FooterBusinessHours(models.Model):
     business_hrs_info = models.TextField()
 
+    def save(self, *args, **kwargs):
+        if self.__class__.objects.count():
+            self.pk = self.__class__.objects.first().pk
+        super().save(*args, **kwargs)
+
     class Meta:
         verbose_name_plural = "Footer Business Hours"
 
@@ -259,8 +264,23 @@ class LocationPageContent(models.Model):
     business_hours_heading = models.CharField(max_length=200)
     business_hours_info = models.TextField()
 
+    def save(self, *args, **kwargs):
+        if self.__class__.objects.count():
+            self.pk = self.__class__.objects.first().pk
+        super().save(*args, **kwargs)
+
     class Meta:
         verbose_name_plural = "Location Page Content"
+
+    def __str__(self):
+        return "Location Page Content"
+
+
+class ContactUsEmail(models.Model):
+    your_email = models.CharField(
+        max_length=200,
+        help_text="This will be the email that receives Contact Us and Get A Quote submissions.",
+    )
 
     def save(self, *args, **kwargs):
         if self.__class__.objects.count():
@@ -268,4 +288,7 @@ class LocationPageContent(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return "Location Page Content"
+        return "Contact Us Email"
+
+    class Meta:
+        verbose_name_plural = "Contact Us Email"
