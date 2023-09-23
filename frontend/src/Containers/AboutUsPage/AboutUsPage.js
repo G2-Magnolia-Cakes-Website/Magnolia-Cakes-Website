@@ -5,7 +5,6 @@ import "./AboutUsPage.css";
 
 const AboutUsPage = ({ api }) => {
   const [content, setContent] = useState([]);
-  const [currentKey, setCurrentKey] = useState(0);
 
   useEffect(() => {
     // Make a GET request using the passed api instance

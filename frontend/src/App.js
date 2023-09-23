@@ -58,13 +58,13 @@ const App = () => {
     <BrowserRouter>
       <Wrapper>
         <div className="watercolor-bg">
-          <PageLayout>
+          <PageLayout api={api}>
             <Routes>
               <Route key="/" path="/" element={<HomePage api={api} />} />
               <Route
                 key="/location"
                 path="/location"
-                element={<LocationPage />}
+                element={<LocationPage api={api} />}
               />
               <Route
                 key="/online-store"

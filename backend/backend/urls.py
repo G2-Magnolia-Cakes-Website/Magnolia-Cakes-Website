@@ -57,11 +57,31 @@ urlpatterns = [
         name="flavours-and-servings-info",
     ),
     path("api/about-us/", views.about_us, name="about-us"),
+    path("api/footer-location/", views.footer_location, name="footer-location"),
+    path("api/footer-contact-us/", views.footer_contact_us, name="footer-contact-us"),
+    path(
+        "api/footer-business-hrs/",
+        views.footer_business_hrs,
+        name="footer-business-hrs",
+    ),
+    path(
+        "api/social-medias/",
+        views.social_medias,
+        name="social-medias",
+    ),
+    path(
+        "api/location-page/",
+        views.location_page_content,
+        name="location-page",
+    ),
+    path("api/slider-images/", views.slider_images, name="slider-images"),
     
     # JWT token creation
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    
-	# Reset password
-	path("api/reset/password/", include("django_rest_passwordreset.urls", namespace="password_reset")),
+    # Reset password
+    path(
+        "api/reset/password/",
+        include("django_rest_passwordreset.urls", namespace="password_reset"),
+    ),
 ]
