@@ -45,7 +45,7 @@ urlpatterns = [
     path("api/cakes/", views.cakes_list, name="cake-list"),
     path("api/faq/categories/", views.faq_categories_list, name="faq-categories-list"),
     path("api/faq/questions/", views.faq_questions_list, name="faq-questions-list"),
-    path("api/contact/", views.get_a_quote, name="contact"),
+    path("api/contact/", views.contact, name="contact"),
     path(
         "api/flavours-and-servings/",
         views.flavours_and_servings,
