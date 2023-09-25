@@ -6,7 +6,8 @@
 
 .coming-soon h1.coming-soon-text {
   margin: 5rem 1rem 1rem 1rem;
-  font-family: "Satisfy", cursive;
+  /* font-family: "Satisfy", cursive; */
+  font-family: "Sacramento", cursive;
   font-size: 90px;
   text-align: center;
 }

@@ -19,12 +19,9 @@ p,
 a,
 button,
 input,
-label {
-  font-family: "Yantramanav", sans-serif;
-}
-
+label,
 li {
-  font-family: "Yantramanav", sans-serif;
+  font-family: "Fredoka", sans-serif;
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -9,7 +9,7 @@
   text-align: center;
   margin-bottom: 15px;
   color: black;
-  font-family: "Yantramanav", sans-serif;
+  font-family: 'Fredoka', sans-serif;
   font-size: 32px;
   font-weight: bold;
   text-transform: uppercase;
@@ -18,7 +18,7 @@
 .footer-section p {
   text-align: center;
   color: black;
-  font-family: "Yantramanav", sans-serif;
+  font-family: 'Fredoka', sans-serif;
   font-size: 18px;
 }
 
@@ -31,7 +31,7 @@
   text-decoration: none;
   color: black;
   display: block;
-  font-family: "Yantramanav", sans-serif;
+  font-family: 'Fredoka', sans-serif;
   font-size: 18px;
   font-weight: bold;
 }
