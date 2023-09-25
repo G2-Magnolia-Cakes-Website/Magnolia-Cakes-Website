@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GetAQuoteBg } from "utils/get-a-quote";
 import FormInput from "Components/FormInput/FormInput";
 import SelectionBox from "Components/SelectionBox/SelectionBox";
@@ -8,6 +8,7 @@ import Dropzone from "Components/Dropzone/Dropzone";
 import "./GetAQuote.css";
 import { Cross } from "hamburger-react";
 import FormTextArea from "Components/FormTextArea/FormTextArea";
+import { CAKETYPES } from "utils/constants";
 
 const GetAQuote = ({ api }) => {
   const flavoursList = [
@@ -21,15 +22,40 @@ const GetAQuote = ({ api }) => {
     "Carrot & Cinnamon",
   ];
 
+  const DUMMYFILLINGS = [
+    "Standard",
+    "Chocolate",
+    "Vanilla Bean",
+    "Cream Cookies",
+    "Caramel",
+    "Coconut",
+    "Rasberry",
+    "Strawberry",
+    "Blueberry",
+    "Pineapple",
+    "Mixed Berries",
+    "Mango",
+    "Passionfruit",
+    "Mint",
+  ];
+
   const servesList = ["Coffee", "Standard"];
+
+  const cakeTypesList = [CAKETYPES.CAKE, CAKETYPES.CUPCAKE];
+
+  const [flavServLists, setFlavServLists] = useState([]);
 
   const name = useRef(null);
   const mobile = useRef(null);
   const email = useRef(null);
+  const [cakeType, setCakeType] = useState(cakeTypesList[0]);
   const servings = useRef(null);
-  const [serves, setServes] = useState(servesList[0]);
+  const [serves, setServes] = useState(
+    cakeType === CAKETYPES.CAKE ? servesList[0] : null
+  );
   const date = useRef(null);
   const [flavour, setFlavour] = useState(flavoursList[0]);
+  const [filling, setFilling] = useState(DUMMYFILLINGS[0]);
   const extra = useRef(null);
   const message = useRef(null);
   const [files, setFiles] = useState([]);
@@ -41,10 +67,11 @@ const GetAQuote = ({ api }) => {
       Name: name.current.value,
       Mobile: mobile.current.value,
       Email: email.current.value,
-      Servings: servings.current.value,
-      Serves: serves,
+      "Servings/Amount": servings.current.value,
+      Serves: cakeType === CAKETYPES.CAKE ? serves : "N/A",
       Date: date.current.value,
       Flavour: flavour,
+      Filling: filling,
       Extra: extra.current.value,
       Message: message.current.value,
     };
@@ -118,6 +145,23 @@ const GetAQuote = ({ api }) => {
     </li>
   ));
 
+  // useEffect(() => {
+  //   // Make a GET request using the passed api instance
+  //   api
+  //     .get("/api/flavours-and-servings/")
+  //     .then((response) => {
+  //       // Set the retrieved content in the state
+  //       setFlavServLists(
+  //         response.data.sort((a, b) => {
+  //           return a.id - b.id;
+  //         })
+  //       );
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data:", error);
+  //     });
+  // }, [api]);
+
   return (
     <div className="get-a-quote">
       <img className="cake-img" src={GetAQuoteBg} alt="cake" />
@@ -160,31 +204,47 @@ const GetAQuote = ({ api }) => {
             placeholder="Enter Your Email"
             inputRef={email}
           />
+          <SelectionBox
+            selectLabel="Cake or Cupcakes?"
+            options={cakeTypesList}
+            setOption={setCakeType}
+          />
           <div className="double-column-div">
             <FormInput
-              labelText="Servings"
+              labelText={
+                cakeType === CAKETYPES.CUPCAKE
+                  ? "Amount of cupcakes"
+                  : "Servings"
+              }
               inputName="servings"
               inputType="number"
               isRequired
               placeholder="E.g., 12"
               inputRef={servings}
-              min="1"
+              min="12"
+            />
+            {cakeType === CAKETYPES.CAKE && (
+              <SelectionBox
+                selectLabel="Coffee or Standard serves?"
+                options={servesList}
+                setOption={setServes}
+              />
+            )}
+            <SelectionBox
+              selectLabel="Flavour"
+              options={flavoursList}
+              setOption={setFlavour}
             />
             <SelectionBox
-              selectLabel="Coffee or standard serves"
-              options={servesList}
-              setOption={setServes}
+              selectLabel="Filling"
+              options={DUMMYFILLINGS}
+              setOption={setFilling}
             />
             <FormInput
               labelText="Date of Event"
               inputName="date-of-event"
               inputType="date"
               inputRef={date}
-            />
-            <SelectionBox
-              selectLabel="Flavour"
-              options={flavoursList}
-              setOption={setFlavour}
             />
           </div>
 
