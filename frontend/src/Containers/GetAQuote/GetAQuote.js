@@ -67,6 +67,7 @@ const GetAQuote = ({ api }) => {
       Name: name.current.value,
       Mobile: mobile.current.value,
       Email: email.current.value,
+      "Product Type": cakeType,
       "Servings/Amount": servings.current.value,
       Serves: cakeType === CAKETYPES.CAKE ? serves : "N/A",
       Date: date.current.value,

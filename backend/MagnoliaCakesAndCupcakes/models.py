@@ -319,3 +319,26 @@ class BackupEmail(models.Model):
 
     class Meta:
         verbose_name_plural = "Contact Us Backup Emails"
+
+
+class Quote(models.Model):
+    name = models.CharField(max_length=200)
+    mobile = models.CharField(max_length=10)
+    email = models.CharField(max_length=200)
+    product_type = models.CharField(max_length=20)
+    servings_or_amount = models.IntegerField()
+    serves = models.CharField(max_length=20)
+    date_of_event = models.DateField()
+    flavour = models.CharField(max_length=30)
+    fillings = models.CharField(max_length=30)
+    time_submitted = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = [
+            "time_submitted",
+            "name",
+            "product_type",
+            "date_of_event",
+            "flavour",
+            "fillings",
+        ]
