@@ -7,6 +7,8 @@ import "./PageLayout.css";
 import ScrollToTop from "Components/ScrollToTop/ScrollToTop";
 
 const PageLayout = (props) => {
+  const { api } = props;
+
   const logo = (
     <img className="logo" src={magnoliaCakeLogo} alt="Magnolia Cake Logo" />
   );
@@ -20,7 +22,7 @@ const PageLayout = (props) => {
       <Header />
       {props.children}
       <ScrollToTop />
-      <Footer />
+      <Footer api={api} />
     </div>
   );
 };

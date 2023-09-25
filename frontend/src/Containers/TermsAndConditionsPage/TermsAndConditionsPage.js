@@ -7,6 +7,7 @@ function Policy({ policyName, policyContent }) {
   const handlePolicy = () => {
     setOpenPolicy(!openPolicy);
   };
+
   const renderPolicyContent = () => {
     return policyContent
       .split("\n")

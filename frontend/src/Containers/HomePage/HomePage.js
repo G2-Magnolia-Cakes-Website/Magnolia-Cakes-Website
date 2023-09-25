@@ -10,13 +10,13 @@ import FlavoursAndServings from "Containers/FlavoursAndServings/FlavoursAndServi
 const HomePage = ({ api }) => {
   return (
     <>
-      <CarouselGallery />
+      <CarouselGallery api={api} />
       <GallerySection />
       {/* <SubheadingDivider subheadingText="Cakes for all occasions" /> */}
       <AboutUsSection />
       <FlavoursAndServings api={api} />
       <DeliverySection />
-      <LocationPage />
+      <LocationPage api={api} />
     </>
   );
 };

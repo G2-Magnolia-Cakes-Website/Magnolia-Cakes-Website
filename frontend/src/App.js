@@ -13,10 +13,12 @@ import GalleryPage from "./Containers/GalleryPage/GalleryPage"
 import SignupPage from "./Components/SignupPage/SignupPage";
 import FAQsPage from "./Components/FAQs/FAQsPage";
 import OnlineStorePage from "./Containers/OnlineStorePage/OnlineStorePage";
+import GetAQuote from "Containers/GetAQuote/GetAQuote";
 import FlavoursAndServings from "Containers/FlavoursAndServings/FlavoursAndServings";
 import AboutUsPage from "Containers/AboutUsPage/AboutUsPage";
 import axios from "axios";
 import "./App.css";
+import ContactUsPage from "Containers/ContactUsPage/ContactUsPage";
 
 const Wrapper = ({ children }) => {
   const location = useLocation();
@@ -57,13 +59,13 @@ const App = () => {
     <BrowserRouter>
       <Wrapper>
         <div className="watercolor-bg">
-          <PageLayout>
+          <PageLayout api={api}>
             <Routes>
               <Route key="/" path="/" element={<HomePage api={api} />} />
               <Route
                 key="/location"
                 path="/location"
-                element={<LocationPage />}
+                element={<LocationPage api={api} />}
               />
               <Route
                 key="/online-store"
@@ -111,6 +113,17 @@ const App = () => {
                 element={<LoginPage api={api} />}
               />
               <Route
+                key="/get-a-quote"
+                path="/get-a-quote"
+                element={<GetAQuote api={api} />}
+              />
+              <Route
+                key="/contact-us"
+                path="/contact-us"
+                element={<ContactUsPage api={api} />}
+              />
+              <Route key="/faq" path="/faq" element={<FAQsPage api={api} />} />
+              <Route
                 key="/forgot-password"
                 path="/forgot-password"
                 element={<PasswordPage api={api} />}
@@ -120,11 +133,7 @@ const App = () => {
                 path="/reset-password"
                 element={<PasswordResetPage api={api} />}
               />
-              <Route
-                key="/faq"
-                path="/faq"
-                element={<FAQsPage api={api} />}
-              />
+              <Route key="/faq" path="/faq" element={<FAQsPage api={api} />} />
               {routeAllPagesComingSoon()}
             </Routes>
           </PageLayout>
