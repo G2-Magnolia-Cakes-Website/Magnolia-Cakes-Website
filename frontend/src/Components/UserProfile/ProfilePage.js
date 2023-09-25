@@ -20,14 +20,16 @@ function ProfilePage({ api }) {
     }, []);
 
     return (
-        <div>
-            <h1 className='login-header'>Account Settings</h1>
-            <div className='info-account'>
-                <div>Welcome {firstName}!</div>
-                <div>This is where you can edit your profile details and change password.</div>
+        <>
+            <h1 className='account-header'>Account Settings</h1>
+            <div className='account-white-background'>
+                <div className='account-left'>
+                    <div className='account-welcome'>Welcome {firstName}!</div>
+                    <div className='account-info'>This is where you can edit your profile details and change password.</div>
+                </div>
+                <Form api={api} email={email} first_name={firstName} last_name={lastName} />
             </div>
-            <Form email={email} first_name={firstName} last_name={lastName} />
-        </div>
+        </>
     );
 }
 
