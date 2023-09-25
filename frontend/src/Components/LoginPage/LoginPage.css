@@ -21,11 +21,12 @@
 
 .login-page .form-wrapper .login-header {
   margin-bottom: 5rem;
-  /* width: fit-content; */
+  width: fit-content;
 }
 
 .login-form {
   width: 400px;
+  float: left;
 }
 
 .login-form .signup-question {
