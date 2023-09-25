@@ -10,7 +10,7 @@
   border-radius: 3px;
   text-align: center;
   transition: 0.5s;
-  font-family: "ABeeZee", sans-serif;
+  font-family: "Fredoka", sans-serif;
 }
 
 .logout-div {
@@ -58,7 +58,7 @@
   display: flex;
   flex-direction: column;
   font-size: 18px;
-  font-family: "ABeeZee", sans-serif;
+  font-family: "Fredoka", sans-serif;
 }
 
 .popup-inner .close-btn {
@@ -70,7 +70,7 @@
   overflow: hidden;
   border: none;
   background-color: #fbd8d0;
-  font-family: "Josefin Sans", sans-serif;
+  font-family: "Fredoka", sans-serif;
   font-size: 20px;
   font-weight: 600;
   color: darkred;
@@ -87,7 +87,7 @@
   padding-right: 25px;
   border-radius: 5px;
   font-weight: 600;
-  font-family: "ABeeZee", sans-serif;
+  font-family: "Fredoka", sans-serif;
   transition: 0.5s;
 }
 
@@ -107,7 +107,7 @@
   padding-right: 25px;
   border-radius: 5px;
   font-weight: 600;
-  font-family: "ABeeZee", sans-serif;
+  font-family: "Fredoka", sans-serif;
   transition: 0.5s;
 }
 

@@ -26,7 +26,7 @@
   margin-top: 50px;
   margin-bottom: 80px;
 
-  font-family: "Yantramanav", sans-serif;
+  font-family: "Fredoka", sans-serif;
   font-size: 48px;
   font-weight: bold;
 }
@@ -45,7 +45,7 @@
 
 .input-login::placeholder {
   color: black;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: "Fredoka", sans-serif;
   text-align: left;
   transform: translateY(10px);
 }

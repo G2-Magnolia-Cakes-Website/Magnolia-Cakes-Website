@@ -26,7 +26,7 @@
   vertical-align: middle;
   position: relative;
   top: -1px;
-  font-family: inter;
+  font-family: "Fredoka", sans-serif;
   font-size: small;
 }
 
@@ -39,7 +39,7 @@
   background-color: white;
   border: none;
   text-decoration: underline;
-  font-family: inter;
+  font-family: "Fredoka", sans-serif;
   font-size: small;
 }
 
@@ -79,7 +79,7 @@
 .signup-header {
   margin-top: 50px;
   margin-bottom: 80px;
-  font-family: inter;
+  font-family: "Fredoka", sans-serif;
   font-weight: 600;
   font-size: xx-large;
 }
@@ -98,7 +98,7 @@
 
 .input-signup::placeholder {
   color: black;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'Fredoka', sans-serif;
   text-align: left;
   transform: translateY(10px);
 }
@@ -138,7 +138,7 @@ button[disabled] {
   padding-left: 5px;
   margin-top: 20px;
   margin-bottom: 20px;
-  font-family: "Yantramanav", sans-serif;
+  font-family: 'Fredoka', sans-serif;
   font-size: small;
 }
 
@@ -155,13 +155,13 @@ button[disabled] {
 .error {
   background-color: lightcoral;
   color: white;
-  font-family: inter;
+  font-family: 'Fredoka', sans-serif;
 }
 
 .success {
   background-color: rgb(190, 255, 190);
   color: black;
-  font-family: inter;
+  font-family: 'Fredoka', sans-serif;
 }
 
 .msgs {

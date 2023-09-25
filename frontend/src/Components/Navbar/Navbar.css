@@ -27,7 +27,7 @@ nav ul li a {
   padding: 1rem;
   margin: 0 2rem;
   transition: 0.3s;
-  font-family: "ABeeZee", sans-serif;
+  font-family: "Fredoka", sans-serif;
 }
 
 nav ul li a:not(.active):hover {

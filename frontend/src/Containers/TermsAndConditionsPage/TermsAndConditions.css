@@ -9,7 +9,7 @@
   text-align: center;
   color: #B76E79;
   font-weight: bold;
-  font-family: Yantramanav;
+  font-family: 'Fredoka', sans-serif;
   font-size: 64px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -29,7 +29,7 @@
 
 .Policy {
   font-weight: bold;
-  font-family: Yantramanav;
+  font-family: 'Fredoka', sans-serif;
   font-size: 20px;
   background-color: black;
   color: white;
@@ -48,7 +48,7 @@
 .PolicyContent {
   transform: translateY(-20px);
   background-color: transparent;
-  font-family: Yantramanav;
+  font-family: 'Fredoka', sans-serif;
   font-size: 16px;
   border: solid 1px black;
   border-radius: 10px;
