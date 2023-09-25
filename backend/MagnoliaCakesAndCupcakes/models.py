@@ -75,6 +75,9 @@ class SliderImage(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "Slider Images"
+
     def save(self, *args, **kwargs):
         # Rename the uploaded image to match the cake's name
         if self.image and hasattr(self.image, "name"):
@@ -99,6 +102,9 @@ class AboutUs(models.Model):
     def __str__(self):
         return "About Us"
 
+    class Meta:
+        verbose_name_plural = "About Us"
+
     def save(self, *args, **kwargs):
         if self.__class__.objects.count():
             self.pk = self.__class__.objects.first().pk
@@ -110,6 +116,7 @@ class FAQCategory(models.Model):
 
     class Meta:
         ordering = ["title"]
+        verbose_name_plural = "FAQ Categories"
 
     def __str__(self):
         return self.title
@@ -122,6 +129,7 @@ class Question(models.Model):
 
     class Meta:
         ordering = ["question"]
+        verbose_name_plural = "FAQ Questions"
 
     def __str__(self):
         return self.question
@@ -177,7 +185,13 @@ class FooterBusinessHours(models.Model):
 
 
 class FlavoursAndServings(models.Model):
+    CHOICES = (
+        ("flavours", "flavours"),
+        ("fillings", "fillings"),
+    )
+
     title = models.CharField(max_length=100)
+    type = models.CharField(max_length=100, choices=CHOICES, default="flavours")
     list = models.TextField()
     last_updated = models.DateTimeField(auto_now=True)
 
@@ -292,3 +306,16 @@ class ContactUsEmail(models.Model):
 
     class Meta:
         verbose_name_plural = "Contact Us Email"
+
+
+class BackupEmail(models.Model):
+    email = models.CharField(
+        max_length=200,
+        help_text="This will be a backup email that receives Contact Us and Get A Quote submissions.",
+    )
+
+    def __str__(self):
+        return "Backup Email"
+
+    class Meta:
+        verbose_name_plural = "Contact Us Backup Emails"

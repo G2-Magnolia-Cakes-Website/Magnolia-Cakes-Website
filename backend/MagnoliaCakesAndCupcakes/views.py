@@ -15,7 +15,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes, renderer_classes
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
-from .forms import ContactForm, FavourServingsForm, NewUserForm
+from .forms import ContactForm, FlavourServingsForm, NewUserForm
 
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -212,9 +212,12 @@ def contact(request):
             file = request.FILES.getlist("file")
 
             admin_email = ContactUsEmail.objects.first()
+            backup_emails = BackupEmail.objects.all()
+
+            to_emails = [admin_email] + backup_emails
 
             email = EmailMessage(
-                subject, message, to=[admin_email.your_email], cc=[user_email]
+                subject, message, to=to_emails, cc=[user_email]
             )
 
             for f in file:
@@ -294,11 +297,12 @@ def flavours_and_servings(request):
         return Response(serializer.data)
 
     if request.method == "POST":
-        form = FavourServingsForm(request.data)
+        form = FlavourServingsForm(request.data)
         if form.is_valid():
             flavours_servings_list = form.save(commit=False)
             flavours_servings_list.title = flavours_servings_list.title
             flavours_servings_list.list = flavours_servings_list.list
+            flavours_servings_list.type = flavours_servings_list.type
             flavours_servings_list.save()
             return Response(
                 {"message": "Flavours & Servings updated"}, status=status.HTTP_200_OK

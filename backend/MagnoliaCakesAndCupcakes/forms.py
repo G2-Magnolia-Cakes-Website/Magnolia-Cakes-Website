@@ -60,6 +60,6 @@ class ContactForm(forms.Form):
     message = forms.CharField(widget=forms.Textarea, required=True)
     file = MultipleFileField(required=False)
 
-class FavourServingsForm(forms.Form):
+class FlavourServingsForm(forms.Form):
     title = forms.CharField(max_length=100)
     list = forms.Textarea()
