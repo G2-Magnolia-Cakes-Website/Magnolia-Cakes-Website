@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './GalleryPage.css';
+import ImagePopup from './ImagePopup.js';
 
 const GalleryPage = ({ api }) => {
   const all = { id: -1, name: 'All' };  // Corrected 'name' property here
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(all);
   const [images, setImages] = useState([]);
-
+  const [buttonPopup, setButtonPopup] = useState(false)
+  const [selectedImage, setSelectedImage] = useState(null);
   useEffect(() => {
     // Fetch gallery categories
     api.get('/api/gallery/categories/')
@@ -36,7 +38,10 @@ const GalleryPage = ({ api }) => {
   const filteredImages = selectedCategory.id === all.id
     ? images
     : images.filter(image => image.categories.includes(selectedCategory.id));
-
+  const handleImageClick = (image) => {
+      setSelectedImage(image);
+      setButtonPopup(true);
+    };
     return (
       <div className="GalleryPage">
         <h1 className="PageHeader">Gallery</h1>
@@ -53,14 +58,16 @@ const GalleryPage = ({ api }) => {
         </div>
   
         <div className="image-grid">
-          {filteredImages.map(image => (
-            <img
-              key={image.id}
-              src={image.image}
-              alt={image.title}
-            />
-          ))}
-        </div>
+        {filteredImages.map(image => (
+          <img
+            key={image.id}
+            src={image.image}
+            alt={image.title}
+            onClick={() => handleImageClick(image)}  // Pass the clicked image to handleImageClick
+          />
+        ))}
+        <ImagePopup trigger={buttonPopup} setTrigger={setButtonPopup} imageData={selectedImage} />
+      </div>
       </div>
     );
   };

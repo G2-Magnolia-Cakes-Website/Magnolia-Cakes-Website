@@ -57,7 +57,7 @@
     max-width: 400px; /* Maximum width */
     height: 400px; /* Fixed height */
     margin: 10px; /* Add margin between images */
-    object-fit: contain; /* Resize images without cropping */
+    object-fit: Cover; /* Resize images without cropping */
     cursor: pointer;
 }
 
@@ -70,5 +70,7 @@
         width: 300px; /* Maintain the fixed width */
         height: 400px; /* Maintain the fixed height */
         margin: 10px; /* Add margin between images */
+        object-fit: Cover;
     }
 }
+
