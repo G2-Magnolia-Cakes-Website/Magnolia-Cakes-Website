@@ -401,6 +401,21 @@ def flavours_and_servings_info(request):
         serializer = FlavoursAndServingsInfoSerializer(flavours_servings_info)
         return Response(serializer.data)
 
+@api_view(["GET", "PUT"])
+@permission_classes([AllowAny])
+def gallery_categories_list(request):
+    if request.method == "GET":
+        categories = GalleryCategory.objects.all()
+        serializer = GalleryCategorySerializer(categories, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def gallery_items_list(request):
+    if request.method == "GET":
+        items = GalleryItem.objects.all()
+        serializer = GalleryItemSerializer(items, many=True)
+        return Response(serializer.data)
 
 @api_view(["GET"])
 @permission_classes(

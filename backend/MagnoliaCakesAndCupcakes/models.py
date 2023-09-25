@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.core.files.storage import default_storage
 
+from django.utils.text import slugify
+
 # Reset Password
 from django.dispatch import receiver
 from django.template.loader import render_to_string
@@ -36,7 +38,7 @@ def upload_to(instance, filename):
 
 
 class Cake(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     picture = models.ImageField(upload_to=upload_to)  # Use the custom upload function
     description = models.TextField()
@@ -256,6 +258,34 @@ def password_reset_token_created(
         [reset_password_token.user.email],
     )
     msg.send()
+    
+
+class GalleryCategory(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class GalleryItem(models.Model):
+    title = models.CharField(max_length=100, unique=True)
+    categories = models.ManyToManyField(GalleryCategory)
+    image = models.ImageField(upload_to='gallery/')
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        # Generate a unique filename based on the title
+        filename = f"{slugify(self.title)}.png"
+        self.image.name = filename  # Save directly to 'gallery' folder
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        # Delete the associated image from the bucket
+        if self.image:
+            image_path = self.image.name
+            default_storage.delete(image_path)
+        super().delete(*args, **kwargs)
 
 
 class LocationPageContent(models.Model):

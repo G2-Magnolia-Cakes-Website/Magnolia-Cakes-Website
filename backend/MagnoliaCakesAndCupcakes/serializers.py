@@ -60,6 +60,17 @@ class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = "__all__"
+        
+class GalleryCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GalleryCategory
+        fields = "__all__"
+
+class GalleryItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GalleryItem
+        fields = "__all__"
+
 
 
 class FooterLocationSerializer(serializers.ModelSerializer):
