@@ -94,11 +94,13 @@ instance.interceptors.response.use((response) => response, async (error) => {
                         withCredentials: true,
                     }
                 );
+                if (res.status !== 200) {
+                    console.log(res);
+                }
             }
 
             localStorage.clear();
             instance.defaults.headers.common['Authorization'] = null;
-            // window.location.reload();
         }
     }
     refresh = false;

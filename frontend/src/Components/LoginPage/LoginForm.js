@@ -67,8 +67,6 @@ export default function LoginForm({ api, handleLoginSuccess}) {
                     localStorage.setItem('refresh_token', res.data.refresh);
                     api.defaults.headers.common['Authorization'] = `Bearer ${res.data.access}`;
 
-                    console.log(res.data);
-
                     // setUser({ email });
                     getUserDetails();
 
@@ -116,7 +114,9 @@ export default function LoginForm({ api, handleLoginSuccess}) {
             );
       
             if (res.status === 200) {
-              console.log(res.data);
+              localStorage.setItem('email', res.data.email);
+              localStorage.setItem('first_name', res.data.first_name);
+              localStorage.setItem('last_name', res.data.last_name);
               setUser(res.data);
             } else {
               console.log(res);

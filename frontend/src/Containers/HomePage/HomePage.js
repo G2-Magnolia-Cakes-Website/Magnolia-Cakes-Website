@@ -26,7 +26,7 @@ const HomePage = ({ api }) => {
 
       const timer = setTimeout(() => {
         setShowWelcomePopup(false);
-      }, 10000);
+      }, 7000);
 
       return () => {
         clearTimeout(timer);

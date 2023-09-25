@@ -66,10 +66,10 @@ const App = () => {
           <div className="watercolor-bg">
             <PageLayout api={api} isAuth={isAuth} setIsAuth={setIsAuth}>
               <Routes>
-                <Route 
-                  key="/" 
-                  path="/" 
-                  element={<HomePage api={api} />} 
+                <Route
+                  key="/"
+                  path="/"
+                  element={<HomePage api={api} />}
                 />
                 <Route
                   key="/location"
@@ -133,6 +133,11 @@ const App = () => {
                   path="/faq"
                   element={<FAQsPage api={api} />}
                 />
+                <Route
+                  key={PAGELINKS.PROFILE_LINK}
+                  path={PAGELINKS.PROFILE_LINK}
+                  element={<UserProfilePage api={api} />}
+                />
                 {routeAllPagesComingSoon()}
               </Routes>
             </PageLayout>
@@ -144,8 +149,3 @@ const App = () => {
 };
 export default App;
 
-{/* <Route
-                key={PAGELINKS.PROFILE_LINK}
-                path={PAGELINKS.PROFILE_LINK}
-                element={<UserProfilePage api={api} />}
-              /> */}

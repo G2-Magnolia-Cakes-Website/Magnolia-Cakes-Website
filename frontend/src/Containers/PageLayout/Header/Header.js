@@ -16,10 +16,9 @@ const Header = ({ api, isAuth, setIsAuth }) => {
   useEffect(() => {
     const access_token = localStorage.getItem('access_token');
     if (access_token !== null) {
-      console.log("true");
       setIsAuth(true);
     }
-  }, []);
+  }, [isAuth]);
 
   const listenScrollEvent = (event) => {
     if (window.scrollY < 137) {
