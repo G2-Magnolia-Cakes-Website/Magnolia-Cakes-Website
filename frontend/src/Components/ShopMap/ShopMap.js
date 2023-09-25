@@ -14,7 +14,7 @@ const ShopMap = () => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
   });
 
-  const [map, setMap] = React.useState(null);
+  const [, setMap] = React.useState(null);
 
   const onLoad = React.useCallback(function callback(map) {
     map.setCenter(magnoliaCakeCoords);

@@ -184,6 +184,7 @@ export default function SignupForm({ api }) {
         <FormInput
           onChange={handleFirstName}
           value={firstname}
+          labelText="First Name"
           inputName="firstname"
           inputType="text"
           placeholder="First Name"
@@ -200,6 +201,7 @@ export default function SignupForm({ api }) {
         <FormInput
           onChange={handleLastName}
           value={lastname}
+          labelText="Last Name"
           inputName="lastname"
           inputType="text"
           placeholder="Last Name"
@@ -224,6 +226,7 @@ export default function SignupForm({ api }) {
         <FormInput
           onChange={handleEmail}
           value={email}
+          labelText="Email"
           inputName="email"
           inputType="email"
           placeholder="Email"
@@ -232,6 +235,7 @@ export default function SignupForm({ api }) {
         <FormInput
           onChange={handlePassword1}
           value={password1}
+          labelText="Password"
           inputName="password1"
           inputType="password"
           placeholder="Password"
