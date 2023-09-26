@@ -76,6 +76,7 @@ urlpatterns = [
     ),
     path("api/slider-images/", views.slider_images, name="slider-images"),
     path("api/homepage-welcome/", views.welcome_section, name="welcome-section"),
+    path("api/homepage-about-us/", views.about_us_section, name="about-us-section"),
     
     # JWT token creation
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),

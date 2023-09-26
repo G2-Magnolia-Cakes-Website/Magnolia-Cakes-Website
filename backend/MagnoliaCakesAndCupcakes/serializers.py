@@ -107,3 +107,8 @@ class WelcomeSectionContentSerializer(serializers.ModelSerializer):
     class Meta:
         model = HomepageWelcomeSection
         fields = "__all__"
+
+class AboutUsSectionContentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HomepageAboutUsSection
+        fields = "__all__"

@@ -440,3 +440,14 @@ def welcome_section(request):
         content = HomepageWelcomeSection.objects.first()
         serializer = WelcomeSectionContentSerializer(content)
         return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def about_us_section(request):
+    if request.method == "GET":
+        content = HomepageAboutUsSection.objects.first()
+        serializer = AboutUsSectionContentSerializer(content)
+        return Response(serializer.data)
