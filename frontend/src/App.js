@@ -19,6 +19,7 @@ import AboutUsPage from "Containers/AboutUsPage/AboutUsPage";
 import axios from "axios";
 import "./App.css";
 import ContactUsPage from "Containers/ContactUsPage/ContactUsPage";
+import WorkshopPage from "Containers/WorkshopPage/Workshop";
 
 const Wrapper = ({ children }) => {
   const location = useLocation();
@@ -134,6 +135,11 @@ const App = () => {
                 element={<PasswordResetPage api={api} />}
               />
               <Route key="/faq" path="/faq" element={<FAQsPage api={api} />} />
+              <Route
+                key="/workshop"
+                path="/workshop"
+                element={<WorkshopPage api={api} />}
+              />
               {routeAllPagesComingSoon()}
             </Routes>
           </PageLayout>

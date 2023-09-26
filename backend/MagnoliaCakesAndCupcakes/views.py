@@ -426,3 +426,11 @@ def location_page_content(request):
         location_page_content = LocationPageContent.objects.first()
         serializer = LocationPageContentSerializer(location_page_content)
         return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def video(request):
+    if request.method == "GET":
+        items = Video.objects.all()
+        serializer = VideoSerializer(items, many=True)
+        return Response(serializer.data)
