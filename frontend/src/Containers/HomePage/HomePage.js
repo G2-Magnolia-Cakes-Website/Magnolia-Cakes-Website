@@ -5,18 +5,16 @@ import CarouselGallery from "Components/Carousel/CarouselGallery";
 import LocationPage from "Containers/LocationPage/LocationPage";
 import DeliverySection from "./Sections/DeliverySection";
 import GallerySection from "./Sections/GallerySection";
-import FlavoursAndServings from "Containers/FlavoursAndServings/FlavoursAndServings";
 import WelcomeSection from "./Sections/WelcomeSection";
 
 const HomePage = ({ api }) => {
   return (
     <>
       <CarouselGallery api={api} />
-      <WelcomeSection />
+      <WelcomeSection api={api} />
       <GallerySection />
       {/* <SubheadingDivider subheadingText="Cakes for all occasions" /> */}
       <AboutUsSection />
-      {/* <FlavoursAndServings api={api} /> */}
       <DeliverySection />
       <LocationPage api={api} />
     </>
