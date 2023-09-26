@@ -66,7 +66,7 @@ class Cake(models.Model):
 
 class SliderImage(models.Model):
     def upload_to_slider(instance, filename):
-        # Upload the image to a 'cakes' directory with the filename as the cake's name
+        # Upload the image to a 'slider' directory with the filename as the cake's name
         return f"slider/{filename}"
 
     name = models.CharField(max_length=100)
@@ -258,7 +258,7 @@ def password_reset_token_created(
         [reset_password_token.user.email],
     )
     msg.send()
-    
+
 
 class GalleryCategory(models.Model):
     name = models.CharField(max_length=100)
@@ -266,10 +266,11 @@ class GalleryCategory(models.Model):
     def __str__(self):
         return self.name
 
+
 class GalleryItem(models.Model):
     title = models.CharField(max_length=100, unique=True)
     categories = models.ManyToManyField(GalleryCategory)
-    image = models.ImageField(upload_to='gallery/')
+    image = models.ImageField(upload_to="gallery/")
 
     def __str__(self):
         return self.title
@@ -322,3 +323,24 @@ class ContactUsEmail(models.Model):
 
     class Meta:
         verbose_name_plural = "Contact Us Email"
+
+
+class HomepageWelcomeSection(models.Model):
+    def upload_to_welcome(instance, filename):
+        # Upload the image to a 'cakes' directory with the filename as the cake's name
+        return f"welcome/{filename}"
+
+    heading = models.TextField()
+    paragraph = models.TextField()
+    image = models.ImageField(upload_to=upload_to_welcome)
+
+    def save(self, *args, **kwargs):
+        if self.__class__.objects.count():
+            self.pk = self.__class__.objects.first().pk
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return "Welcome Section Content"
+
+    class Meta:
+        verbose_name_plural = "Homepage Welcome Section"

@@ -101,3 +101,9 @@ class LocationPageContentSerializer(serializers.ModelSerializer):
     class Meta:
         model = LocationPageContent
         fields = "__all__"
+
+
+class WelcomeSectionContentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HomepageWelcomeSection
+        fields = "__all__"

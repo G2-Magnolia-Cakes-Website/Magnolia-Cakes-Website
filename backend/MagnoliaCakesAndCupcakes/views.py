@@ -401,6 +401,7 @@ def flavours_and_servings_info(request):
         serializer = FlavoursAndServingsInfoSerializer(flavours_servings_info)
         return Response(serializer.data)
 
+
 @api_view(["GET", "PUT"])
 @permission_classes([AllowAny])
 def gallery_categories_list(request):
@@ -409,13 +410,15 @@ def gallery_categories_list(request):
         serializer = GalleryCategorySerializer(categories, many=True)
         return Response(serializer.data)
 
-@api_view(['GET'])
+
+@api_view(["GET"])
 @permission_classes([AllowAny])
 def gallery_items_list(request):
     if request.method == "GET":
         items = GalleryItem.objects.all()
         serializer = GalleryItemSerializer(items, many=True)
         return Response(serializer.data)
+
 
 @api_view(["GET"])
 @permission_classes(
@@ -425,4 +428,15 @@ def location_page_content(request):
     if request.method == "GET":
         location_page_content = LocationPageContent.objects.first()
         serializer = LocationPageContentSerializer(location_page_content)
+        return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def welcome_section(request):
+    if request.method == "GET":
+        content = HomepageWelcomeSection.objects.first()
+        serializer = WelcomeSectionContentSerializer(content)
         return Response(serializer.data)
