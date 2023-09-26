@@ -45,7 +45,7 @@
 }
 
 .about-us-section .about-us-text p {
-  font-size: 25px;
+  font-size: 24px;
   width: 70%;
   text-align: center;
 }
@@ -54,7 +54,7 @@
   display: none;
 }
 
-@media (max-width: 1440px) and (min-width: 768px) {
+@media (max-width: 1440px) {
   .about-us-section .about-us-text h2 {
     font-size: 50px;
   }
@@ -65,7 +65,7 @@
   }
 }
 
-@media (max-width: 1024px) and (min-width: 768px) {
+@media (max-width: 1024px) {
   .about-us-section .about-us-text > * {
     margin-bottom: 2rem;
   }
@@ -92,9 +92,10 @@
 
   .about-us-section .about-us-portrait {
     display: block;
-    width: 80%;
+    min-width: 225px;
+    width: 225px;
     height: auto;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
   }
 
   .about-us-section .about-us-text {
@@ -127,5 +128,9 @@
 @media (max-width: 480px) {
   .about-us-section {
     margin-bottom: 0rem;
+  }
+
+  .about-us-section .about-us-portrait {
+    margin-bottom: 2rem;
   }
 }
