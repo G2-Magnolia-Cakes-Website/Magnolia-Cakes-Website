@@ -21,7 +21,6 @@ const WelcomeSection = ({ api }) => {
       });
   }, [api]);
 
-  console.log("kim", content);
   return (
     <div className="welcome-section">
       <h2>{content.heading}</h2>
