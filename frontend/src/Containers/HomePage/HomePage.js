@@ -14,7 +14,7 @@ const HomePage = ({ api }) => {
       <WelcomeSection api={api} />
       <GallerySection api={api} />
       {/* <SubheadingDivider subheadingText="Cakes for all occasions" /> */}
-      <AboutUsSection />
+      <AboutUsSection api={api} />
       <DeliverySection />
       <LocationPage api={api} />
     </>
