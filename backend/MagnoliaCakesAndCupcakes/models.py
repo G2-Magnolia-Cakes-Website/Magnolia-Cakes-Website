@@ -100,7 +100,7 @@ class AboutUs(models.Model):
 
     def __str__(self):
         return "About Us"
-    
+
     class Meta:
         verbose_name_plural = "About Us Page"
 
@@ -348,6 +348,7 @@ class HomepageWelcomeSection(models.Model):
     class Meta:
         verbose_name_plural = "Homepage Welcome Section"
 
+
 class HomepageAboutUsSection(models.Model):
     heading = models.CharField(default="About Us", max_length=300)
     paragraph = models.TextField()
@@ -362,3 +363,18 @@ class HomepageAboutUsSection(models.Model):
 
     class Meta:
         verbose_name_plural = "Homepage About Us Section"
+
+
+class HomepageGallerySection(models.Model):
+    heading = models.CharField(default="Our Collection", max_length=300)
+
+    def save(self, *args, **kwargs):
+        if self.__class__.objects.count():
+            self.pk = self.__class__.objects.first().pk
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.heading
+
+    class Meta:
+        verbose_name_plural = "Homepage Gallery Section"

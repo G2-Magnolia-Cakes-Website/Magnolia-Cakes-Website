@@ -12,7 +12,7 @@ const HomePage = ({ api }) => {
     <>
       <CarouselGallery api={api} />
       <WelcomeSection api={api} />
-      <GallerySection />
+      <GallerySection api={api} />
       {/* <SubheadingDivider subheadingText="Cakes for all occasions" /> */}
       <AboutUsSection />
       <DeliverySection />

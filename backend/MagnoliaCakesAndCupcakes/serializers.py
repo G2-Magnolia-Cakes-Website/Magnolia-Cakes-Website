@@ -60,17 +60,18 @@ class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = "__all__"
-        
+
+
 class GalleryCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = GalleryCategory
         fields = "__all__"
 
+
 class GalleryItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = GalleryItem
         fields = "__all__"
-
 
 
 class FooterLocationSerializer(serializers.ModelSerializer):
@@ -108,7 +109,14 @@ class WelcomeSectionContentSerializer(serializers.ModelSerializer):
         model = HomepageWelcomeSection
         fields = "__all__"
 
+
 class AboutUsSectionContentSerializer(serializers.ModelSerializer):
     class Meta:
         model = HomepageAboutUsSection
+        fields = "__all__"
+
+
+class GallerySectionContentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HomepageGallerySection
         fields = "__all__"

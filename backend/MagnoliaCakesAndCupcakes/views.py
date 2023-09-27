@@ -451,3 +451,14 @@ def about_us_section(request):
         content = HomepageAboutUsSection.objects.first()
         serializer = AboutUsSectionContentSerializer(content)
         return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def gallery_section(request):
+    if request.method == "GET":
+        content = HomepageGallerySection.objects.first()
+        serializer = GallerySectionContentSerializer(content)
+        return Response(serializer.data)
