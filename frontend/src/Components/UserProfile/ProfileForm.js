@@ -204,11 +204,11 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
     const successMessage = () => {
         return (
             <div
-                className="success"
+                className="success-profile"
                 style={{
                     display: submitted ? '' : 'none',
                 }}>
-                <p className='msgs'>Please click the link in your email, {email}, to set your new password.</p>
+                <p className='msgs-profile'>Please click the link in your email, {email}, to set your new password.</p>
             </div>
         );
     };
@@ -217,11 +217,11 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
     const errorMessage = () => {
         return (
             <div
-                className="error"
+                className="error-profile"
                 style={{
                     display: error ? '' : 'none',
                 }}>
-                <div className='msgs'>{errorMessagePrint}</div>
+                <div className='msgs-profile'>{errorMessagePrint}</div>
             </div>
         );
     };
@@ -234,47 +234,47 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
     }, []);
 
     return (
-        <div className='account-right'>
-            <div className='account-title first-title'>Name</div>
-            <label className='account-label'>First Name</label>
+        <div className='profile-right'>
+            <div className='profile-title first-title'>Name</div>
+            <label className='profile-label'>First Name</label>
             <div className='label-edit'>
                 <input
                     value={firstNameValue}
                     disabled={disabledFirstName}
                     onChange={handleFirstNameChange}
-                    className='account-input'
+                    className='profile-input'
                 />
-                <button onClick={handleFirstNameEdit} className='account-edit-btn'>edit</button>
+                <button onClick={handleFirstNameEdit} className='profile-edit-btn'>edit</button>
             </div>
 
-            <label className='account-label'>Last Name</label>
+            <label className='profile-label'>Last Name</label>
             <div className='label-edit'>
                 <input
                     value={lastNameValue}
                     disabled={disabledLastName}
                     onChange={handleLastNameChange}
-                    className='account-input'
+                    className='profile-input'
                 />
-                <button onClick={handleLastNameEdit} className='account-edit-btn'>edit</button>
+                <button onClick={handleLastNameEdit} className='profile-edit-btn'>edit</button>
             </div>
 
-            <div className='account-title'>Contact</div>
-            <label className='account-label'>Email</label>
+            <div className='profile-title'>Contact</div>
+            <label className='profile-label'>Email</label>
             <input
                 value={email}
                 disabled={true}
-                className='account-input'
+                className='profile-input'
             />
 
-            <div className='account-title'>Privacy</div>
-            <label className='account-label'>Password</label>
-            <button onClick={handleChangePassword} className='account-change-btn'>Change Password</button>
+            <div className='profile-title'>Privacy</div>
+            <label className='profile-label'>Password</label>
+            <button onClick={handleChangePassword} className='profile-change-btn'>Change Password</button>
 
-            <button type="submit" disabled={!isFormModified} onClick={handleUpdateAccount} className='update-account'>
+            <button type="submit" disabled={!isFormModified} onClick={handleUpdateAccount} className='update-profile'>
                 Update Account
             </button>
 
-            <div className="messages">
+            <div className="messages-profile">
                 {errorMessage()}
                 {successMessage()}
             </div>
