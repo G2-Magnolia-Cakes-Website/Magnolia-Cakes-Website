@@ -27,7 +27,7 @@ const CarouselGallery = ({ api }) => {
     const fetchImages = async () => {
       try {
         const response = await api.get("api/slider-images/");
-        console.log("kim", response.data);
+        // console.log("kim", response.data);
         setImages(response.data);
       } catch (error) {
         console.error("Error fetching cakes:", error);

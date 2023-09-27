@@ -1,9 +1,10 @@
-import './Login.css';
+import React, { useEffect, useState } from 'react';
 import Form from "./LoginForm"
 import SignedUpPopup from "./SignedUpPopup"
-import magnoliaCakeLogo from "../../utils/Magnolia_Cake_logo.png";
-import birthdayCake from "../../utils/carousel-wedding-ann.jpg"
-import React, { useEffect, useState } from 'react';
+import magnoliaCakeLogo from "utils/Magnolia_Cake_logo.png";
+import birthdayCake from "utils/wedding-ann.jpg";
+
+import './LoginPage.css';
 
 function LoginPage({ api, handleLoginSuccess }) {
 
@@ -50,23 +51,6 @@ function LoginPage({ api, handleLoginSuccess }) {
             </div>
         </>
     );
-    //   return (
-    //     <div className="white-background">
-    //       <div className="loginPage">
-    //         <div className="login-form">
-    //           <div className="centre-form">
-    //             {/* <div className="logo-div">{logo}</div> */}
-    //             {logo}
-    //             <div>
-    //               <h1 className="login-header">Log In</h1>
-    //             </div>
-    //             <Form api={api} />
-    //           </div>
-    //         </div>
-    //         {image}
-    //       </div>
-    //     </div>
-    //   );
 }
 
 export default LoginPage;

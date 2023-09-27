@@ -6,6 +6,7 @@
     padding: 7px 10px;
     font-family: 'ABeeZee', sans-serif;
     align-items: center;
+    text-align: center;
 }
 
 .profile-link:not(.active):hover {
@@ -15,6 +16,5 @@
 @media (max-width: 1440px) and (min-width: 480px) {
     .profile-link {
         font-size: 14px;
-        padding: 7px 10px;
     }
 }

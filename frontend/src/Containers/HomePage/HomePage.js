@@ -20,12 +20,16 @@ const HomePage = ({ api }) => {
   };
 
   useEffect(() => {
-    if (user) {
+    const hasShownWelcomePopup = localStorage.getItem('hasShownWelcomePopup');
+
+    if (user && !hasShownWelcomePopup) {
       setShowWelcomePopup(true);
 
       const timer = setTimeout(() => {
         setShowWelcomePopup(false);
       }, 7000);
+
+      localStorage.setItem('hasShownWelcomePopup', 'true');
 
       return () => {
         clearTimeout(timer);
