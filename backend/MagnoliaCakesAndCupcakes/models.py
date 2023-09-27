@@ -31,7 +31,11 @@ class TermsAndCondition(models.Model):
     def __str__(self):
         return self.policy_name
 
+class CakeCategory(models.Model):
+    name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
 def upload_to(instance, filename):
     # Upload the image to a 'cakes' directory with the filename as the cake's name
     return f"cakes/{filename}"
@@ -39,10 +43,11 @@ def upload_to(instance, filename):
 
 class Cake(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    
     picture = models.ImageField(upload_to=upload_to)  # Use the custom upload function
-    description = models.TextField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     flavor = models.CharField(max_length=50)
+    categories = models.ManyToManyField(CakeCategory)
 
     def __str__(self):
         return self.name
@@ -260,15 +265,11 @@ def password_reset_token_created(
     msg.send()
     
 
-class GalleryCategory(models.Model):
-    name = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.name
 
 class GalleryItem(models.Model):
     title = models.CharField(max_length=100, unique=True)
-    categories = models.ManyToManyField(GalleryCategory)
+    categories = models.ManyToManyField(CakeCategory)
     image = models.ImageField(upload_to='gallery/')
 
     def __str__(self):

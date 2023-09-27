@@ -61,9 +61,9 @@ class QuestionSerializer(serializers.ModelSerializer):
         model = Question
         fields = "__all__"
         
-class GalleryCategorySerializer(serializers.ModelSerializer):
+class CakeCategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = GalleryCategory
+        model = CakeCategory
         fields = "__all__"
 
 class GalleryItemSerializer(serializers.ModelSerializer):

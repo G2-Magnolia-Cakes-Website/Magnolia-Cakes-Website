@@ -405,8 +405,8 @@ def flavours_and_servings_info(request):
 @permission_classes([AllowAny])
 def gallery_categories_list(request):
     if request.method == "GET":
-        categories = GalleryCategory.objects.all()
-        serializer = GalleryCategorySerializer(categories, many=True)
+        categories = CakeCategory.objects.all()
+        serializer = CakeCategorySerializer(categories, many=True)
         return Response(serializer.data)
 
 @api_view(['GET'])
