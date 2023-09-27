@@ -1,11 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 export default function ForgotPasswordForm({ api }) {
-
-    // Get token
-    // const { token } = useParams();
 
     // States for registration
     const [password, setPassword] = useState('');

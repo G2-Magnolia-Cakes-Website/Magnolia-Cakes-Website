@@ -3,7 +3,7 @@ import { useState, useContext } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from '../../AuthContext';
 
-export default function LoginForm({ api, handleLoginSuccess}) {
+export default function LoginForm({ api, handleLoginSuccess }) {
 
     const navigate = useNavigate();
 
@@ -100,31 +100,31 @@ export default function LoginForm({ api, handleLoginSuccess}) {
     const getUserDetails = async (e) => {
         try {
             // get user
-      
+
             let res = await api.get('/api/user/',
-              {
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Accept': 'application/json',
-                  'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-                },
-                withCredentials: true,
-              }
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                    },
+                    withCredentials: true,
+                }
             );
-      
+
             if (res.status === 200) {
-              localStorage.setItem('email', res.data.email);
-              localStorage.setItem('first_name', res.data.first_name);
-              localStorage.setItem('last_name', res.data.last_name);
-              setUser(res.data);
+                localStorage.setItem('email', res.data.email);
+                localStorage.setItem('first_name', res.data.first_name);
+                localStorage.setItem('last_name', res.data.last_name);
+                setUser(res.data);
             } else {
-              console.log(res);
+                console.log(res);
             }
-      
-          } catch (err) {
+
+        } catch (err) {
             console.log(err);
             console.log(err.response.data);
-          }
+        }
     }
 
     // Showing error message if error is true

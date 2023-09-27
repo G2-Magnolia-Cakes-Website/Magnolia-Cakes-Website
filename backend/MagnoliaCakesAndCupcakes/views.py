@@ -65,21 +65,23 @@ def register(request):
     [AllowAny]
 )  ###### Add this to allow users to access despite not being logged in
 def activateEmail(request, user, to_email):
+
     mail_subject = "Activate your user account."
-    message = render_to_string(
-        "template_activate_account.html",
-        {
+
+    context = {
             "first_name": user.first_name,
             "last_name": user.last_name,
             "domain": get_current_site(request).domain,
             "uid": urlsafe_base64_encode(force_bytes(user.pk)),
             "token": account_activation_token.make_token(user),
             "protocol": "https" if request.is_secure() else "http",
-        },
-    )
+    }
+
+    message = render_to_string("template_activate_account.html", context)
+
     email = EmailMessage(mail_subject, message, to=[to_email])
     try:
-        if email.send(fail_silently=False):
+        if email.send():
             return Response(
                 {
                     "message": "User registered successfully. Please complete verification by clicking the link sent to your email."
@@ -102,6 +104,7 @@ def activateEmail(request, user, to_email):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
+from django.shortcuts import redirect
 
 @permission_classes(
     [AllowAny]
@@ -117,13 +120,9 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
 
-        return HttpResponse(
-            "Thank you for your email confirmation. Now you can login your account."
-        )
-        # return Response({'message': 'Thank you for your email confirmation. Now you can login your account.'}, status=status.HTTP_202_ACCEPTED)
+        return redirect(f"{settings.FRONTEND_APP_URL}/login/?success=true")
 
-    return HttpResponse("Activation link is invalid!")
-    # return Response({'message': 'Activation link is invalid!'}, status=status.HTTP_404_NOT_FOUND)
+    return redirect(f"{settings.FRONTEND_APP_URL}/login/?success=false")
 
 
 @api_view(["POST"])
