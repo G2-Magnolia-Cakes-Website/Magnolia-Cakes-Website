@@ -334,12 +334,6 @@ def faq_categories_list(request):
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data)
 
-
-@api_view(["GET"])
-@permission_classes(
-    [AllowAny]
-)  ###### Add this to allow users to access despite not being logged in
-
 @api_view(["GET"])
 @permission_classes(
     [AllowAny]
