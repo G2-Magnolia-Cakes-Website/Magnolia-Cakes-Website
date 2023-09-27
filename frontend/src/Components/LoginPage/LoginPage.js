@@ -35,31 +35,38 @@ function LoginPage({ api, handleLoginSuccess }) {
         <img className="logo" src={magnoliaCakeLogo} alt="Magnolia Cake Logo" />
     );
 
-    const image = (
-        <img className='login-image' src={birthdayCake} alt='Cake Image' />
-    )
+    const image = <img className="login-image" src={birthdayCake} alt="Cake" />;
 
     return (
         <>
             {showWelcomePopup && <SignedUpPopup onClose={handleCloseWelcomePopup} value={signedUp} />}
-            <div className='white-background'>
-                <div className="loginPage">
-                    <div className='login-form'>
-                        <div className='centre-form'>
-                            <div className='logo-div'>
-                                {logo}
-                            </div>
-                            <div>
-                                <h1 className='login-header'>Log In</h1>
-                            </div>
-                            <Form api={api} handleLoginSuccess={handleLoginSuccess} />
-                        </div>
-                    </div>
-                    {image}
+            <div className="login-page">
+                {image}
+                <div className="form-wrapper">
+                    {logo}
+                    <h1 className="login-header">Log In</h1>
+                    <Form api={api} handleLoginSuccess={handleLoginSuccess} />
                 </div>
             </div>
         </>
     );
+    //   return (
+    //     <div className="white-background">
+    //       <div className="loginPage">
+    //         <div className="login-form">
+    //           <div className="centre-form">
+    //             {/* <div className="logo-div">{logo}</div> */}
+    //             {logo}
+    //             <div>
+    //               <h1 className="login-header">Log In</h1>
+    //             </div>
+    //             <Form api={api} />
+    //           </div>
+    //         </div>
+    //         {image}
+    //       </div>
+    //     </div>
+    //   );
 }
 
 export default LoginPage;

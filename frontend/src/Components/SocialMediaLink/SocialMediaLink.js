@@ -1,11 +1,11 @@
 import React from "react";
-import socialMedias from "utils/socialMedias.json";
+// import socialMedias from "utils/socialMedias.json";
 import { SOCIALMEDIAS } from "utils/constants";
 import { Facebook, Instagram } from "utils/icons";
 import "./SocialMediaLink.css";
 
 const SocialMediaLink = (props) => {
-  const { socialMedia } = props;
+  const { socialMedia, account_name, account_link } = props;
 
   const getSocialMediaSVG = () => {
     switch (socialMedia) {
@@ -18,23 +18,28 @@ const SocialMediaLink = (props) => {
     }
   };
 
-  const socialMediaDetails = socialMedias.find(
-    (s) => s.socialMedia === socialMedia
-  );
+  // const socialMediaDetails = socialMedias.find(
+  //   (s) => s.socialMedia === socialMedia
+  // );
 
-  const { profileName, url } = socialMediaDetails;
+  // const { profileName, url } = socialMediaDetails;
 
   return (
     <div className="social-media-wrapper">
-      <a href={url} target="_blank" rel="noreferrer">
+      <a href={account_link} target="_blank" rel="noreferrer">
         <img
           className="social-media-logo"
           src={getSocialMediaSVG()}
           alt={socialMedia}
         />
       </a>
-      <a className="profile-name" href={url} target="_blank" rel="noreferrer">
-        {profileName}
+      <a
+        className="profile-name"
+        href={account_link}
+        target="_blank"
+        rel="noreferrer"
+      >
+        {account_name}
       </a>
     </div>
   );

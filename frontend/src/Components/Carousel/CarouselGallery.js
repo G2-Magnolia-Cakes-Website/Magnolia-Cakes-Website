@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
@@ -16,10 +16,26 @@ import "swiper/css/effect-fade";
 
 import "./CarouselGallery.css";
 
-import slides from "./cake-categories.json";
+// import slides from "./cake-categories.json";
 import CarouselItem from "./CarouselItem";
 
-const CarouselGallery = () => {
+const CarouselGallery = ({ api }) => {
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    // Fetch cakes data from the API
+    const fetchImages = async () => {
+      try {
+        const response = await api.get("api/slider-images/");
+        console.log("kim", response.data);
+        setImages(response.data);
+      } catch (error) {
+        console.error("Error fetching cakes:", error);
+      }
+    };
+    fetchImages();
+  }, [api]);
+
   return (
     <div>
       <Swiper
@@ -34,9 +50,9 @@ const CarouselGallery = () => {
         effect="fade"
         // crossFade={true}
       >
-        {slides.map((slide) => (
-          <SwiperSlide key={slide.image}>
-            <CarouselItem image={slide.image} title={slide.title} />
+        {images.map((i) => (
+          <SwiperSlide key={i.id}>
+            <CarouselItem image={i.image} title={i.name} />
           </SwiperSlide>
         ))}
       </Swiper>

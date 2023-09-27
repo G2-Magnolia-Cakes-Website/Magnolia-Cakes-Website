@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login as django_login
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -12,9 +12,10 @@ from .serializers import *
 from .models import *
 
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, renderer_classes
 from rest_framework.response import Response
-from .forms import FavourServingsForm, NewUserForm
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
+from .forms import ContactForm, FavourServingsForm, NewUserForm
 
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -27,7 +28,7 @@ from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, send_mail, BadHeaderError
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.http import HttpResponse
@@ -194,6 +195,51 @@ def terms_and_conditions(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(["GET", "POST"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def contact(request):
+    if request.method == "GET":
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST, request.FILES)
+        if form.is_valid():
+            user_email = form.cleaned_data["email"]
+            subject = form.cleaned_data["subject"]
+            message = form.cleaned_data["message"]
+            file = request.FILES.getlist("file")
+
+            admin_email = ContactUsEmail.objects.first()
+
+            email = EmailMessage(
+                subject, message, to=[admin_email.your_email], cc=[user_email]
+            )
+
+            for f in file:
+                email.attach(f.name, f.read(), f.content_type)
+
+            try:
+                email.send()
+            except Exception as error:
+                return Response(
+                    {
+                        "message": "Problem sending email. Please contact an administrator."
+                    },
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            return Response(
+                "Success! Request for quote submitted.", status=status.HTTP_200_OK
+            )
+        else:
+            return Response(
+                {"message": "Contact failed"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+    return render(request, "email.html", {"form": form})
+
+
 @api_view(["GET"])
 @permission_classes(
     [AllowAny]
@@ -213,6 +259,27 @@ def cakes_list(request):
             cakes_with_image_urls.append(cake_data)
 
         return Response(cakes_with_image_urls, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def slider_images(request):
+    if request.method == "GET":
+        images = SliderImage.objects.all()
+        serializer = SliderImageSerializer(images, many=True)
+
+        # Create a list to store the updated cake data with image URLs
+        images_with_urls = []
+
+        for image_data in serializer.data:
+            imageObject = SliderImage.objects.get(id=image_data["id"])
+            # Add the image URL to the cake data
+            image_data["image"] = imageObject.image.url
+            images_with_urls.append(image_data)
+
+        return Response(images_with_urls, status=status.HTTP_200_OK)
 
 
 @api_view(["GET", "PUT"])
@@ -272,10 +339,59 @@ def faq_categories_list(request):
 @permission_classes(
     [AllowAny]
 )  ###### Add this to allow users to access despite not being logged in
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
 def faq_questions_list(request):
     if request.method == "GET":
         questions = Question.objects.all()
         serializer = QuestionSerializer(questions, many=True)
+        return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def footer_location(request):
+    if request.method == "GET":
+        footer_location = FooterLocation.objects.first()
+        serializer = FooterLocationSerializer(footer_location)
+        return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def footer_contact_us(request):
+    if request.method == "GET":
+        footer_contact = FooterContactUs.objects.first()
+        serializer = FooterContactUsSerializer(footer_contact)
+        return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def footer_business_hrs(request):
+    if request.method == "GET":
+        footer_bushrs = FooterBusinessHours.objects.first()
+        serializer = FooterBusinessHoursSerializer(footer_bushrs)
+        return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def social_medias(request):
+    if request.method == "GET":
+        social_media_accounts = SocialMedias.objects.all()
+        serializer = SocialMediasSerializer(social_media_accounts, many=True)
         return Response(serializer.data)
 
 
@@ -324,3 +440,29 @@ def reset_names(request):
     else:
         # Return an error response for unsupported methods
         return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+@api_view(["GET", "PUT"])
+@permission_classes([AllowAny])
+def gallery_categories_list(request):
+    if request.method == "GET":
+        categories = CakeCategory.objects.all()
+        serializer = CakeCategorySerializer(categories, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def gallery_items_list(request):
+    if request.method == "GET":
+        items = GalleryItem.objects.all()
+        serializer = GalleryItemSerializer(items, many=True)
+        return Response(serializer.data)
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def location_page_content(request):
+    if request.method == "GET":
+        location_page_content = LocationPageContent.objects.first()
+        serializer = LocationPageContentSerializer(location_page_content)
+        return Response(serializer.data)

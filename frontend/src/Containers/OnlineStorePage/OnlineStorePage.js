@@ -2,43 +2,134 @@ import React, { useState, useEffect } from 'react';
 import './OnlineStore.css';
 
 function OnlineStore({ api }) {
-    const [cakes, setCakes] = useState([]);
+  const allCategory = { id: -1, name: 'All' };
+  const [cakes, setCakes] = useState([]);
+  const [quantities, setQuantities] = useState({});
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(allCategory);
 
-    useEffect(() => {
-      // Fetch cakes data from the API
-      const fetchCakes = async () => {
-        try {
-          const response = await api.get("api/cakes/");
-          setCakes(response.data);
-        } catch (error) {
-          console.error("Error fetching cakes:", error);
-        }
-      };
-  
-      fetchCakes();
-    }, [api]);
-  
-    return (
-      <div>
-        <div className="cakes-list">
-          {cakes.map((cake) => (
-            <div key={cake.id} className="cake-item">
-              <h3>{cake.name}</h3>
-              <img
-                src={cake.image}
-                alt={cake.name}
-                className="image" 
-              />
-              <br></br>
-              <p>Price: ${cake.price}</p>
-              <p>Flavour: {cake.flavor}</p>
-              <p>Description: {cake.description}</p>
+  useEffect(() => {
+    // Fetch cakes data from the API
+    const fetchCakes = async () => {
+      try {
+        const response = await api.get("api/cakes/");
+        const initialQuantities = response.data.reduce((acc, cake) => {
+          acc[cake.id] = 0;
+          return acc;
+        }, {});
+        setQuantities(initialQuantities);
+        setCakes(response.data);
+      } catch (error) {
+        console.error("Error fetching cakes:", error);
+      }
+    };
 
-            </div>
+    // Fetch categories
+    const fetchCategories = async () => {
+      try {
+        const response = await api.get("/api/gallery/categories/");
+        setCategories([allCategory, ...response.data]);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCakes();
+    fetchCategories();
+  }, [api]);
+
+  const handleCategoryChange = (category) => {
+    console.log('Selected Category:', category);
+    setSelectedCategory(category);
+  };
+  
+  const filteredCakes = selectedCategory.id === allCategory.id
+    ? cakes
+    : cakes.filter(cake => cake.categories.includes(selectedCategory.id));
+ 
+
+    
+  const handleQuantityChange = (cakeId, event) => {
+    const newQuantities = { ...quantities, [cakeId]: parseInt(event.target.value, 10) };
+    setQuantities(newQuantities);
+  };
+
+  const handleAddToCart = (cake) => {
+    // Add the selected cake to the cart
+    const cartItem = {
+      name: cake.name,
+      price: cake.price,
+      quantity: quantities[cake.id],
+    };
+  
+    // Retrieve existing cart items or initialize an empty array
+    const existingCart = JSON.parse(localStorage.getItem('Cart')) || [];
+  
+    // Check if the item already exists in the cart
+    const existingCartItemIndex = existingCart.findIndex(item => item.name === cake.name);
+  
+    if (existingCartItemIndex !== -1) {
+      // Item already exists, update its quantity
+      existingCart[existingCartItemIndex].quantity += cartItem.quantity;
+    } else {
+      // Item doesn't exist, add it to the cart
+      existingCart.push(cartItem);
+    }
+  
+    // Store the updated cart in local storage
+    localStorage.setItem('Cart', JSON.stringify(existingCart));
+  };
+  
+
+  return (
+    <div className='online-store'>
+      <div className="category-buttons">
+          {categories.map(category => (
+            <button
+              key={category.id}
+              className={selectedCategory.id === category.id ? 'selected-category' : 'category'}
+              onClick={() => handleCategoryChange(category)}
+            >
+              {category.name.toUpperCase()}
+            </button>
           ))}
         </div>
+      <div className="cakes-list">
+      
+        {filteredCakes.map((cake) =>(
+          <div key={cake.id} className="cake-item">
+            
+            <img
+              src={cake.image}
+              alt={cake.name}
+              className="image"
+            />
+            <br /><br></br>
+            <h3>{cake.name}</h3>
+            <p>Price: ${cake.price}</p>
+            <p>Flavour: {cake.flavor}</p>
+
+            <div className="quantity-section">
+              <label htmlFor={`quantity-${cake.id}`}>Quantity:</label>
+              <input
+                type="number"
+                id={`quantity-${cake.id}`}
+                value={quantities[cake.id]}
+                onChange={(event) => handleQuantityChange(cake.id, event)}
+                min={0}
+              />
+            </div>
+
+            {quantities[cake.id] > 0 && (
+              <div className="buttons-section">
+                <button className='button' onClick={() => handleAddToCart(cake)}>ADD TO CART</button>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
-    );
+    </div>
+  );
 }
 
 export default OnlineStore;

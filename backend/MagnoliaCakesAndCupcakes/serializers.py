@@ -24,12 +24,18 @@ class MagnoliaCakesAndCupcakesSerializer(serializers.ModelSerializer):
 class TermsAndConditionsSerializer(serializers.ModelSerializer):
     class Meta:
         model = TermsAndCondition
-        fields = '__all__'
+        fields = "__all__"
 
 
 class CakeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cake
+        fields = "__all__"
+
+
+class SliderImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SliderImage
         fields = "__all__"
 
 
@@ -61,4 +67,45 @@ class CategorySerializer(serializers.ModelSerializer):
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
+        fields = "__all__"
+        
+class CakeCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CakeCategory
+        fields = "__all__"
+
+class GalleryItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GalleryItem
+        fields = "__all__"
+
+
+
+class FooterLocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FooterLocation
+        fields = "__all__"
+
+
+class FooterContactUsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FooterContactUs
+        fields = "__all__"
+
+
+class FooterBusinessHoursSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FooterBusinessHours
+        fields = "__all__"
+
+
+class SocialMediasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SocialMedias
+        fields = "__all__"
+
+
+class LocationPageContentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LocationPageContent
         fields = "__all__"

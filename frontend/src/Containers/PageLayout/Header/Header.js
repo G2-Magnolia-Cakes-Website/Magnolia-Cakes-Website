@@ -14,8 +14,7 @@ const Header = ({ api, isAuth, setIsAuth }) => {
   const [headerStyle, setHeaderStyle] = useState("header");
 
   useEffect(() => {
-    const access_token = localStorage.getItem('access_token');
-    if (access_token !== null) {
+    if (localStorage.getItem("access_token") !== null) {
       setIsAuth(true);
     }
   }, [isAuth]);

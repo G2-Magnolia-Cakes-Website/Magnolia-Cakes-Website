@@ -9,13 +9,16 @@ import PasswordPage from "./Components/ForgotPassword/ForgotPasswordPage";
 import PasswordResetPage from "./Components/ForgotPassword/ResetPasswordPage";
 import LocationPage from "./Containers/LocationPage/LocationPage";
 import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAndConditionsPage";
+import GalleryPage from "./Containers/GalleryPage/GalleryPage"
 import SignupPage from "./Components/SignupPage/SignupPage";
 import FAQsPage from "./Components/FAQs/FAQsPage";
 import OnlineStorePage from "./Containers/OnlineStorePage/OnlineStorePage";
+import GetAQuote from "Containers/GetAQuote/GetAQuote";
 import FlavoursAndServings from "Containers/FlavoursAndServings/FlavoursAndServings";
 import AboutUsPage from "Containers/AboutUsPage/AboutUsPage";
 import UserProfilePage from "Components/UserProfile/ProfilePage"
 import "./App.css";
+import ContactUsPage from "Containers/ContactUsPage/ContactUsPage";
 import { PAGELINKS } from "utils/constants";
 
 /*

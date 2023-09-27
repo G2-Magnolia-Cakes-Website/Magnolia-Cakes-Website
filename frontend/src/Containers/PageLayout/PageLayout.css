@@ -16,12 +16,20 @@
 .layout .business-name-wrapper .logo {
   width: 100px;
   object-fit: contain;
+  margin: 0;
 }
 
 .layout .business-name-wrapper h1.business-name {
-  font-family: "Satisfy", cursive;
-  font-size: 45px;
+  /* font-family: "Satisfy", cursive; */
+  font-family: "Sacramento", cursive;
+  font-size: 64px;
   margin: 0;
+}
+
+@media (max-width: 768px) {
+  .layout .business-name-wrapper h1.business-name {
+    font-size: 58px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -33,7 +41,7 @@
   }
 
   .layout .business-name-wrapper .logo {
-    width: 70px;
+    min-width: 100px;
   }
 
   .layout .business-name-wrapper h1.business-name {

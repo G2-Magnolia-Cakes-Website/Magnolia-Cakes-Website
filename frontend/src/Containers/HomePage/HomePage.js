@@ -39,13 +39,13 @@ const HomePage = ({ api }) => {
         <WelcomePopup onClose={handleCloseWelcomePopup} user={user} />,
         document.body
       )}
-      <CarouselGallery />
+      <CarouselGallery api={api} />
       <GallerySection />
       {/* <SubheadingDivider subheadingText="Cakes for all occasions" /> */}
       <AboutUsSection />
       <FlavoursAndServings api={api} />
       <DeliverySection />
-      <LocationPage />
+      <LocationPage api={api} />
     </>
   );
 };

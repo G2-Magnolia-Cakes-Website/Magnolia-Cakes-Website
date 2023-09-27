@@ -1,46 +1,44 @@
-import React from 'react';
-import { useState } from 'react';
+import FormInput from "Components/FormInput/FormInput";
+import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
+import React from "react";
+import { useState } from "react";
 
 export default function ForgotPasswordForm({ api }) {
+  // States for registration
+  const [email, setEmail] = useState("");
 
-    // States for registration
-    const [email, setEmail] = useState('');
+  // States for checking the errors
+  const [error, setError] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const defaultErrorMessage =
+    "Reset password failed! Please enter a correct email.";
+  const [errorMessagePrint, setErrorMessage] = useState(defaultErrorMessage);
 
-    // States for checking the errors
-    const [error, setError] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
-    const defaultErrorMessage = 'Reset password failed! Please enter a correct email.';
-    const [errorMessagePrint, setErrorMessage] = useState(defaultErrorMessage);
+  // Handling the email change
+  const handleEmail = (e) => {
+    setEmail(e.target.value.toLowerCase());
+  };
 
-    // Handling the email change
-    const handleEmail = (e) => {
-        setEmail(e.target.value.toLowerCase());
-    };
+  // Handling the form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    // Handling the form submission
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    if (email === "") {
+      setErrorMessage(defaultErrorMessage);
+      setError(true);
+    } else {
+      // Send API msg to backend
+      try {
+        const user = {
+          email: email,
+        };
 
-        if (email === '') {
-            setErrorMessage(defaultErrorMessage);
-            setError(true);
-        } else {
-            // Send API msg to backend
-            try {
-
-                const user = {
-                    email: email
-                };
-
-                let res = await api.post('/api/reset/password/',
-                    user,
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json',
-                        },
-                    }
-                );
+        let res = await api.post("/api/reset/password/", user, {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
 
                 if (res.status === 200) {
                     setSubmitted(true);
@@ -77,52 +75,64 @@ export default function ForgotPasswordForm({ api }) {
         }
     };
 
-    // Showing success message
-    const successMessage = () => {
-        return (
-            <div
-                className="success"
-                style={{
-                    display: submitted ? '' : 'none',
-                }}>
-                <p className='msgs'>Please click the link in your email, {email}, to set your new password.</p>
-            </div>
-        );
-    };
-
-    // Showing error message if error is true
-    const errorMessage = () => {
-        return (
-            <div
-                className="error"
-                style={{
-                    display: error ? '' : 'none',
-                }}>
-                <div className='msgs'>{errorMessagePrint}</div>
-            </div>
-        );
-    };
-
+  // Showing success message
+  const successMessage = () => {
     return (
-        <div className="form">
-
-            <form>
-                {/* Labels and inputs for form data */}
-                <input onChange={handleEmail} className="input-login" autoCapitalize="none"
-                    value={email} type="email" placeholder='Email' />
-
-                <button onClick={handleSubmit} className="submit-btn"
-                    type="submit">
-                    Submit
-                </button>
-                
-                <div className="messages">
-                    {errorMessage()}
-                    {successMessage()}
-                </div>
-
-            </form>
-
-        </div>
+      <div
+        className="success"
+        style={{
+          display: submitted ? "" : "none",
+        }}
+      >
+        <p className="msgs">
+          Please click the link in your email, {email}, to set your new
+          password.
+        </p>
+      </div>
     );
-};
+  };
+
+  // Showing error message if error is true
+  const errorMessage = () => {
+    return (
+      <div
+        className="error"
+        style={{
+          display: error ? "" : "none",
+        }}
+      >
+        <div className="msgs">{errorMessagePrint}</div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="forgot-password-form">
+      <form>
+        {/* Labels and inputs for form data */}
+        <FormInput
+          onChange={handleEmail}
+          value={email}
+          inputName="email"
+          inputType="email"
+          placeholder="Email"
+          labelText="Email"
+          autoCapitalize="none"
+        />
+
+        <RoseGoldButton
+          onClick={handleSubmit}
+          buttonText="Submit"
+          buttonType="submit"
+          height="36px"
+          margin="auto 0 8px"
+        />
+
+        <div className="messages">
+          {errorMessage()}
+          {successMessage()}
+        </div>
+      </form>
+    </div>
+  );
+}

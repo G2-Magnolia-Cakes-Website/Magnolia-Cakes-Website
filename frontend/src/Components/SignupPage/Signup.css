@@ -1,282 +1,271 @@
 /* Prioritised Mobile View */
 
 .SignupPage {
-    min-height: fit-content;
+  min-height: fit-content;
 }
 
 .white-background {
-    background-color: white;
+  background-color: white;
 }
 
 .signup-form {
-    width: 100%;
+  width: 100%;
 }
 
-
-
-
-
 .checkbox {
-    cursor: pointer;
-    font-size: 22px;
-    width: 15px;
-    height: 15px;
-    margin: 20px;
-    accent-color: #E75480;
-    border-color: #E75480;
+  cursor: pointer;
+  font-size: 22px;
+  width: 15px;
+  height: 15px;
+  margin: 20px;
+  accent-color: #e75480;
+  border-color: #e75480;
 
-    padding: 0;
-    margin: 0;
-    vertical-align: middle;
-    position: relative;
-    top: -1px;
-    font-family: inter;
-    font-size: small;
+  padding: 0;
+  margin: 0;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+  font-family: "Fredoka", sans-serif;
+  font-size: small;
 }
 
 .pad {
-    padding-left: 10px;
+  padding-left: 10px;
 }
 
 .terms-and-conditions {
-    margin-top: 30px;
-    background-color: white;
-    border: none;
-    text-decoration: underline;
-    font-family: inter;
-    font-size: small;
+  margin-top: 30px;
+  background-color: white;
+  border: none;
+  text-decoration: underline;
+  font-family: "Fredoka", sans-serif;
+  font-size: small;
 }
 
 .popup-content {
-    margin: auto;
-    background: pink;
-    width: 50%;
-    padding: 5px;
+  margin: auto;
+  background: pink;
+  width: 50%;
+  padding: 5px;
 }
 
 .popup-arrow {
-    color: pink;
+  color: pink;
 }
 
-[role='tooltip'].popup-content {
-    width: 200px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
+[role="tooltip"].popup-content {
+  width: 200px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
 }
 
 .popup-overlay {
-    background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5);
 }
 
-[data-popup='tooltip'].popup-overlay {
-    background: transparent;
+[data-popup="tooltip"].popup-overlay {
+  background: transparent;
 }
-
-
-
 
 .logo {
-    margin-top: 50px;
-    display: block;
-    width: 30px;
-    height: auto;
-    min-width: 150px;
-    object-fit: contain;
+  margin-top: 50px;
+  display: block;
+  width: 30px;
+  height: auto;
+  min-width: 150px;
+  object-fit: contain;
 }
 
 .signup-header {
-    margin-top: 50px;
-    margin-bottom: 80px;
-    font-family: inter;
-    font-weight: 600;
-    font-size: xx-large;
+  margin-top: 50px;
+  margin-bottom: 80px;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+  font-size: xx-large;
 }
 
 .input-signup {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 
-    background: transparent;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border: none;
-    border-bottom: 2px solid black;
+  background: transparent;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid black;
 }
 
 .input-signup::placeholder {
-    color: black;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    text-align: left;
-    transform: translateY(10px);
+  color: black;
+  font-family: 'Fredoka', sans-serif;
+  text-align: left;
+  transform: translateY(10px);
 }
 
 .submit-btn {
-    margin-top: 50px;
-    padding: 5px 32px;
+  margin-top: 50px;
+  padding: 5px 32px;
 
-    border: 0px solid white;
-    display: block;
-    text-align: center;
-    font-size: 18px;
-    color: white;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
-    background: linear-gradient(to right, #ede5e3 0%, #efc7c7 70%);
-    background-color: #efc7c7;
-    background-size: 200% 100%;
-    background-position: right bottom;
-    transition: all 0.5s ease-out;
+  border: 0px solid white;
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  color: white;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(to right, #ede5e3 0%, #efc7c7 70%);
+  background-color: #efc7c7;
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.5s ease-out;
 }
 
 .submit-btn:disabled,
 button[disabled] {
-    background: lightgrey;
-    color: black;
-    pointer-events: none;
-    opacity: 0.6;
+  background: lightgrey;
+  color: black;
+  pointer-events: none;
+  opacity: 0.6;
 }
 
 .submit-btn:hover {
-    background-position: left bottom;
-    color: #daa41a;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  background-position: left bottom;
+  color: #daa41a;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
 }
 
 .signup-question {
-    padding-left: 5px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-family: inter;
-    font-size: small;
+  padding-left: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: small;
 }
 
 .signup-link {
-    color: black;
-    font-weight: bold;
+  color: black;
+  font-weight: bold;
 }
 
 .messages {
-    text-align: center;
-    margin-bottom: 130px;
+  text-align: center;
+  margin-bottom: 130px;
 }
 
 .error {
-    background-color: lightcoral;
-    color: white;
-    font-family: inter;
+  background-color: lightcoral;
+  color: white;
+  font-family: 'Fredoka', sans-serif;
 }
 
 .success {
-    background-color: rgb(190, 255, 190);
-    color: black;
-    font-family: inter;
+  background-color: rgb(190, 255, 190);
+  color: black;
+  font-family: 'Fredoka', sans-serif;
 }
 
 .msgs {
-    padding: 10px;
+  padding: 10px;
 }
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+  .SignupPage {
+    margin: 40px;
+  }
 
-    .SignupPage {
-        margin: 40px;
-    }
+  .signup-image {
+    flex-direction: row;
+    width: 100%;
+    height: fit-content;
+  }
 
-    .signup-image {
-        flex-direction: row;
-        width: 100%;
-        height: fit-content;
-    }
+  .signup-form {
+    flex-direction: row;
+    width: 100%;
+    height: 60%;
+  }
 
-    .signup-form {
-        flex-direction: row;
-        width: 100%;
-        height: 60%;
-    }
+  .submit-btn {
+    width: 100%;
+  }
 
-    .submit-btn {
-        width: 100%;
-    }
-
-    .input-signup {
-        width: 100%;
-    }
+  .input-signup {
+    width: 100%;
+  }
 }
 
 /* Larger screens */
 @media only screen and (min-width: 600px) {
+  .SignupPage {
+    margin: 40px;
+  }
 
-    .SignupPage {
-        margin: 40px;
-    }
+  .signup-image {
+    flex-direction: row;
+    width: 100%;
+    height: fit-content;
+  }
 
-    .signup-image {
-        flex-direction: row;
-        width: 100%;
-        height: fit-content;
-    }
+  .signup-form {
+    flex-direction: row;
+    width: 100%;
+    height: 60%;
+  }
 
-    .signup-form {
-        flex-direction: row;
-        width: 100%;
-        height: 60%;
-    }
+  .submit-btn {
+    width: 100%;
+  }
 
-    .submit-btn {
-        width: 100%;
-    }
+  .input-signup {
+    width: 100%;
+  }
 
-    .input-signup {
-        width: 100%;
-    }
+  .submit-btn {
+    width: 500px;
+  }
 
-    .submit-btn {
-        width: 500px;
-    }
+  .input-signup {
+    width: 500px;
+  }
 
-    .input-signup {
-        width: 500px;
-    }
-
-    .messages {
-        width: 500px;
-    }
+  .messages {
+    width: 500px;
+  }
 }
 
 @media only screen and (min-width: 769px) {
+  .signup-form {
+    display: flex;
+    justify-content: center;
+  }
 
-    .signup-form {
-        display: flex;
-        justify-content: center;
-    }
+  .centre-form {
+    flex-direction: column;
+  }
 
-    .centre-form {
-        flex-direction: column;
-    }
-
-    .signup-image {
-        display: none;
-    }
+  .signup-image {
+    display: none;
+  }
 }
 
 @media only screen and (min-width: 1470px) {
+  .SignupPage {
+    margin: 0px;
+  }
 
-    .SignupPage {
-        margin: 0px;
-    }
+  .signup-image {
+    float: left;
+    width: 50%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+  }
 
-    .signup-image {
-        float: left;
-        width: 50%;
-        min-height: 100%;
-        display: flex;
-        justify-content: center;
-    }
-
-    .signup-form {
-        flex-direction: column;
-        margin-left: 5%;
-        float: right;
-        width: 45%;
-    }
+  .signup-form {
+    flex-direction: column;
+    margin-left: 5%;
+    float: right;
+    width: 45%;
+  }
 }

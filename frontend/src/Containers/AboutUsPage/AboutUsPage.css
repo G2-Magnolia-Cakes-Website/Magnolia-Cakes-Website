@@ -26,14 +26,18 @@
 }
 
 .about-us-page .page-content h1 {
-  font-family: "Satisfy", cursive;
+  font-family: "Sacramento", cursive;
   font-size: 96px;
   color: #b76e79;
   margin-bottom: 3rem;
+  /* font-family: 'Sacramento', cursive; */
 }
 
 .about-us-page .page-content p {
   font-size: 18px;
+  /* font-family: 'Patrick Hand', cursive; */
+  /* font-family: 'Amatic SC', cursive;
+  font-weight: 900; */
 }
 
 @media (max-width: 1440px) {
