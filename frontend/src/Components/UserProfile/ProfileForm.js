@@ -56,6 +56,7 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
         event.preventDefault();
         // Send API msg to backend
         if (firstNameValue === '' || lastNameValue === '') {
+            setSubmitted(false);
             setErrorMessage("Cannot leave First Name or Last Name blank.");
             setError(true);
         } else {
