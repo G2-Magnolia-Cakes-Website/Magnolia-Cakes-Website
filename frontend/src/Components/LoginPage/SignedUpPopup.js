@@ -1,4 +1,5 @@
 import React from 'react';
+import './SignedUpPopup.css';
 
 const SignedUpPopup = ({ onClose, value }) => {
     return (
