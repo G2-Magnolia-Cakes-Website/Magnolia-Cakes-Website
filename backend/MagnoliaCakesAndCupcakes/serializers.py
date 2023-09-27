@@ -60,11 +60,10 @@ class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = "__all__"
-
-
-class GalleryCategorySerializer(serializers.ModelSerializer):
+        
+class CakeCategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = GalleryCategory
+        model = CakeCategory
         fields = "__all__"
 
 
