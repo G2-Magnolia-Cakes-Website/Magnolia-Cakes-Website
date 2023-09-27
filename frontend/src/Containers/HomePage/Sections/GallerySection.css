@@ -35,7 +35,10 @@
   margin-bottom: 8px;
 }
 
-.gallery-section-wrapper .gallery-row .gallery-column div:not(:first-child) {
+.gallery-section-wrapper
+  .gallery-row
+  .gallery-column
+  .gallery-grid-item-wrapper:not(:first-child) {
   margin-top: 1rem;
 }
 
@@ -58,7 +61,10 @@
     padding: 3rem 0 3rem;
   }
 
-  .gallery-section-wrapper .gallery-row .gallery-column div:not(:first-child) {
+  .gallery-section-wrapper
+    .gallery-row
+    .gallery-column
+    .gallery-grid-item-wrapper:not(:first-child) {
     margin-top: 0.75rem;
   }
 }
@@ -68,7 +74,10 @@
     gap: 0.3rem;
   }
 
-  .gallery-section-wrapper .gallery-row .gallery-column div:not(:first-child) {
+  .gallery-section-wrapper
+    .gallery-row
+    .gallery-column
+    .gallery-grid-item-wrapper:not(:first-child) {
     margin-top: 0.3rem;
   }
 
