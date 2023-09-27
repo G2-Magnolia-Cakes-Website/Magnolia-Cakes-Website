@@ -1,6 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from '../../AuthContext';
 
 export default function ProfileForm({ api, email, first_name, last_name }) {
+
+    const navigate = useNavigate();
+
+    const { setUser } = useContext(AuthContext);
+
     const [disabledFirstName, setDisableFirstName] = useState(true);
     const [disabledLastName, setDisableLastName] = useState(true);
     const [firstNameValue, setFirstNameValue] = useState(first_name);
@@ -10,8 +17,9 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
     // States for checking the errors
     const [error, setError] = useState(false);
     const [submitted, setSubmitted] = useState(false);
-    const defaultErrorMessage = 'Reset password failed! Please enter a correct email.';
-    const [errorMessagePrint, setErrorMessage] = useState(defaultErrorMessage);
+    const defaultPasswordResetErrorMessage = 'Reset password failed! Please enter a correct email.';
+    const defaultChangeNamesErrorMessage = 'Account update failed! Please try again later.';
+    const [errorMessagePrint, setErrorMessage] = useState(defaultPasswordResetErrorMessage);
 
     useEffect(() => {
         setFirstNameValue(first_name);
@@ -19,7 +27,7 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
     }, [first_name, last_name]);
 
     useEffect(() => {
-        if (first_name === firstNameValue && last_name === lastNameValue) {
+        if (first_name === firstNameValue.trim() && last_name === lastNameValue.trim()) {
             setIsFormModified(false);
         }
     }, [firstNameValue, lastNameValue]);
@@ -44,11 +52,99 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
         setIsFormModified(true);
     };
 
-    const handleUpdateAccount = (event) => {
+    const handleUpdateAccount = async (event) => {
         event.preventDefault();
-        // Handle form submission here
-        // Only executed when the submit button is clicked
+        // Send API msg to backend
+        try {
+
+            const user = {
+                first_name: firstNameValue,
+                last_name: lastNameValue
+            };
+
+            let res = await api.post('/api/reset/names/',
+                user,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                    },
+                    withCredentials: true,
+                }
+            );
+
+            if (res.status === 200) {
+                setError(false);
+                await getUserDetails();
+                window.location.reload();
+            } else {
+                setSubmitted(false);
+                if (res.data["detail"]) {
+                    setErrorMessage(res.data["detail"]);
+                } else if (res.data["email"]) {
+                    setErrorMessage(res.data["email"]);
+                } else if (res.data["first_name"]) {
+                    setErrorMessage(res.data["first_name"]);
+                } else if (res.data["last_name"]) {
+                    setErrorMessage(res.data["last_name"]);
+                } else if (res.data["message"]) {
+                    setErrorMessage(res.data["message"]);
+                } else {
+                    setErrorMessage(defaultChangeNamesErrorMessage);
+                }
+                setError(true);
+                console.log(res);
+            }
+        } catch (err) {
+            setSubmitted(false);
+            console.log(err);
+            if (err.response.data["detail"]) {
+                setErrorMessage(err.response.data["detail"]);
+            } else if (err.response.data["email"]) {
+                setErrorMessage(err.response.data["email"]);
+            } else if (err.response.data["first_name"]) {
+                setErrorMessage(err.response.data["first_name"]);
+            } else if (err.response.data["last_name"]) {
+                setErrorMessage(err.response.data["last_name"]);
+            } else if (err.response.data["message"]) {
+                setErrorMessage(err.response.data["message"]);
+            } else {
+                setErrorMessage(defaultChangeNamesErrorMessage);
+            }
+            setError(true);
+        }
     };
+
+    const getUserDetails = async (e) => {
+        try {
+            // get user
+      
+            let res = await api.get('/api/user/',
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json',
+                  'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                },
+                withCredentials: true,
+              }
+            );
+      
+            if (res.status === 200) {
+              localStorage.setItem('email', res.data.email);
+              localStorage.setItem('first_name', res.data.first_name);
+              localStorage.setItem('last_name', res.data.last_name);
+              setUser(res.data);
+            } else {
+              console.log(res);
+            }
+      
+          } catch (err) {
+            console.log(err);
+            console.log(err.response.data);
+          }
+    }
 
     const handleChangePassword = async (event) => {
         event.preventDefault();
@@ -73,7 +169,7 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
                 console.log(res);
                 setSubmitted(true);
                 setError(false);
-                setErrorMessage(defaultErrorMessage);
+                setErrorMessage(defaultPasswordResetErrorMessage);
             } else {
                 setSubmitted(false);
                 if (res.data["detail"]) {
@@ -83,7 +179,7 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
                 } else if (res.data["message"]) {
                     setErrorMessage(res.data["message"]);
                 } else {
-                    setErrorMessage(defaultErrorMessage);
+                    setErrorMessage(defaultPasswordResetErrorMessage);
                 }
                 setError(true);
                 console.log(res);
@@ -98,7 +194,7 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
             } else if (err.response.data["message"]) {
                 setErrorMessage(err.response.data["message"]);
             } else {
-                setErrorMessage(defaultErrorMessage);
+                setErrorMessage(defaultPasswordResetErrorMessage);
             }
             setError(true);
         }
@@ -130,6 +226,13 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
         );
     };
 
+    // If not logged in:
+    useEffect(() => {
+        if (!localStorage.getItem('access_token')) {
+            navigate('/login');
+        }
+    }, []);
+
     return (
         <div className='account-right'>
             <div className='account-title first-title'>Name</div>
@@ -157,10 +260,10 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
 
             <div className='account-title'>Contact</div>
             <label className='account-label'>Email</label>
-            <input 
-                value={email} 
-                disabled={true} 
-                className='account-input' 
+            <input
+                value={email}
+                disabled={true}
+                className='account-input'
             />
 
             <div className='account-title'>Privacy</div>

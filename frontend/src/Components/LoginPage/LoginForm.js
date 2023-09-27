@@ -67,7 +67,6 @@ export default function LoginForm({ api, handleLoginSuccess}) {
                     localStorage.setItem('refresh_token', res.data.refresh);
                     api.defaults.headers.common['Authorization'] = `Bearer ${res.data.access}`;
 
-                    // setUser({ email });
                     getUserDetails();
 
                     handleLoginSuccess(); // Call the callback function to update the isAuth state in the App component

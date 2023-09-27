@@ -269,8 +269,11 @@ def faq_categories_list(request):
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data)
 
-@api_view(['GET'])
-@permission_classes([AllowAny]) ###### Add this to allow users to access despite not being logged in
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
 def faq_questions_list(request):
     if request.method == "GET":
         questions = Question.objects.all()
@@ -289,12 +292,13 @@ def flavours_and_servings_info(request):
         return Response(serializer.data)
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 def get_user(request):
-    if request.method == 'GET':
+    if request.method == "GET":
         user = request.user
         serializer = UserSerializer(user)
         return Response(serializer.data)
+
 
 class UserAPIView(APIView):
     permission_classes = [IsAuthenticated]
@@ -304,3 +308,31 @@ class UserAPIView(APIView):
         user = request.user
         serializer = UserSerializer(user)
         return Response(serializer.data)
+
+
+@api_view(["POST"])
+def reset_names(request):
+    if request.method == 'POST':
+        first_name = request.data.get('first_name')
+        last_name = request.data.get('last_name')
+        
+        if not (first_name and last_name):
+            return Response({'error': 'Both first_name and last_name are required'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Assuming you have an authenticated user, you can access it using request.user
+        user = request.user
+        
+        try:
+            # Update the first_name and last_name fields of the user
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save()
+            
+            # Return a JSON response indicating success
+            return Response({'message': 'Name updated successfully'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            # Return an error response if any exception occurs during the update
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        # Return an error response for unsupported methods
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)

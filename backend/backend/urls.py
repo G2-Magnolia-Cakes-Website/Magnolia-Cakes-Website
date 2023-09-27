@@ -64,4 +64,7 @@ urlpatterns = [
     
 	# Reset password
 	path("api/reset/password/", include("django_rest_passwordreset.urls", namespace="password_reset")),
+
+	# Change first and last name
+	path("api/reset/names/", views.reset_names, name="reset_names"),
 ]
