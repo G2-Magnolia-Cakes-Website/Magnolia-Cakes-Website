@@ -21,7 +21,6 @@ const HomePage = ({ api }) => {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
       setShowWelcomePopup(true);
 
       const timer = setTimeout(() => {

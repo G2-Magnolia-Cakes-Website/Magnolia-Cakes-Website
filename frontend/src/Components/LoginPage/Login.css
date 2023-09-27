@@ -95,6 +95,68 @@
     padding: 10px;
 }
 
+.signedup-popup {
+    position: fixed;
+    top: 200px;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 9999;
+}
+
+.signedup-content {
+    border: 2px solid black;
+    position: relative;
+    padding: 32px;
+    width: 100%;
+    max-width: 640px;
+    background-color: #fbd8d0;
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    font-family: 'ABeeZee', sans-serif;
+}
+
+.signedup-content .close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    cursor: pointer;
+    outline: none;
+    overflow: hidden;
+    border: none;
+    background-color: #fbd8d0;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: darkred;
+}
+
+.yes-btn-signedup {
+    background-color: #b76e79;
+    border: 2px solid #b76e79;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 15px;
+    padding: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 5px;
+    font-weight: 600;
+    font-family: 'ABeeZee', sans-serif;
+    transition: 0.5s;
+}
+
+.yes-btn-signedup:hover {
+    background-color: #c09999;
+    border-color: #c09999;
+}
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
 

@@ -2,14 +2,13 @@ import React from 'react';
 
 const SignedUpPopup = ({ onClose, value }) => {
     return (
-        <div className="welcome-popup">
-            <div className="welcome-content">
+        <div className="signedup-popup">
+            <div className="signedup-content">
                 <button className='close-btn' onClick={onClose}>X</button>
-                {value === 'true' && <p>successfully signed up! Please try logging in.</p>}
+                {value === 'true' && <p>Successfully signed up! You can now log in.</p>}
+                {value === 'true' && <button className='yes-btn-signedup' onClick={onClose}>Thanks!</button>}
                 {value === 'false' && <p>Signup failed! Please try signing up again or contact an administrator.</p>}
-                <div>
-                    <button className='yes-btn-welcome' onClick={onClose}>Thanks!</button>
-                </div>
+                {value === 'false' && <button className='yes-btn-signedup' onClick={onClose}>Okay</button>}                
             </div>
         </div>
     );

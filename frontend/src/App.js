@@ -18,7 +18,22 @@ import UserProfilePage from "Components/UserProfile/ProfilePage"
 import "./App.css";
 import { PAGELINKS } from "utils/constants";
 
-import api from './axios'; // Import the axios instance
+/*
+* axios instance
+* Set base url in it
+* interceptor logic 
+*/
+import api from './axios'; 
+
+/*
+* Authentication Context (to update everything after login and logout, not persistent)
+Persistent authentication is handled using localstorage where we store
+- access_token
+- refresh_token
+- email
+- first_name
+- last_name
+*/
 import { AuthProvider } from './AuthContext';
 
 const Wrapper = ({ children }) => {
@@ -42,7 +57,6 @@ const App = () => {
     "/terms-and-conditions",
     "/flavours-and-servings",
   ];
-  // Define the base URL based on the environment, only one of them should be used at a time
 
   // temporary until pages created
   const routeAllPagesComingSoon = () => {

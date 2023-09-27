@@ -55,15 +55,77 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
     const handleUpdateAccount = async (event) => {
         event.preventDefault();
         // Send API msg to backend
+        if (firstNameValue === '' || lastNameValue === '') {
+            setErrorMessage("Cannot leave First Name or Last Name blank.");
+            setError(true);
+        } else {
+            try {
+
+                const user = {
+                    first_name: firstNameValue,
+                    last_name: lastNameValue
+                };
+
+                let res = await api.post('/api/reset/names/',
+                    user,
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                        },
+                        withCredentials: true,
+                    }
+                );
+
+                if (res.status === 200) {
+                    setError(false);
+                    await getUserDetails();
+                    window.location.reload();
+                } else {
+                    setSubmitted(false);
+                    if (res.data["detail"]) {
+                        setErrorMessage(res.data["detail"]);
+                    } else if (res.data["email"]) {
+                        setErrorMessage(res.data["email"]);
+                    } else if (res.data["first_name"]) {
+                        setErrorMessage(res.data["first_name"]);
+                    } else if (res.data["last_name"]) {
+                        setErrorMessage(res.data["last_name"]);
+                    } else if (res.data["message"]) {
+                        setErrorMessage(res.data["message"]);
+                    } else {
+                        setErrorMessage(defaultChangeNamesErrorMessage);
+                    }
+                    setError(true);
+                    console.log(res);
+                }
+            } catch (err) {
+                setSubmitted(false);
+                console.log(err);
+                if (err.response.data["detail"]) {
+                    setErrorMessage(err.response.data["detail"]);
+                } else if (err.response.data["email"]) {
+                    setErrorMessage(err.response.data["email"]);
+                } else if (err.response.data["first_name"]) {
+                    setErrorMessage(err.response.data["first_name"]);
+                } else if (err.response.data["last_name"]) {
+                    setErrorMessage(err.response.data["last_name"]);
+                } else if (err.response.data["message"]) {
+                    setErrorMessage(err.response.data["message"]);
+                } else {
+                    setErrorMessage(defaultChangeNamesErrorMessage);
+                }
+                setError(true);
+            }
+        }
+    };
+
+    const getUserDetails = async (e) => {
         try {
+            // get user
 
-            const user = {
-                first_name: firstNameValue,
-                last_name: lastNameValue
-            };
-
-            let res = await api.post('/api/reset/names/',
-                user,
+            let res = await api.get('/api/user/',
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -75,75 +137,18 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
             );
 
             if (res.status === 200) {
-                setError(false);
-                await getUserDetails();
-                window.location.reload();
+                localStorage.setItem('email', res.data.email);
+                localStorage.setItem('first_name', res.data.first_name);
+                localStorage.setItem('last_name', res.data.last_name);
+                setUser(res.data);
             } else {
-                setSubmitted(false);
-                if (res.data["detail"]) {
-                    setErrorMessage(res.data["detail"]);
-                } else if (res.data["email"]) {
-                    setErrorMessage(res.data["email"]);
-                } else if (res.data["first_name"]) {
-                    setErrorMessage(res.data["first_name"]);
-                } else if (res.data["last_name"]) {
-                    setErrorMessage(res.data["last_name"]);
-                } else if (res.data["message"]) {
-                    setErrorMessage(res.data["message"]);
-                } else {
-                    setErrorMessage(defaultChangeNamesErrorMessage);
-                }
-                setError(true);
                 console.log(res);
             }
-        } catch (err) {
-            setSubmitted(false);
-            console.log(err);
-            if (err.response.data["detail"]) {
-                setErrorMessage(err.response.data["detail"]);
-            } else if (err.response.data["email"]) {
-                setErrorMessage(err.response.data["email"]);
-            } else if (err.response.data["first_name"]) {
-                setErrorMessage(err.response.data["first_name"]);
-            } else if (err.response.data["last_name"]) {
-                setErrorMessage(err.response.data["last_name"]);
-            } else if (err.response.data["message"]) {
-                setErrorMessage(err.response.data["message"]);
-            } else {
-                setErrorMessage(defaultChangeNamesErrorMessage);
-            }
-            setError(true);
-        }
-    };
 
-    const getUserDetails = async (e) => {
-        try {
-            // get user
-      
-            let res = await api.get('/api/user/',
-              {
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Accept': 'application/json',
-                  'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-                },
-                withCredentials: true,
-              }
-            );
-      
-            if (res.status === 200) {
-              localStorage.setItem('email', res.data.email);
-              localStorage.setItem('first_name', res.data.first_name);
-              localStorage.setItem('last_name', res.data.last_name);
-              setUser(res.data);
-            } else {
-              console.log(res);
-            }
-      
-          } catch (err) {
+        } catch (err) {
             console.log(err);
             console.log(err.response.data);
-          }
+        }
     }
 
     const handleChangePassword = async (event) => {

@@ -10,9 +10,6 @@ function LogoutPopup(props) {
 
         // Send API msg to backend
         try {
-            console.log(props.api.defaults.headers.common['Authorization']);
-            console.log(localStorage.getItem('access_token'));
-
             const token = {
                 refresh_token: localStorage.getItem('refresh_token')
             };
@@ -28,9 +25,6 @@ function LogoutPopup(props) {
                     withCredentials: true,
                 }
             );
-            console.log(props.api.defaults.headers.common['Authorization']);
-            console.log(localStorage.getItem('access_token'));
-            console.log(res);
 
             if (res.status === 205) {
                 localStorage.clear();
@@ -45,9 +39,7 @@ function LogoutPopup(props) {
             }
 
         } catch (err) {
-            console.log(props.api.defaults.headers.common['Authorization']);
-            console.log(localStorage.getItem('access_token'));
-            console.log(err);
+            console.error(err);
         }
     };
 

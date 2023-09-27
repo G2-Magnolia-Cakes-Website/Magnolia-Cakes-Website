@@ -59,7 +59,6 @@ export default function ForgotPasswordForm({ api }) {
                 );
 
                 if (res.status === 200) {
-                    console.log(res);
                     setSubmitted(true);
                     setError(false);
                     setErrorMessage(defaultErrorMessage);

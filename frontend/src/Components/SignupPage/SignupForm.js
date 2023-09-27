@@ -92,7 +92,6 @@ export default function SignupForm({ api }) {
                     setError(false);
                     setErrorMessage(defaultErrorMessage);
                     setSubmitted(true);
-                    console.log(res);
                 } else {
                     if (res.data["password1"]) {
                         setErrorMessage(res.data["password1"]);

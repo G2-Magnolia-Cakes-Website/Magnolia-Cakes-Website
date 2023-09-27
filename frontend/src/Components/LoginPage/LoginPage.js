@@ -3,7 +3,7 @@ import Form from "./LoginForm"
 import SignedUpPopup from "./SignedUpPopup"
 import magnoliaCakeLogo from "../../utils/Magnolia_Cake_logo.png";
 import birthdayCake from "../../utils/carousel-wedding-ann.jpg"
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function LoginPage({ api, handleLoginSuccess }) {
 

@@ -119,7 +119,6 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-
         return redirect(f"{settings.FRONTEND_APP_URL}/login/?success=true")
 
     return redirect(f"{settings.FRONTEND_APP_URL}/login/?success=false")
@@ -294,16 +293,6 @@ def flavours_and_servings_info(request):
 @api_view(["GET"])
 def get_user(request):
     if request.method == "GET":
-        user = request.user
-        serializer = UserSerializer(user)
-        return Response(serializer.data)
-
-
-class UserAPIView(APIView):
-    permission_classes = [IsAuthenticated]
-    authentication_classes = [JWTAuthentication]
-
-    def get(self, request):
         user = request.user
         serializer = UserSerializer(user)
         return Response(serializer.data)
