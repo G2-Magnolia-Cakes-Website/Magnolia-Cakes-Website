@@ -31,11 +31,14 @@ class TermsAndCondition(models.Model):
     def __str__(self):
         return self.policy_name
 
+
 class CakeCategory(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
+
+
 def upload_to(instance, filename):
     # Upload the image to a 'cakes' directory with the filename as the cake's name
     return f"cakes/{filename}"
@@ -43,7 +46,7 @@ def upload_to(instance, filename):
 
 class Cake(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    
+
     picture = models.ImageField(upload_to=upload_to)  # Use the custom upload function
     price = models.DecimalField(max_digits=10, decimal_places=2)
     flavor = models.CharField(max_length=50)
@@ -268,13 +271,10 @@ def password_reset_token_created(
     msg.send()
 
 
-
-
-
 class GalleryItem(models.Model):
     title = models.CharField(max_length=100, unique=True)
     categories = models.ManyToManyField(CakeCategory)
-    image = models.ImageField(upload_to='gallery/')
+    image = models.ImageField(upload_to="gallery/")
 
     def __str__(self):
         return self.title
@@ -379,3 +379,26 @@ class HomepageGallerySection(models.Model):
 
     class Meta:
         verbose_name_plural = "Homepage Gallery Section"
+
+
+class Video(models.Model):
+    title = models.CharField(max_length=100, unique=True)
+    description = models.TextField()
+    video = models.FileField(upload_to="videos/")
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if self.video:
+            # Generate a unique filename based on the title
+            filename = f"{slugify(self.title)}.mp4"
+            self.video.name = filename  # Save directly to 'videos' folder
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        # Delete the associated video from the bucket
+        if self.video:
+            video_path = self.video.name
+            default_storage.delete(video_path)
+        super().delete(*args, **kwargs)

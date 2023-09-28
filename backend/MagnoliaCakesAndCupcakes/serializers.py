@@ -60,7 +60,8 @@ class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = "__all__"
-        
+
+
 class CakeCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = CakeCategory
@@ -118,4 +119,9 @@ class AboutUsSectionContentSerializer(serializers.ModelSerializer):
 class GallerySectionContentSerializer(serializers.ModelSerializer):
     class Meta:
         model = HomepageGallerySection
+
+
+class VideoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Video
         fields = "__all__"

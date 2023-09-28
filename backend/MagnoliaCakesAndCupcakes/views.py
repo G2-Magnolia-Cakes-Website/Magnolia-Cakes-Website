@@ -462,3 +462,11 @@ def gallery_section(request):
         content = HomepageGallerySection.objects.first()
         serializer = GallerySectionContentSerializer(content)
         return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def video(request):
+    if request.method == "GET":
+        items = Video.objects.all()
+        serializer = VideoSerializer(items, many=True)
+        return Response(serializer.data)
