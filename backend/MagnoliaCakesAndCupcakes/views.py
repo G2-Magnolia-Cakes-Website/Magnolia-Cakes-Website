@@ -57,6 +57,10 @@ def register(request):
             user.username = user.username.lower()
             user.is_active = False
             user.save()
+
+            # Create user profile
+            UserProfile.objects.create(user=user)
+
             return activateEmail(request, user, form.cleaned_data.get("username"))
         return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -434,3 +438,15 @@ def video(request):
         items = Video.objects.all()
         serializer = VideoSerializer(items, many=True)
         return Response(serializer.data)
+
+@api_view(['GET'])
+def get_videos(request):
+    if request.method == "GET":
+        user = request.user
+        try:
+            user_profile = UserProfile.objects.get(user=user)
+            videos = user_profile.videos.all()
+            serializer = VideoSerializer(videos, many=True)
+            return Response(serializer.data)
+        except UserProfile.DoesNotExist:
+            return Response({'message': 'User profile not found.'}, status=404)

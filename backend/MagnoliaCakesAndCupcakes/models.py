@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.core.files.storage import default_storage
+from django.contrib.auth.models import User
 
 from django.utils.text import slugify
 
@@ -19,6 +20,7 @@ class MagnoliaCakesAndCupcakes(models.Model):
     def __str__(self):
         # it will return the title
         return self.title
+    
 
 
 class TermsAndCondition(models.Model):
@@ -328,6 +330,7 @@ class ContactUsEmail(models.Model):
 class Video(models.Model):
     title = models.CharField(max_length=100, unique=True)
     description = models.TextField()
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     video = models.FileField(upload_to='videos/')
 
     def __str__(self):
@@ -346,3 +349,14 @@ class Video(models.Model):
             video_path = self.video.name
             default_storage.delete(video_path)
         super().delete(*args, **kwargs)
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    videos = models.ManyToManyField(Video)
+
+    def __str__(self):
+        return self.user.username 
+
+    class Meta:
+        ordering = ["user"]
