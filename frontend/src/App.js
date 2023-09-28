@@ -9,6 +9,7 @@ import PasswordPage from "./Components/ForgotPassword/ForgotPasswordPage";
 import PasswordResetPage from "./Components/ForgotPassword/ResetPasswordPage";
 import LocationPage from "./Containers/LocationPage/LocationPage";
 import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAndConditionsPage";
+import GalleryPage from "./Containers/GalleryPage/GalleryPage"
 import SignupPage from "./Components/SignupPage/SignupPage";
 import FAQsPage from "./Components/FAQs/FAQsPage";
 import OnlineStorePage from "./Containers/OnlineStorePage/OnlineStorePage";
@@ -18,6 +19,7 @@ import AboutUsPage from "Containers/AboutUsPage/AboutUsPage";
 import axios from "axios";
 import "./App.css";
 import ContactUsPage from "Containers/ContactUsPage/ContactUsPage";
+import WorkshopPage from "Containers/WorkshopPage/Workshop";
 
 const Wrapper = ({ children }) => {
   const location = useLocation();
@@ -86,7 +88,10 @@ const App = () => {
                 path="about-us"
                 element={<AboutUsPage api={api} />}
               />
-              <Route path="/gallery" element={<ComingSoonPage />}>
+              <Route 
+                path="/gallery"
+                key ="/gallery"
+                element={<GalleryPage api ={api} />}>
                 <Route
                   path="/gallery/wedding-and-anniversary"
                   element={<ComingSoonPage />}
@@ -130,6 +135,11 @@ const App = () => {
                 element={<PasswordResetPage api={api} />}
               />
               <Route key="/faq" path="/faq" element={<FAQsPage api={api} />} />
+              <Route
+                key="/workshop"
+                path="/workshop"
+                element={<WorkshopPage api={api} />}
+              />
               {routeAllPagesComingSoon()}
             </Routes>
           </PageLayout>

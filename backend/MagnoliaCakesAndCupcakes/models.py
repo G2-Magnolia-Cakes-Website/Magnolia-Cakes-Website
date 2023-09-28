@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.core.files.storage import default_storage
 
+from django.utils.text import slugify
+
 # Reset Password
 from django.dispatch import receiver
 from django.template.loader import render_to_string
@@ -30,17 +32,25 @@ class TermsAndCondition(models.Model):
         return self.policy_name
 
 
+class CakeCategory(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 def upload_to(instance, filename):
     # Upload the image to a 'cakes' directory with the filename as the cake's name
     return f"cakes/{filename}"
 
 
 class Cake(models.Model):
-    name = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    name = models.CharField(max_length=100, unique=True)
+
     picture = models.ImageField(upload_to=upload_to)  # Use the custom upload function
-    description = models.TextField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     flavor = models.CharField(max_length=50)
+    categories = models.ManyToManyField(CakeCategory)
 
     def __str__(self):
         return self.name
@@ -272,6 +282,28 @@ def password_reset_token_created(
     msg.send()
 
 
+class GalleryItem(models.Model):
+    title = models.CharField(max_length=100, unique=True)
+    categories = models.ManyToManyField(CakeCategory)
+    image = models.ImageField(upload_to="gallery/")
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        # Generate a unique filename based on the title
+        filename = f"{slugify(self.title)}.png"
+        self.image.name = filename  # Save directly to 'gallery' folder
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        # Delete the associated image from the bucket
+        if self.image:
+            image_path = self.image.name
+            default_storage.delete(image_path)
+        super().delete(*args, **kwargs)
+
+
 class LocationPageContent(models.Model):
     location_heading = models.CharField(max_length=200)
     location_info = models.TextField()
@@ -342,3 +374,26 @@ class Quote(models.Model):
             "flavour",
             "fillings",
         ]
+
+
+class Video(models.Model):
+    title = models.CharField(max_length=100, unique=True)
+    description = models.TextField()
+    video = models.FileField(upload_to="videos/")
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if self.video:
+            # Generate a unique filename based on the title
+            filename = f"{slugify(self.title)}.mp4"
+            self.video.name = filename  # Save directly to 'videos' folder
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        # Delete the associated video from the bucket
+        if self.video:
+            video_path = self.video.name
+            default_storage.delete(video_path)
+        super().delete(*args, **kwargs)
