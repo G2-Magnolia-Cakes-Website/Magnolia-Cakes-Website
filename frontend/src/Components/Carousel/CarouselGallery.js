@@ -28,7 +28,7 @@ const CarouselGallery = ({ images }) => {
         pagination={{ clickable: true }}
         keyboard={{ enabled: true }}
         grabCursor={true}
-        autoplay={{ delay: 1000, disableOnInteraction: false }}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
         loop={true}
         centeredSlides={true}
         effect="fade"
