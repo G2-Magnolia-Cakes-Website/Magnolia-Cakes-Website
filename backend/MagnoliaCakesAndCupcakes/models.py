@@ -323,3 +323,26 @@ class ContactUsEmail(models.Model):
 
     class Meta:
         verbose_name_plural = "Contact Us Email"
+
+
+class Video(models.Model):
+    title = models.CharField(max_length=100, unique=True)
+    description = models.TextField()
+    video = models.FileField(upload_to='videos/')
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if self.video:
+            # Generate a unique filename based on the title
+            filename = f"{slugify(self.title)}.mp4"
+            self.video.name = filename  # Save directly to 'videos' folder
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        # Delete the associated video from the bucket
+        if self.video:
+            video_path = self.video.name
+            default_storage.delete(video_path)
+        super().delete(*args, **kwargs)

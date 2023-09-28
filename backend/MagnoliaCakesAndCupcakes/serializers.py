@@ -101,3 +101,8 @@ class LocationPageContentSerializer(serializers.ModelSerializer):
     class Meta:
         model = LocationPageContent
         fields = "__all__"
+        
+class VideoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Video
+        fields = "__all__"
