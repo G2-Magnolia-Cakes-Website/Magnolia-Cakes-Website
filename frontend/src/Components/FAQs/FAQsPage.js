@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './FAQs.css';
 import Question from './Question'
+import BarLoader from "react-spinners/BarLoader";
 
 function FAQsPage({ api }) {
 
@@ -8,6 +9,9 @@ function FAQsPage({ api }) {
     const [selectedCategory, setCategory] = useState(all);
     const [categoryList, setCategoryList] = useState([]);
     const [questions, setQuestions] = useState([]);
+
+    // Loading
+    const [loading, setLoading] = useState(true);
 
     // Handling the email change
     const handleSelectedCategory = (category) => {
@@ -20,6 +24,7 @@ function FAQsPage({ api }) {
         : questions;
 
     useEffect(() => {
+        setLoading(true);
 
         // Initial API get list of categories
         api.get('/api/faq/categories/')
@@ -43,6 +48,8 @@ function FAQsPage({ api }) {
             .catch(error => {
                 console.error('Error fetching data:', error);
             });
+
+        setLoading(false);
     }, [api]);
 
     return (
@@ -50,12 +57,20 @@ function FAQsPage({ api }) {
             <div>
                 <h1 className='FAQ-header'>FAQs</h1>
             </div>
+
+            <BarLoader
+                loading={loading}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+                width={"300px"}
+            />
+
             <div className='FAQ-categories'>
                 {categoryList.map((category) => (
                     <button
                         key={category.id} // Add a unique key for each button
                         value={category.title}
-                        className= {category.id === selectedCategory.id ? "selected-category" : "FAQ-category"}
+                        className={category.id === selectedCategory.id ? "selected-category" : "FAQ-category"}
                         onClick={() => handleSelectedCategory(category)}
                     >
                         {category.title.toUpperCase()}

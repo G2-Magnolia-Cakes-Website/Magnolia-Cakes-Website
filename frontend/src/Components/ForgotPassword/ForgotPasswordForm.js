@@ -2,6 +2,7 @@ import FormInput from "Components/FormInput/FormInput";
 import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
 import React from "react";
 import { useState } from "react";
+import BarLoader from "react-spinners/BarLoader";
 
 export default function ForgotPasswordForm({ api }) {
   // States for registration
@@ -14,6 +15,9 @@ export default function ForgotPasswordForm({ api }) {
     "Reset password failed! Please enter a correct email.";
   const [errorMessagePrint, setErrorMessage] = useState(defaultErrorMessage);
 
+  // Loading
+  const [loading, setLoading] = useState(false);
+
   // Handling the email change
   const handleEmail = (e) => {
     setEmail(e.target.value.toLowerCase());
@@ -22,6 +26,7 @@ export default function ForgotPasswordForm({ api }) {
   // Handling the form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (email === "") {
       setErrorMessage(defaultErrorMessage);
@@ -74,6 +79,7 @@ export default function ForgotPasswordForm({ api }) {
         setError(true);
       }
     }
+    setLoading(false);
   };
 
   // Showing success message
@@ -127,6 +133,14 @@ export default function ForgotPasswordForm({ api }) {
           buttonType="submit"
           height="36px"
           margin="auto 0 8px"
+        />
+
+        <br />
+        <BarLoader
+          loading={loading}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+          width={"100%"}
         />
 
         <div className="messages">

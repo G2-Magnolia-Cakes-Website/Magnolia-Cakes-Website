@@ -3,6 +3,7 @@ import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
 import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import BarLoader from "react-spinners/BarLoader";
 
 export default function LoginForm({ api }) {
   const navigate = useNavigate();
@@ -16,6 +17,9 @@ export default function LoginForm({ api }) {
   const defaultErrorMessage =
     "Login failed! Please enter a correct username and password. Note that both fields may be case-sensitive.";
   const [errorMessagePrint, setErrorMessage] = useState(defaultErrorMessage);
+
+  // Loading
+  const [loading, setLoading] = useState(false);
 
   // Handling the email change
   const handleEmail = (e) => {
@@ -37,6 +41,8 @@ export default function LoginForm({ api }) {
     } else {
       // Send API msg to backend
       try {
+        setLoading(true);
+
         const user = {
           username: email,
           password: password,
@@ -89,6 +95,7 @@ export default function LoginForm({ api }) {
         setError(true);
       }
     }
+    setLoading(false);
   };
 
   // Showing error message if error is true
@@ -161,6 +168,14 @@ export default function LoginForm({ api }) {
           Sign up for free
         </Link>
       </div>
+
+      <br/>
+      <BarLoader
+        loading={loading}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+        width={"100%"}
+      />
 
       <div className="messages">{errorMessage()}</div>
     </form>
