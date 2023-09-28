@@ -15,7 +15,14 @@ function WorkshopPage({ api }) {
       navigate('/login');
     } else {
       api
-        .get('/api/video/')
+        .get('/api/video/', {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+          },
+          withCredentials: true,
+        })
         .then((response) => {
           setVideos(response.data);
         })

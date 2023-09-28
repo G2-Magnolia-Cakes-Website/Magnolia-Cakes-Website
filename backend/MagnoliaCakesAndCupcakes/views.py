@@ -432,7 +432,6 @@ def location_page_content(request):
         return Response(serializer.data)
 
 @api_view(['GET'])
-@permission_classes([AllowAny])
 def video(request):
     if request.method == "GET":
         items = Video.objects.all()
