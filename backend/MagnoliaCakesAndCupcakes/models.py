@@ -351,7 +351,7 @@ class Video(models.Model):
         super().delete(*args, **kwargs)
 
 
-class UserProfile(models.Model):
+class UserVideo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     videos = models.ManyToManyField(Video)
 

@@ -443,11 +443,11 @@ def get_videos(request):
     if request.method == "GET":
         user = request.user
         try:
-            user_profile = UserProfile.objects.get(user=user)
+            user_profile = UserVideo.objects.get(user=user)
             videos = user_profile.videos.all()
             serializer = VideoSerializer(videos, many=True)
             return Response(serializer.data)
-        except UserProfile.DoesNotExist:
+        except UserVideo.DoesNotExist:
             return Response({'message': 'User profile not found.'}, status=404)
 
 @api_view(['POST'])
@@ -458,11 +458,11 @@ def purchase_videos(request, video_id):
             # Retrieve the video object by its ID
             video = Video.objects.get(id=video_id)
 
-            user_profile = UserProfile.objects.get(user=user)
+            user_profile = UserVideo.objects.get(user=user)
             
             # Add the video to the user's videos list (assuming a ManyToMany relationship)
             user_profile.videos.add(video)
             
             return Response({'message': 'Video added to user videos list'}, status=200)
-        except UserProfile.DoesNotExist:
+        except UserVideo.DoesNotExist:
             return Response({'message': 'User profile not found.'}, status=404)
