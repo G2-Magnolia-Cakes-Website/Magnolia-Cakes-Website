@@ -33,8 +33,10 @@ function FAQsPage({ api }) {
                 var exampleList = response.data;
                 exampleList.unshift(all);
                 setCategoryList(exampleList);
+                setLoading(false);
             })
             .catch(error => {
+                setLoading(true);
                 console.error('Error fetching data:', error);
             });
 
@@ -44,12 +46,12 @@ function FAQsPage({ api }) {
                 // Set the retrieved categories in the state
                 var questionsList = response.data;
                 setQuestions(questionsList);
+                setLoading(false);
             })
             .catch(error => {
+                setLoading(true);
                 console.error('Error fetching data:', error);
             });
-
-        setLoading(false);
     }, [api]);
 
     return (

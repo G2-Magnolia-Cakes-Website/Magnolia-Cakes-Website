@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import lists from "./flavours-fillings.json";
 import List from "./List";
+import BarLoader from "react-spinners/BarLoader";
 
 import "./FlavoursAndServings.css";
 
@@ -19,7 +20,11 @@ const FlavoursAndServings = ({ api }) => {
       .filter((x) => x);
   };
 
+  // Loading
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    setLoading(true);
     // Make a GET request using the passed api instance
     api
       .get("/api/flavours-and-servings/")
@@ -30,6 +35,7 @@ const FlavoursAndServings = ({ api }) => {
             return a.id - b.id;
           })
         );
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -43,6 +49,7 @@ const FlavoursAndServings = ({ api }) => {
           description: response.data.description,
           extra_points: parseExtraPoints(response.data.extra_points),
         });
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -50,24 +57,32 @@ const FlavoursAndServings = ({ api }) => {
   }, [api]);
 
   return (
-    <div className="flavours-and-servings">
-      <h1>{flavServInfo.heading}</h1>
-      <p className="description">{flavServInfo.description}</p>
-      <div className="flav-serv-lists">
-        {flavServLists.map((flavServList) => (
-          <List
-            key={flavServList.title}
-            listTitle={flavServList.title}
-            listOptions={flavServList.list}
-          />
-        ))}
+    <>
+      <div className="flavours-and-servings">
+        <h1>{flavServInfo.heading}</h1>
+        <p className="description">{flavServInfo.description}</p>
+        <div className="flav-serv-lists">
+          {flavServLists.map((flavServList) => (
+            <List
+              key={flavServList.title}
+              listTitle={flavServList.title}
+              listOptions={flavServList.list}
+            />
+          ))}
+        </div>
+        <ul className="extra-info">
+          {flavServInfo.extra_points.map((point) => (
+            <li key={flavServInfo.extra_points.indexOf(point)}>{point}</li>
+          ))}
+        </ul>
       </div>
-      <ul className="extra-info">
-        {flavServInfo.extra_points.map((point) => (
-          <li key={flavServInfo.extra_points.indexOf(point)}>{point}</li>
-        ))}
-      </ul>
-    </div>
+      <BarLoader
+        loading={loading}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+        width={"100%"}
+      />
+    </>
   );
 };
 
