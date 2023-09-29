@@ -196,12 +196,12 @@ class FooterBusinessHours(models.Model):
 
 class FlavoursAndServings(models.Model):
     CHOICES = (
-        ("flavours", "flavours"),
-        ("fillings", "fillings"),
+        ("Flavours", "Flavours"),
+        ("Fillings", "Fillings"),
     )
 
     title = models.CharField(max_length=100)
-    type = models.CharField(max_length=100, choices=CHOICES, default="flavours")
+    type = models.CharField(max_length=100, choices=CHOICES, default="Flavours")
     list = models.TextField()
     last_updated = models.DateTimeField(auto_now=True)
 
@@ -358,11 +358,11 @@ class Quote(models.Model):
     mobile = models.CharField(max_length=10)
     email = models.CharField(max_length=200)
     product_type = models.CharField(max_length=20)
-    servings_or_amount = models.IntegerField()
+    servings_or_amount = models.IntegerField(default=0)
     serves = models.CharField(max_length=20)
     date_of_event = models.DateField()
     flavour = models.CharField(max_length=30)
-    fillings = models.CharField(max_length=30)
+    filling = models.CharField(max_length=30)
     time_submitted = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -372,7 +372,7 @@ class Quote(models.Model):
             "product_type",
             "date_of_event",
             "flavour",
-            "fillings",
+            "filling",
         ]
 
 

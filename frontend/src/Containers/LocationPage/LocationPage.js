@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ShopMap from "Components/ShopMap/ShopMap";
-import { parseStringToParagraphsByNewline } from "utils/parseParagraphs";
+import { parseStringToParagraphsByNewline } from "utils/parseStringsToArray";
 
 import "./LocationPage.css";
 

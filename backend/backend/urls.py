@@ -75,6 +75,7 @@ urlpatterns = [
         name="location-page",
     ),
     path("api/slider-images/", views.slider_images, name="slider-images"),
+    path("api/log-quote/", views.log_quote, name="log-quote"),
     
     # JWT token creation
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),

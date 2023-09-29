@@ -8,42 +8,15 @@ import Dropzone from "Components/Dropzone/Dropzone";
 import "./GetAQuote.css";
 import { Cross } from "hamburger-react";
 import FormTextArea from "Components/FormTextArea/FormTextArea";
-import { CAKETYPES } from "utils/constants";
+import { CAKETYPES, FLAVSERVLISTTYPE } from "utils/constants";
+import { parseStringToArrayByComma } from "utils/parseStringsToArray";
 
 const GetAQuote = ({ api }) => {
-  const flavoursList = [
-    "Standard",
-    "Chocolate",
-    "Vanilla",
-    "Marble Swirl",
-    "Coffee",
-    "Mocha",
-    "Red Velvet",
-    "Carrot & Cinnamon",
-  ];
-
-  const DUMMYFILLINGS = [
-    "Standard",
-    "Chocolate",
-    "Vanilla Bean",
-    "Cream Cookies",
-    "Caramel",
-    "Coconut",
-    "Rasberry",
-    "Strawberry",
-    "Blueberry",
-    "Pineapple",
-    "Mixed Berries",
-    "Mango",
-    "Passionfruit",
-    "Mint",
-  ];
-
   const servesList = ["Coffee", "Standard"];
 
   const cakeTypesList = [CAKETYPES.CAKE, CAKETYPES.CUPCAKE];
-
-  const [flavServLists, setFlavServLists] = useState([]);
+  const [flavoursList, setFlavoursList] = useState(["Standard"]);
+  const [fillingsList, setFillingsList] = useState(["Standard"]);
 
   const name = useRef(null);
   const mobile = useRef(null);
@@ -55,7 +28,7 @@ const GetAQuote = ({ api }) => {
   );
   const date = useRef(null);
   const [flavour, setFlavour] = useState(flavoursList[0]);
-  const [filling, setFilling] = useState(DUMMYFILLINGS[0]);
+  const [filling, setFilling] = useState(fillingsList[0]);
   const extra = useRef(null);
   const message = useRef(null);
   const [files, setFiles] = useState([]);
@@ -70,7 +43,7 @@ const GetAQuote = ({ api }) => {
       "Product Type": cakeType,
       "Servings/Amount": servings.current.value,
       Serves: cakeType === CAKETYPES.CAKE ? serves : "N/A",
-      Date: date.current.value,
+      "Date of Event": date.current.value,
       Flavour: flavour,
       Filling: filling,
       Extra: extra.current.value,
@@ -99,16 +72,16 @@ const GetAQuote = ({ api }) => {
     //   message: body,
     // };
 
-    const formData = new FormData();
-    formData.append("email", email.current.value);
-    formData.append("subject", `${name.current.value} Requests a Quote`);
-    formData.append("message", body);
+    const contactFormData = new FormData();
+    contactFormData.append("email", email.current.value);
+    contactFormData.append("subject", `${name.current.value} Requests a Quote`);
+    contactFormData.append("message", body);
     if (files.length > 0) {
-      files.map((f) => formData.append("file", f));
+      files.map((f) => contactFormData.append("file", f));
     }
 
     try {
-      let res = await api.post("/api/contact/", formData, {
+      let res = await api.post("/api/contact/", contactFormData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -121,6 +94,28 @@ const GetAQuote = ({ api }) => {
     } catch (err) {
       console.log("Form submit error.", err);
       alert("Form could not be submitted.");
+    }
+
+    const quoteData = {
+      name: name.current.value,
+      mobile: mobile.current.value,
+      email: email.current.value,
+      product_type: cakeType,
+      servings_or_amount: servings.current.value,
+      serves: cakeType === CAKETYPES.CAKE ? serves : "N/A",
+      date_of_event: date.current.value,
+      flavour: flavour,
+      filling: filling,
+    };
+
+    try {
+      let res = await api.post("/api/log-quote/", quoteData);
+
+      if (res.status === 200) {
+        console.log("Log quote success.");
+      }
+    } catch (err) {
+      console.log("Log quote error.", err);
     }
   };
 
@@ -146,22 +141,38 @@ const GetAQuote = ({ api }) => {
     </li>
   ));
 
-  // useEffect(() => {
-  //   // Make a GET request using the passed api instance
-  //   api
-  //     .get("/api/flavours-and-servings/")
-  //     .then((response) => {
-  //       // Set the retrieved content in the state
-  //       setFlavServLists(
-  //         response.data.sort((a, b) => {
-  //           return a.id - b.id;
-  //         })
-  //       );
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching data:", error);
-  //     });
-  // }, [api]);
+  useEffect(() => {
+    // Make a GET request using the passed api instance
+    api
+      .get("/api/flavours-and-servings/")
+      .then((response) => {
+        // Set the retrieved content in the state
+        const flavServLists = response.data.sort((a, b) => {
+          return a.id - b.id;
+        });
+
+        const flavoursListTemp = [];
+        const fillingsListTemp = [];
+
+        flavServLists
+          .filter((list) => list.type === FLAVSERVLISTTYPE.FLAVOURS)
+          .map((list) =>
+            flavoursListTemp.push(...parseStringToArrayByComma(list.list))
+          );
+        setFlavoursList([...flavoursList, ...flavoursListTemp]);
+
+        flavServLists
+          .filter((list) => list.type === FLAVSERVLISTTYPE.FILLINGS)
+          .map((list) =>
+            fillingsListTemp.push(...parseStringToArrayByComma(list.list))
+          );
+        setFillingsList([...fillingsList, ...fillingsListTemp]);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [api]);
 
   return (
     <div className="get-a-quote">
@@ -233,12 +244,12 @@ const GetAQuote = ({ api }) => {
             )}
             <SelectionBox
               selectLabel="Flavour"
-              options={flavoursList}
+              options={flavoursList.length > 0 ? flavoursList : ["N/A"]}
               setOption={setFlavour}
             />
             <SelectionBox
               selectLabel="Filling"
-              options={DUMMYFILLINGS}
+              options={fillingsList.length > 0 ? fillingsList : ["N/A"]}
               setOption={setFilling}
             />
             <FormInput

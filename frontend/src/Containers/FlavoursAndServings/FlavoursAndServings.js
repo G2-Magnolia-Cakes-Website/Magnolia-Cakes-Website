@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import List from "./List";
 
 import "./FlavoursAndServings.css";
+import { parseStringToArrayByComma } from "utils/parseStringsToArray";
 
 const FlavoursAndServings = ({ api }) => {
   const [flavServLists, setFlavServLists] = useState([]);
@@ -11,13 +12,6 @@ const FlavoursAndServings = ({ api }) => {
     description: "",
     extra_points: [],
   });
-
-  const parseExtraPoints = (extraPointsData) => {
-    return extraPointsData
-      .replaceAll("\r", "")
-      .split("\n")
-      .filter((x) => x);
-  };
 
   useEffect(() => {
     // Make a GET request using the passed api instance
@@ -41,7 +35,7 @@ const FlavoursAndServings = ({ api }) => {
         setFlavServInfo({
           heading: response.data.heading,
           description: response.data.description,
-          extra_points: parseExtraPoints(response.data.extra_points),
+          extra_points: parseStringToArrayByComma(response.data.extra_points),
         });
       })
       .catch((error) => {
