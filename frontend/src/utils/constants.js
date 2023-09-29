@@ -10,6 +10,7 @@ const PAGELINKS = {
   CONTACT_US_LINK: "/contact-us",
   TERMS_AND_CONDITIONS_LINK: "/terms-and-conditions",
   FAQ: "/faq",
+  PAYMENT: "/payment"
 };
 
 const FOOTERSECTIONS = {

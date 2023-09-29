@@ -1,55 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import './ViewCartPopup.css';
+import './Payment.css';
 import CreditCardForm from 'Components/PaymentForm/CreditCardForm';
-function ViewCartPopup(props) {
-  const [reload, setReload] = useState(false); // State to force reload
+
+function Payment() {
+  const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem('Cart')) || []);
+  const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
   const handleDeleteItem = (index) => {
-    const cartItems = JSON.parse(localStorage.getItem('Cart'));
     const updatedCart = cartItems.filter((item, idx) => idx !== index);
-
     localStorage.setItem('Cart', JSON.stringify(updatedCart));
-    setReload((prevReload) => !prevReload);
+    setCartItems(updatedCart);
   };
 
   const handleQuantityChange = (index, event) => {
-    const newCart = JSON.parse(localStorage.getItem('Cart'));
+    const newCart = [...cartItems];
     newCart[index].quantity = parseInt(event.target.value, 10);
     localStorage.setItem('Cart', JSON.stringify(newCart));
-    setReload((prevReload) => !prevReload);
+    setCartItems(newCart);
   };
 
-  useEffect(() => {
-    const handleWindowResize = () => {
-      setReload((prevReload) => !prevReload);
-    };
-
-    window.addEventListener('resize', handleWindowResize);
-
-    return () => {
-      window.removeEventListener('resize', handleWindowResize);
-    };
-  }, []);
-
-  const cartItems = JSON.parse(localStorage.getItem('Cart'));
-  const totalPrice = cartItems ? cartItems.reduce((total, item) => total + item.price * item.quantity, 0) : 0;
   const handleEmptyCart = () => {
     localStorage.removeItem('Cart');
-    setReload((prevReload) => !prevReload);
+    setCartItems([]);
   };
-  
+
   const handleProceedToPayment = () => {
     // Handle the logic for proceeding to payment
     console.log('Proceeding to payment...');
   };
-  
-  return props.trigger ? (
-    <div className='popup'>
-      <div className='popup-inner'>
-        <button className='close-btn' onClick={() => props.setTrigger(false)}>X</button>
-        {cartItems && cartItems.length > 0 ? (
-          <div className="popup-content">
-            <CreditCardForm />
+
+  return (
+    <div className='payment-page'>
+      {cartItems.length > 0 ? (
+        <div className="payment-content">
+          <CreditCardForm />
           <table className='cart-table'>
             <thead>
               <tr>
@@ -91,19 +75,19 @@ function ViewCartPopup(props) {
               </tr>
             </tfoot>
           </table>
-          </div>
-        ) : (
-          <p>Your cart is empty.</p>
-        )}
-        {cartItems && cartItems.length > 0 && (
+        </div>
+      ) : (
+        <p>Your cart is empty.</p>
+      )}
+
+      {cartItems.length > 0 && (
         <div className='button-container'>
           <button onClick={() => handleEmptyCart()}>Empty Cart</button>
           <button onClick={() => handleProceedToPayment()}>Proceed to Payment</button>
         </div>
       )}
-      </div>
     </div>
-  ) : null;
+  );
 }
 
-export default ViewCartPopup;
+export default Payment;

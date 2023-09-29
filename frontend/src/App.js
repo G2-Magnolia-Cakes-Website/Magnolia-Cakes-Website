@@ -19,6 +19,7 @@ import AboutUsPage from "Containers/AboutUsPage/AboutUsPage";
 import axios from "axios";
 import "./App.css";
 import ContactUsPage from "Containers/ContactUsPage/ContactUsPage";
+import Payment from "Containers/PaymentPage/Payment";
 
 const Wrapper = ({ children }) => {
   const location = useLocation();
@@ -132,6 +133,11 @@ const App = () => {
                 key="/reset-password"
                 path="/reset-password"
                 element={<PasswordResetPage api={api} />}
+              />
+              <Route
+                key="/payment"
+                path="/payment"
+                element={<Payment />}
               />
               <Route key="/faq" path="/faq" element={<FAQsPage api={api} />} />
               {routeAllPagesComingSoon()}
