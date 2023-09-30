@@ -7,21 +7,26 @@ import LocationPage from 'Containers/LocationPage/LocationPage';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SuccessPage = ({api}) => {
+const SuccessPage = ({ api }) => {
   const navigate = useNavigate();
+
+  const clearCartItems = () => {
+    localStorage.removeItem('Cart');
+  };
 
   useEffect(() => {
     // Display an alert indicating a successful payment
     alert('Payment successful! You will be redirected to the homepage shortly.');
 
+    // Clear cart items from local storage
+    clearCartItems();
+
     // Immediately navigate to the homepage
     navigate('/');
-
   }, [navigate]);
 
   return (
     <div>
-
       <CarouselGallery api={api} />
       <GallerySection />
       {/* <SubheadingDivider subheadingText="Cakes for all occasions" /> */}
@@ -29,7 +34,6 @@ const SuccessPage = ({api}) => {
       <FlavoursAndServings api={api} />
       <DeliverySection />
       <LocationPage api={api} />
-
     </div>
   );
 };
