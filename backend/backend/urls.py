@@ -85,4 +85,5 @@ urlpatterns = [
  
     path("api/gallery/categories/", views.gallery_categories_list, name="gallery_categories_list"),
     path("api/gallery/items/", views.gallery_items_list, name="gallery_items_list"),
+    path('api/checkout/', views.create_checkout_session, name='checkout'),
 ]

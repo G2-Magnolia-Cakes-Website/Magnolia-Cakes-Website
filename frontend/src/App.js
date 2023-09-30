@@ -20,6 +20,7 @@ import axios from "axios";
 import "./App.css";
 import ContactUsPage from "Containers/ContactUsPage/ContactUsPage";
 import Payment from "Containers/PaymentPage/Payment";
+import SuccessPage from "Containers/PaymentPage/PaymentSuccess";
 
 const Wrapper = ({ children }) => {
   const location = useLocation();
@@ -137,9 +138,14 @@ const App = () => {
               <Route
                 key="/payment"
                 path="/payment"
-                element={<Payment />}
+                element={<Payment api={api}/>}
               />
               <Route key="/faq" path="/faq" element={<FAQsPage api={api} />} />
+              <Route
+                key="/success"
+                path="/success"
+                element={<SuccessPage  api={api} />}
+              />
               {routeAllPagesComingSoon()}
             </Routes>
           </PageLayout>

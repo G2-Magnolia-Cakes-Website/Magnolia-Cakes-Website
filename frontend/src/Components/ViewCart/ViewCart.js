@@ -1,6 +1,6 @@
 import React from "react";
 import "./ViewCart.css";
-import ViewCartPopup from "./ViewCartPopup.js"
+
 import { useNavigate } from "react-router-dom";
 import { PAGELINKS } from "utils/constants";
 

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './Payment.css';
-import CreditCardForm from 'Components/PaymentForm/CreditCardForm';
+import { loadStripe } from '@stripe/stripe-js';
 
-function Payment() {
+function Payment({api}) {
   const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem('Cart')) || []);
   const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const stripePromise = loadStripe('pk_test_51NveKwI2G7Irdjp2nVREupdlFTx5xA6pSo9hJeULztP4rAzUQA7rHzdSPLIUBFfuDtSnzNFq3Zc07hYQ4YIZ0Qkb00sFf0mfSq');
 
   const handleDeleteItem = (index) => {
     const updatedCart = cartItems.filter((item, idx) => idx !== index);
@@ -24,16 +25,47 @@ function Payment() {
     setCartItems([]);
   };
 
-  const handleProceedToPayment = () => {
-    // Handle the logic for proceeding to payment
-    console.log('Proceeding to payment...');
+  const handleProceedToPayment = async () => {
+    const stripe = await stripePromise;
+  
+    try {
+      // Make the API call to your backend using the provided API function
+      const response = await api.post('/api/checkout/', {
+        amount: totalPrice * 100, // Convert to cents
+        items: cartItems,
+      });
+  
+      const result = await stripe.redirectToCheckout({
+        sessionId: response.data.id, // Use the sessionId from the API response
+      });
+  
+      if (result.error) {
+        console.error(result.error.message);
+      } else {
+
+
+        // Fetch payment success URL using API
+        await api.get('/api/payment_success/');
+        // Payment was successful, display an alert
+        alert('Payment successful!');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
+  
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleProceedToPayment();
+  };
+  
+  
 
   return (
     <div className='payment-page'>
       {cartItems.length > 0 ? (
-        <div className="payment-content">
-          <CreditCardForm />
+        <form className="payment-content" onSubmit={handleSubmit}>
+
           <table className='cart-table'>
             <thead>
               <tr>
@@ -75,16 +107,14 @@ function Payment() {
               </tr>
             </tfoot>
           </table>
-        </div>
-      ) : (
-        <p>Your cart is empty.</p>
-      )}
-
-      {cartItems.length > 0 && (
-        <div className='button-container'>
+          <div className='button-container'>
           <button onClick={() => handleEmptyCart()}>Empty Cart</button>
           <button onClick={() => handleProceedToPayment()}>Proceed to Payment</button>
         </div>
+          
+        </form>
+      ) : (
+        <p>Your cart is empty.</p>
       )}
     </div>
   );

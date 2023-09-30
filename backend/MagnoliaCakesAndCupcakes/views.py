@@ -33,6 +33,9 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.conf import settings
 
+import stripe
+import json
+from django.views.decorators.csrf import csrf_exempt
 
 # create a class for the Todo model viewsets
 class MagnoliaCakesAndCupcakesView(viewsets.ModelViewSet):
@@ -426,3 +429,47 @@ def location_page_content(request):
         location_page_content = LocationPageContent.objects.first()
         serializer = LocationPageContentSerializer(location_page_content)
         return Response(serializer.data)
+
+@csrf_exempt
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def create_checkout_session(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    FRONTEND_DOMAIN = "http://localhost:3000"  
+
+    # Get the cart items from the request
+    cart_items = request.data.get('items', [])
+
+    # Transform cart items into line items for Stripe checkout
+    line_items = []
+    for item in cart_items:
+        try:
+            # Convert the price to a float and then to an integer (cents)
+            price = int(float(item.get('price', 0)) * 100)
+        except ValueError:
+            # Handle the case where the price is not a valid number
+            # You may want to log an error or take appropriate action here
+            price = 0
+
+        line_item = {
+            'price_data': {
+                'currency': 'aud',
+                'product_data': {
+                    'name': item.get('name', 'Product'),
+                },
+                'unit_amount': price,  # Amount in cents
+            },
+            'quantity': item.get('quantity', 1),
+        }
+        line_items.append(line_item)
+
+    checkout_session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=line_items,  # Use the transformed line items
+        mode='payment',
+        success_url=FRONTEND_DOMAIN +('/success'),
+        cancel_url=FRONTEND_DOMAIN + ('/payment'),
+    )
+
+    return Response({'id': checkout_session.id})
+
