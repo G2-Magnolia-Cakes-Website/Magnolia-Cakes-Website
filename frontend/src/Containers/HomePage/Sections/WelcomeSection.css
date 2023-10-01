@@ -1,0 +1,121 @@
+.welcome-section {
+  padding: 10rem 0 10rem;
+  /* background-color: white; */
+}
+
+.welcome-section h2 {
+  display: block;
+  text-align: center;
+  /* font-family: "Sacramento", cursive; */
+  font-family: "Courgette", cursive;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+  font-size: 40px;
+}
+
+.welcome-body {
+  display: flex;
+  margin: 5rem auto 0 auto;
+  width: 70%;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome-body p {
+  font-size: 24px;
+  text-align: center;
+  margin: auto 0 auto 0;
+  width: 50%;
+}
+
+.welcome-body .welcome-cake {
+  width: 25%;
+  height: 100%;
+  margin-left: 3rem;
+  object-fit: contain;
+}
+
+@media (max-width: 1895px) {
+  .welcome-body .welcome-cake {
+    width: 40%;
+  }
+}
+
+@media (max-width: 1440px) {
+  .welcome-section h2 {
+    font-size: 36px;
+    width: 75%;
+  }
+
+  .welcome-body {
+    width: 80%;
+  }
+
+  .welcome-body p {
+    font-size: 21px;
+  }
+
+  .welcome-body .welcome-cake {
+    width: 30%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .welcome-section {
+    padding: 5rem 0 5rem;
+  }
+
+  .welcome-section h2 {
+    font-size: 32px;
+    width: 60%;
+  }
+
+  .welcome-body {
+    margin-top: 3rem;
+  }
+
+  .welcome-body p {
+    font-size: 16px;
+  }
+
+  .welcome-body .welcome-cake {
+    width: 40%;
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-section h2 {
+    width: 75%;
+    font-size: 28px;
+  }
+
+  .welcome-body {
+    flex-direction: column-reverse;
+    gap: 3rem;
+  }
+
+  .welcome-body .welcome-cake {
+    width: 70%;
+    margin: 0;
+  }
+
+  .welcome-body p {
+    width: 70%;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-section h2 {
+    font-size: 24px;
+  }
+
+  .welcome-body .welcome-cake {
+    width: 75%;
+  }
+
+  .welcome-body p {
+    width: 75%;
+  }
+}

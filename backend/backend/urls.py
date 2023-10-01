@@ -75,15 +75,24 @@ urlpatterns = [
         name="location-page",
     ),
     path("api/slider-images/", views.slider_images, name="slider-images"),
+    path("api/homepage-welcome/", views.welcome_section, name="welcome-section"),
+    path("api/homepage-about-us/", views.about_us_section, name="about-us-section"),
+    path("api/homepage-gallery/", views.gallery_section, name="gallery-section"),
     
     # JWT token creation
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     
-	# Reset password
-	path("api/reset/password/", include("django_rest_passwordreset.urls", namespace="password_reset")),
- 
-    path("api/gallery/categories/", views.gallery_categories_list, name="gallery_categories_list"),
+    # Reset password
+    path(
+        "api/reset/password/",
+        include("django_rest_passwordreset.urls", namespace="password_reset"),
+    ),
+    path(
+        "api/gallery/categories/",
+        views.gallery_categories_list,
+        name="gallery_categories_list",
+    ),
     path("api/gallery/items/", views.gallery_items_list, name="gallery_items_list"),
     path("api/video/", views.video, name="video"),
 ]

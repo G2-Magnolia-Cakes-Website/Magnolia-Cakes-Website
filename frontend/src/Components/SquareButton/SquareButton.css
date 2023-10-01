@@ -6,7 +6,7 @@
   font-size: 18px;
   padding: 15px 32px;
   color: white;
-  font-family: 'Fredoka', sans-serif;
+  font-family: "Fredoka", sans-serif;
 
   background: linear-gradient(to right, #ede5e3 0%, #efc7c7 70%);
   /* background: linear-gradient(to right, #ede5e3 50%, #efc7c7 50%); */
@@ -29,6 +29,14 @@
 .square-button:not(.active):hover {
   background-position: left bottom;
   color: #daa41a;
+  border-color: #daa41a;
+}
+
+@media (max-width: 1024px) {
+  .square-button {
+    font-size: 16px;
+    padding: 10px 27px;
+  }
 }
 
 @media (max-width: 480px) {

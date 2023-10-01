@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   weddingCover,
   birthdayCover,
@@ -11,10 +11,24 @@ import GalleryGridItem from "Components/GalleryGridItem/GalleryGridItem";
 
 import "./GallerySection.css";
 
-const GallerySection = () => {
+const GallerySection = ({ api }) => {
+  const [heading, setHeading] = useState("Loading...");
+
+  useEffect(() => {
+    api
+      .get("/api/homepage-gallery/")
+      .then((response) => {
+        // Set the retrieved content in the state
+        setHeading(response.data.heading);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [api]);
+
   return (
     <div className="gallery-section-wrapper">
-      <h2>Cakes for all occasions</h2>
+      <h2>{heading}</h2>
       <div className="gallery-row">
         <div className="gallery-column">
           <GalleryGridItem

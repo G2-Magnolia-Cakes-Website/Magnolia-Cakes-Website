@@ -3,7 +3,7 @@ import React from "react";
 import "./SquareButton.css";
 
 const SquareButton = (props) => {
-  const { buttonText, onClick, isUnfilled, isSmall } = props;
+  const { buttonText, onClick, isUnfilled, isSmall, color } = props;
 
   const getStyle = () => {
     if (isUnfilled && !isSmall) {
@@ -19,7 +19,11 @@ const SquareButton = (props) => {
   };
 
   return (
-    <button className={getStyle()} onClick={onClick}>
+    <button
+      className={getStyle()}
+      style={{ color: color, borderColor: color }}
+      onClick={onClick}
+    >
       {buttonText}
     </button>
   );

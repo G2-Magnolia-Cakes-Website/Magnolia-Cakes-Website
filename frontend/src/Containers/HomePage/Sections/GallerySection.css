@@ -1,8 +1,11 @@
 .gallery-section-wrapper {
   padding: 7rem 0 7rem;
-  background-color: #fee39a;
+  /* background-color: #fee39a; */
+  /* bone white */
   /* background-color: rgb(241, 235, 223); */
-  /* background-color: rgb(240, 223, 205); */
+
+  /* pearl ivory */
+  background-color: rgb(240, 223, 205);
 }
 
 .gallery-section-wrapper h2 {
@@ -32,7 +35,10 @@
   margin-bottom: 8px;
 }
 
-.gallery-section-wrapper .gallery-row .gallery-column div:not(:first-child) {
+.gallery-section-wrapper
+  .gallery-row
+  .gallery-column
+  .gallery-grid-item-wrapper:not(:first-child) {
   margin-top: 1rem;
 }
 
@@ -55,7 +61,10 @@
     padding: 3rem 0 3rem;
   }
 
-  .gallery-section-wrapper .gallery-row .gallery-column div:not(:first-child) {
+  .gallery-section-wrapper
+    .gallery-row
+    .gallery-column
+    .gallery-grid-item-wrapper:not(:first-child) {
     margin-top: 0.75rem;
   }
 }
@@ -65,12 +74,15 @@
     gap: 0.3rem;
   }
 
-  .gallery-section-wrapper .gallery-row .gallery-column div:not(:first-child) {
+  .gallery-section-wrapper
+    .gallery-row
+    .gallery-column
+    .gallery-grid-item-wrapper:not(:first-child) {
     margin-top: 0.3rem;
   }
 
   .gallery-section-wrapper h2 {
-    font-size: 40px;
+    font-size: 38px;
     margin: 1rem;
   }
 }
