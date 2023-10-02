@@ -1,9 +1,9 @@
-import weddingCover from "./wedding-and-ann.jpg";
-import birthdayCover from "./birthday.jpg";
-import christeningCover from "./christening-communion.jpg";
-import cupcakesCover from "./cupcakes.jpg";
-import anyOccassionCover from "./any-occassion.jpg";
-import kidsBirthdayCover from "./kids-birthday.jpg";
+import weddingCover from "./wedding-cover.jpg";
+import birthdayCover from "./birthday-cover.jpg";
+import christeningCover from "./christening-cover.jpg";
+import cupcakesCover from "./cupcakes-cover.jpg";
+import anyOccassionCover from "./any-occ-cover.jpg";
+import kidsBirthdayCover from "./kid-birthday-cover.jpg";
 
 export {
   weddingCover,

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Workshop.css';
 import { useNavigate } from "react-router-dom";
 import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
+import BarLoader from "react-spinners/BarLoader";
 
 function WorkshopPage({ api }) {
 
@@ -11,7 +12,11 @@ function WorkshopPage({ api }) {
 
   const [userVideos, setUserVideos] = useState([]);
 
+  // Loading
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    setLoading(true);
     if (!localStorage.getItem('access_token')) {
       navigate('/login');
     } else {
@@ -77,6 +82,7 @@ function WorkshopPage({ api }) {
           // Add the purchased video to the userVideos state
           setUserVideos((prevUserVideos) => [...prevUserVideos, purchasedVideo]);
         }
+        setLoading(false);
       })
       .catch((error) => {
         console.error('Error adding video to user videos:', error);
@@ -111,6 +117,12 @@ function WorkshopPage({ api }) {
           </div>
         ))}
       </div>
+    <BarLoader
+      loading={loading}
+      aria-label="Loading Spinner"
+      data-testid="loader"
+      width={"100%"}
+    />
     </div>
   );
 }

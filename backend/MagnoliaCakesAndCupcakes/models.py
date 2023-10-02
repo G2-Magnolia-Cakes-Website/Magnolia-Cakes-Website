@@ -33,11 +33,14 @@ class TermsAndCondition(models.Model):
     def __str__(self):
         return self.policy_name
 
+
 class CakeCategory(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
+
+
 def upload_to(instance, filename):
     # Upload the image to a 'cakes' directory with the filename as the cake's name
     return f"cakes/{filename}"
@@ -45,7 +48,7 @@ def upload_to(instance, filename):
 
 class Cake(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    
+
     picture = models.ImageField(upload_to=upload_to)  # Use the custom upload function
     price = models.DecimalField(max_digits=10, decimal_places=2)
     flavor = models.CharField(max_length=50)
@@ -73,7 +76,7 @@ class Cake(models.Model):
 
 class SliderImage(models.Model):
     def upload_to_slider(instance, filename):
-        # Upload the image to a 'cakes' directory with the filename as the cake's name
+        # Upload the image to a 'slider' directory with the filename as the cake's name
         return f"slider/{filename}"
 
     name = models.CharField(max_length=100)
@@ -107,6 +110,9 @@ class AboutUs(models.Model):
 
     def __str__(self):
         return "About Us"
+
+    class Meta:
+        verbose_name_plural = "About Us Page"
 
     def save(self, *args, **kwargs):
         if self.__class__.objects.count():
@@ -265,14 +271,12 @@ def password_reset_token_created(
         [reset_password_token.user.email],
     )
     msg.send()
-    
-
 
 
 class GalleryItem(models.Model):
     title = models.CharField(max_length=100, unique=True)
     categories = models.ManyToManyField(CakeCategory)
-    image = models.ImageField(upload_to='gallery/')
+    image = models.ImageField(upload_to="gallery/")
 
     def __str__(self):
         return self.title
@@ -327,11 +331,63 @@ class ContactUsEmail(models.Model):
         verbose_name_plural = "Contact Us Email"
 
 
+class HomepageWelcomeSection(models.Model):
+    def upload_to_welcome(instance, filename):
+        # Upload the image to a 'cakes' directory with the filename as the cake's name
+        return f"welcome/{filename}"
+
+    heading = models.TextField()
+    paragraph = models.TextField()
+    image = models.ImageField(upload_to=upload_to_welcome)
+
+    def save(self, *args, **kwargs):
+        if self.__class__.objects.count():
+            self.pk = self.__class__.objects.first().pk
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return "Welcome Section Content"
+
+    class Meta:
+        verbose_name_plural = "Homepage Welcome Section"
+
+
+class HomepageAboutUsSection(models.Model):
+    heading = models.CharField(default="About Us", max_length=300)
+    paragraph = models.TextField()
+
+    def save(self, *args, **kwargs):
+        if self.__class__.objects.count():
+            self.pk = self.__class__.objects.first().pk
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return "About Us Section Content"
+
+    class Meta:
+        verbose_name_plural = "Homepage About Us Section"
+
+
+class HomepageGallerySection(models.Model):
+    heading = models.CharField(default="Our Collection", max_length=300)
+
+    def save(self, *args, **kwargs):
+        if self.__class__.objects.count():
+            self.pk = self.__class__.objects.first().pk
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.heading
+
+    class Meta:
+        verbose_name_plural = "Homepage Gallery Section"
+
+
 class Video(models.Model):
     title = models.CharField(max_length=100, unique=True)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
-    video = models.FileField(upload_to='videos/')
+    video = models.FileField(upload_to="videos/")
 
     def __str__(self):
         return self.title

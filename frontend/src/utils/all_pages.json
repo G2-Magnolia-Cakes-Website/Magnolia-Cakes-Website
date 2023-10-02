@@ -50,5 +50,9 @@
   {
     "pageName": "Location",
     "pageLink": "/location"
+  },
+  {
+    "pageName": "Profile",
+    "pageLink": "/profile"
   }
 ]

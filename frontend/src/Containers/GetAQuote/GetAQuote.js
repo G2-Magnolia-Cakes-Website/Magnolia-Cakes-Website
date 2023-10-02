@@ -4,6 +4,7 @@ import FormInput from "Components/FormInput/FormInput";
 import SelectionBox from "Components/SelectionBox/SelectionBox";
 import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
 import Dropzone from "Components/Dropzone/Dropzone";
+import BarLoader from "react-spinners/BarLoader";
 
 import "./GetAQuote.css";
 import { Cross } from "hamburger-react";
@@ -34,8 +35,12 @@ const GetAQuote = ({ api }) => {
   const message = useRef(null);
   const [files, setFiles] = useState([]);
 
+  // Loading
+  const [loading, setLoading] = useState(false);
+
   const sendEmailHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const bodyContent = {
       Name: name.current.value,
@@ -89,6 +94,7 @@ const GetAQuote = ({ api }) => {
       if (res.status === 200) {
         console.log("Form submit success.");
         alert("Form is submitted.");
+        setLoading(false);
       }
     } catch (err) {
       console.log("Form submit error.", err);
@@ -211,6 +217,13 @@ const GetAQuote = ({ api }) => {
             buttonType="submit"
             height="36px"
             margin="auto 0 8px"
+          />
+
+          <BarLoader
+            loading={loading}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+            width={"100%"}
           />
 
           {files.length > 0 && (
