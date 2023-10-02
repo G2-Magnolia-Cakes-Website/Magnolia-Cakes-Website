@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
-import { AuthContext } from '../../AuthContext';
+import React, { useContext, useEffect, useState } from "react";
+import ReactDOM from "react-dom";
+import { AuthContext } from "../../AuthContext";
 import AboutUsSection from "./Sections/AboutUsSection";
 import SubheadingDivider from "Components/SubheadingDivider/SubheadingDivider";
 import CarouselGallery from "Components/Carousel/CarouselGallery";
@@ -8,10 +8,9 @@ import LocationPage from "Containers/LocationPage/LocationPage";
 import DeliverySection from "./Sections/DeliverySection";
 import GallerySection from "./Sections/GallerySection";
 import WelcomeSection from "./Sections/WelcomeSection";
-import WelcomePopup from '../../Components/WelcomePopup/WelcomePopup';
+import WelcomePopup from "../../Components/WelcomePopup/WelcomePopup";
 
 const HomePage = ({ api }) => {
-
   const { user } = useContext(AuthContext);
   const [showWelcomePopup, setShowWelcomePopup] = useState(false);
 
@@ -20,7 +19,7 @@ const HomePage = ({ api }) => {
   };
 
   useEffect(() => {
-    const hasShownWelcomePopup = localStorage.getItem('hasShownWelcomePopup');
+    const hasShownWelcomePopup = localStorage.getItem("hasShownWelcomePopup");
 
     if (user && !hasShownWelcomePopup) {
       setShowWelcomePopup(true);
@@ -29,7 +28,7 @@ const HomePage = ({ api }) => {
         setShowWelcomePopup(false);
       }, 7000);
 
-      localStorage.setItem('hasShownWelcomePopup', 'true');
+      localStorage.setItem("hasShownWelcomePopup", "true");
 
       return () => {
         clearTimeout(timer);
@@ -54,10 +53,12 @@ const HomePage = ({ api }) => {
 
   return (
     <>
-      {user && showWelcomePopup && ReactDOM.createPortal(
-        <WelcomePopup onClose={handleCloseWelcomePopup} user={user} />,
-        document.body
-      )}
+      {user &&
+        showWelcomePopup &&
+        ReactDOM.createPortal(
+          <WelcomePopup onClose={handleCloseWelcomePopup} user={user} />,
+          document.body
+        )}
       {images.length > 0 && <CarouselGallery images={images} />}
       <WelcomeSection api={api} />
       <GallerySection api={api} />

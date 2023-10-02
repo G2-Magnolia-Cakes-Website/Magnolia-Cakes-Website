@@ -24,19 +24,6 @@
   margin-right: auto;
   gap: 1rem;
 }
-/* 
-.gallery-section-wrapper .double-columned-div {
-  display: flex;
-  flex-wrap: wrap;
-  width: 80%;
-  margin: 0 auto 0 auto;
-}
-
-.gallery-section-wrapper .double-columned-div > .gallery-grid-item-wrapper {
-  flex: 50%;
-  max-width: 40%;
-} */
-
 
 /* Create four equal columns that sits next to each other */
 

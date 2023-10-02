@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import GalleryGridItem from "Components/GalleryGridItem/GalleryGridItem";
 import { getGalleryCategoryParam } from "utils/getGalleryCategoryParam";
 import { everyFirst, everyNth } from "utils/getEveryNthElementInArray";
+
 import "./GallerySection.css";
 
 const GallerySection = ({ api }) => {
@@ -22,7 +23,6 @@ const GallerySection = ({ api }) => {
     api
       .get("/api/gallery/categories/")
       .then((response) => {
-        console.log("kim", response.data);
         setCategories(
           response.data.sort((a, b) => {
             return a.id - b.id;
@@ -37,35 +37,38 @@ const GallerySection = ({ api }) => {
   return (
     <div className="gallery-section-wrapper">
       <h2>{heading}</h2>
-      <div className="gallery-row">
-        <div className="gallery-column">
-          {everyFirst(categories).map((category) => (
-            <GalleryGridItem
-              key={category.id}
-              src={category.picture}
-              alt={category.name}
-              title={category.name}
-              link={
-                "/gallery/?category=" + getGalleryCategoryParam(category.name)
-              }
-            />
-          ))}
+      {categories.length <= 0 && <p>Loading...</p>}
+      {categories.length > 0 && (
+        <div className="gallery-row">
+          <div className="gallery-column">
+            {everyFirst(categories).map((category) => (
+              <GalleryGridItem
+                key={category.id}
+                src={category.picture}
+                alt={category.name}
+                title={category.name}
+                link={
+                  "/gallery/?category=" + getGalleryCategoryParam(category.name)
+                }
+              />
+            ))}
+          </div>
+          <div className="gallery-column">
+            {everyNth(categories, 2).map((category) => (
+              <GalleryGridItem
+                key={category.id}
+                src={category.picture}
+                alt={category.name}
+                title={category.name}
+                link={
+                  "/gallery/?category=" + getGalleryCategoryParam(category.name)
+                }
+                isOnRight={true}
+              />
+            ))}
+          </div>
         </div>
-        <div className="gallery-column">
-          {everyNth(categories, 2).map((category) => (
-            <GalleryGridItem
-              key={category.id}
-              src={category.picture}
-              alt={category.name}
-              title={category.name}
-              link={
-                "/gallery/?category=" + getGalleryCategoryParam(category.name)
-              }
-              isOnRight={true}
-            />
-          ))}
-        </div>
-      </div>
+      )}
     </div>
   );
 };

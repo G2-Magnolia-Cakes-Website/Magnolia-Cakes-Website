@@ -1,3 +1,3 @@
 export const getGalleryCategoryParam = (categoryName) => {
-  return categoryName.replace(" ", "-").toLowerCase();
+  return categoryName.replaceAll(" ", "-").replace("&", "and").toLowerCase();
 };
