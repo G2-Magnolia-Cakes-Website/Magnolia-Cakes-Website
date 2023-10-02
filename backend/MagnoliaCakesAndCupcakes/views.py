@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login as django_login
 from django.contrib.auth.forms import AuthenticationForm
@@ -435,8 +436,8 @@ def location_page_content(request):
 @permission_classes([AllowAny])
 def create_checkout_session(request):
     stripe.api_key = settings.STRIPE_SECRET_KEY
-    FRONTEND_DOMAIN = "http://localhost:3000"  
-
+    FRONTEND_DOMAIN = "http://localhost:3000"
+    
     # Get the cart items from the request
     cart_items = request.data.get('items', [])
 
@@ -463,13 +464,36 @@ def create_checkout_session(request):
         }
         line_items.append(line_item)
 
+    # Calculate total amount
+    total_amount = Decimal(sum(Decimal(item['price']) * int(item['quantity']) for item in cart_items))
+
+    # Constants for service fees
+    F_fixed = Decimal('0.30')  # Fixed fee after VAT/GST is included
+    F_percent = Decimal('0.0175')  # Percent fee after VAT/GST is included
+
+    # Calculate the amount to charge the customer including fees
+    P_charge = (total_amount + F_fixed) / (1 - F_percent)
+    
+    # Add service fees as a display item
+    service_fees_item = {
+        'price_data': {
+            'currency': 'aud',
+            'unit_amount': int((P_charge-total_amount) * 100),  # Convert to cents
+            'product_data': {
+                'name': 'Service Fees',
+                'description': 'Service Fees for the transaction',
+            },
+        },
+        'quantity': 1,
+    }
+
     checkout_session = stripe.checkout.Session.create(
         payment_method_types=['card'],
-        line_items=line_items,  # Use the transformed line items
+        line_items=[*line_items, service_fees_item],  # Include service fees item
         mode='payment',
         success_url=FRONTEND_DOMAIN +('/success'),
         cancel_url=FRONTEND_DOMAIN + ('/payment'),
     )
 
-    return Response({'id': checkout_session.id})
+    return Response({'id': checkout_session.id, 'total_amount_with_fees': round(P_charge, 2)})
 

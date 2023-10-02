@@ -7,6 +7,11 @@ function Payment({api}) {
   const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   const stripePromise = loadStripe('pk_test_51NveKwI2G7Irdjp2nVREupdlFTx5xA6pSo9hJeULztP4rAzUQA7rHzdSPLIUBFfuDtSnzNFq3Zc07hYQ4YIZ0Qkb00sFf0mfSq');
 
+  const F_fixed = 0.30;  // Fixed fee after VAT/GST is included
+  const F_percent = 0.0175;  // Percent fee after VAT/GST is included
+  const totalCharges = (totalPrice + F_fixed) / (1 - F_percent);
+  const serviceFees = totalCharges - totalPrice;
+
   const handleDeleteItem = (index) => {
     const updatedCart = cartItems.filter((item, idx) => idx !== index);
     localStorage.setItem('Cart', JSON.stringify(updatedCart));
@@ -31,7 +36,7 @@ function Payment({api}) {
     try {
       // Make the API call to your backend using the provided API function
       const response = await api.post('/api/checkout/', {
-        amount: totalPrice * 100, // Convert to cents
+        amount: (totalPrice+serviceFees) * 100, // Convert to cents
         items: cartItems,
       });
   
@@ -97,12 +102,19 @@ function Payment({api}) {
               ))}
             </tbody>
 
-            <tfoot>
+             <tfoot>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>Service Fees:</td>
+                <td className='total-price-cell'>${serviceFees.toFixed(2)}</td>
+                <td></td>
+              </tr>
               <tr>
                 <td></td>
                 <td></td>
                 <td>Total:</td>
-                <td className='total-price-cell'>${totalPrice}</td>
+                <td className='total-price-cell'>${(totalCharges).toFixed(2)}</td>
                 <td></td>
               </tr>
             </tfoot>
