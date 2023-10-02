@@ -91,7 +91,11 @@ instance.interceptors.response.use((response) => response, async (error) => {
                 );
                 if (res.status !== 200) {
                     console.log(res);
+                } else {
+                    console.log("Please refresh your screen!")
                 }
+            } else {
+                console.log("Please refresh your screen!")
             }
 
             localStorage.clear();
