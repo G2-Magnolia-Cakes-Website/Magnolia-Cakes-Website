@@ -31,11 +31,13 @@ function WorkshopPage({ api }) {
         })
         .then((response) => {
           setVideos(response.data);
+          setLoading(false);
         })
         .catch((error) => {
           console.error('Error fetching data:', error);
         });
 
+      setLoading(true);
       api
         .get('/api/user/videos/', {
           headers: {
@@ -47,6 +49,7 @@ function WorkshopPage({ api }) {
         })
         .then((response) => {
           setUserVideos(response.data);
+          setLoading(false);
         })
         .catch((error) => {
           console.error('Error fetching user videos:', error);
