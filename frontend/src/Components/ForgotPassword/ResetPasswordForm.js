@@ -2,11 +2,9 @@ import FormInput from "Components/FormInput/FormInput";
 import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
 import React from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import BarLoader from "react-spinners/BarLoader";
 
 export default function ForgotPasswordForm({ api }) {
-  // Get token
-  // const { token } = useParams();
 
   // States for registration
   const [password, setPassword] = useState("");
@@ -17,6 +15,9 @@ export default function ForgotPasswordForm({ api }) {
   const [submitted, setSubmitted] = useState(false);
   const defaultErrorMessage = "Reset password failed!";
   const [errorMessagePrint, setErrorMessage] = useState(defaultErrorMessage);
+
+  // Loading
+  const [loading, setLoading] = useState(false);
 
   // Handling the email change
   const handlePassword = (e) => {
@@ -31,6 +32,7 @@ export default function ForgotPasswordForm({ api }) {
   // Handling the form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (password === "" || confirmPassword === "") {
       setErrorMessage(
@@ -61,44 +63,44 @@ export default function ForgotPasswordForm({ api }) {
           },
         });
 
-        if (res.status === 200) {
-          console.log(res);
-          setSubmitted(true);
-          setError(false);
-          setErrorMessage(defaultErrorMessage);
-        } else {
-          setSubmitted(false);
-          if (res.data["detail"]) {
-            setErrorMessage(res.data["detail"]);
-          } else if (res.data["token"]) {
-            setErrorMessage(res.data["token"]);
-          } else if (res.data["password"]) {
-            setErrorMessage(res.data["password"]);
-          } else if (res.data["message"]) {
-            setErrorMessage(res.data["message"]);
-          } else {
-            setErrorMessage(defaultErrorMessage);
-          }
-          setError(true);
-          console.log(res);
+                if (res.status === 200) {
+                    setSubmitted(true);
+                    setError(false);
+                    setErrorMessage(defaultErrorMessage);
+                } else {
+                    setSubmitted(false);
+                    if (res.data["detail"]) {
+                        setErrorMessage(res.data["detail"]);
+                    } else if (res.data["token"]) {
+                        setErrorMessage(res.data["token"]);
+                    } else if (res.data["password"]) {
+                        setErrorMessage(res.data["password"]);
+                    } else if (res.data["message"]) {
+                        setErrorMessage(res.data["message"]);
+                    } else {
+                        setErrorMessage(defaultErrorMessage);
+                    }
+                    setError(true);
+                    console.log(res);
+                }
+            } catch (err) {
+                setSubmitted(false);
+                console.log(err);
+                if (err.response.data["detail"]) {
+                    setErrorMessage(err.response.data["detail"]);
+                } else if (err.response.data["token"]) {
+                    setErrorMessage(err.response.data["token"]);
+                } else if (err.response.data["password"]) {
+                    setErrorMessage(err.response.data["password"]);
+                } else if (err.response.data["message"]) {
+                    setErrorMessage(err.response.data["message"]);
+                } else {
+                    setErrorMessage(defaultErrorMessage);
+                }
+                setError(true);
+            }
         }
-      } catch (err) {
-        setSubmitted(false);
-        console.log(err);
-        if (err.response.data["detail"]) {
-          setErrorMessage(err.response.data["detail"]);
-        } else if (err.response.data["token"]) {
-          setErrorMessage(err.response.data["token"]);
-        } else if (err.response.data["password"]) {
-          setErrorMessage(err.response.data["password"]);
-        } else if (err.response.data["message"]) {
-          setErrorMessage(err.response.data["message"]);
-        } else {
-          setErrorMessage(defaultErrorMessage);
-        }
-        setError(true);
-      }
-    }
+      setLoading(false);
   };
 
   // Showing success message
@@ -176,6 +178,14 @@ export default function ForgotPasswordForm({ api }) {
           buttonType="submit"
           height="36px"
           margin="auto 0 8px"
+        />
+
+        <br />
+        <BarLoader
+          loading={loading}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+          width={"100%"}
         />
 
         <div className="messages">

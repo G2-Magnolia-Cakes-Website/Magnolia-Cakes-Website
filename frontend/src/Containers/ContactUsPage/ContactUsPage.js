@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import FormInput from "Components/FormInput/FormInput";
 import FormTextArea from "Components/FormTextArea/FormTextArea";
 import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
+import BarLoader from "react-spinners/BarLoader";
 
 import "./ContactUsPage.css";
 
@@ -11,8 +12,12 @@ const ContactUsPage = ({ api }) => {
   const email = useRef(null);
   const message = useRef(null);
 
+  // Loading
+  const [loading, setLoading] = useState(false);
+
   const sendEmailHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const bodyContent = {
       Name: name.current.value,
@@ -41,6 +46,7 @@ const ContactUsPage = ({ api }) => {
       if (res.status === 200) {
         console.log("Form submit success.");
         alert("Form is submitted.");
+        setLoading(false);
       }
     } catch (err) {
       console.log("Form submit error.", err);
@@ -92,6 +98,13 @@ const ContactUsPage = ({ api }) => {
             buttonType="submit"
             height="36px"
             margin="auto 0 8px"
+          />
+          <br />
+          <BarLoader
+            loading={loading}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+            width={"100%"}
           />
         </form>
       </div>

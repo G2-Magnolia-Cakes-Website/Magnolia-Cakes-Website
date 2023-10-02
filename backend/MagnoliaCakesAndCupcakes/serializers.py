@@ -4,6 +4,14 @@ from rest_framework import serializers
 # import the todo data model
 from .models import *
 
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
+
 
 # create a serializer class
 class MagnoliaCakesAndCupcakesSerializer(serializers.ModelSerializer):
@@ -60,17 +68,18 @@ class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = "__all__"
-        
+
+
 class CakeCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = CakeCategory
         fields = "__all__"
 
+
 class GalleryItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = GalleryItem
         fields = "__all__"
-
 
 
 class FooterLocationSerializer(serializers.ModelSerializer):
@@ -100,4 +109,32 @@ class SocialMediasSerializer(serializers.ModelSerializer):
 class LocationPageContentSerializer(serializers.ModelSerializer):
     class Meta:
         model = LocationPageContent
+        fields = "__all__"
+
+
+class WelcomeSectionContentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HomepageWelcomeSection
+        fields = "__all__"
+
+
+class AboutUsSectionContentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HomepageAboutUsSection
+        fields = "__all__"
+
+
+class GallerySectionContentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HomepageGallerySection
+
+
+class VideoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Video
+        fields = "__all__"
+        
+class UserVideoSerialiser(serializers.ModelSerializer):
+    class Meta:
+        model = UserVideo
         fields = "__all__"

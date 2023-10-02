@@ -4,6 +4,8 @@ import Popup from "./TCPopup";
 import React from "react";
 import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
 import FormInput from "Components/FormInput/FormInput";
+import BarLoader from "react-spinners/BarLoader";
+import { ERRORMESSAGES } from "utils/constants";
 
 export default function SignupForm({ api }) {
   // States for registration
@@ -18,10 +20,14 @@ export default function SignupForm({ api }) {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
 
-  const defaultErrorMessage = "Please enter all the fields!";
-  const [errorMessagePrint, setErrorMessage] = useState(defaultErrorMessage);
+  const [errorMessagePrint, setErrorMessage] = useState(
+    ERRORMESSAGES.DEFAULT_SIGNUP_ERROR
+  );
 
   const [buttonPopup, setButtonPopup] = useState(false);
+
+  // Loading
+  const [loading, setLoading] = useState(false);
 
   // Handling the username change
   const handleFirstName = (e) => {
@@ -60,6 +66,7 @@ export default function SignupForm({ api }) {
   // Handling the form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (
       firstname === "" ||
@@ -68,7 +75,10 @@ export default function SignupForm({ api }) {
       password1 === "" ||
       password2 === ""
     ) {
-      setErrorMessage(defaultErrorMessage);
+      setErrorMessage(ERRORMESSAGES.DEFAULT_SIGNUP_ERROR);
+      setError(true);
+    } else if (!agree) {
+      setErrorMessage(ERRORMESSAGES.TERMS_CONDITIONS_UNCHECKED_ERROR);
       setError(true);
     } else {
       // Send API msg to backend
@@ -93,7 +103,7 @@ export default function SignupForm({ api }) {
           setPassword2("");
 
           setError(false);
-          setErrorMessage(defaultErrorMessage);
+          setErrorMessage(ERRORMESSAGES.DEFAULT_SIGNUP_ERROR);
           setSubmitted(true);
           console.log(res);
         } else {
@@ -137,6 +147,7 @@ export default function SignupForm({ api }) {
         setSubmitted(false);
       }
     }
+    setLoading(false);
   };
 
   // Showing success message
@@ -292,7 +303,7 @@ export default function SignupForm({ api }) {
           buttonType="submit"
           height="36px"
           margin="auto 0 8px"
-          // disabled={!agree}
+        // disabled={!agree}
         />
 
         <Popup
@@ -308,6 +319,14 @@ export default function SignupForm({ api }) {
             Log in
           </Link>
         </div>
+
+        <br />
+        <BarLoader
+          loading={loading}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+          width={"100%"}
+        />
 
         <div className="messages">
           {errorMessage()}
