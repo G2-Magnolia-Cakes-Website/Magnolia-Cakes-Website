@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Navbar from "Components/Navbar/Navbar";
 import SignUpLogInLinkGroup from "Containers/SignUpLogInLinkGroup/SignUpLogInLinkGroup";
 import "./Header.css";
 import SignedInGroup from "../../SignedInGroup/SignedInGroup";
+import { AuthContext } from '../../../AuthContext';
 
-const Header = () => {
-  const [isAuth, setIsAuth] = useState(false);
+const Header = ({ api, isAuth, setIsAuth }) => {
+
+  const { user } = useContext(AuthContext);
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const [headerStyle, setHeaderStyle] = useState("header");
 
   useEffect(() => {
     if (localStorage.getItem("access_token") !== null) {
       setIsAuth(true);
     }
   }, [isAuth]);
-
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const [headerStyle, setHeaderStyle] = useState("header");
 
   const listenScrollEvent = (event) => {
     if (window.scrollY < 137) {
@@ -35,7 +37,11 @@ const Header = () => {
     <div className={headerStyle}>
       <div className="navbar-signup-login-group">
         <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-        {isAuth ? <SignedInGroup /> : !isMenuOpen && <SignUpLogInLinkGroup />}
+        {isAuth ? (
+          <SignedInGroup api={api} user={user} />
+        ) : (
+          !isMenuOpen && <SignUpLogInLinkGroup />
+        )}
       </div>
     </div>
   );
