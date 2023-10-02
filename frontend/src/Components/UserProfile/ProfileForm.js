@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../../AuthContext';
+import BarLoader from "react-spinners/BarLoader";
 
 export default function ProfileForm({ api, email, first_name, last_name }) {
 
     const navigate = useNavigate();
 
     const { setUser } = useContext(AuthContext);
+
+    // Loading
+    const [loading, setLoading] = useState(false);
 
     const [disabledFirstName, setDisableFirstName] = useState(true);
     const [disabledLastName, setDisableLastName] = useState(true);
@@ -54,6 +58,7 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
 
     const handleUpdateAccount = async (event) => {
         event.preventDefault();
+        setLoading(true);
         // Send API msg to backend
         if (firstNameValue === '' || lastNameValue === '') {
             setSubmitted(false);
@@ -82,6 +87,7 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
                 if (res.status === 200) {
                     setError(false);
                     await getUserDetails();
+                    setLoading(false);
                     window.location.reload();
                 } else {
                     setSubmitted(false);
@@ -123,6 +129,7 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
     };
 
     const getUserDetails = async (e) => {
+        setLoading(true);
         try {
             // get user
 
@@ -142,6 +149,7 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
                 localStorage.setItem('first_name', res.data.first_name);
                 localStorage.setItem('last_name', res.data.last_name);
                 setUser(res.data);
+                setLoading(false);
             } else {
                 console.log(res);
             }
@@ -154,6 +162,7 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
 
     const handleChangePassword = async (event) => {
         event.preventDefault();
+        setLoading(true);
         // Send API msg to backend
         try {
 
@@ -176,6 +185,7 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
                 setSubmitted(true);
                 setError(false);
                 setErrorMessage(defaultPasswordResetErrorMessage);
+                setLoading(false);
             } else {
                 setSubmitted(false);
                 if (res.data["detail"]) {
@@ -279,6 +289,13 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
             <button type="submit" disabled={!isFormModified} onClick={handleUpdateAccount} className='update-profile'>
                 Update Account
             </button>
+
+            <BarLoader
+            loading={loading}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+            width={"100%"}
+            />
 
             <div className="messages-profile">
                 {errorMessage()}

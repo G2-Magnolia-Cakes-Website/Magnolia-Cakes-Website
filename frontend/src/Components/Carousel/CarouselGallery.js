@@ -21,26 +21,7 @@ import BarLoader from "react-spinners/BarLoader";
 // import slides from "./cake-categories.json";
 import CarouselItem from "./CarouselItem";
 
-const CarouselGallery = ({ images }) => {
-
-  // Loading
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(true);
-    // Fetch cakes data from the API
-    const fetchImages = async () => {
-      try {
-        const response = await api.get("api/slider-images/");
-        console.log("kim", response.data);
-        setImages(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching cakes:", error);
-      }
-    };
-    fetchImages();
-  }, [api]);
+const CarouselGallery = ({ images, loading }) => {
 
   return (
     <div>

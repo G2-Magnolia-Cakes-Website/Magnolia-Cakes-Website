@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import './Workshop.css';
+import BarLoader from "react-spinners/BarLoader";
 
 function WorkshopPage({ api }) {
   const [videos, setVideos] = useState([]);
 
+  // Loading
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    setLoading(true);
     api
       .get("/api/video/")
       .then((response) => {
         setVideos(response.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -29,6 +35,12 @@ function WorkshopPage({ api }) {
           </div>
         ))}
       </div>
+    <BarLoader
+      loading={loading}
+      aria-label="Loading Spinner"
+      data-testid="loader"
+      width={"100%"}
+    />
     </div>
   );
 }
