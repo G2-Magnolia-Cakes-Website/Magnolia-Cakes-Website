@@ -39,13 +39,13 @@ const refreshToken = async () => {
             };
 
         } else {
-            console.log(response);
+            console.error(response);
             return Promise.reject(response);
         }
 
     } catch (error) {
-        console.log(error);
-        console.log(error.response.data);
+        console.error(error);
+        console.error(error.response.data);
         return Promise.reject(error);
     }
 };
@@ -53,16 +53,12 @@ const refreshToken = async () => {
 // Add your interceptor here
 instance.interceptors.response.use((response) => response, async (error) => {
 
-    console.log("interceptor");
     if (error.response.status === 401 && !refresh) {
         refresh = true;
-        console.log("inside if");
         try {
             // Perform token refreshing logic here
             const { access, refresh } = await refreshToken(); // Call your token refreshing function
             instance.defaults.headers.common['Authorization'] = `Bearer ${access}`;
-            console.log("worked");
-            console.log(access);
 
             // Update the refresh token in error.config data
             error.config.data = JSON.stringify({ refresh_token: refresh });
@@ -78,10 +74,8 @@ instance.interceptors.response.use((response) => response, async (error) => {
             console.error("Issue with refreshing access token!");
             console.error(refreshError);
 
-            console.log(error.config.url)
             // Check the URL of the original request
             if (error.config.url !== '/api/logout/') {
-                console.log("logging out!")
                 const token = { refresh_token: localStorage.getItem('refresh_token') };
 
                 let res = await instance.post('/api/logout/',
@@ -97,7 +91,11 @@ instance.interceptors.response.use((response) => response, async (error) => {
                 );
                 if (res.status !== 200) {
                     console.log(res);
+                } else {
+                    console.log("Please refresh your screen!")
                 }
+            } else {
+                console.log("Please refresh your screen!")
             }
 
             localStorage.clear();

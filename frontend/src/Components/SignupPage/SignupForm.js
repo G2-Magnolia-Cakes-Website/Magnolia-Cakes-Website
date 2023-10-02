@@ -4,6 +4,7 @@ import Popup from "./TCPopup";
 import React from "react";
 import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
 import FormInput from "Components/FormInput/FormInput";
+import BarLoader from "react-spinners/BarLoader";
 import { ERRORMESSAGES } from "utils/constants";
 
 export default function SignupForm({ api }) {
@@ -24,6 +25,9 @@ export default function SignupForm({ api }) {
   );
 
   const [buttonPopup, setButtonPopup] = useState(false);
+
+  // Loading
+  const [loading, setLoading] = useState(false);
 
   // Handling the username change
   const handleFirstName = (e) => {
@@ -62,6 +66,7 @@ export default function SignupForm({ api }) {
   // Handling the form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (
       firstname === "" ||
@@ -142,6 +147,7 @@ export default function SignupForm({ api }) {
         setSubmitted(false);
       }
     }
+    setLoading(false);
   };
 
   // Showing success message
@@ -297,7 +303,7 @@ export default function SignupForm({ api }) {
           buttonType="submit"
           height="36px"
           margin="auto 0 8px"
-          // disabled={!agree}
+        // disabled={!agree}
         />
 
         <Popup
@@ -313,6 +319,14 @@ export default function SignupForm({ api }) {
             Log in
           </Link>
         </div>
+
+        <br />
+        <BarLoader
+          loading={loading}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+          width={"100%"}
+        />
 
         <div className="messages">
           {errorMessage()}

@@ -1,12 +1,17 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useNavigate } from "react-router-dom";
+import BarLoader from "react-spinners/BarLoader";
 
 function LogoutPopup(props) {
 
     const navigate = useNavigate();
 
+    // Loading
+    const [loading, setLoading] = useState(false);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         // Send API msg to backend
         try {
@@ -30,7 +35,9 @@ function LogoutPopup(props) {
                 localStorage.clear();
                 props.api.defaults.headers.common['Authorization'] = null;
 
-                props.setTrigger(false)
+                props.setTrigger(false);
+
+                setLoading(false);
 
                 navigate("/");
                 navigate(0);
@@ -52,6 +59,13 @@ function LogoutPopup(props) {
                     <button className='cancel-btn' onClick={() => props.setTrigger(false)}>Cancel</button>
                     <button className='yes-btn' onClick={handleSubmit}>Yes</button>
                 </div>
+                <br />
+                <BarLoader
+                loading={loading}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+                width={"100%"}
+                />
             </div>
         </div>
     ) : "";
