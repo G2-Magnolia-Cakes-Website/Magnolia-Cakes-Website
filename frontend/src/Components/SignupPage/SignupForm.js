@@ -4,6 +4,7 @@ import Popup from "./TCPopup";
 import React from "react";
 import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
 import FormInput from "Components/FormInput/FormInput";
+import { ERRORMESSAGES } from "utils/constants";
 
 export default function SignupForm({ api }) {
   // States for registration
@@ -18,8 +19,9 @@ export default function SignupForm({ api }) {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
 
-  const defaultErrorMessage = "Please enter all the fields!";
-  const [errorMessagePrint, setErrorMessage] = useState(defaultErrorMessage);
+  const [errorMessagePrint, setErrorMessage] = useState(
+    ERRORMESSAGES.DEFAULT_SIGNUP_ERROR
+  );
 
   const [buttonPopup, setButtonPopup] = useState(false);
 
@@ -68,7 +70,10 @@ export default function SignupForm({ api }) {
       password1 === "" ||
       password2 === ""
     ) {
-      setErrorMessage(defaultErrorMessage);
+      setErrorMessage(ERRORMESSAGES.DEFAULT_SIGNUP_ERROR);
+      setError(true);
+    } else if (!agree) {
+      setErrorMessage(ERRORMESSAGES.TERMS_CONDITIONS_UNCHECKED_ERROR);
       setError(true);
     } else {
       // Send API msg to backend
@@ -88,55 +93,56 @@ export default function SignupForm({ api }) {
           },
         });
 
-                if (res.status === 201) {
-                    setPassword1("");
-                    setPassword2("");
-                    
-                    setError(false);
-                    setErrorMessage(defaultErrorMessage);
-                    setSubmitted(true);
-                } else {
-                    if (res.data["password1"]) {
-                        setErrorMessage(res.data["password1"]);
-                    } else if (res.data["password2"]) {
-                        setErrorMessage(res.data["password2"]);
-                    } else if (res.data["username"]) {
-                        setErrorMessage(res.data["username"]);
-                    } else if (res.data["first_name"]) {
-                        setErrorMessage(res.data["first_name"]);
-                    } else if (res.data["last_name"]) {
-                        setErrorMessage(res.data["last_name"]);
-                    } else if (res.data["message"]) {
-                        setErrorMessage(res.data["message"]);
-                    } else { 
-                        setErrorMessage("Error: Something went wrong!");
-                    }
-                    setSubmitted(false);
-                    setError(true);
-                    console.log(res);
-                }
-            } catch (err) {
-                console.log(err);
-                if (err.response.data["password1"]) {
-                    setErrorMessage(err.response.data["password1"]);
-                } else if (err.response.data["password2"]) {
-                    setErrorMessage(err.response.data["password2"]);
-                } else if (err.response.data["username"]) {
-                    setErrorMessage(err.response.data["username"]);
-                } else if (err.response.data["first_name"]) {
-                    setErrorMessage(err.response.data["first_name"]);
-                } else if (err.response.data["last_name"]) {
-                    setErrorMessage(err.response.data["last_name"]);
-                } else if (err.response.data["message"]) {
-                    setErrorMessage(err.response.data["message"]);
-                } else { 
-                    setErrorMessage("Error: Something went wrong!");
-                }
-                setError(true);
-                setSubmitted(false);
-            }
+        if (res.status === 201) {
+          setPassword1("");
+          setPassword2("");
+
+          setError(false);
+          setErrorMessage(ERRORMESSAGES.DEFAULT_SIGNUP_ERROR);
+          setSubmitted(true);
+          console.log(res);
+        } else {
+          if (res.data["password1"]) {
+            setErrorMessage(res.data["password1"]);
+          } else if (res.data["password2"]) {
+            setErrorMessage(res.data["password2"]);
+          } else if (res.data["username"]) {
+            setErrorMessage(res.data["username"]);
+          } else if (res.data["first_name"]) {
+            setErrorMessage(res.data["first_name"]);
+          } else if (res.data["last_name"]) {
+            setErrorMessage(res.data["last_name"]);
+          } else if (res.data["message"]) {
+            setErrorMessage(res.data["message"]);
+          } else {
+            setErrorMessage("Error: Something went wrong!");
+          }
+          setSubmitted(false);
+          setError(true);
+          console.log(res);
         }
-    };
+      } catch (err) {
+        console.log(err);
+        if (err.response.data["password1"]) {
+          setErrorMessage(err.response.data["password1"]);
+        } else if (err.response.data["password2"]) {
+          setErrorMessage(err.response.data["password2"]);
+        } else if (err.response.data["username"]) {
+          setErrorMessage(err.response.data["username"]);
+        } else if (err.response.data["first_name"]) {
+          setErrorMessage(err.response.data["first_name"]);
+        } else if (err.response.data["last_name"]) {
+          setErrorMessage(err.response.data["last_name"]);
+        } else if (err.response.data["message"]) {
+          setErrorMessage(err.response.data["message"]);
+        } else {
+          setErrorMessage("Error: Something went wrong!");
+        }
+        setError(true);
+        setSubmitted(false);
+      }
+    }
+  };
 
   // Showing success message
   const successMessage = () => {

@@ -28,33 +28,40 @@
 .about-us-section .about-us-text {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 60%;
   height: 100%;
   align-items: center;
   justify-content: center;
-}
-
-.about-us-section .about-us-text > * {
-  margin-bottom: 3rem;
+  gap: 3rem;
 }
 
 .about-us-section .about-us-text h2 {
   font-size: 80px;
   /* font-family: "Pacifico", cursive; */
   font-family: "Sacramento", cursive;
+  margin: 0;
 }
 
 .about-us-section .about-us-text p {
-  font-size: 25px;
+  font-size: 24px;
   width: 70%;
   text-align: center;
+  margin: 0;
+}
+
+.about-us-section .about-us-text .readmore-black {
+  display: none;
 }
 
 .about-us-section .about-us-portrait {
   display: none;
 }
 
-@media (max-width: 1440px) and (min-width: 768px) {
+@media (max-width: 1440px) {
+  .about-us-section .about-us-text {
+    gap: 2rem;
+  }
+
   .about-us-section .about-us-text h2 {
     font-size: 50px;
   }
@@ -65,9 +72,20 @@
   }
 }
 
-@media (max-width: 1024px) and (min-width: 768px) {
-  .about-us-section .about-us-text > * {
-    margin-bottom: 2rem;
+@media (max-width: 1210px) {
+  .about-us-section .about-us-text {
+    width: 60%;
+    gap: 1rem;
+  }
+
+  .about-us-section .about-us-text p {
+    width: 80%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .about-us-section .about-us-text {
+    gap: 0.5rem;
   }
 
   .about-us-section .about-us-text h2 {
@@ -76,11 +94,11 @@
 
   .about-us-section .about-us-text p {
     font-size: 16px;
-    width: 60%;
+    margin-bottom: 1rem;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 810px) {
   .about-us-section {
     background-image: none;
     padding: 0;
@@ -92,9 +110,10 @@
 
   .about-us-section .about-us-portrait {
     display: block;
-    width: 80%;
+    min-width: 225px;
+    width: 225px;
     height: auto;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
   }
 
   .about-us-section .about-us-text {
@@ -107,7 +126,7 @@
     align-items: center;
   }
 
-  .about-us-section .about-us-text > * {
+  .about-us-section .about-us-text > *:not(:last-child) {
     margin-bottom: 1rem;
   }
 
@@ -122,10 +141,22 @@
     width: 100%;
     color: black;
   }
+
+  .about-us-section .about-us-text .readmore-white {
+    display: none;
+  }
+
+  .about-us-section .about-us-text .readmore-black {
+    display: block;
+  }
 }
 
 @media (max-width: 480px) {
   .about-us-section {
-    margin-bottom: 0rem;
+    margin-bottom: 2rem;
+  }
+
+  .about-us-section .about-us-portrait {
+    margin-bottom: 2rem;
   }
 }

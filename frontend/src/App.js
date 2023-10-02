@@ -19,6 +19,7 @@ import AboutUsPage from "Containers/AboutUsPage/AboutUsPage";
 import UserProfilePage from "Components/UserProfile/ProfilePage"
 import "./App.css";
 import ContactUsPage from "Containers/ContactUsPage/ContactUsPage";
+import WorkshopPage from "Containers/WorkshopPage/Workshop";
 import { PAGELINKS } from "utils/constants";
 
 /*
@@ -155,7 +156,12 @@ const App = () => {
                   path={PAGELINKS.PROFILE_LINK}
                   element={<UserProfilePage api={api} />}
                 />
-                {routeAllPagesComingSoon()}
+                <Route
+                key="/workshop"
+                path="/workshop"
+                element={<WorkshopPage api={api} />}
+              />
+              {routeAllPagesComingSoon()}
               </Routes>
             </PageLayout>
           </div>

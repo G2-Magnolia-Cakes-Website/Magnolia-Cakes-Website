@@ -31,4 +31,10 @@ const SOCIALMEDIAS = {
   INSTAGRAM: "instagram",
 };
 
-export { PAGELINKS, FOOTERSECTIONS, SHOPDETAILS, SOCIALMEDIAS };
+const ERRORMESSAGES = {
+  DEFAULT_SIGNUP_ERROR: "Please enter all the fields!",
+  TERMS_CONDITIONS_UNCHECKED_ERROR:
+    "You must agree to the Terms and Conditions before creating your account.",
+};
+
+export { PAGELINKS, FOOTERSECTIONS, SHOPDETAILS, SOCIALMEDIAS, ERRORMESSAGES };
