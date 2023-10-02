@@ -119,6 +119,7 @@ class AboutUsSectionContentSerializer(serializers.ModelSerializer):
 class GallerySectionContentSerializer(serializers.ModelSerializer):
     class Meta:
         model = HomepageGallerySection
+        fields = "__all__"
 
 
 class VideoSerializer(serializers.ModelSerializer):
