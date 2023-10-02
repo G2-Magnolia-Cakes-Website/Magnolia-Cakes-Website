@@ -114,7 +114,7 @@ const App = () => {
                   path="about-us"
                   element={<AboutUsPage api={api} />}
                 />
-                <Route path="/gallery" element={<ComingSoonPage />}>
+                <Route path="/gallery" element={<GalleryPage api ={api} />}>
                   <Route
                     path="/gallery/wedding-and-anniversary"
                     element={<ComingSoonPage />}
