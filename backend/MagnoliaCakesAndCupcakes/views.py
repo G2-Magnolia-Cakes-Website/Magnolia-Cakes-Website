@@ -21,6 +21,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 # Email AUTH
 from django.template.loader import render_to_string
@@ -65,21 +66,23 @@ def register(request):
     [AllowAny]
 )  ###### Add this to allow users to access despite not being logged in
 def activateEmail(request, user, to_email):
+
     mail_subject = "Activate your user account."
-    message = render_to_string(
-        "template_activate_account.html",
-        {
+
+    context = {
             "first_name": user.first_name,
             "last_name": user.last_name,
             "domain": get_current_site(request).domain,
             "uid": urlsafe_base64_encode(force_bytes(user.pk)),
             "token": account_activation_token.make_token(user),
             "protocol": "https" if request.is_secure() else "http",
-        },
-    )
+    }
+
+    message = render_to_string("template_activate_account.html", context)
+
     email = EmailMessage(mail_subject, message, to=[to_email])
     try:
-        if email.send(fail_silently=False):
+        if email.send():
             return Response(
                 {
                     "message": "User registered successfully. Please complete verification by clicking the link sent to your email."
@@ -102,6 +105,7 @@ def activateEmail(request, user, to_email):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
+from django.shortcuts import redirect
 
 @permission_classes(
     [AllowAny]
@@ -116,14 +120,9 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
+        return redirect(f"{settings.FRONTEND_APP_URL}/login/?success=true")
 
-        return HttpResponse(
-            "Thank you for your email confirmation. Now you can login your account."
-        )
-        # return Response({'message': 'Thank you for your email confirmation. Now you can login your account.'}, status=status.HTTP_202_ACCEPTED)
-
-    return HttpResponse("Activation link is invalid!")
-    # return Response({'message': 'Activation link is invalid!'}, status=status.HTTP_404_NOT_FOUND)
+    return redirect(f"{settings.FRONTEND_APP_URL}/login/?success=false")
 
 
 @api_view(["POST"])
@@ -335,7 +334,6 @@ def faq_categories_list(request):
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data)
 
-
 @api_view(["GET"])
 @permission_classes(
     [AllowAny]
@@ -401,6 +399,42 @@ def flavours_and_servings_info(request):
         serializer = FlavoursAndServingsInfoSerializer(flavours_servings_info)
         return Response(serializer.data)
 
+
+@api_view(["GET"])
+def get_user(request):
+    if request.method == "GET":
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+
+@api_view(["POST"])
+def reset_names(request):
+    if request.method == 'POST':
+        first_name = request.data.get('first_name')
+        last_name = request.data.get('last_name')
+        
+        if not (first_name and last_name):
+            return Response({'error': 'Both first_name and last_name are required'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Assuming you have an authenticated user, you can access it using request.user
+        user = request.user
+        
+        try:
+            # Update the first_name and last_name fields of the user
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save()
+            
+            # Return a JSON response indicating success
+            return Response({'message': 'Name updated successfully'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            # Return an error response if any exception occurs during the update
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        # Return an error response for unsupported methods
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
 @api_view(["GET", "PUT"])
 @permission_classes([AllowAny])
 def gallery_categories_list(request):
@@ -409,13 +443,15 @@ def gallery_categories_list(request):
         serializer = CakeCategorySerializer(categories, many=True)
         return Response(serializer.data)
 
-@api_view(['GET'])
+
+@api_view(["GET"])
 @permission_classes([AllowAny])
 def gallery_items_list(request):
     if request.method == "GET":
         items = GalleryItem.objects.all()
         serializer = GalleryItemSerializer(items, many=True)
         return Response(serializer.data)
+
 
 @api_view(["GET"])
 @permission_classes(
@@ -425,6 +461,39 @@ def location_page_content(request):
     if request.method == "GET":
         location_page_content = LocationPageContent.objects.first()
         serializer = LocationPageContentSerializer(location_page_content)
+        return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def welcome_section(request):
+    if request.method == "GET":
+        content = HomepageWelcomeSection.objects.first()
+        serializer = WelcomeSectionContentSerializer(content)
+        return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def about_us_section(request):
+    if request.method == "GET":
+        content = HomepageAboutUsSection.objects.first()
+        serializer = AboutUsSectionContentSerializer(content)
+        return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def gallery_section(request):
+    if request.method == "GET":
+        content = HomepageGallerySection.objects.first()
+        serializer = GallerySectionContentSerializer(content)
         return Response(serializer.data)
 
 @api_view(['GET'])

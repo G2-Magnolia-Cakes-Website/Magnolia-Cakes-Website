@@ -4,6 +4,7 @@ import Popup from "./TCPopup";
 import React from "react";
 import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
 import FormInput from "Components/FormInput/FormInput";
+import { ERRORMESSAGES } from "utils/constants";
 
 export default function SignupForm({ api }) {
   // States for registration
@@ -18,8 +19,9 @@ export default function SignupForm({ api }) {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
 
-  const defaultErrorMessage = "Please enter all the fields!";
-  const [errorMessagePrint, setErrorMessage] = useState(defaultErrorMessage);
+  const [errorMessagePrint, setErrorMessage] = useState(
+    ERRORMESSAGES.DEFAULT_SIGNUP_ERROR
+  );
 
   const [buttonPopup, setButtonPopup] = useState(false);
 
@@ -68,7 +70,10 @@ export default function SignupForm({ api }) {
       password1 === "" ||
       password2 === ""
     ) {
-      setErrorMessage(defaultErrorMessage);
+      setErrorMessage(ERRORMESSAGES.DEFAULT_SIGNUP_ERROR);
+      setError(true);
+    } else if (!agree) {
+      setErrorMessage(ERRORMESSAGES.TERMS_CONDITIONS_UNCHECKED_ERROR);
       setError(true);
     } else {
       // Send API msg to backend
@@ -93,7 +98,7 @@ export default function SignupForm({ api }) {
           setPassword2("");
 
           setError(false);
-          setErrorMessage(defaultErrorMessage);
+          setErrorMessage(ERRORMESSAGES.DEFAULT_SIGNUP_ERROR);
           setSubmitted(true);
           console.log(res);
         } else {

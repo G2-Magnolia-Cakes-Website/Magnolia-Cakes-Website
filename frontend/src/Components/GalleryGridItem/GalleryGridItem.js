@@ -24,11 +24,11 @@ const GalleryGridItem = (props) => {
             src={goldCircledLineLeft}
             alt="gold line"
           />
-          <img
+          {/* <img
             className="white-line"
             src={whiteTriangleLineLeft}
             alt="white line"
-          />
+          /> */}
         </div>
       );
     } else {
@@ -39,11 +39,11 @@ const GalleryGridItem = (props) => {
             src={goldCircledLineRight}
             alt="gold line"
           />
-          <img
+          {/* <img
             className="white-line"
             src={whiteTriangleLineRight}
             alt="white line"
-          />
+          /> */}
         </div>
       );
     }

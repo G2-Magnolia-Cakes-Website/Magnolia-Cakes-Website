@@ -39,21 +39,23 @@ const Dropzone = (props) => {
 
   const onDrop = useCallback((acceptedFiles) => {
     // Do something with the files
-    acceptedFiles.forEach((file) => {
-      const reader = new FileReader();
+    if (acceptedFiles) {
+      acceptedFiles.forEach((file) => {
+        const reader = new FileReader();
 
-      reader.onabort = () => console.log("file reading was aborted");
-      reader.onerror = () => console.log("file reading has failed");
-      reader.onload = () => {
-        // Do whatever you want with the file contents
-        const binaryStr = reader.result;
-        console.log(binaryStr);
-        console.log(file.name);
+        reader.onabort = () => console.log("file reading was aborted");
+        reader.onerror = () => console.log("file reading has failed");
+        reader.onload = () => {
+          // Do whatever you want with the file contents
+          const binaryStr = reader.result;
+          console.log(binaryStr);
+          console.log(file.name);
 
-        setFiles((curr) => [...curr, file]);
-      };
-      reader.readAsArrayBuffer(file);
-    });
+          setFiles((curr) => [...curr, file]);
+        };
+        reader.readAsArrayBuffer(file);
+      });
+    }
   }, []);
 
   const {

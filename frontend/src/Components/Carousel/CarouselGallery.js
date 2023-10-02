@@ -19,23 +19,7 @@ import "./CarouselGallery.css";
 // import slides from "./cake-categories.json";
 import CarouselItem from "./CarouselItem";
 
-const CarouselGallery = ({ api }) => {
-  const [images, setImages] = useState([]);
-
-  useEffect(() => {
-    // Fetch cakes data from the API
-    const fetchImages = async () => {
-      try {
-        const response = await api.get("api/slider-images/");
-        console.log("kim", response.data);
-        setImages(response.data);
-      } catch (error) {
-        console.error("Error fetching cakes:", error);
-      }
-    };
-    fetchImages();
-  }, [api]);
-
+const CarouselGallery = ({ images }) => {
   return (
     <div>
       <Swiper
@@ -44,11 +28,14 @@ const CarouselGallery = ({ api }) => {
         pagination={{ clickable: true }}
         keyboard={{ enabled: true }}
         grabCursor={true}
-        autoplay={{ delay: 4000 }}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
         loop={true}
         centeredSlides={true}
         effect="fade"
         // crossFade={true}
+        enabled={true}
+        observer={true}
+        observeParents={true}
       >
         {images.map((i) => (
           <SwiperSlide key={i.id}>
