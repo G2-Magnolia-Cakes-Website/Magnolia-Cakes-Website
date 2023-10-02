@@ -21,8 +21,7 @@ import BarLoader from "react-spinners/BarLoader";
 // import slides from "./cake-categories.json";
 import CarouselItem from "./CarouselItem";
 
-const CarouselGallery = ({ api }) => {
-  const [images, setImages] = useState([]);
+const CarouselGallery = ({ images }) => {
 
   // Loading
   const [loading, setLoading] = useState(true);
@@ -52,11 +51,14 @@ const CarouselGallery = ({ api }) => {
         pagination={{ clickable: true }}
         keyboard={{ enabled: true }}
         grabCursor={true}
-        autoplay={{ delay: 4000 }}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
         loop={true}
         centeredSlides={true}
         effect="fade"
-      // crossFade={true}
+        // crossFade={true}
+        enabled={true}
+        observer={true}
+        observeParents={true}
       >
         {images.map((i) => (
           <SwiperSlide key={i.id}>

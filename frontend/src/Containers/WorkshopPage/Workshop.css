@@ -1,0 +1,18 @@
+.video-title{
+  font-size: x-large;
+  text-align: center;
+}
+.video-item {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+  width: 800px; 
+  display: inline-block;
+  background-color: white;
+}
+
+/* Style for the video within the video item */
+.video-item video {
+  max-width: 100%; /* Ensure the video does not exceed the container's width */
+}

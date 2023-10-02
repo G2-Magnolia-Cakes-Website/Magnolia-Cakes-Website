@@ -6,6 +6,7 @@ import birthdayCake from "utils/wedding-ann.jpg";
 import "./SignupPage.css";
 
 function SignupPage({ api }) {
+    
   const logo = (
     <img className="logo" src={magnoliaCakeLogo} alt="Magnolia Cake Logo" />
   );

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // import lists from "./flavours-fillings.json";
 import List from "./List";
 import BarLoader from "react-spinners/BarLoader";
-
+import { parseStringToParagraphsByNewline } from "utils/parseParagraphs";
 import "./FlavoursAndServings.css";
 
 const FlavoursAndServings = ({ api }) => {
@@ -60,7 +60,11 @@ const FlavoursAndServings = ({ api }) => {
     <>
       <div className="flavours-and-servings">
         <h1>{flavServInfo.heading}</h1>
-        <p className="description">{flavServInfo.description}</p>
+        {parseStringToParagraphsByNewline(flavServInfo.description).map(
+          (desc) => (
+              <p className="description">{desc}</p>
+          )
+        )}
         <div className="flav-serv-lists">
           {flavServLists.map((flavServList) => (
             <List

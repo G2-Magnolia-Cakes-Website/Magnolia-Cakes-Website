@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import PageLayout from "./Containers/PageLayout/PageLayout";
 import { Route, Routes, BrowserRouter, useLocation } from "react-router-dom";
 import pages from "./utils/all_pages.json";
@@ -16,9 +16,29 @@ import OnlineStorePage from "./Containers/OnlineStorePage/OnlineStorePage";
 import GetAQuote from "Containers/GetAQuote/GetAQuote";
 import FlavoursAndServings from "Containers/FlavoursAndServings/FlavoursAndServings";
 import AboutUsPage from "Containers/AboutUsPage/AboutUsPage";
-import axios from "axios";
+import UserProfilePage from "Components/UserProfile/ProfilePage"
 import "./App.css";
 import ContactUsPage from "Containers/ContactUsPage/ContactUsPage";
+import WorkshopPage from "Containers/WorkshopPage/Workshop";
+import { PAGELINKS } from "utils/constants";
+
+/*
+* axios instance
+* Set base url in it
+* interceptor logic 
+*/
+import api from './axios'; 
+
+/*
+* Authentication Context (to update everything after login and logout, not persistent)
+Persistent authentication is handled using localstorage where we store
+- access_token
+- refresh_token
+- email
+- first_name
+- last_name
+*/
+import { AuthProvider } from './AuthContext';
 
 const Wrapper = ({ children }) => {
   const location = useLocation();
@@ -29,17 +49,19 @@ const Wrapper = ({ children }) => {
 };
 
 const App = () => {
+
+  const [isAuth, setIsAuth] = useState(false);
+
+  const handleLoginSuccess = () => {
+    setIsAuth(true);
+  };
+
   const nonPlaceHolderPages = [
     "/location",
     "/terms-and-conditions",
     "/flavours-and-servings",
   ];
-  // Define the base URL based on the environment, only one of them should be used at a time
-  //const baseURL = "https://backend-dot-alpine-avatar-399423.ts.r.appspot.com/"; // Uncomment this before deploying
-  const baseURL = "http://127.0.0.1:8000/"; // Uncomment this when you run it locally
-  const api = axios.create({
-    baseURL,
-  });
+
   // temporary until pages created
   const routeAllPagesComingSoon = () => {
     return pages
@@ -56,90 +78,97 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter>
-      <Wrapper>
-        <div className="watercolor-bg">
-          <PageLayout api={api}>
-            <Routes>
-              <Route key="/" path="/" element={<HomePage api={api} />} />
-              <Route
-                key="/location"
-                path="/location"
-                element={<LocationPage api={api} />}
-              />
-              <Route
-                key="/online-store"
-                path="/online-store"
-                element={<OnlineStorePage api={api} />}
-              />
-              <Route
-                key="/terms-and-conditions"
-                path="/terms-and-conditions"
-                element={<TermsAndConditionsPage api={api} />}
-              />
-              <Route
-                key="/flavours-and-servings"
-                path="/flavours-and-servings"
-                element={<FlavoursAndServings api={api} />}
-              />
-              <Route
-                key="about-us"
-                path="about-us"
-                element={<AboutUsPage api={api} />}
-              />
-              <Route 
-                path="/gallery"
-                key ="/gallery"
-                element={<GalleryPage api ={api} />}>
+    <AuthProvider>
+      <BrowserRouter>
+        <Wrapper>
+          <div className="watercolor-bg">
+            <PageLayout api={api} isAuth={isAuth} setIsAuth={setIsAuth}>
+              <Routes>
                 <Route
-                  path="/gallery/wedding-and-anniversary"
-                  element={<ComingSoonPage />}
+                  key="/"
+                  path="/"
+                  element={<HomePage api={api} />}
                 />
-                <Route path="/gallery/birthday" element={<ComingSoonPage />} />
                 <Route
-                  path="/gallery/christening-and-communion"
-                  element={<ComingSoonPage />}
+                  key="/location"
+                  path="/location"
+                  element={<LocationPage api={api} />}
                 />
-                <Route path="/gallery/cupcakes" element={<ComingSoonPage />} />
-              </Route>
-              <Route
-                key="/signup"
-                path="/signup"
-                element={<SignupPage api={api} />}
+                <Route
+                  key="/online-store"
+                  path="/online-store"
+                  element={<OnlineStorePage api={api} />}
+                />
+                <Route
+                  key="/terms-and-conditions"
+                  path="/terms-and-conditions"
+                  element={<TermsAndConditionsPage api={api} />}
+                />
+                <Route
+                  key="/flavours-and-servings"
+                  path="/flavours-and-servings"
+                  element={<FlavoursAndServings api={api} />}
+                />
+                <Route
+                  key="about-us"
+                  path="about-us"
+                  element={<AboutUsPage api={api} />}
+                />
+                <Route path="/gallery" element={<ComingSoonPage />}>
+                  <Route
+                    path="/gallery/wedding-and-anniversary"
+                    element={<ComingSoonPage />}
+                  />
+                  <Route path="/gallery/birthday" element={<ComingSoonPage />} />
+                  <Route
+                    path="/gallery/christening-and-communion"
+                    element={<ComingSoonPage />}
+                  />
+                  <Route path="/gallery/cupcakes" element={<ComingSoonPage />} />
+                </Route>
+                <Route
+                  key="/signup"
+                  path="/signup"
+                  element={<SignupPage api={api} />}
+                />
+                <Route
+                  key="/login"
+                  path="/login"
+                  element={<LoginPage api={api} handleLoginSuccess={handleLoginSuccess} />}
+                />
+                <Route
+                  key="/forgot-password"
+                  path="/forgot-password"
+                  element={<PasswordPage api={api} />}
+                />
+                <Route
+                  key="/reset-password"
+                  path="/reset-password"
+                  element={<PasswordResetPage api={api} />}
+                />
+                <Route
+                  key="/faq"
+                  path="/faq"
+                  element={<FAQsPage api={api} />}
+                />
+                <Route
+                  key={PAGELINKS.PROFILE_LINK}
+                  path={PAGELINKS.PROFILE_LINK}
+                  element={<UserProfilePage api={api} />}
+                />
+                <Route
+                key="/workshop"
+                path="/workshop"
+                element={<WorkshopPage api={api} />}
               />
-              <Route
-                key="/login"
-                path="/login"
-                element={<LoginPage api={api} />}
-              />
-              <Route
-                key="/get-a-quote"
-                path="/get-a-quote"
-                element={<GetAQuote api={api} />}
-              />
-              <Route
-                key="/contact-us"
-                path="/contact-us"
-                element={<ContactUsPage api={api} />}
-              />
-              <Route key="/faq" path="/faq" element={<FAQsPage api={api} />} />
-              <Route
-                key="/forgot-password"
-                path="/forgot-password"
-                element={<PasswordPage api={api} />}
-              />
-              <Route
-                key="/reset-password"
-                path="/reset-password"
-                element={<PasswordResetPage api={api} />}
-              />
-              <Route key="/faq" path="/faq" element={<FAQsPage api={api} />} />
               {routeAllPagesComingSoon()}
-            </Routes>
-          </PageLayout>
-        </div>
-      </Wrapper>
-    </BrowserRouter>
+              </Routes>
+            </PageLayout>
+          </div>
+        </Wrapper>
+      </BrowserRouter>
+    </AuthProvider>
   );
 };
 export default App;
+

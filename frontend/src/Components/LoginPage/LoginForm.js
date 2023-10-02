@@ -1,12 +1,16 @@
 import FormInput from "Components/FormInput/FormInput";
 import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import BarLoader from "react-spinners/BarLoader";
+import { AuthContext } from '../../AuthContext';
 
-export default function LoginForm({ api }) {
+export default function LoginForm({ api, handleLoginSuccess }) {
+
   const navigate = useNavigate();
+
+  const { setUser } = useContext(AuthContext);
 
   // States for registration
   const [email, setEmail] = useState("");
@@ -62,16 +66,17 @@ export default function LoginForm({ api }) {
           setError(false);
           setErrorMessage(defaultErrorMessage);
 
-          // Initialize the access & refresh token in localstorage.
+          // Initialize the access & refresh token in localstorage.      
           localStorage.clear();
-          localStorage.setItem("access_token", res.data.access);
-          localStorage.setItem("refresh_token", res.data.refresh);
-          api.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${res.data.access}`;
+          localStorage.setItem('access_token', res.data.access);
+          localStorage.setItem('refresh_token', res.data.refresh);
+          api.defaults.headers.common['Authorization'] = `Bearer ${res.data.access}`;
+
+          getUserDetails();
+
+          handleLoginSuccess(); // Call the callback function to update the isAuth state in the App component
 
           navigate("/");
-          navigate(0);
         } else {
           if (res.data["detail"]) {
             setErrorMessage(res.data["detail"]);
@@ -97,6 +102,35 @@ export default function LoginForm({ api }) {
     }
     setLoading(false);
   };
+
+  const getUserDetails = async (e) => {
+    try {
+      // get user
+
+      let res = await api.get('/api/user/',
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+          },
+          withCredentials: true,
+        }
+      );
+
+      if (res.status === 200) {
+        localStorage.setItem('email', res.data.email);
+        localStorage.setItem('first_name', res.data.first_name);
+        localStorage.setItem('last_name', res.data.last_name);
+        setUser(res.data);
+      } else {
+        console.log(res);
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   // Showing error message if error is true
   const errorMessage = () => {
