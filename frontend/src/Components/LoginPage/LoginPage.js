@@ -1,45 +1,56 @@
-import React from "react";
-import Form from "./LoginForm";
+import React, { useEffect, useState } from 'react';
+import Form from "./LoginForm"
+import SignedUpPopup from "./SignedUpPopup"
 import magnoliaCakeLogo from "utils/Magnolia_Cake_logo.png";
 import birthdayCake from "utils/wedding-ann.jpg";
 
-import "./LoginPage.css";
+import './LoginPage.css';
 
-function LoginPage({ api }) {
-  const logo = (
-    <img className="logo" src={magnoliaCakeLogo} alt="Magnolia Cake Logo" />
-  );
+function LoginPage({ api, handleLoginSuccess }) {
 
-  const image = <img className="login-image" src={birthdayCake} alt="Cake" />;
+    // Get the token from the URL query parameters
+    const searchParams = new URLSearchParams(window.location.search);
+    const signedUp = searchParams.get('success');
 
-  return (
-    <div className="login-page">
-      {image}
-      <div className="form-wrapper">
-        {logo}
-        <h1 className="login-header">Log In</h1>
-        <Form api={api} />
-      </div>
-    </div>
-  );
+    const [showWelcomePopup, setShowWelcomePopup] = useState(false);
 
-  //   return (
-  //     <div className="white-background">
-  //       <div className="loginPage">
-  //         <div className="login-form">
-  //           <div className="centre-form">
-  //             {/* <div className="logo-div">{logo}</div> */}
-  //             {logo}
-  //             <div>
-  //               <h1 className="login-header">Log In</h1>
-  //             </div>
-  //             <Form api={api} />
-  //           </div>
-  //         </div>
-  //         {image}
-  //       </div>
-  //     </div>
-  //   );
+    const handleCloseWelcomePopup = () => {
+        setShowWelcomePopup(false);
+    };
+
+    useEffect(() => {
+        if (signedUp) {
+            setShowWelcomePopup(true);
+
+            const timer = setTimeout(() => {
+                setShowWelcomePopup(false);
+            }, 7000);
+
+            return () => {
+                clearTimeout(timer);
+            };
+        }
+    }, []);
+
+    const logo = (
+        <img className="logo" src={magnoliaCakeLogo} alt="Magnolia Cake Logo" />
+    );
+
+    const image = <img className="login-image" src={birthdayCake} alt="Cake" />;
+
+    return (
+        <>
+            {showWelcomePopup && <SignedUpPopup onClose={handleCloseWelcomePopup} value={signedUp} />}
+            <div className="login-page">
+                {image}
+                <div className="form-wrapper">
+                    {logo}
+                    <h1 className="login-header">Log In</h1>
+                    <Form api={api} handleLoginSuccess={handleLoginSuccess} />
+                </div>
+            </div>
+        </>
+    );
 }
 
 export default LoginPage;

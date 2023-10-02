@@ -5,8 +5,6 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 export default function ForgotPasswordForm({ api }) {
-  // Get token
-  // const { token } = useParams();
 
   // States for registration
   const [password, setPassword] = useState("");
@@ -61,45 +59,44 @@ export default function ForgotPasswordForm({ api }) {
           },
         });
 
-        if (res.status === 200) {
-          console.log(res);
-          setSubmitted(true);
-          setError(false);
-          setErrorMessage(defaultErrorMessage);
-        } else {
-          setSubmitted(false);
-          if (res.data["detail"]) {
-            setErrorMessage(res.data["detail"]);
-          } else if (res.data["token"]) {
-            setErrorMessage(res.data["token"]);
-          } else if (res.data["password"]) {
-            setErrorMessage(res.data["password"]);
-          } else if (res.data["message"]) {
-            setErrorMessage(res.data["message"]);
-          } else {
-            setErrorMessage(defaultErrorMessage);
-          }
-          setError(true);
-          console.log(res);
+                if (res.status === 200) {
+                    setSubmitted(true);
+                    setError(false);
+                    setErrorMessage(defaultErrorMessage);
+                } else {
+                    setSubmitted(false);
+                    if (res.data["detail"]) {
+                        setErrorMessage(res.data["detail"]);
+                    } else if (res.data["token"]) {
+                        setErrorMessage(res.data["token"]);
+                    } else if (res.data["password"]) {
+                        setErrorMessage(res.data["password"]);
+                    } else if (res.data["message"]) {
+                        setErrorMessage(res.data["message"]);
+                    } else {
+                        setErrorMessage(defaultErrorMessage);
+                    }
+                    setError(true);
+                    console.log(res);
+                }
+            } catch (err) {
+                setSubmitted(false);
+                console.log(err);
+                if (err.response.data["detail"]) {
+                    setErrorMessage(err.response.data["detail"]);
+                } else if (err.response.data["token"]) {
+                    setErrorMessage(err.response.data["token"]);
+                } else if (err.response.data["password"]) {
+                    setErrorMessage(err.response.data["password"]);
+                } else if (err.response.data["message"]) {
+                    setErrorMessage(err.response.data["message"]);
+                } else {
+                    setErrorMessage(defaultErrorMessage);
+                }
+                setError(true);
+            }
         }
-      } catch (err) {
-        setSubmitted(false);
-        console.log(err);
-        if (err.response.data["detail"]) {
-          setErrorMessage(err.response.data["detail"]);
-        } else if (err.response.data["token"]) {
-          setErrorMessage(err.response.data["token"]);
-        } else if (err.response.data["password"]) {
-          setErrorMessage(err.response.data["password"]);
-        } else if (err.response.data["message"]) {
-          setErrorMessage(err.response.data["message"]);
-        } else {
-          setErrorMessage(defaultErrorMessage);
-        }
-        setError(true);
-      }
-    }
-  };
+    };
 
   // Showing success message
   const successMessage = () => {

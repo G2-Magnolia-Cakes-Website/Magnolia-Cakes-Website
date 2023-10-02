@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function LogoutPopup(props) {
@@ -11,35 +10,36 @@ function LogoutPopup(props) {
 
         // Send API msg to backend
         try {
-
             const token = {
                 refresh_token: localStorage.getItem('refresh_token')
             };
-            let access = localStorage.getItem('access_token');
 
-            let res = await axios.post('http://127.0.0.1:8000/api/logout/',
-                JSON.stringify(token),
+            let res = await props.api.post('/api/logout/',
+                token,
                 {
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
                     },
-                    withCredentials: true
-                },
+                    withCredentials: true,
+                }
             );
-            console.log(axios.defaults.headers.common['Authorization']);
-            console.log(res);
 
-            localStorage.clear();
-            axios.defaults.headers.common['Authorization'] = null;
+            if (res.status === 205) {
+                localStorage.clear();
+                props.api.defaults.headers.common['Authorization'] = null;
 
-            props.setTrigger(false)
+                props.setTrigger(false)
 
-            navigate("/");
-            navigate(0);
+                navigate("/");
+                navigate(0);
+            } else {
+                console.log(res);
+            }
 
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
     };
 
