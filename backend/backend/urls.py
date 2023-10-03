@@ -99,4 +99,8 @@ urlpatterns = [
     ),
     path("api/gallery/items/", views.gallery_items_list, name="gallery_items_list"),
     path("api/video/", views.video, name="video"),
+
+    # User videos
+    path("api/user/videos/", views.get_videos, name="videos"),
+    path("api/user/purchase/video/<int:video_id>/", views.purchase_videos, name="purchase_videos"),
 ]

@@ -16,12 +16,16 @@ import "swiper/css/effect-fade";
 
 import "./CarouselGallery.css";
 
+import BarLoader from "react-spinners/BarLoader";
+
 // import slides from "./cake-categories.json";
 import CarouselItem from "./CarouselItem";
 
-const CarouselGallery = ({ images }) => {
+const CarouselGallery = ({ images, loading }) => {
+
   return (
     <div>
+
       <Swiper
         modules={[Autoplay, EffectFade, Navigation, Pagination, Keyboard]}
         navigation={true}
@@ -43,6 +47,13 @@ const CarouselGallery = ({ images }) => {
           </SwiperSlide>
         ))}
       </Swiper>
+
+      <BarLoader
+        loading={loading}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+        width={"100%"}
+      />
     </div>
   );
 };

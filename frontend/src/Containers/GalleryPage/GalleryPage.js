@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./GalleryPage.css";
 import ImagePopup from "./ImagePopup.js";
 import { getGalleryCategoryParam } from "utils/getGalleryCategoryParam";
+import BarLoader from "react-spinners/BarLoader";
 
 const GalleryPage = ({ api }) => {
   const all = { id: -1, name: "All" }; // Corrected 'name' property here
@@ -12,8 +13,11 @@ const GalleryPage = ({ api }) => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const queryParameters = new URLSearchParams(window.location.search);
+  // Loading
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     // Fetch gallery categories
     api
       .get("/api/gallery/categories/")
@@ -29,11 +33,13 @@ const GalleryPage = ({ api }) => {
         } else {
           handleCategoryChange(all); // Set default category to 'all'
         }
+        setLoading(false);
       })
       .catch((error) => console.error("Error fetching categories:", error));
   }, [api]);
 
   const handleCategoryChange = (category) => {
+    setLoading(true);
     setSelectedCategory(category);
     let endpoint;
     if (category.id === all.id) {
@@ -46,6 +52,7 @@ const GalleryPage = ({ api }) => {
       .get(endpoint)
       .then((response) => {
         setImages(response.data);
+        setLoading(false);
       })
       .catch((error) => console.error("Error fetching images:", error));
 
@@ -70,6 +77,12 @@ const GalleryPage = ({ api }) => {
   return (
     <div className="GalleryPage">
       <h1 className="PageHeader">Gallery</h1>
+      <BarLoader
+        loading={loading}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+        width={"300px"}
+      />
       <div className="GalleryCategory">
         {categories.map((category) => (
           <button
