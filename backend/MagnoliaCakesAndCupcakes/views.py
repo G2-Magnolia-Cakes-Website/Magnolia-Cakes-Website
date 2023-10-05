@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login as django_login
 from django.contrib.auth.forms import AuthenticationForm
@@ -34,6 +35,9 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.conf import settings
 
+import stripe
+import json
+from django.views.decorators.csrf import csrf_exempt
 
 # create a class for the Todo model viewsets
 class MagnoliaCakesAndCupcakesView(viewsets.ModelViewSet):
@@ -60,7 +64,7 @@ def register(request):
             user.save()
 
             # Create user profile
-            UserProfile.objects.create(user=user)
+            UserVideo.objects.create(user=user)
 
             return activateEmail(request, user, form.cleaned_data.get("username"))
         return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -466,6 +470,73 @@ def location_page_content(request):
         location_page_content = LocationPageContent.objects.first()
         serializer = LocationPageContentSerializer(location_page_content)
         return Response(serializer.data)
+
+@csrf_exempt
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def create_checkout_session(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    FRONTEND_DOMAIN = "http://localhost:3000"
+    # FRONTEND_DOMAIN = "https://alpine-avatar-399423.ts.r.appspot.com/"
+    
+    # Get the cart items from the request
+    cart_items = request.data.get('items', [])
+
+    # Transform cart items into line items for Stripe checkout
+    line_items = []
+    for item in cart_items:
+        try:
+            # Convert the price to a float and then to an integer (cents)
+            price = int(float(item.get('price', 0)) * 100)
+        except ValueError:
+            # Handle the case where the price is not a valid number
+            # You may want to log an error or take appropriate action here
+            price = 0
+
+        line_item = {
+            'price_data': {
+                'currency': 'aud',
+                'product_data': {
+                    'name': item.get('name', 'Product'),
+                },
+                'unit_amount': price,  # Amount in cents
+            },
+            'quantity': item.get('quantity', 1),
+        }
+        line_items.append(line_item)
+
+    # Calculate total amount
+    total_amount = Decimal(sum(Decimal(item['price']) * int(item['quantity']) for item in cart_items))
+
+    # Constants for service fees
+    F_fixed = Decimal('0.30')  # Fixed fee after VAT/GST is included
+    F_percent = Decimal('0.0175')  # Percent fee after VAT/GST is included
+
+    # Calculate the amount to charge the customer including fees
+    P_charge = (total_amount + F_fixed) / (1 - F_percent)
+    
+    # Add service fees as a display item
+    service_fees_item = {
+        'price_data': {
+            'currency': 'aud',
+            'unit_amount': int((P_charge-total_amount) * 100),  # Convert to cents
+            'product_data': {
+                'name': 'Service Fees',
+                'description': 'Service Fees for the transaction',
+            },
+        },
+        'quantity': 1,
+    }
+
+    checkout_session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[*line_items, service_fees_item],  # Include service fees item
+        mode='payment',
+        success_url= f"{settings.FRONTEND_APP_URL}/success" ,
+        cancel_url= f"{settings.FRONTEND_APP_URL}/online-store",
+    )
+
+    return Response({'id': checkout_session.id, 'total_amount_with_fees': round(P_charge, 2)})
 
 
 @api_view(["GET"])

@@ -1,47 +1,58 @@
 import React, { useState, useEffect } from 'react';
 import './ViewCartPopup.css';
+import { loadStripe } from '@stripe/stripe-js';
 
-function ViewCartPopup(props) {
-  const [reload, setReload] = useState(false); // State to force reload
-
-  const handleDeleteItem = (index) => {
-    const cartItems = JSON.parse(localStorage.getItem('Cart'));
-    const updatedCart = cartItems.filter((item, idx) => idx !== index);
-
-    localStorage.setItem('Cart', JSON.stringify(updatedCart));
-    setReload((prevReload) => !prevReload);
-  };
-
-  const handleQuantityChange = (index, event) => {
-    const newCart = JSON.parse(localStorage.getItem('Cart'));
-    newCart[index].quantity = parseInt(event.target.value, 10);
-    localStorage.setItem('Cart', JSON.stringify(newCart));
-    setReload((prevReload) => !prevReload);
-  };
-
-  useEffect(() => {
-    const handleWindowResize = () => {
-      setReload((prevReload) => !prevReload);
-    };
-
-    window.addEventListener('resize', handleWindowResize);
-
-    return () => {
-      window.removeEventListener('resize', handleWindowResize);
-    };
-  }, []);
-
-  const cartItems = JSON.parse(localStorage.getItem('Cart'));
-  const totalPrice = cartItems ? cartItems.reduce((total, item) => total + item.price * item.quantity, 0) : 0;
-  const handleEmptyCart = () => {
-    localStorage.removeItem('Cart');
-    setReload((prevReload) => !prevReload);
-  };
+function ViewCartPopup(props,{api}) {
+    const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem('Cart')) || []);
+    const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    const stripePromise = loadStripe('pk_test_51NveKwI2G7Irdjp2nVREupdlFTx5xA6pSo9hJeULztP4rAzUQA7rHzdSPLIUBFfuDtSnzNFq3Zc07hYQ4YIZ0Qkb00sFf0mfSq');
   
-  const handleProceedToPayment = () => {
-    // Handle the logic for proceeding to payment
-    console.log('Proceeding to payment...');
-  };
+
+    const handleDeleteItem = (index) => {
+      const updatedCart = cartItems.filter((item, idx) => idx !== index);
+      localStorage.setItem('Cart', JSON.stringify(updatedCart));
+      setCartItems(updatedCart);
+    };
+  
+    const handleQuantityChange = (index, event) => {
+      const newCart = [...cartItems];
+      newCart[index].quantity = parseInt(event.target.value, 10);
+      localStorage.setItem('Cart', JSON.stringify(newCart));
+      setCartItems(newCart);
+    };
+  
+    const handleEmptyCart = () => {
+      localStorage.removeItem('Cart');
+      setCartItems([]);
+    };
+  
+    const handleProceedToPayment = async () => {
+      const stripe = await stripePromise;
+    
+      try {
+        // Make the API call to your backend using the provided API function
+        const response = await props.api.post('/api/checkout/', {
+          amount: (totalPrice) * 100, // Convert to cents
+          items: cartItems,
+        });
+    
+        const result = await stripe.redirectToCheckout({
+          sessionId: response.data.id, // Use the sessionId from the API response
+        });
+    
+        if (result.error) {
+          console.error(result.error.message);
+        } 
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      handleProceedToPayment();
+    };
+    
   
   return props.trigger ? (
     <div className='popup'>
