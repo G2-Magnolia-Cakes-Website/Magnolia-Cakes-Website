@@ -22,7 +22,9 @@ const GalleryPage = ({ api }) => {
     api
       .get("/api/gallery/categories/")
       .then((response) => {
-        const additionalCategories = response.data;
+        const additionalCategories = response.data.sort((a, b) => {
+          return a.id - b.id;
+        });
         setCategories([all, ...additionalCategories]); // Include 'all' as the first category
         const categoryQuery = queryParameters.get("category");
         if (categoryQuery) {
