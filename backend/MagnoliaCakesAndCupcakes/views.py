@@ -64,7 +64,7 @@ def register(request):
             user.save()
 
             # Create user profile
-            UserProfile.objects.create(user=user)
+            UserVideo.objects.create(user=user)
 
             return activateEmail(request, user, form.cleaned_data.get("username"))
         return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -532,8 +532,8 @@ def create_checkout_session(request):
         payment_method_types=['card'],
         line_items=[*line_items, service_fees_item],  # Include service fees item
         mode='payment',
-        success_url=FRONTEND_DOMAIN +('/success'),
-        cancel_url=FRONTEND_DOMAIN + ('/online-store'),
+        success_url= f"{settings.FRONTEND_APP_URL}/success" ,
+        cancel_url= f"{settings.FRONTEND_APP_URL}/online-store",
     )
 
     return Response({'id': checkout_session.id, 'total_amount_with_fees': round(P_charge, 2)})

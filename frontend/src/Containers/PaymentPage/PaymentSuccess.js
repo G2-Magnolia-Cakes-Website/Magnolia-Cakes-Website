@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SuccessPage = ({ api }) => {
+const SuccessPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
