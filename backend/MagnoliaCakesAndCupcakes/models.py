@@ -416,3 +416,31 @@ class UserVideo(models.Model):
 
     class Meta:
         ordering = ["user"]
+
+
+# from django.db.models.signals import post_save
+# from django.dispatch import receiver
+# import stripe
+
+# class Coupon(models.Model):
+#     code = models.CharField(max_length=50, unique=True)
+#     amount_off = models.DecimalField(max_digits=10, decimal_places=2)
+#     percent_off = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+#     # Add any additional fields you need for the Coupon model
+
+# @receiver(post_save, sender=Coupon)
+# def create_stripe_coupon(sender, instance, created, **kwargs):
+#     if created:
+#         stripe_coupon = stripe.Coupon.create(
+#             percent_off=int(instance.percent_off * 100),  # Stripe expects the percentage in cents
+#             duration=instance.duration,
+#             # Add any additional coupon parameters as needed
+#         )
+#         # You can save the Stripe coupon ID or any other relevant information to your Coupon model
+#         instance.stripe_coupon_id = stripe_coupon.id
+#         instance.save()
+
+# class Promotion(models.Model):
+#     code = models.CharField(max_length=50, unique=True)
+#     coupon = models.ForeignKey(Coupon, on_delete=models.CASCADE)
+#     # Add any additional fields you need for the Promotion model
