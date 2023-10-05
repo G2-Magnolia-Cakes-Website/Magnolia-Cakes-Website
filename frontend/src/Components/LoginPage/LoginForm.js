@@ -4,10 +4,9 @@ import React from "react";
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import BarLoader from "react-spinners/BarLoader";
-import { AuthContext } from '../../AuthContext';
+import { AuthContext } from "../../AuthContext";
 
 export default function LoginForm({ api, handleLoginSuccess }) {
-
   const navigate = useNavigate();
 
   const { setUser } = useContext(AuthContext);
@@ -66,11 +65,13 @@ export default function LoginForm({ api, handleLoginSuccess }) {
           setError(false);
           setErrorMessage(defaultErrorMessage);
 
-          // Initialize the access & refresh token in localstorage.      
+          // Initialize the access & refresh token in localstorage.
           localStorage.clear();
-          localStorage.setItem('access_token', res.data.access);
-          localStorage.setItem('refresh_token', res.data.refresh);
-          api.defaults.headers.common['Authorization'] = `Bearer ${res.data.access}`;
+          localStorage.setItem("access_token", res.data.access);
+          localStorage.setItem("refresh_token", res.data.refresh);
+          api.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${res.data.access}`;
 
           getUserDetails();
 
@@ -107,30 +108,27 @@ export default function LoginForm({ api, handleLoginSuccess }) {
     try {
       // get user
 
-      let res = await api.get('/api/user/',
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-          },
-          withCredentials: true,
-        }
-      );
+      let res = await api.get("/api/user/", {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+        withCredentials: true,
+      });
 
       if (res.status === 200) {
-        localStorage.setItem('email', res.data.email);
-        localStorage.setItem('first_name', res.data.first_name);
-        localStorage.setItem('last_name', res.data.last_name);
+        localStorage.setItem("email", res.data.email);
+        localStorage.setItem("first_name", res.data.first_name);
+        localStorage.setItem("last_name", res.data.last_name);
         setUser(res.data);
       } else {
         console.log(res);
       }
-
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   // Showing error message if error is true
   const errorMessage = () => {
@@ -189,6 +187,12 @@ export default function LoginForm({ api, handleLoginSuccess }) {
           Login
         </button> */}
 
+      <div className="signup-question">
+        <Link to="/forgot-password" className="signup-link">
+          Forgot your password?
+        </Link>
+      </div>
+
       <RoseGoldButton
         buttonText="Login"
         buttonType="submit"
@@ -203,7 +207,7 @@ export default function LoginForm({ api, handleLoginSuccess }) {
         </Link>
       </div>
 
-      <br/>
+      <br />
       <BarLoader
         loading={loading}
         aria-label="Loading Spinner"
