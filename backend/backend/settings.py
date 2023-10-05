@@ -9,7 +9,7 @@ from decouple import config
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 FRONTEND_APP_URL = "http://localhost:3000"
-
+# FRONTEND_APP_URL = "https://alpine-avatar-399423.ts.r.appspot.com/"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
