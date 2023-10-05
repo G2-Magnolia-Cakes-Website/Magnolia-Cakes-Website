@@ -3,7 +3,7 @@ import "./ViewCart.css";
 import ViewCartPopup from "./ViewCartPopup.js"
 import { useState } from 'react';
 
-const ViewCart = () => {
+const ViewCart = ({api}) => {
 
     const [buttonPopup, setButtonPopup] = useState(false)
 
@@ -12,7 +12,7 @@ const ViewCart = () => {
             <button className="logout" onClick={() => setButtonPopup(true)}>
                 View Cart
             </button>
-            <ViewCartPopup trigger={buttonPopup} setTrigger={setButtonPopup} position="right center" />
+            <ViewCartPopup trigger={buttonPopup} setTrigger={setButtonPopup} api = {api} position="right center" />
         </div>
     );
 };

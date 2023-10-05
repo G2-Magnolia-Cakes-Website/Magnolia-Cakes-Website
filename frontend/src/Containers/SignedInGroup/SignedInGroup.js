@@ -7,7 +7,7 @@ import ViewCart from "../../Components/ViewCart/ViewCart";
 const SignedInGroup = ( { api, user } ) => {
     return (
         <div className="signed-in-group">
-            <ViewCart/>
+            <ViewCart api={api}/>
             <LogoutLink api={api} />
             <ProfileLink user={user} />
         </div>
