@@ -1,23 +1,18 @@
 import React from "react";
 import "./ViewCart.css";
+import ViewCartPopup from "./ViewCartPopup.js"
+import { useState } from 'react';
 
-import { useNavigate } from "react-router-dom";
-import { PAGELINKS } from "utils/constants";
+const ViewCart = ({api}) => {
 
-const ViewCart = () => {
-
-    const navigate = useNavigate();
-
-  const onViewCartClick = () => {
-    navigate(PAGELINKS.PAYMENT);
-  };
+    const [buttonPopup, setButtonPopup] = useState(false)
 
     return (
         <div className="logout-div">
-            <button className="logout" onClick={() => onViewCartClick()}>
+            <button className="logout" onClick={() => setButtonPopup(true)}>
                 View Cart
             </button>
-
+            <ViewCartPopup trigger={buttonPopup} setTrigger={setButtonPopup} api = {api} position="right center" />
         </div>
     );
 };

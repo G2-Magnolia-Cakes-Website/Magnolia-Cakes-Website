@@ -532,7 +532,7 @@ def create_checkout_session(request):
         line_items=[*line_items, service_fees_item],  # Include service fees item
         mode='payment',
         success_url=FRONTEND_DOMAIN +('/success'),
-        cancel_url=FRONTEND_DOMAIN + ('/payment'),
+        cancel_url=FRONTEND_DOMAIN + ('/online-store'),
     )
 
     return Response({'id': checkout_session.id, 'total_amount_with_fees': round(P_charge, 2)})

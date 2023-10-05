@@ -19,7 +19,7 @@ import AboutUsPage from "Containers/AboutUsPage/AboutUsPage";
 import UserProfilePage from "Components/UserProfile/ProfilePage"
 import "./App.css";
 import ContactUsPage from "Containers/ContactUsPage/ContactUsPage";
-import Payment from "Containers/PaymentPage/Payment";
+
 import SuccessPage from "Containers/PaymentPage/PaymentSuccess";
 import WorkshopPage from "Containers/WorkshopPage/Workshop";
 import { PAGELINKS } from "utils/constants";
@@ -172,12 +172,6 @@ const App = () => {
                 key="/contact-us"
                 path="/contact-us"
                 element={<ContactUsPage api={api} />}
-              />
-
-              <Route
-                key="/payment"
-                path="/payment"
-                element={<Payment api={api}/>}
               />
 
               <Route
