@@ -6,7 +6,10 @@ function ViewCartPopup(props,{api}) {
     const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem('Cart')) || []);
     const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     const stripePromise = loadStripe('pk_test_51NveKwI2G7Irdjp2nVREupdlFTx5xA6pSo9hJeULztP4rAzUQA7rHzdSPLIUBFfuDtSnzNFq3Zc07hYQ4YIZ0Qkb00sFf0mfSq');
-  
+    
+    useEffect(() => {
+        setCartItems(JSON.parse(localStorage.getItem('Cart')) || []);
+      }, [props.trigger]);
 
     const handleDeleteItem = (index) => {
       const updatedCart = cartItems.filter((item, idx) => idx !== index);
