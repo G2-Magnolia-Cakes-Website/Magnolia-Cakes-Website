@@ -477,6 +477,7 @@ def location_page_content(request):
 def create_checkout_session(request):
     stripe.api_key = settings.STRIPE_SECRET_KEY
     FRONTEND_DOMAIN = "http://localhost:3000"
+    # FRONTEND_DOMAIN = "https://alpine-avatar-399423.ts.r.appspot.com/"
     
     # Get the cart items from the request
     cart_items = request.data.get('items', [])
