@@ -4,6 +4,7 @@ import { getGalleryCategoryParam } from "utils/getGalleryCategoryParam";
 import { everyFirst, everyNth } from "utils/getEveryNthElementInArray";
 
 import "./GallerySection.css";
+import { getSortedObjectsByAscId } from "utils/getSortedObjects";
 
 const GallerySection = ({ api }) => {
   const [heading, setHeading] = useState("Loading...");
@@ -23,11 +24,7 @@ const GallerySection = ({ api }) => {
     api
       .get("/api/gallery/categories/")
       .then((response) => {
-        setCategories(
-          response.data.sort((a, b) => {
-            return a.id - b.id;
-          })
-        );
+        setCategories(getSortedObjectsByAscId(response.data));
       })
       .catch((error) => {
         console.error("Error fetching data:", error);

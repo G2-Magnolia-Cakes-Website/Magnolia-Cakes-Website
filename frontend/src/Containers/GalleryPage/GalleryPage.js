@@ -3,6 +3,10 @@ import "./GalleryPage.css";
 import ImagePopup from "./ImagePopup.js";
 import { getGalleryCategoryParam } from "utils/getGalleryCategoryParam";
 import BarLoader from "react-spinners/BarLoader";
+import {
+  getSortedObjectsByAscId,
+  getSortedObjectsByDescId,
+} from "utils/getSortedObjects";
 
 const GalleryPage = ({ api }) => {
   const all = { id: -1, name: "All" }; // Corrected 'name' property here
@@ -22,9 +26,7 @@ const GalleryPage = ({ api }) => {
     api
       .get("/api/gallery/categories/")
       .then((response) => {
-        const additionalCategories = response.data.sort((a, b) => {
-          return a.id - b.id;
-        });
+        const additionalCategories = getSortedObjectsByAscId(response.data);
         setCategories([all, ...additionalCategories]); // Include 'all' as the first category
         const categoryQuery = queryParameters.get("category");
         if (categoryQuery) {
@@ -53,7 +55,7 @@ const GalleryPage = ({ api }) => {
     api
       .get(endpoint)
       .then((response) => {
-        setImages(response.data);
+        setImages(getSortedObjectsByDescId(response.data));
         setLoading(false);
       })
       .catch((error) => console.error("Error fetching images:", error));
