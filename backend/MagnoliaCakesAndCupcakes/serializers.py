@@ -138,3 +138,13 @@ class UserVideoSerialiser(serializers.ModelSerializer):
     class Meta:
         model = UserVideo
         fields = "__all__"
+        
+class StripeCouponSerialiser(serializers.ModelSerializer):
+    class Meta:
+        model = StripeCoupon
+        fields = "__all__"
+        
+class StripePromotionSerialiser(serializers.ModelSerializer):
+    class Meta:
+        model = StripePromotion
+        fields = "__all__"

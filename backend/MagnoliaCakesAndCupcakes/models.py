@@ -12,6 +12,13 @@ from django.urls import reverse
 from django.core.mail import EmailMessage
 from django_rest_passwordreset.signals import reset_password_token_created
 
+# Coupon/Promotions
+from django.db.models.signals import post_save
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+import stripe
+from django.core.exceptions import ValidationError
+
 
 class MagnoliaCakesAndCupcakes(models.Model):
     title = models.CharField(max_length=150)
@@ -418,29 +425,115 @@ class UserVideo(models.Model):
         ordering = ["user"]
 
 
-# from django.db.models.signals import post_save
-# from django.dispatch import receiver
-# import stripe
+############################################ Coupons and Promotions ############################################
+class StripeCoupon(models.Model):
+    name = models.CharField(max_length=50)
+    amount_off = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    percent_off = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    max_redemptions = models.PositiveIntegerField(null=True, blank=True)
+    redeem_by = models.DateTimeField(null=True, blank=True)
+    stripe_coupon_id = models.CharField(max_length=100, blank=True, editable=False)
+    # maybe add applies_to to just allow certain cakes and cupcakes 
 
-# class Coupon(models.Model):
-#     code = models.CharField(max_length=50, unique=True)
-#     amount_off = models.DecimalField(max_digits=10, decimal_places=2)
-#     percent_off = models.DecimalField(max_digits=5, decimal_places=2, null=True)
-#     # Add any additional fields you need for the Coupon model
+    def save(self, *args, **kwargs):
+        if self.pk:
+            # update the promotion code
+            print("modifying Coupon")
+            original_coupon = StripeCoupon.objects.get(pk=self.pk)
+            if (
+                original_coupon.name != self.name
+                or original_coupon.amount_off != self.amount_off
+                or original_coupon.percent_off != self.percent_off
+                or original_coupon.max_redemptions != self.max_redemptions
+                or original_coupon.redeem_by != self.redeem_by
+                or original_coupon.stripe_coupon_id != self.stripe_coupon_id
+            ):
+                raise ValueError("Cannot update fields other than 'name'")
+            try:
+                stripe.api_key = settings.STRIPE_SECRET_KEY
+                stripe.Coupon.modify(
+                    self.stripe_coupon_id,
+                    name=self.name
+                )
+                super().save(*args, **kwargs)
+            except stripe.error.StripeError as e:
+                # Handle the Stripe API error
+                raise ValidationError(f"Failed to update Stripe coupon: {str(e)}")
+        else:
+            super().save(*args, **kwargs)
 
-# @receiver(post_save, sender=Coupon)
-# def create_stripe_coupon(sender, instance, created, **kwargs):
-#     if created:
-#         stripe_coupon = stripe.Coupon.create(
-#             percent_off=int(instance.percent_off * 100),  # Stripe expects the percentage in cents
-#             duration=instance.duration,
-#             # Add any additional coupon parameters as needed
-#         )
-#         # You can save the Stripe coupon ID or any other relevant information to your Coupon model
-#         instance.stripe_coupon_id = stripe_coupon.id
-#         instance.save()
 
-# class Promotion(models.Model):
-#     code = models.CharField(max_length=50, unique=True)
-#     coupon = models.ForeignKey(Coupon, on_delete=models.CASCADE)
-#     # Add any additional fields you need for the Promotion model
+@receiver(post_save, sender=StripeCoupon)
+def create_stripe_coupon(sender, instance, created, **kwargs):
+    if created:
+        try:
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            stripe_coupon = stripe.Coupon.create({
+                'name': instance.name,
+                'amount_off': instance.amount_off,
+                'percent_off': instance.percent_off,
+                'max_redemptions': instance.max_redemptions,
+                'redeem_by': instance.redeem_by.strftime('%s') if instance.redeem_by else None,
+            })
+            # You can save the Stripe coupon ID or any other relevant information to your Coupon model
+            instance.stripe_coupon_id = stripe_coupon.id
+            instance.save()
+        except stripe.error.StripeError as e:
+            # Handle the Stripe API error
+            instance.delete()
+            print(f"Failed to create Stripe coupon: {str(e)}")
+
+@receiver(pre_delete, sender=StripeCoupon)
+def delete_stripe_coupon(sender, instance, **kwargs):
+    if instance.stripe_coupon_id:
+        try:
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            stripe.Coupon.delete(instance.stripe_coupon_id)
+        except stripe.error.StripeError as e:
+            # Handle any errors that occur during the API request
+            raise ValidationError(f"Failed to delete Stripe coupon: {str(e)}")
+
+
+############### Promotion ###############
+class StripePromotion(models.Model):
+    coupon = models.CharField(max_length=50)  # Add the coupon field
+    code = models.CharField(max_length=50)
+    stripe_promotion_id = models.CharField(max_length=100, blank=True, editable=False)
+    # Add any additional fields you need for the Promotion model
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            raise ValueError("Cannot update promotion field! You may only delete or add a new one.")
+        super().save(*args, **kwargs)
+
+
+@receiver(post_save, sender=StripePromotion)
+def create_stripe_promotion(sender, instance, created, **kwargs):
+    if created:
+        try:
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            stripe_promotion = stripe.PromotionCode.create(
+                coupon={
+                    'code': instance.name,
+                    'coupon': instance.coupon,  # Pass the coupon field value
+                },
+            )
+            # Save the Stripe promotion ID or any other relevant information to your Promotion model
+            instance.stripe_promotion_id = stripe_promotion.id
+            instance.save()
+        except stripe.error.StripeError as e:
+            # Handle the Stripe API error
+            instance.delete()
+            raise ValidationError(f"Failed to create Stripe promotion: {str(e)}")
+
+@receiver(pre_delete, sender=StripePromotion)
+def delete_stripe_promotion(sender, instance, **kwargs):
+    if instance.stripe_promotion_id:
+        try:
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            stripe.PromotionCode.delete(instance.stripe_promotion_id)
+        except stripe.error.StripeError as e:
+            # Handle any errors that occur during the API request
+            raise ValidationError(f"Failed to delete Stripe promotion: {str(e)}")
+
+################################################################################################################
