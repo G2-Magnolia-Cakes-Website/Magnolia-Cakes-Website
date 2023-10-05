@@ -52,6 +52,10 @@
     "pageLink": "/location"
   },
   {
+    "pageName": "Payment",
+    "pageLink": "/payment"
+  },
+  {
     "pageName": "Profile",
     "pageLink": "/profile"
   }
