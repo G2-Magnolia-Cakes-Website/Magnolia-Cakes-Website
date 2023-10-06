@@ -17,8 +17,6 @@ const Popup = ({ api }) => {
                 // Set the retrieved content in the state
                 if (response.status === 200) {
                     setPromotion(response.data);
-                } else {
-                    console.log('No promotion found.')
                 }
             })
             .catch(error => {
@@ -27,16 +25,30 @@ const Popup = ({ api }) => {
     }, []);
 
     // Show popup
+    const showPopupWithTimeout = () => {
+        const timeout = setTimeout(() => {
+            setShowPopup(true);
+            Cookies.set('popupShown', 'true', { expires: 1 });
+        }, 30000); // Delay of 30 seconds (30000 milliseconds)
+
+        return () => clearTimeout(timeout); // Clear the timeout if the component unmounts before the delay
+    };
+
+    // Check if need to show popup
     useEffect(() => {
+        // Only show popup once
         const hasPopupShownBefore = Cookies.get('popupShown');
-
-        if (!hasPopupShownBefore) {
-            const timeout = setTimeout(() => {
-                setShowPopup(true);
-                Cookies.set('popupShown', 'true', { expires: 1 });
-            }, 30000); // Delay of 30 seconds (30000 milliseconds)
-
-            return () => clearTimeout(timeout); // Clear the timeout if the component unmounts before the delay
+        if (!hasPopupShownBefore && promotion) {
+            if (promotion.only_logged_in_users) {
+                // if logged in required, and is logged in
+                const access_token = localStorage.getItem('access_token');
+                if (access_token) {
+                    showPopupWithTimeout();
+                }
+            } else {
+                // login not required
+                showPopupWithTimeout();
+            }
         }
     }, [promotion]);
 
@@ -56,7 +68,7 @@ const Popup = ({ api }) => {
 
     // Render only if there is a promotion
     if (!showPopup || !promotion) {
-      return null;
+        return null;
     }
 
     return (
@@ -66,7 +78,6 @@ const Popup = ({ api }) => {
                 <div className='promotion-popup'>
                     <div className='promotion-popup-inner'>
                         <button className='close-btn' onClick={handleClosePopup}>X</button>
-                        {/* Popup content */}
                         <div className="promotion-popup-content">
                             <h3>PROMOTION!</h3>
                             <div className="promotion-code-container">

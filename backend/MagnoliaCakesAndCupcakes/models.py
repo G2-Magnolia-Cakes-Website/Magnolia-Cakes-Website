@@ -520,6 +520,7 @@ class StripePromotion(models.Model):
     stripe_promotion_id = models.CharField(max_length=100, blank=True, editable=False)
     # Frontend:
     is_displayed = models.BooleanField(default=False)
+    onlyLoggedInUsers = models.BooleanField(default=False)
     description = models.TextField(blank=True)
 
     def __str__(self):

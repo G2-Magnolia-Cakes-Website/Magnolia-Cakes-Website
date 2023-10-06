@@ -617,5 +617,6 @@ def get_displayed_promotion(request):
         data = {
             'code': promotion.code,
             'description': promotion.description,
+            'only_logged_in_users': promotion.onlyLoggedInUsers,
         }
         return Response(data, status=200)

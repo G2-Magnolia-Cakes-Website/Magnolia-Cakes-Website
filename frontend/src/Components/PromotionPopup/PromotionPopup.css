@@ -42,20 +42,13 @@
 
 .promotion-popup-inner h2 {
     text-align: left;
-    /* Align the heading to the left */
     font-size: 20px;
-    /* Adjust the font size for h2 */
     margin-bottom: 10px;
-    /* Add some margin to separate h2 from p */
 }
 
 .promotion-popup-inner p {
-    text-align: left;
-    /* Align paragraphs to the left */
     font-size: 16px;
-    /* Adjust the font size for paragraphs */
     margin-bottom: 10px;
-    /* Add some margin between paragraphs */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -107,9 +100,7 @@
     align-items: center;
     justify-content: center;
     height: 40px;
-    /* Set the desired height */
     line-height: 40px;
-    /* Add this line */
     position: relative;
 }
 
@@ -117,7 +108,6 @@
     content: "Copy to Clipboard";
     position: absolute;
     top: 100%;
-    /* Position the hint below the button */
     left: 50%;
     transform: translateX(-50%);
     padding: 5px;
@@ -126,12 +116,9 @@
     font-size: 12px;
     border-radius: 5px;
     opacity: 0;
-    /* Hide the hint by default */
     pointer-events: none;
-    /* Allow hover events to pass through */
     transition: opacity 0.3s ease;
     white-space: nowrap;
-    /* Prevent text from wrapping */
 }
 
 .copy-btn:hover {
