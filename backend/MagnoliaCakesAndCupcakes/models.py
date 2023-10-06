@@ -20,7 +20,6 @@ class MagnoliaCakesAndCupcakes(models.Model):
     def __str__(self):
         # it will return the title
         return self.title
-    
 
 
 class TermsAndCondition(models.Model):
@@ -106,6 +105,7 @@ class SliderImage(models.Model):
 
 class AboutUs(models.Model):
     content = models.TextField()
+    picture = models.ImageField(upload_to="about_us_page/")
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -413,7 +413,7 @@ class UserVideo(models.Model):
     videos = models.ManyToManyField(Video)
 
     def __str__(self):
-        return self.user.username 
+        return self.user.username
 
     class Meta:
         ordering = ["user"]

@@ -7,6 +7,7 @@ import "./AboutUsPage.css";
 
 const AboutUsPage = ({ api }) => {
   const [content, setContent] = useState([]);
+  const [portrait, setPortrait] = useState(aboutUsPortrait);
 
   // Loading
   const [loading, setLoading] = useState(true);
@@ -18,11 +19,15 @@ const AboutUsPage = ({ api }) => {
       .get("/api/about-us/")
       .then((response) => {
         // Set the retrieved content in the state
+        const responseData = response.data;
         setContent(
-          response.data.content
+          responseData.content
             .split("\n")
             .filter((paragraph) => paragraph !== "\r")
         );
+        if (responseData.picture) {
+          setPortrait(responseData.picture);
+        }
         setLoading(false);
       })
       .catch((error) => {
@@ -35,7 +40,7 @@ const AboutUsPage = ({ api }) => {
       <div className="portrait-wrapper">
         <img
           className="about-us-portrait"
-          src={aboutUsPortrait}
+          src={portrait}
           alt="About Us Portrait"
         />
       </div>
