@@ -16,7 +16,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes, renderer_classes
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
-from .forms import ContactForm, FlavourServingsForm, NewUserForm, QuoteForm
+from .forms import ContactForm, FlavourServingsForm, NewUserForm
 
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -576,15 +576,18 @@ def video(request):
 @api_view(["GET", "POST"])
 @permission_classes([AllowAny])
 def log_quote(request):
+
     if request.method == "GET":
         form = QuoteForm()
     elif request.method == "POST":
-        print(request.data)
-        form = QuoteForm(request.data)
-        if form.is_valid():
-            form.save()
+        serializer = QuoteSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+
             return Response({"message": "Quote data logged"}, status=status.HTTP_200_OK)
-        return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"serializer_errors": serializer.errors, "form_errors": form.errors}, status=status.HTTP_400_BAD_REQUEST)
+    
 @api_view(['GET'])
 def get_videos(request):
     if request.method == "GET":

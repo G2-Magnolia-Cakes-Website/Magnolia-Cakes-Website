@@ -138,3 +138,23 @@ class UserVideoSerialiser(serializers.ModelSerializer):
     class Meta:
         model = UserVideo
         fields = "__all__"
+
+class QuoteSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    mobile = serializers.CharField()
+    email = serializers.CharField()
+    product_type = serializers.CharField()
+    servings_or_amount = serializers.IntegerField()
+    serves = serializers.CharField()
+    date_of_event = serializers.DateField()
+    flavour = serializers.CharField()
+    filling = serializers.CharField()
+    
+    class Meta:
+        model = Quote
+        fields = "__all__"
+        
+    def create(self, validated_data):
+        return Quote.objects.create(**validated_data)
+    
+    
