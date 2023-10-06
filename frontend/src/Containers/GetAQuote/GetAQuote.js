@@ -4,13 +4,14 @@ import FormInput from "Components/FormInput/FormInput";
 import SelectionBox from "Components/SelectionBox/SelectionBox";
 import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
 import Dropzone from "Components/Dropzone/Dropzone";
-import BarLoader from "react-spinners/BarLoader";
 
 import "./GetAQuote.css";
 import { Cross } from "hamburger-react";
 import FormTextArea from "Components/FormTextArea/FormTextArea";
 import { CAKETYPES, FLAVSERVLISTTYPE } from "utils/constants";
 import { parseStringToArrayByComma } from "utils/parseStringsToArray";
+import BarLoader from "react-spinners/BarLoader";
+import { useNavigate } from 'react-router-dom';
 
 const GetAQuote = ({ api }) => {
   const servesList = ["Coffee", "Standard"];
@@ -34,9 +35,8 @@ const GetAQuote = ({ api }) => {
   const message = useRef(null);
   const [files, setFiles] = useState([]);
 
-  // Loading
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const sendEmailHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -95,12 +95,15 @@ const GetAQuote = ({ api }) => {
       if (res.status === 200) {
         console.log("Form submit success.");
         alert("Form is submitted.");
-        setLoading(false);
+
+         // Navigate to the homepage after a successful form submission
+         navigate('/');
       }
     } catch (err) {
       console.log("Form submit error.", err);
       alert("Form could not be submitted.");
     }
+    const formattedDate = new Date(date.current.value).toISOString().split('T')[0];
 
     const quoteData = {
       name: name.current.value,
@@ -109,7 +112,7 @@ const GetAQuote = ({ api }) => {
       product_type: cakeType,
       servings_or_amount: servings.current.value,
       serves: cakeType === CAKETYPES.CAKE ? serves : "N/A",
-      date_of_event: date.current.value,
+      date_of_event: formattedDate,
       flavour: flavour,
       filling: filling,
     };
@@ -123,6 +126,8 @@ const GetAQuote = ({ api }) => {
     } catch (err) {
       console.log("Log quote error.", err);
     }
+
+    setLoading(false);
   };
 
   const removeFile = (file) => {
@@ -179,6 +184,15 @@ const GetAQuote = ({ api }) => {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [api]);
+
+  // Get the current date in the format 'YYYY-MM-DD'
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
 
   return (
     <div className="get-a-quote">
@@ -263,6 +277,7 @@ const GetAQuote = ({ api }) => {
               inputName="date-of-event"
               inputType="date"
               inputRef={date}
+              min={getCurrentDate()}
             />
           </div>
 
@@ -289,14 +304,14 @@ const GetAQuote = ({ api }) => {
             buttonType="submit"
             height="36px"
             margin="auto 0 8px"
+            disabled={loading}
           />
-
           <BarLoader
-            loading={loading}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-            width={"100%"}
-          />
+          loading={loading}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+          width={"100%"}
+        />
 
           {files.length > 0 && (
             <>
