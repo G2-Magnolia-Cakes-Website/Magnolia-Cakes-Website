@@ -513,13 +513,14 @@ def delete_stripe_coupon(sender, instance, **kwargs):
             # Handle any other errors that occur during the API request
             raise ValidationError(f"Failed to delete Stripe coupon: {str(e)}")
 
-
 ############### Promotion ###############
 class StripePromotion(models.Model):
-    code = models.CharField(max_length=50, unique=True, primary_key=True)
+    code = models.CharField(max_length=50, blank=True, unique=True, primary_key=True)
     coupon = models.ForeignKey(StripeCoupon, on_delete=models.CASCADE)  # Add the coupon field
     stripe_promotion_id = models.CharField(max_length=100, blank=True, editable=False)
-    # Add any additional fields you need for the Promotion model
+    # Frontend:
+    is_displayed = models.BooleanField(default=False)
+    description = models.TextField(blank=True)
 
     def __str__(self):
         return self.code 
@@ -528,23 +529,48 @@ class StripePromotion(models.Model):
         ordering = ["code"]
 
     def save(self, *args, **kwargs):
-        if self.pk:                 
+        if self.pk:
+            # Make sure the code, coupon and promotion id arent being changed
             try:
-                stripe.api_key = settings.STRIPE_SECRET_KEY
-                if self.stripe_promotion_id:
-                    raise ValueError("Cannot update promotion field! You may only delete or add a new one.")
-                else:
-                    # Create a new coupon in Stripe
+                original_promotion = StripePromotion.objects.get(pk=self.pk)
+                if (
+                    original_promotion.code != self.code
+                    or original_promotion.coupon != self.coupon
+                    or original_promotion.stripe_promotion_id != self.stripe_promotion_id
+                ):
+                    raise ValidationError(
+                        "Cannot update fields other than 'is_displayed' or 'description'",
+                        code='restricted_fields'
+                    )
+            except StripePromotion.DoesNotExist:
+                # Promotion object with the given primary key does not exist, so try adding or modifying
+                pass
+
+        # Either edit is_displayed and description, or create new promotion
+        try:
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            if not self.stripe_promotion_id:
+                # Create a new promotion in Stripe
+                if (self.code):
                     stripe_promotion = stripe.PromotionCode.create(
                         code=self.code,
-                        coupon=self.coupon.stripe_coupon_id,  # Pass the coupon field value
+                        coupon=self.coupon.stripe_coupon_id,  # Pass the coupon id
                     )
-                    self.stripe_promotion_id = stripe_promotion.id
+                else:
+                    stripe_promotion = stripe.PromotionCode.create(
+                        coupon=self.coupon.stripe_coupon_id,  # Pass the coupon id
+                    )
+                    self.code = stripe_promotion.code
+                self.stripe_promotion_id = stripe_promotion.id
 
-                super().save(*args, **kwargs)
-            except stripe.error.StripeError as e:
-                # Handle the Stripe API error
-                raise ValidationError(f"Failed to update Stripe coupon: {str(e)}")
+            if self.is_displayed:
+                StripePromotion.objects.exclude(pk=self.pk).update(is_displayed=False)
+
+            super().save(*args, **kwargs)
+
+        except stripe.error.StripeError as e:
+            # Handle the Stripe API error
+            raise ValidationError(f"Failed to update Stripe coupon: {str(e)}")
 
 # There is no delete api for promotion codes
 
