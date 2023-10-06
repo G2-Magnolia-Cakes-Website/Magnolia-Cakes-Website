@@ -1,76 +1,77 @@
 .GalleryPage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .PageHeader {
-    color: #B76E79;
-    font-weight: bold;
-    font-family: Yantramanav;
-    font-size: 64px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+  color: #b76e79;
+  font-weight: bold;
+  /* font-family: Yantramanav; */
+  font-size: 64px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .GalleryCategory {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 90%;
 }
 
 .category {
-    font-weight: bold;
-    font-family: Yantramanav;
-    font-size: 24px;
-    background-color: transparent;
-    border: none;
-    margin-left: 10px;
-    margin-right: 10px;
+  font-weight: bold;
+  font-family: "Fredoka", sans-serif;
+  font-size: 24px;
+  background-color: transparent;
+  border: none;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .selected-category {
-    font-weight: bold;
-    font-family: Yantramanav;
-    font-size: 24px;
-    background-color: transparent;
-    border: none;
-    margin-left: 10px;
-    margin-right: 10px;
-    color: #B76E79;
+  font-weight: bold;
+  font-family: "Fredoka", sans-serif;
+  font-size: 24px;
+  background-color: transparent;
+  border: none;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #b76e79;
 }
 
 .image-grid {
-    width: 900px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    flex-direction: column; /* Initially set to column for smaller screens */
+  width: 900px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: column; /* Initially set to column for smaller screens */
 }
 
 .image-grid img {
-    width: calc(50% - 20px); /* 50% width for 2 images per row, considering margin */
-    max-width: 400px; /* Maximum width */
-    height: 400px; /* Fixed height */
-    margin: 10px; /* Add margin between images */
-    object-fit: Cover; /* Resize images without cropping */
-    cursor: pointer;
+  width: calc(
+    50% - 20px
+  ); /* 50% width for 2 images per row, considering margin */
+  max-width: 400px; /* Maximum width */
+  height: 400px; /* Fixed height */
+  margin: 10px; /* Add margin between images */
+  object-fit: Cover; /* Resize images without cropping */
+  cursor: pointer;
 }
 
 /* For larger screens, display images in two columns */
 @media only screen and (min-width: 650px) {
-    .image-grid {
-        flex-direction: row;
-    }
-    .image-grid img {
-        width: 300px; /* Maintain the fixed width */
-        height: 400px; /* Maintain the fixed height */
-        margin: 10px; /* Add margin between images */
-        object-fit: Cover;
-    }
+  .image-grid {
+    flex-direction: row;
+  }
+  .image-grid img {
+    width: 300px; /* Maintain the fixed width */
+    height: 400px; /* Maintain the fixed height */
+    margin: 10px; /* Add margin between images */
+    object-fit: Cover;
+  }
 }
-
