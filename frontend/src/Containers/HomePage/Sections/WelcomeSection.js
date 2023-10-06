@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import welcomePhoto from "utils/welcome-photo.jpg";
+import magnoliaFlower from "utils/magnolia_transparent.png";
 import "./WelcomeSection.css";
 
 const WelcomeSection = ({ api }) => {
@@ -24,6 +25,11 @@ const WelcomeSection = ({ api }) => {
   return (
     <div className="welcome-section">
       <h2>{content.heading}</h2>
+      <img
+        src={magnoliaFlower}
+        alt="Magnolia Flower"
+        className="magnolia-flower"
+      />
       <div className="welcome-body">
         <p>{content.paragraph}</p>
         <img className="welcome-cake" src={content.image} alt="welcome cake" />

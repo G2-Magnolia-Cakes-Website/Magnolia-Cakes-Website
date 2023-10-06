@@ -1,6 +1,8 @@
 .welcome-section {
   padding: 10rem 0 10rem;
   /* background-color: white; */
+  display: flex;
+  flex-direction: column;
 }
 
 .welcome-section h2 {
@@ -37,6 +39,13 @@
   object-fit: contain;
 }
 
+.magnolia-flower {
+  width: 100px;
+  height: auto;
+  object-fit: cover;
+  margin: 5rem auto;
+}
+
 @media (max-width: 1895px) {
   .welcome-body .welcome-cake {
     width: 40%;
@@ -59,6 +68,11 @@
 
   .welcome-body .welcome-cake {
     width: 30%;
+  }
+
+  .magnolia-flower {
+    margin: 3rem auto;
+    width: 80px;
   }
 }
 
@@ -103,6 +117,11 @@
 
   .welcome-body p {
     width: 70%;
+  }
+
+  .magnolia-flower {
+    margin: 2rem auto;
+    width: 70px;
   }
 }
 
