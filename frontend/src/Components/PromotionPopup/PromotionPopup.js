@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../../AuthContext';
 import Cookies from 'js-cookie';
 import './PromotionPopup.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 
 const Popup = ({ api }) => {
+
     const [showPopup, setShowPopup] = useState(false);
     const [promotion, setPromotion] = useState(null);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const { user } = useContext(AuthContext);
 
     // Get promotion
     useEffect(() => {
@@ -50,7 +53,7 @@ const Popup = ({ api }) => {
                 showPopupWithTimeout();
             }
         }
-    }, [promotion]);
+    }, [promotion, user]);
 
     const handleClosePopup = () => {
         setShowPopup(false);
