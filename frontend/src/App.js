@@ -19,7 +19,7 @@ import AboutUsPage from "Containers/AboutUsPage/AboutUsPage";
 import UserProfilePage from "Components/UserProfile/ProfilePage"
 import "./App.css";
 import ContactUsPage from "Containers/ContactUsPage/ContactUsPage";
-
+import PromotionPopup from "Components/PromotionPopup/PromotionPopup"
 import SuccessPage from "Containers/PaymentPage/PaymentSuccess";
 import WorkshopPage from "Containers/WorkshopPage/Workshop";
 import { PAGELINKS } from "utils/constants";
@@ -84,6 +84,7 @@ const App = () => {
       <BrowserRouter>
         <Wrapper>
           <div className="watercolor-bg">
+            <PromotionPopup api={api} />
             <PageLayout api={api} isAuth={isAuth} setIsAuth={setIsAuth}>
               <Routes>
                 <Route

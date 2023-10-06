@@ -38,6 +38,7 @@ from django.conf import settings
 import stripe
 import json
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
 
 # create a class for the Todo model viewsets
 class MagnoliaCakesAndCupcakesView(viewsets.ModelViewSet):
@@ -605,3 +606,16 @@ def purchase_videos(request, video_id):
             return Response({'message': 'Video added to user videos list'}, status=200)
         except UserVideo.DoesNotExist:
             return Response({'message': 'User profile not found.'}, status=404)
+
+@api_view(['GET'])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def get_displayed_promotion(request):
+    if request.method == "GET":
+        promotion = get_object_or_404(StripePromotion, is_displayed=True)
+        data = {
+            'code': promotion.code,
+            'description': promotion.description,
+        }
+        return Response(data, status=200)

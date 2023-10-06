@@ -104,4 +104,7 @@ urlpatterns = [
     # User videos
     path("api/user/videos/", views.get_videos, name="videos"),
     path("api/user/purchase/video/<int:video_id>/", views.purchase_videos, name="purchase_videos"),
+
+    # Promotions
+    path("api/promotions/displayed/", views.get_displayed_promotion, name="displayed_promotion"),
 ]
