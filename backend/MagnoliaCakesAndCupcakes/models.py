@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.core.files.storage import default_storage
+from django.contrib.auth.models import User
 
 from django.utils.text import slugify
 
@@ -19,6 +20,7 @@ class MagnoliaCakesAndCupcakes(models.Model):
     def __str__(self):
         # it will return the title
         return self.title
+    
 
 
 class TermsAndCondition(models.Model):
@@ -74,7 +76,7 @@ class Cake(models.Model):
 
 class SliderImage(models.Model):
     def upload_to_slider(instance, filename):
-        # Upload the image to a 'cakes' directory with the filename as the cake's name
+        # Upload the image to a 'slider' directory with the filename as the cake's name
         return f"slider/{filename}"
 
     name = models.CharField(max_length=100)
@@ -113,7 +115,7 @@ class AboutUs(models.Model):
         return "About Us"
 
     class Meta:
-        verbose_name_plural = "About Us"
+        verbose_name_plural = "About Us Page"
 
     def save(self, *args, **kwargs):
         if self.__class__.objects.count():
@@ -374,11 +376,62 @@ class Quote(models.Model):
             "flavour",
             "filling",
         ]
+class HomepageWelcomeSection(models.Model):
+    def upload_to_welcome(instance, filename):
+        # Upload the image to a 'cakes' directory with the filename as the cake's name
+        return f"welcome/{filename}"
+
+    heading = models.TextField()
+    paragraph = models.TextField()
+    image = models.ImageField(upload_to=upload_to_welcome)
+
+    def save(self, *args, **kwargs):
+        if self.__class__.objects.count():
+            self.pk = self.__class__.objects.first().pk
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return "Welcome Section Content"
+
+    class Meta:
+        verbose_name_plural = "Homepage Welcome Section"
+
+
+class HomepageAboutUsSection(models.Model):
+    heading = models.CharField(default="About Us", max_length=300)
+    paragraph = models.TextField()
+
+    def save(self, *args, **kwargs):
+        if self.__class__.objects.count():
+            self.pk = self.__class__.objects.first().pk
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return "About Us Section Content"
+
+    class Meta:
+        verbose_name_plural = "Homepage About Us Section"
+
+
+class HomepageGallerySection(models.Model):
+    heading = models.CharField(default="Our Collection", max_length=300)
+
+    def save(self, *args, **kwargs):
+        if self.__class__.objects.count():
+            self.pk = self.__class__.objects.first().pk
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.heading
+
+    class Meta:
+        verbose_name_plural = "Homepage Gallery Section"
 
 
 class Video(models.Model):
     title = models.CharField(max_length=100, unique=True)
     description = models.TextField()
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     video = models.FileField(upload_to="videos/")
 
     def __str__(self):
@@ -397,3 +450,14 @@ class Video(models.Model):
             video_path = self.video.name
             default_storage.delete(video_path)
         super().delete(*args, **kwargs)
+
+
+class UserVideo(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    videos = models.ManyToManyField(Video)
+
+    def __str__(self):
+        return self.user.username 
+
+    class Meta:
+        ordering = ["user"]

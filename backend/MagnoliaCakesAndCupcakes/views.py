@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login as django_login
 from django.contrib.auth.forms import AuthenticationForm
@@ -21,6 +22,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 # Email AUTH
 from django.template.loader import render_to_string
@@ -33,6 +35,9 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.conf import settings
 
+import stripe
+import json
+from django.views.decorators.csrf import csrf_exempt
 
 # create a class for the Todo model viewsets
 class MagnoliaCakesAndCupcakesView(viewsets.ModelViewSet):
@@ -57,6 +62,10 @@ def register(request):
             user.username = user.username.lower()
             user.is_active = False
             user.save()
+
+            # Create user profile
+            UserVideo.objects.create(user=user)
+
             return activateEmail(request, user, form.cleaned_data.get("username"))
         return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -65,21 +74,23 @@ def register(request):
     [AllowAny]
 )  ###### Add this to allow users to access despite not being logged in
 def activateEmail(request, user, to_email):
+
     mail_subject = "Activate your user account."
-    message = render_to_string(
-        "template_activate_account.html",
-        {
+
+    context = {
             "first_name": user.first_name,
             "last_name": user.last_name,
             "domain": get_current_site(request).domain,
             "uid": urlsafe_base64_encode(force_bytes(user.pk)),
             "token": account_activation_token.make_token(user),
             "protocol": "https" if request.is_secure() else "http",
-        },
-    )
+    }
+
+    message = render_to_string("template_activate_account.html", context)
+
     email = EmailMessage(mail_subject, message, to=[to_email])
     try:
-        if email.send(fail_silently=False):
+        if email.send():
             return Response(
                 {
                     "message": "User registered successfully. Please complete verification by clicking the link sent to your email."
@@ -102,6 +113,7 @@ def activateEmail(request, user, to_email):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
+from django.shortcuts import redirect
 
 @permission_classes(
     [AllowAny]
@@ -116,14 +128,9 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
+        return redirect(f"{settings.FRONTEND_APP_URL}/login/?success=true")
 
-        return HttpResponse(
-            "Thank you for your email confirmation. Now you can login your account."
-        )
-        # return Response({'message': 'Thank you for your email confirmation. Now you can login your account.'}, status=status.HTTP_202_ACCEPTED)
-
-    return HttpResponse("Activation link is invalid!")
-    # return Response({'message': 'Activation link is invalid!'}, status=status.HTTP_404_NOT_FOUND)
+    return redirect(f"{settings.FRONTEND_APP_URL}/login/?success=false")
 
 
 @api_view(["POST"])
@@ -327,7 +334,6 @@ def faq_categories_list(request):
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data)
 
-
 @api_view(["GET"])
 @permission_classes(
     [AllowAny]
@@ -394,6 +400,41 @@ def flavours_and_servings_info(request):
         return Response(serializer.data)
 
 
+@api_view(["GET"])
+def get_user(request):
+    if request.method == "GET":
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+
+@api_view(["POST"])
+def reset_names(request):
+    if request.method == 'POST':
+        first_name = request.data.get('first_name')
+        last_name = request.data.get('last_name')
+        
+        if not (first_name and last_name):
+            return Response({'error': 'Both first_name and last_name are required'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Assuming you have an authenticated user, you can access it using request.user
+        user = request.user
+        
+        try:
+            # Update the first_name and last_name fields of the user
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save()
+            
+            # Return a JSON response indicating success
+            return Response({'message': 'Name updated successfully'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            # Return an error response if any exception occurs during the update
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        # Return an error response for unsupported methods
+        return Response({'error': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
 @api_view(["GET", "PUT"])
 @permission_classes([AllowAny])
 def gallery_categories_list(request):
@@ -424,7 +465,107 @@ def location_page_content(request):
 
 
 @api_view(["GET"])
+@csrf_exempt
+@api_view(["POST"])
 @permission_classes([AllowAny])
+def create_checkout_session(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    FRONTEND_DOMAIN = "http://localhost:3000"
+    # FRONTEND_DOMAIN = "https://alpine-avatar-399423.ts.r.appspot.com/"
+    
+    # Get the cart items from the request
+    cart_items = request.data.get('items', [])
+
+    # Transform cart items into line items for Stripe checkout
+    line_items = []
+    for item in cart_items:
+        try:
+            # Convert the price to a float and then to an integer (cents)
+            price = int(float(item.get('price', 0)) * 100)
+        except ValueError:
+            # Handle the case where the price is not a valid number
+            # You may want to log an error or take appropriate action here
+            price = 0
+
+        line_item = {
+            'price_data': {
+                'currency': 'aud',
+                'product_data': {
+                    'name': item.get('name', 'Product'),
+                },
+                'unit_amount': price,  # Amount in cents
+            },
+            'quantity': item.get('quantity', 1),
+        }
+        line_items.append(line_item)
+
+    # Calculate total amount
+    total_amount = Decimal(sum(Decimal(item['price']) * int(item['quantity']) for item in cart_items))
+
+    # Constants for service fees
+    F_fixed = Decimal('0.30')  # Fixed fee after VAT/GST is included
+    F_percent = Decimal('0.0175')  # Percent fee after VAT/GST is included
+
+    # Calculate the amount to charge the customer including fees
+    P_charge = (total_amount + F_fixed) / (1 - F_percent)
+    
+    # Add service fees as a display item
+    service_fees_item = {
+        'price_data': {
+            'currency': 'aud',
+            'unit_amount': int((P_charge-total_amount) * 100),  # Convert to cents
+            'product_data': {
+                'name': 'Service Fees',
+                'description': 'Service Fees for the transaction',
+            },
+        },
+        'quantity': 1,
+    }
+
+    checkout_session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[*line_items, service_fees_item],  # Include service fees item
+        mode='payment',
+        success_url= f"{settings.FRONTEND_APP_URL}/success" ,
+        cancel_url= f"{settings.FRONTEND_APP_URL}/online-store",
+    )
+
+    return Response({'id': checkout_session.id, 'total_amount_with_fees': round(P_charge, 2)})
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def welcome_section(request):
+    if request.method == "GET":
+        content = HomepageWelcomeSection.objects.first()
+        serializer = WelcomeSectionContentSerializer(content)
+        return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def about_us_section(request):
+    if request.method == "GET":
+        content = HomepageAboutUsSection.objects.first()
+        serializer = AboutUsSectionContentSerializer(content)
+        return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def gallery_section(request):
+    if request.method == "GET":
+        content = HomepageGallerySection.objects.first()
+        serializer = GallerySectionContentSerializer(content)
+        return Response(serializer.data)
+
+@api_view(['GET'])
 def video(request):
     if request.method == "GET":
         items = Video.objects.all()
@@ -444,3 +585,31 @@ def log_quote(request):
             form.save()
             return Response({"message": "Quote data logged"}, status=status.HTTP_200_OK)
         return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['GET'])
+def get_videos(request):
+    if request.method == "GET":
+        user = request.user
+        try:
+            user_profile = UserVideo.objects.get(user=user)
+            videos = user_profile.videos.all()
+            serializer = VideoSerializer(videos, many=True)
+            return Response(serializer.data)
+        except UserVideo.DoesNotExist:
+            return Response({'message': 'User profile not found.'}, status=404)
+
+@api_view(['POST'])
+def purchase_videos(request, video_id):
+    if request.method == "POST":
+        user = request.user
+        try:
+            # Retrieve the video object by its ID
+            video = Video.objects.get(id=video_id)
+
+            user_profile = UserVideo.objects.get(user=user)
+            
+            # Add the video to the user's videos list (assuming a ManyToMany relationship)
+            user_profile.videos.add(video)
+            
+            return Response({'message': 'Video added to user videos list'}, status=200)
+        except UserVideo.DoesNotExist:
+            return Response({'message': 'User profile not found.'}, status=404)

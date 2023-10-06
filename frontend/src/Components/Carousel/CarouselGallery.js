@@ -16,38 +16,30 @@ import "swiper/css/effect-fade";
 
 import "./CarouselGallery.css";
 
+import BarLoader from "react-spinners/BarLoader";
+
 // import slides from "./cake-categories.json";
 import CarouselItem from "./CarouselItem";
 
-const CarouselGallery = ({ api }) => {
-  const [images, setImages] = useState([]);
-
-  useEffect(() => {
-    // Fetch cakes data from the API
-    const fetchImages = async () => {
-      try {
-        const response = await api.get("api/slider-images/");
-        setImages(response.data);
-      } catch (error) {
-        console.error("Error fetching cakes:", error);
-      }
-    };
-    fetchImages();
-  }, [api]);
+const CarouselGallery = ({ images, loading }) => {
 
   return (
     <div>
+
       <Swiper
         modules={[Autoplay, EffectFade, Navigation, Pagination, Keyboard]}
         navigation={true}
         pagination={{ clickable: true }}
         keyboard={{ enabled: true }}
         grabCursor={true}
-        autoplay={{ delay: 4000 }}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
         loop={true}
         centeredSlides={true}
         effect="fade"
         // crossFade={true}
+        enabled={true}
+        observer={true}
+        observeParents={true}
       >
         {images.map((i) => (
           <SwiperSlide key={i.id}>
@@ -55,6 +47,13 @@ const CarouselGallery = ({ api }) => {
           </SwiperSlide>
         ))}
       </Swiper>
+
+      <BarLoader
+        loading={loading}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+        width={"100%"}
+      />
     </div>
   );
 };

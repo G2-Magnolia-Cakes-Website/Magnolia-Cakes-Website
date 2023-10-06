@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { aboutUsPortrait } from "utils/cover";
+import BarLoader from "react-spinners/BarLoader";
 
 import "./AboutUsPage.css";
 
 const AboutUsPage = ({ api }) => {
   const [content, setContent] = useState([]);
 
+  // Loading
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    setLoading(true);
     // Make a GET request using the passed api instance
     api
       .get("/api/about-us/")
@@ -17,6 +22,7 @@ const AboutUsPage = ({ api }) => {
             .split("\n")
             .filter((paragraph) => paragraph !== "\r")
         );
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -34,6 +40,14 @@ const AboutUsPage = ({ api }) => {
       </div>
       <div className="page-content">
         <h1>About Us</h1>
+
+        <BarLoader
+          loading={loading}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+          width={"100%"}
+        />
+
         {content.map((paragraph) => (
           <p key={content.indexOf(paragraph)}>{paragraph}</p>
         ))}

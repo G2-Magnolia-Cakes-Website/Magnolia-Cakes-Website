@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './OnlineStore.css';
+import BarLoader from "react-spinners/BarLoader";
 
 function OnlineStore({ api }) {
   const allCategory = { id: -1, name: 'All' };
@@ -8,7 +9,11 @@ function OnlineStore({ api }) {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(allCategory);
 
+  // Loading
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    setLoading(true);
     // Fetch cakes data from the API
     const fetchCakes = async () => {
       try {
@@ -19,18 +24,23 @@ function OnlineStore({ api }) {
         }, {});
         setQuantities(initialQuantities);
         setCakes(response.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching cakes:", error);
+        setLoading(true);
       }
     };
 
     // Fetch categories
     const fetchCategories = async () => {
+      setLoading(true);
       try {
         const response = await api.get("/api/gallery/categories/");
         setCategories([allCategory, ...response.data]);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching categories:", error);
+        setLoading(true);
       }
     };
 
@@ -42,13 +52,13 @@ function OnlineStore({ api }) {
     console.log('Selected Category:', category);
     setSelectedCategory(category);
   };
-  
+
   const filteredCakes = selectedCategory.id === allCategory.id
     ? cakes
     : cakes.filter(cake => cake.categories.includes(selectedCategory.id));
- 
 
-    
+
+
   const handleQuantityChange = (cakeId, event) => {
     const newQuantities = { ...quantities, [cakeId]: parseInt(event.target.value, 10) };
     setQuantities(newQuantities);
@@ -61,13 +71,13 @@ function OnlineStore({ api }) {
       price: cake.price,
       quantity: quantities[cake.id],
     };
-  
+
     // Retrieve existing cart items or initialize an empty array
     const existingCart = JSON.parse(localStorage.getItem('Cart')) || [];
-  
+
     // Check if the item already exists in the cart
     const existingCartItemIndex = existingCart.findIndex(item => item.name === cake.name);
-  
+
     if (existingCartItemIndex !== -1) {
       // Item already exists, update its quantity
       existingCart[existingCartItemIndex].quantity += cartItem.quantity;
@@ -75,30 +85,37 @@ function OnlineStore({ api }) {
       // Item doesn't exist, add it to the cart
       existingCart.push(cartItem);
     }
-  
+
     // Store the updated cart in local storage
     localStorage.setItem('Cart', JSON.stringify(existingCart));
   };
-  
+
 
   return (
     <div className='online-store'>
+
+      <BarLoader
+        loading={loading}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+        width={"100%"}
+      />
       <div className="category-buttons">
-          {categories.map(category => (
-            <button
-              key={category.id}
-              className={selectedCategory.id === category.id ? 'selected-category' : 'category'}
-              onClick={() => handleCategoryChange(category)}
-            >
-              {category.name.toUpperCase()}
-            </button>
-          ))}
-        </div>
+        {categories.map(category => (
+          <button
+            key={category.id}
+            className={selectedCategory.id === category.id ? 'selected-category' : 'category'}
+            onClick={() => handleCategoryChange(category)}
+          >
+            {category.name.toUpperCase()}
+          </button>
+        ))}
+      </div>
       <div className="cakes-list">
-      
-        {filteredCakes.map((cake) =>(
+
+        {filteredCakes.map((cake) => (
           <div key={cake.id} className="cake-item">
-            
+
             <img
               src={cake.image}
               alt={cake.name}

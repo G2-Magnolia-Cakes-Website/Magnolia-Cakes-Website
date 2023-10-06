@@ -1,14 +1,15 @@
 import React from "react";
 import LogoutLink from "../../Components/LogoutLink/LogoutLink";
-import ViewCart from "../../Components/ViewCart/ViewCart";
+import ProfileLink from "../../Components/UserProfile/ProfileLink"
 import "./SignedInGroup.css";
+import ViewCart from "../../Components/ViewCart/ViewCart";
 
-const SignedInGroup = () => {
+const SignedInGroup = ( { api, user } ) => {
     return (
         <div className="signed-in-group">
-            {/* TODO username + profile page link */}
-            <ViewCart/>
-            <LogoutLink />
+            <ViewCart api={api}/>
+            <LogoutLink api={api} />
+            <ProfileLink user={user} />
         </div>
     );
 };
