@@ -142,18 +142,23 @@ class UserVideoSerialiser(serializers.ModelSerializer):
 
 class QuoteSerializer(serializers.Serializer):
     name = serializers.CharField()
-    mobile = serializers.CharField()
+    mobile = serializers.CharField(required=False, allow_null=True)
     email = serializers.CharField()
-    product_type = serializers.CharField()
+    product_type = serializers.CharField(required=False, allow_null=True)
     servings_or_amount = serializers.IntegerField()
-    serves = serializers.CharField()
-    date_of_event = serializers.DateField()
-    flavour = serializers.CharField()
-    filling = serializers.CharField()
+    serves = serializers.CharField(required=False, allow_null=True)
+    date_of_event = serializers.DateField(required=False, allow_null=True)
+    flavour = serializers.CharField(required=False, allow_null=True)
+    filling = serializers.CharField(required=False, allow_null=True)
     
     class Meta:
         model = Quote
         fields = "__all__"
+        extra_kwargs = {
+            'name': {'required': True},
+            'email': {'required': True},
+            'servings_or_amount': {'required': True},
+        }
         
     def create(self, validated_data):
         return Quote.objects.create(**validated_data)

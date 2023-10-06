@@ -577,16 +577,14 @@ def video(request):
 @permission_classes([AllowAny])
 def log_quote(request):
 
-    if request.method == "GET":
-        form = QuoteForm()
-    elif request.method == "POST":
+    if request.method == "POST":
         serializer = QuoteSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
 
             return Response({"message": "Quote data logged"}, status=status.HTTP_200_OK)
-        return Response({"serializer_errors": serializer.errors, "form_errors": form.errors}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"serializer_errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['GET'])
 def get_videos(request):

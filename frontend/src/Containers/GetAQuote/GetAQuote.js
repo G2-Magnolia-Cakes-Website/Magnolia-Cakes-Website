@@ -93,21 +93,24 @@ const GetAQuote = ({ api }) => {
       });
 
       if (res.status === 200) {
-        console.log("Form submit success.");
-        alert("Form is submitted.");
+
+        alert("Thanks for reaching out to us. We will get back to you soon!");
 
          // Navigate to the homepage after a successful form submission
          navigate('/');
       }
     } catch (err) {
       console.log("Form submit error.", err);
-      alert("Form could not be submitted.");
+      alert("Could not submit right now, please try again later.");
     }
-    const formattedDate = new Date(date.current.value).toISOString().split('T')[0];
+
+    // Convert to django date value
+    const dateValue = date.current.value;
+    const formattedDate = dateValue ? new Date(dateValue).toISOString().split('T')[0] : null;
 
     const quoteData = {
       name: name.current.value,
-      mobile: mobile.current.value,
+      mobile: mobile.current.value|| null,
       email: email.current.value,
       product_type: cakeType,
       servings_or_amount: servings.current.value,

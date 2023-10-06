@@ -364,14 +364,14 @@ class BackupEmail(models.Model):
 
 class Quote(models.Model):
     name = models.CharField(max_length=200)
-    mobile = models.CharField(max_length=10)
+    mobile = models.CharField(max_length=10, blank=True, null=True)
     email = models.CharField(max_length=200)
-    product_type = models.CharField(max_length=20)
-    servings_or_amount = models.IntegerField(default=0)
-    serves = models.CharField(max_length=20)
-    date_of_event = models.DateField()
-    flavour = models.CharField(max_length=30)
-    filling = models.CharField(max_length=30)
+    product_type = models.CharField(max_length=20, blank=True, null=True)
+    servings_or_amount = models.IntegerField()
+    serves = models.CharField(max_length=20, blank=True, null=True)
+    date_of_event = models.DateField(blank=True, null=True)
+    flavour = models.CharField(max_length=30, blank=True, null=True)
+    filling = models.CharField(max_length=30, blank=True, null=True)
     time_submitted = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -383,6 +383,7 @@ class Quote(models.Model):
             "flavour",
             "filling",
         ]
+
 class HomepageWelcomeSection(models.Model):
     def upload_to_welcome(instance, filename):
         # Upload the image to a 'cakes' directory with the filename as the cake's name
