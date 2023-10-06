@@ -8,13 +8,14 @@
 .welcome-section h2 {
   display: block;
   text-align: center;
-  /* font-family: "Sacramento", cursive; */
-  font-family: "Courgette", cursive;
+  font-family: "Sacramento", cursive;
+  /* font-family: "Courgette", cursive; */
   width: 50%;
   margin-left: auto;
   margin-right: auto;
   line-height: 1.5;
-  font-size: 40px;
+  /* font-size: 40px; */
+  font-size: 80px;
 }
 
 .welcome-body {
@@ -46,6 +47,20 @@
   margin: 5rem auto;
 }
 
+.quote-wrapper {
+  display: flex;
+  margin: 0 auto 0 auto;
+  width: 70%;
+  justify-content: center;
+  align-items: center;
+}
+
+.quote-wrapper .welcome-quote {
+  text-align: center;
+  font-size: 24px;
+  margin: auto 0 auto 0;
+}
+
 @media (max-width: 1895px) {
   .welcome-body .welcome-cake {
     width: 40%;
@@ -54,7 +69,6 @@
 
 @media (max-width: 1440px) {
   .welcome-section h2 {
-    font-size: 36px;
     width: 75%;
   }
 
@@ -74,6 +88,10 @@
     margin: 3rem auto;
     width: 80px;
   }
+
+  .quote-wrapper .welcome-quote {
+    font-size: 21px;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -82,7 +100,7 @@
   }
 
   .welcome-section h2 {
-    font-size: 32px;
+    font-size: 64px;
     width: 60%;
   }
 
@@ -102,7 +120,7 @@
 @media (max-width: 768px) {
   .welcome-section h2 {
     width: 75%;
-    font-size: 28px;
+    font-size: 55px;
   }
 
   .welcome-body {
@@ -117,6 +135,7 @@
 
   .welcome-body p {
     width: 70%;
+    font-size: 21px;
   }
 
   .magnolia-flower {
@@ -127,7 +146,7 @@
 
 @media (max-width: 480px) {
   .welcome-section h2 {
-    font-size: 24px;
+    font-size: 38px;
   }
 
   .welcome-body .welcome-cake {
@@ -136,5 +155,6 @@
 
   .welcome-body p {
     width: 75%;
+    font-size: 16px;
   }
 }

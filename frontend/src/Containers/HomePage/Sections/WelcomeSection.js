@@ -24,12 +24,19 @@ const WelcomeSection = ({ api }) => {
 
   return (
     <div className="welcome-section">
-      <h2>{content.heading}</h2>
+      <div className="quote-wrapper">
+        <p className="welcome-quote">
+          Experience the Magic of Our Melbourne-Based Cake Studio, Where
+          Artistry and the Love for Cake Making Harmoniously Combine
+        </p>
+      </div>
+
       <img
         src={magnoliaFlower}
         alt="Magnolia Flower"
         className="magnolia-flower"
       />
+      <h2>{content.heading}</h2>
       <div className="welcome-body">
         <p>{content.paragraph}</p>
         <img className="welcome-cake" src={content.image} alt="welcome cake" />

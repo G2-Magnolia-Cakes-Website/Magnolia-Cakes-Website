@@ -137,7 +137,7 @@
   }
 
   .about-us-section .about-us-text p {
-    font-size: 16px;
+    font-size: 21px;
     width: 100%;
     color: black;
   }
@@ -158,5 +158,9 @@
 
   .about-us-section .about-us-portrait {
     margin-bottom: 2rem;
+  }
+
+  .about-us-section .about-us-text p {
+    font-size: 16px;
   }
 }
