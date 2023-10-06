@@ -26,11 +26,17 @@
   align-items: center;
 }
 
+.body-paragaph {
+  display: flex;
+  flex-direction: column;
+  margin: auto 0 auto 0;
+  width: 50%;
+}
+
 .welcome-body p {
   font-size: 24px;
   text-align: center;
   margin: auto 0 auto 0;
-  width: 50%;
 }
 
 .welcome-body .welcome-cake {
@@ -49,6 +55,7 @@
 
 .quote-wrapper {
   display: flex;
+  flex-direction: column;
   margin: 0 auto 0 auto;
   width: 70%;
   justify-content: center;
@@ -134,13 +141,16 @@
   }
 
   .welcome-body p {
-    width: 70%;
     font-size: 21px;
   }
 
   .magnolia-flower {
     margin: 2rem auto;
     width: 70px;
+  }
+
+  .body-paragaph {
+    width: 70%;
   }
 }
 
@@ -154,7 +164,10 @@
   }
 
   .welcome-body p {
-    width: 75%;
     font-size: 16px;
+  }
+
+  .body-paragaph {
+    width: 75%;
   }
 }

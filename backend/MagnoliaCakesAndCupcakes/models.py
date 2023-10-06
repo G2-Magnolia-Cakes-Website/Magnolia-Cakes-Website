@@ -336,6 +336,7 @@ class HomepageWelcomeSection(models.Model):
         # Upload the image to a 'cakes' directory with the filename as the cake's name
         return f"welcome/{filename}"
 
+    quote = models.TextField()
     heading = models.TextField()
     paragraph = models.TextField()
     image = models.ImageField(upload_to=upload_to_welcome)
