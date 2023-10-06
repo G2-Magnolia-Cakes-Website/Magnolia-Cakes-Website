@@ -3,10 +3,12 @@ import './Workshop.css';
 import { useNavigate } from "react-router-dom";
 import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
 import BarLoader from "react-spinners/BarLoader";
+import { loadStripe } from '@stripe/stripe-js';
 
 function WorkshopPage({ api }) {
 
   const navigate = useNavigate();
+  const stripePromise = loadStripe('pk_test_51NveKwI2G7Irdjp2nVREupdlFTx5xA6pSo9hJeULztP4rAzUQA7rHzdSPLIUBFfuDtSnzNFq3Zc07hYQ4YIZ0Qkb00sFf0mfSq');
 
   const [videos, setVideos] = useState([]);
 
@@ -63,33 +65,59 @@ function WorkshopPage({ api }) {
     return userVideos.some((userVideo) => userVideo.id === video.id);
   };
 
-  const handlePurchaseClick = (videoId) => {
-    // Implement the logic to handle the purchase button click
-    // This can include redirecting the user to a purchase page or showing a modal
-    api.post(`/api/user/purchase/video/${videoId}/`,
-      { videoId: videoId },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
-        withCredentials: true,
-      })
-      .then((response) => {
-        console.log(response);
-        // Find the purchased video from the videos state
-        const purchasedVideo = videos.find((video) => video.id === videoId);
+  const handlePurchaseClick = async (videoId, videoTitle, videoPrice) => {
+    const stripe = await stripePromise;
 
-        if (purchasedVideo) {
-          // Add the purchased video to the userVideos state
-          setUserVideos((prevUserVideos) => [...prevUserVideos, purchasedVideo]);
-        }
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error adding video to user videos:', error);
+    try {
+      // Make the API call to your backend using the provided API function
+      const response = await api.post('/api/checkout/', {
+        amount: videoPrice * 100, // Convert to cents
+        items: [{
+          name: videoTitle,
+          price: videoPrice,
+          quantity: 1,
+        },]
       });
+
+      const result = await stripe.redirectToCheckout({
+        sessionId: response.data.id, // Use the sessionId from the API response
+      });
+
+      // Handle successful purchase
+      if (result.error) {
+        console.error(result.error.message);
+      } else {
+        api
+          .post(
+            `/api/user/purchase/video/${videoId}/`,
+            { videoId: videoId },
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+              },
+              withCredentials: true,
+            }
+          )
+          .then((response) => {
+            console.log(response);
+            // Find the purchased video from the videos state
+            const purchasedVideo = videos.find((video) => video.id === videoId);
+
+            if (purchasedVideo) {
+              // Add the purchased video to the userVideos state
+              setUserVideos((prevUserVideos) => [...prevUserVideos, purchasedVideo]);
+            }
+            setLoading(false);
+          })
+          .catch((error) => {
+            console.error('Error adding video to user videos:', error);
+          });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
@@ -100,7 +128,7 @@ function WorkshopPage({ api }) {
             <h2 className="video-title">{video.title}</h2>
             <div className='video-or-button'>
               {!hasAccess(video) ? (
-                <form onSubmit={() => handlePurchaseClick(video.id)} className='video-purchase-btn'>
+                <form onSubmit={() => handlePurchaseClick(video.id, video.title, video.price)} className='video-purchase-btn'>
                   <RoseGoldButton
                     buttonText="Purchase Video"
                     buttonType="submit"
@@ -117,15 +145,16 @@ function WorkshopPage({ api }) {
             </div>
             <label className='video-description-label'>Description:</label>
             <p className='video-description'>{video.description}</p>
+            {video.price}
           </div>
         ))}
       </div>
-    <BarLoader
-      loading={loading}
-      aria-label="Loading Spinner"
-      data-testid="loader"
-      width={"100%"}
-    />
+      <BarLoader
+        loading={loading}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+        width={"100%"}
+      />
     </div>
   );
 }
