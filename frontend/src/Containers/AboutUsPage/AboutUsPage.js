@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { aboutUsPortrait } from "utils/cover";
 import BarLoader from "react-spinners/BarLoader";
+import magnoliaFlower from "utils/magnolia_transparent.png";
 
 import "./AboutUsPage.css";
 
@@ -39,7 +40,14 @@ const AboutUsPage = ({ api }) => {
         />
       </div>
       <div className="page-content">
-        <h1>About Us</h1>
+        <div className="about-us-title">
+          <h1>About Us</h1>
+          <img
+            src={magnoliaFlower}
+            alt="Magnolia Flower"
+            className="magnolia-flower"
+          />
+        </div>
 
         <BarLoader
           loading={loading}
