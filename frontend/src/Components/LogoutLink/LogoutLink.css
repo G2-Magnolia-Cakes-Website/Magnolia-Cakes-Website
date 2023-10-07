@@ -13,14 +13,6 @@
   font-family: "Fredoka", sans-serif;
 }
 
-.logout-div {
-  margin-right: 15px;
-  margin-left: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 /* Use media query to avoid hover styling when clicked on mobile devices */
 @media (hover: hover) {
   .logout:hover {

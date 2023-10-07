@@ -1,0 +1,29 @@
+.cart-button {
+  display: block;
+  text-decoration: none;
+  color: white;
+  padding: 3px 10px;
+  margin: 1rem 0;
+  font-size: 20px;
+  background-color: #b76e79;
+  border: 2px solid #b76e79;
+  border-radius: 3px;
+  text-align: center;
+  transition: 0.5s;
+  font-family: "Fredoka", sans-serif;
+}
+
+/* Use media query to avoid hover styling when clicked on mobile devices */
+@media (hover: hover) {
+  .cart-button:hover {
+    background-color: #834b54;
+    border-color: #834b54;
+  }
+}
+
+@media (max-width: 1440px) and (min-width: 480px) {
+  .cart-button {
+    font-size: 14px;
+    padding: 7px 10px;
+  }
+}
