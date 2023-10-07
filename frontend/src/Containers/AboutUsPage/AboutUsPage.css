@@ -29,8 +29,9 @@
   font-family: "Sacramento", cursive;
   font-size: 96px;
   color: #b76e79;
-  margin-bottom: 3rem;
   /* font-family: 'Sacramento', cursive; */
+  margin: auto 0 auto;
+  padding-top: 10%;
 }
 
 .about-us-page .page-content p {
@@ -40,6 +41,18 @@
   font-weight: 900; */
 }
 
+.about-us-title {
+  display: flex;
+  margin-bottom: 3rem;
+  gap: 2rem;
+}
+
+.about-us-title .magnolia-flower {
+  width: 100px;
+  height: auto;
+  object-fit: cover;
+}
+
 @media (max-width: 1440px) {
   .about-us-page .page-content {
     margin-left: 3rem;
@@ -47,7 +60,15 @@
 
   .about-us-page .page-content h1 {
     font-size: 70px;
+    padding-top: 8%;
+  }
+
+  .about-us-title {
     margin-bottom: 2rem;
+  }
+
+  .about-us-title .magnolia-flower {
+    width: 80px;
   }
 }
 
@@ -60,27 +81,45 @@
     margin-left: 2.5rem;
   }
 
-  .about-us-page .page-content h1 {
+  /* .about-us-page .page-content h1 {
     font-size: 54px;
     margin-bottom: 1rem;
-  }
+  } */
 
   .about-us-page .page-content p {
     font-size: 16px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 892px) {
+  .about-us-page {
+    margin: 3rem;
+  }
+
   .about-us-page .page-content {
     margin-left: 2rem;
   }
 
   .about-us-page .page-content h1 {
-    font-size: 50px;
+    font-size: 64px;
   }
 
   .about-us-page .page-content p {
     font-size: 14px;
+  }
+
+  .about-us-title {
+    gap: 1rem;
+  }
+
+  .about-us-title .magnolia-flower {
+    width: 70px;
+  }
+}
+
+@media (max-width: 701px) {
+  .about-us-page .page-content h1 {
+    font-size: 48px;
   }
 }
 
@@ -88,7 +127,7 @@
   .about-us-page {
     flex-wrap: nowrap;
     flex-direction: column;
-    margin: 3rem;
+    /* margin: 3rem; */
   }
 
   .about-us-page > * {
@@ -106,12 +145,23 @@
   }
 
   .about-us-page .page-content h1 {
+    font-size: 64px;
     text-align: center;
-    margin: 1.5rem 0 1.5rem 0;
   }
 
   .about-us-page .page-content p {
     text-align: center;
     font-size: 16px;
+  }
+
+  .about-us-title {
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 1rem;
+  }
+
+  .about-us-title .magnolia-flower {
+    width: 70px;
+    margin: 0 auto 0 auto;
   }
 }

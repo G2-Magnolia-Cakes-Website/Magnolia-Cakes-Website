@@ -32,6 +32,7 @@
 .login-form .signup-question {
   font-family: "Fredoka", sans-serif;
   font-size: 16px;
+  margin: auto 0 8px;
 }
 
 .login-form .signup-question .signup-link {

@@ -20,7 +20,6 @@ class MagnoliaCakesAndCupcakes(models.Model):
     def __str__(self):
         # it will return the title
         return self.title
-    
 
 
 class TermsAndCondition(models.Model):
@@ -113,6 +112,7 @@ class SliderImage(models.Model):
 
 class AboutUs(models.Model):
     content = models.TextField()
+    picture = models.ImageField(upload_to="about_us_page/")
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -343,6 +343,7 @@ class HomepageWelcomeSection(models.Model):
         # Upload the image to a 'cakes' directory with the filename as the cake's name
         return f"welcome/{filename}"
 
+    quote = models.TextField()
     heading = models.TextField()
     paragraph = models.TextField()
     image = models.ImageField(upload_to=upload_to_welcome)
@@ -419,7 +420,7 @@ class UserVideo(models.Model):
     videos = models.ManyToManyField(Video)
 
     def __str__(self):
-        return self.user.username 
+        return self.user.username
 
     class Meta:
         ordering = ["user"]
