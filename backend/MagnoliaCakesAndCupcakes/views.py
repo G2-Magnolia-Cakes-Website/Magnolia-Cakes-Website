@@ -66,6 +66,7 @@ def register(request):
 
             # Create user profile
             UserVideo.objects.create(user=user)
+            UserFirstOrder.objects.create(user=user)
 
             return activateEmail(request, user, form.cleaned_data.get("username"))
         return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -618,5 +619,29 @@ def get_displayed_promotion(request):
             'code': promotion.code,
             'description': promotion.description,
             'only_logged_in_users': promotion.onlyLoggedInUsers,
+            'only_first_purchase_of_user': promotion.onlyFirstPurchaseOfUser
         }
         return Response(data, status=200)
+    
+@api_view(['GET'])
+def get_user_firstOrderBoolean(request):
+    if request.method == "GET":
+        user = request.user
+        try:
+            user_firstOrder = UserFirstOrder.objects.get(user=user)
+            madeFirstOrder = user_firstOrder.madeFirstOrder
+            return Response({"madeFirstOrder": madeFirstOrder}, status=200)
+        except UserVideo.DoesNotExist:
+            return Response({'message': 'User not found in UserFirstOrder.'}, status=404)
+
+@api_view(['POST'])
+def set_user_firstOrder_true(request):
+    if request.method == "POST":
+        user = request.user
+        try:
+            user_firstOrder = UserFirstOrder.objects.get(user=user)
+            user_firstOrder.madeFirstOrder = True
+            user_firstOrder.save()
+            return Response({"madeFirstOrder": True}, status=200)
+        except UserVideo.DoesNotExist:
+            return Response({'message': 'User not found in UserFirstOrder.'}, status=404)

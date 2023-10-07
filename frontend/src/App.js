@@ -183,7 +183,7 @@ const App = () => {
                 <Route
                   key="/success"
                   path="/success"
-                  element={<SuccessPage />}
+                  element={<SuccessPage api={api} />}
                 />
                 {routeAllPagesComingSoon()}
               </Routes>

@@ -149,3 +149,8 @@ class StripePromotionSerialiser(serializers.ModelSerializer):
     class Meta:
         model = StripePromotion
         fields = "__all__"
+        
+class UserFirstOrderSerialiser(serializers.ModelSerializer):
+    class Meta:
+        model = UserFirstOrder
+        fields = "__all__"

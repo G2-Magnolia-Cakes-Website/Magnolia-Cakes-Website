@@ -435,6 +435,17 @@ class UserVideo(models.Model):
         ordering = ["user"]
 
 
+class UserFirstOrder(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    madeFirstOrder = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username 
+
+    class Meta:
+        ordering = ["user"]
+
+
 ############################################ Coupons and Promotions ############################################
 class StripeCoupon(models.Model):
     name = models.CharField(max_length=50, unique=True, primary_key=True)
@@ -528,6 +539,7 @@ class StripePromotion(models.Model):
     # Frontend:
     is_displayed = models.BooleanField(default=False)
     onlyLoggedInUsers = models.BooleanField(default=False)
+    onlyFirstPurchaseOfUser = models.BooleanField(default=False)
     description = models.TextField(blank=True)
 
     def __str__(self):

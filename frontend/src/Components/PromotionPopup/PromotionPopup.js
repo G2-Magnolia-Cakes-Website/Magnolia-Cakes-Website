@@ -46,7 +46,31 @@ const Popup = ({ api }) => {
                 // if logged in required, and is logged in
                 const access_token = localStorage.getItem('access_token');
                 if (access_token) {
-                    showPopupWithTimeout();
+                    // If promotion requires it to be the first order of the user
+                    if (promotion.only_first_purchase_of_user) {
+                        api.get('/api/user/purchase/first/get/',
+                            {
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Accept': 'application/json',
+                                    Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                                },
+                                withCredentials: true,
+                            })
+                            .then(response => {
+                                // Set the retrieved content in the state
+                                if (response.status === 200) {
+                                    if (!response.data.madeFirstOrder) {
+                                        showPopupWithTimeout();
+                                    }
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error fetching data:', error);
+                            });
+                    } else {
+                        showPopupWithTimeout();
+                    }
                 }
             } else {
                 // login not required

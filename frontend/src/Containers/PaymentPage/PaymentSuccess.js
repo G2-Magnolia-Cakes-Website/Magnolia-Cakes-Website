@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SuccessPage = () => {
+const SuccessPage = ({api}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -10,6 +10,16 @@ const SuccessPage = () => {
 
     // Clear cart items from local storage
     localStorage.removeItem('Cart');
+
+    api.post('/api/user/purchase/success/',
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+      },
+      withCredentials: true,
+    })
 
     // Immediately navigate to the homepage
     navigate('/');

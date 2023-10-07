@@ -51,7 +51,7 @@ class StripePromotionAdmin(admin.ModelAdmin):
             'description': 'You must link the promotion code to a coupon.',
         }),
         ('Display to Users?', {
-            'fields': ('is_displayed', 'onlyLoggedInUsers', 'description', ),
+            'fields': ('is_displayed', 'onlyLoggedInUsers', 'onlyFirstPurchaseOfUser', 'description', ),
             'description': 'If is_displayed is checked, this promotion will popup on the frontend for users. Add a description if needed for users to see.',
         }),
     )
@@ -78,5 +78,6 @@ admin.site.register(HomepageAboutUsSection)
 admin.site.register(HomepageGallerySection)
 admin.site.register(Video)
 admin.site.register(UserVideo)
+admin.site.register(UserFirstOrder)
 admin.site.register(StripeCoupon, StripeCouponAdmin)
 admin.site.register(StripePromotion, StripePromotionAdmin)
