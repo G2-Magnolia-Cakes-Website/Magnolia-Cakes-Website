@@ -76,6 +76,7 @@ urlpatterns = [
         name="location-page",
     ),
     path("api/slider-images/", views.slider_images, name="slider-images"),
+    path("api/log-quote/", views.log_quote, name="log-quote"),
     path("api/homepage-welcome/", views.welcome_section, name="welcome-section"),
     path("api/homepage-about-us/", views.about_us_section, name="about-us-section"),
     path("api/homepage-gallery/", views.gallery_section, name="gallery-section"),

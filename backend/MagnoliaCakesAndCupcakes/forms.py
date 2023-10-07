@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.core.validators import validate_email
 from .models import Video
 
+from MagnoliaCakesAndCupcakes.models import Quote
+
 
 class NewUserForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True)
@@ -55,12 +57,17 @@ class MultipleFileField(forms.FileField):
             result = single_file_clean(data, initial)
         return result
 
+
 class ContactForm(forms.Form):
     email = forms.CharField(required=True)
     subject = forms.CharField(required=True)
     message = forms.CharField(widget=forms.Textarea, required=True)
     file = MultipleFileField(required=False)
 
-class FavourServingsForm(forms.Form):
+
+class FlavourServingsForm(forms.Form):
     title = forms.CharField(max_length=100)
     list = forms.Textarea()
+
+
+
