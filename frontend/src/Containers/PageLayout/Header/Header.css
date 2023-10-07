@@ -27,7 +27,7 @@
   background: white;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1009px) {
   .header .navbar-signup-login-group {
     flex-direction: column;
   }
