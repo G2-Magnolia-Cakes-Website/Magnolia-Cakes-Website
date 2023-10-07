@@ -1,7 +1,7 @@
 .scroll-to-top {
   position: fixed;
   bottom: 100px;
-  right: 100px;
+  right: 27px;
   z-index: 98;
   cursor: pointer;
   background-color: #b76e79;
@@ -14,9 +14,7 @@
 
 @media (max-width: 768px) {
   .scroll-to-top {
-    bottom: 35px;
-    right: 35px;
-    padding: 0.5rem;
+    right: 27px;
   }
 
   .scroll-to-top img {

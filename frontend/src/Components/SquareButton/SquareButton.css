@@ -39,8 +39,15 @@
   }
 }
 
+@media (max-width: 768px) {
+  .square-button {
+    font-size: 21px;
+  }
+}
+
 @media (max-width: 480px) {
   .square-button {
+    font-size: 16px;
     text-align: center;
   }
 }
