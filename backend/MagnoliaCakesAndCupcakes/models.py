@@ -34,7 +34,14 @@ class TermsAndCondition(models.Model):
 
 
 class CakeCategory(models.Model):
+    def upload_to__cake_category_cover(instance, filename):
+        # Upload the image to a 'cakes' directory with the filename as the cake's name
+        return f"cake-category-cover/{filename}"
+
     name = models.CharField(max_length=100)
+    picture = models.ImageField(
+        upload_to=upload_to__cake_category_cover
+    )  # Use the custom upload function
 
     def __str__(self):
         return self.name
