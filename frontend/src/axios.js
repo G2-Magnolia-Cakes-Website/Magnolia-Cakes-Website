@@ -2,8 +2,8 @@ import axios from "axios";
 
 // Define the base URL based on the environment, only one of them should be used at a time
 const instance = axios.create({
-  baseURL: "https://backend-dot-alpine-avatar-399423.ts.r.appspot.com/", // Uncomment this before deploying
-  //   baseURL: "http://127.0.0.1:8000/", // Uncomment this when you run it locally
+  // baseURL: "https://backend-dot-alpine-avatar-399423.ts.r.appspot.com/", // Uncomment this before deploying
+  baseURL: "http://127.0.0.1:8000/", // Uncomment this when you run it locally
 });
 
 let refresh = false;
