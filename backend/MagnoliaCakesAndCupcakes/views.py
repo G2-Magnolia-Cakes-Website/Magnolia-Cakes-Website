@@ -16,7 +16,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes, renderer_classes
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
-from .forms import ContactForm, FavourServingsForm, NewUserForm
+from .forms import ContactForm, FlavourServingsForm, NewUserForm
 
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -221,10 +221,14 @@ def contact(request):
             file = request.FILES.getlist("file")
 
             admin_email = ContactUsEmail.objects.first()
+            backup_emails = BackupEmail.objects.all()
 
-            email = EmailMessage(
-                subject, message, to=[admin_email.your_email], cc=[user_email]
-            )
+            to_emails = [admin_email]
+
+            for e in backup_emails:
+                to_emails.append(e.email)
+
+            email = EmailMessage(subject, message, to=to_emails, cc=[user_email])
 
             for f in file:
                 email.attach(f.name, f.read(), f.content_type)
@@ -292,7 +296,7 @@ def slider_images(request):
         return Response(images_with_urls, status=status.HTTP_200_OK)
 
 
-@api_view(["GET", "PUT"])
+@api_view(["GET"])
 @permission_classes(
     [AllowAny]
 )  ###### Add this to allow users to access despite not being logged in
@@ -301,18 +305,6 @@ def flavours_and_servings(request):
         flavours_servings_lists = FlavoursAndServings.objects.all()
         serializer = FlavoursAndServingsSerializer(flavours_servings_lists, many=True)
         return Response(serializer.data)
-
-    if request.method == "POST":
-        form = FavourServingsForm(request.data)
-        if form.is_valid():
-            flavours_servings_list = form.save(commit=False)
-            flavours_servings_list.title = flavours_servings_list.title
-            flavours_servings_list.list = flavours_servings_list.list
-            flavours_servings_list.save()
-            return Response(
-                {"message": "Flavours & Servings updated"}, status=status.HTTP_200_OK
-            )
-        return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["GET", "PUT"])
@@ -473,6 +465,8 @@ def location_page_content(request):
         serializer = LocationPageContentSerializer(location_page_content)
         return Response(serializer.data)
 
+
+@api_view(["GET"])
 @csrf_exempt
 @api_view(["POST"])
 @permission_classes([AllowAny])
@@ -580,6 +574,20 @@ def video(request):
         serializer = VideoSerializer(items, many=True)
         return Response(serializer.data)
 
+
+@api_view(["GET", "POST"])
+@permission_classes([AllowAny])
+def log_quote(request):
+
+    if request.method == "POST":
+        serializer = QuoteSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response({"message": "Quote data logged"}, status=status.HTTP_200_OK)
+        return Response({"serializer_errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+    
 @api_view(['GET'])
 def get_videos(request):
     if request.method == "GET":

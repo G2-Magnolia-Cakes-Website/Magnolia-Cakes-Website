@@ -30,7 +30,6 @@ class MagnoliaCakesAndCupcakes(models.Model):
     def __str__(self):
         # it will return the title
         return self.title
-    
 
 
 class TermsAndCondition(models.Model):
@@ -107,6 +106,9 @@ class SliderImage(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "Slider Images"
+
     def save(self, *args, **kwargs):
         # Rename the uploaded image to match the cake's name
         if self.image and hasattr(self.image, "name"):
@@ -129,6 +131,7 @@ class SliderImage(models.Model):
 
 class AboutUs(models.Model):
     content = models.TextField()
+    picture = models.ImageField(upload_to="about_us_page/")
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -148,6 +151,7 @@ class FAQCategory(models.Model):
 
     class Meta:
         ordering = ["title"]
+        verbose_name_plural = "FAQ Categories"
 
     def __str__(self):
         return self.title
@@ -163,6 +167,7 @@ class FAQQuestion(models.Model):
 
     class Meta:
         ordering = ["question"]
+        verbose_name_plural = "FAQ Questions"
 
     def __str__(self):
         return self.question
@@ -221,7 +226,13 @@ class FooterBusinessHours(models.Model):
 
 
 class FlavoursAndServings(models.Model):
+    CHOICES = (
+        ("Flavours", "Flavours"),
+        ("Fillings", "Fillings"),
+    )
+
     title = models.CharField(max_length=100)
+    type = models.CharField(max_length=100, choices=CHOICES, default="Flavours")
     list = models.TextField()
     last_updated = models.DateTimeField(auto_now=True)
 
@@ -363,11 +374,47 @@ class ContactUsEmail(models.Model):
         verbose_name_plural = "Contact Us Email"
 
 
+class BackupEmail(models.Model):
+    email = models.CharField(
+        max_length=200,
+        help_text="This will be a backup email that receives Contact Us and Get A Quote submissions.",
+    )
+
+    def __str__(self):
+        return "Backup Email"
+
+    class Meta:
+        verbose_name_plural = "Contact Us Backup Emails"
+
+
+class Quote(models.Model):
+    name = models.CharField(max_length=200)
+    mobile = models.CharField(max_length=10, blank=True, null=True)
+    email = models.CharField(max_length=200)
+    product_type = models.CharField(max_length=20, blank=True, null=True)
+    servings_or_amount = models.IntegerField()
+    serves = models.CharField(max_length=20, blank=True, null=True)
+    date_of_event = models.DateField(blank=True, null=True)
+    flavour = models.CharField(max_length=30, blank=True, null=True)
+    filling = models.CharField(max_length=30, blank=True, null=True)
+    time_submitted = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = [
+            "time_submitted",
+            "name",
+            "product_type",
+            "date_of_event",
+            "flavour",
+            "filling",
+        ]
+
 class HomepageWelcomeSection(models.Model):
     def upload_to_welcome(instance, filename):
         # Upload the image to a 'cakes' directory with the filename as the cake's name
         return f"welcome/{filename}"
 
+    quote = models.TextField()
     heading = models.TextField()
     paragraph = models.TextField()
     image = models.ImageField(upload_to=upload_to_welcome)
@@ -444,7 +491,7 @@ class UserVideo(models.Model):
     videos = models.ManyToManyField(Video)
 
     def __str__(self):
-        return self.user.username 
+        return self.user.username
 
     class Meta:
         ordering = ["user"]
