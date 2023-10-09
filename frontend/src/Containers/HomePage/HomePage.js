@@ -10,6 +10,7 @@ import GallerySection from "./Sections/GallerySection";
 import WelcomeSection from "./Sections/WelcomeSection";
 import WelcomePopup from "Components/WelcomePopup/WelcomePopup";
 import { parseStringToParagraphsByNewline } from "utils/parseParagraphs";
+import CupcakesBanner from "Components/CupcakesBanner/CupcakesBanner";
 
 const HomePage = ({ api }) => {
   const { user } = useContext(AuthContext);
@@ -81,6 +82,8 @@ const HomePage = ({ api }) => {
       {images.length > 0 && (
         <CarouselGallery quote={quote} images={images} loading={loading} />
       )}
+
+      <CupcakesBanner />
       <WelcomeSection api={api} />
       <GallerySection api={api} />
       {/* <SubheadingDivider subheadingText="Cakes for all occasions" /> */}

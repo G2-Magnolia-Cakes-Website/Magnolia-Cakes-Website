@@ -2,11 +2,12 @@
   display: flex;
   justify-content: center;
   gap: 5rem;
-  margin: 3rem;
+  margin: 3rem 3rem 5rem;
 }
 
 .intro-quote {
-  margin: 4rem 3rem;
+  padding: 4rem 0;
+  margin: auto 3rem;
   width: 30.5%;
 }
 
@@ -150,10 +151,11 @@
     display: block;
     width: 100%;
     margin: 0;
+    padding: 2rem;
   }
 
   .quote-wrapper2 {
-    margin: 3rem 3rem 0 3rem;
+    margin: 0;
   }
 
   .quote-wrapper2 .quote {
