@@ -16,7 +16,7 @@ function WorkshopPage({ api }) {
 
   // Loading
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
     setLoading(true);
     if (!localStorage.getItem('access_token')) {
@@ -65,59 +65,35 @@ function WorkshopPage({ api }) {
     return userVideos.some((userVideo) => userVideo.id === video.id);
   };
 
-  const handlePurchaseClick = async (videoId, videoTitle, videoPrice) => {
-    const stripe = await stripePromise;
+  const handlePurchaseClick =(event, video) => {
 
-    try {
-      // Make the API call to your backend using the provided API function
-      const response = await api.post('/api/checkout/', {
-        amount: videoPrice * 100, // Convert to cents
-        items: [{
-          name: videoTitle,
-          price: videoPrice,
-          quantity: 1,
-        },]
-      });
+    event.preventDefault();
+     // Add the selected cake to the cart
+     const cartItem = {
+      name: video.title,
+      type: "video",
+      price: video.price,
+      quantity: 1,
+      videoId:  video.id
+    };
 
-      const result = await stripe.redirectToCheckout({
-        sessionId: response.data.id, // Use the sessionId from the API response
-      });
+    // Retrieve existing cart items or initialize an empty array
+    const existingCart = JSON.parse(localStorage.getItem('Cart')) || [];
 
-      // Handle successful purchase
-      if (result.error) {
-        console.error(result.error.message);
-      } else {
-        api
-          .post(
-            `/api/user/purchase/video/${videoId}/`,
-            { videoId: videoId },
-            {
-              headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-              },
-              withCredentials: true,
-            }
-          )
-          .then((response) => {
-            console.log(response);
-            // Find the purchased video from the videos state
-            const purchasedVideo = videos.find((video) => video.id === videoId);
+    // Check if the item already exists in the cart
+    const existingCartItemIndex = existingCart.findIndex(item => item.name === video.title);
 
-            if (purchasedVideo) {
-              // Add the purchased video to the userVideos state
-              setUserVideos((prevUserVideos) => [...prevUserVideos, purchasedVideo]);
-            }
-            setLoading(false);
-          })
-          .catch((error) => {
-            console.error('Error adding video to user videos:', error);
-          });
-      }
-    } catch (error) {
-      console.error('Error:', error);
+    if (existingCartItemIndex == -1) {
+      // Item already exists, update its quantity
+      existingCart.push(cartItem);
+      
+    } else {
+      // Item doesn't exist, add it to the cart
+      
     }
+
+    // Store the updated cart in local storage
+    localStorage.setItem('Cart', JSON.stringify(existingCart));
   };
 
   return (
@@ -128,7 +104,7 @@ function WorkshopPage({ api }) {
             <h2 className="video-title">{video.title}</h2>
             <div className='video-or-button'>
               {!hasAccess(video) ? (
-                <form onSubmit={() => handlePurchaseClick(video.id, video.title, video.price)} className='video-purchase-btn'>
+                <form onSubmit={(e) => handlePurchaseClick(e, video)} className='video-purchase-btn'>
                   <RoseGoldButton
                     buttonText="Purchase Video"
                     buttonType="submit"

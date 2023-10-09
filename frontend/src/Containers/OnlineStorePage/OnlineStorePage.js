@@ -68,8 +68,10 @@ function OnlineStore({ api }) {
     // Add the selected cake to the cart
     const cartItem = {
       name: cake.name,
+      type: "cake",
       price: cake.price,
       quantity: quantities[cake.id],
+      videoId: null
     };
 
     // Retrieve existing cart items or initialize an empty array
