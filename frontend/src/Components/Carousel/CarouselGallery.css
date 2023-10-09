@@ -1,5 +1,42 @@
+.carousel-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+  margin: 3rem;
+}
+
+.intro-quote {
+  margin: 4rem 3rem;
+  width: 30.5%;
+}
+
+.quote-wrapper2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.quote-wrapper2 .quote {
+  text-align: center;
+  font-size: 24px;
+  margin: 0;
+}
+
+.cake-pop {
+  width: 100px;
+  height: auto;
+  object-fit: cover;
+  margin-top: 5rem;
+}
+
 .swiper {
-  aspect-ratio: 1280/496;
+  /* aspect-ratio: 400/500; */
+  height: auto;
+  min-height: 500px;
+  width: 420px;
+  margin: 0;
+  display: inline-block;
 }
 
 .swiper-pagination-bullet {
@@ -10,8 +47,8 @@
   background-color: #daa41a;
 }
 
-/* .swiper-slide {
-  text-align: center;
+.swiper-slide {
+  /* text-align: center;
   font-size: 18px;
   background: transparent;
 
@@ -20,15 +57,17 @@
   align-items: center;
   position: relative;
 
-  opacity: 0.55;
-} */
+  opacity: 0.55; */
+}
 
 .swiper-button-next {
   color: #efc7c7;
+  font-size: 25px;
 }
 
 .swiper-button-prev {
   color: #efc7c7;
+  /* font-size: 30px; */
 }
 
 .swiper-slide img {
@@ -41,21 +80,105 @@
   position: fixed;
   right: 0;
   top: 0;
-  -o-object-fit: contain;
-  object-fit: contain;
+  -o-object-fit: cover;
+  object-fit: cover;
   display: block;
   width: 100%;
-  /* height: 100%; */
-  min-height: 460px;
+  height: 100%;
+  /* min-height: 460px; */
   z-index: -6;
+  margin: 0;
+}
+
+.intro-quote.mobile {
+  display: none;
+}
+
+@media (max-width: 1440px) {
+  .carousel-wrapper {
+    gap: 3rem;
+  }
+
+  .intro-quote {
+    margin: 3rem 2rem;
+  }
+
+  .quote-wrapper2 .quote {
+    font-size: 21px;
+  }
+
+  .swiper {
+    min-height: 400px;
+    width: 336px;
+  }
+
+  .cake-pop {
+    margin-top: 3rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .carousel-wrapper {
+    gap: 1.5rem;
+  }
+
+  .quote-wrapper2 .quote {
+    font-size: 16px;
+  }
+
+  .swiper {
+    min-height: 300px;
+    width: 336px;
+  }
+
+  .cake-pop {
+    margin-top: 1.5rem;
+    width: 80px;
+  }
+}
+
+@media (max-width: 630px) {
+  .carousel-wrapper {
+    margin: 1.5rem;
+  }
+
+  .intro-quote {
+    display: none;
+  }
+
+  .intro-quote.mobile {
+    display: block;
+    width: 100%;
+    margin: 0;
+  }
+
+  .quote-wrapper2 {
+    margin: 3rem 3rem 0 3rem;
+  }
+
+  .quote-wrapper2 .quote {
+    font-size: 21px;
+  }
 }
 
 @media (max-width: 480px) {
   .swiper-button-next::after {
-    font-size: 30px;
+    font-size: 25px;
   }
 
   .swiper-button-prev::after {
-    font-size: 30px;
+    font-size: 25px;
+  }
+
+  .quote-wrapper2 {
+    margin: 1.5rem 1.5rem 0 1.5rem;
+  }
+
+  .quote-wrapper2 .quote {
+    font-size: 16px;
+  }
+
+  .cake-pop {
+    width: 70px;
   }
 }

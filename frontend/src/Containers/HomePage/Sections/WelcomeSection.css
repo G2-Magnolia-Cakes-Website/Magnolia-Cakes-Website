@@ -155,6 +155,11 @@
 }
 
 @media (max-width: 480px) {
+  .welcome-section {
+    padding: 3rem 0 3rem;
+  }
+
+
   .welcome-section h2 {
     font-size: 38px;
   }

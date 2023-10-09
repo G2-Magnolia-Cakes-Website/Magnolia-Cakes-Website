@@ -32,7 +32,7 @@ const WelcomeSection = ({ api }) => {
 
   return (
     <div className="welcome-section">
-      <div className="quote-wrapper">
+      {/* <div className="quote-wrapper">
         {content.quote.map((paragraph) => (
           <p className="welcome-quote">{paragraph}</p>
         ))}
@@ -42,7 +42,7 @@ const WelcomeSection = ({ api }) => {
         src={magnoliaFlower}
         alt="Magnolia Flower"
         className="magnolia-flower"
-      />
+      /> */}
       <h2>{content.heading}</h2>
       <div className="welcome-body">
         <div className="body-paragraph">
