@@ -39,6 +39,7 @@ class TermsAndCondition(models.Model):
 
     class Meta:
         ordering = ["policy_name"]
+        verbose_name_plural = "Terms And Conditions"
 
     def __str__(self):
         return self.policy_name
@@ -57,6 +58,8 @@ class CakeCategory(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "Cake Categories"
 
 def upload_to(instance, filename):
     # Upload the image to a 'cakes' directory with the filename as the cake's name
@@ -119,6 +122,9 @@ class SliderImage(models.Model):
             default_storage.delete(image_path)
 
         super(SliderImage, self).delete(*args, **kwargs)
+        
+    class Meta:
+        verbose_name_plural = "Slider Images"
 
 
 class AboutUs(models.Model):
@@ -145,9 +151,12 @@ class FAQCategory(models.Model):
 
     def __str__(self):
         return self.title
+    
+    class Meta:
+        verbose_name_plural = "FAQ Categories"
 
 
-class Question(models.Model):
+class FAQQuestion(models.Model):
     question = models.CharField(max_length=150)
     answer = models.TextField()
     category = models.ManyToManyField(FAQCategory)
@@ -157,6 +166,9 @@ class Question(models.Model):
 
     def __str__(self):
         return self.question
+    
+    class Meta:
+        verbose_name_plural = "FAQ Questions"
 
 
 class FooterLocation(models.Model):
@@ -310,6 +322,9 @@ class GalleryItem(models.Model):
             image_path = self.image.name
             default_storage.delete(image_path)
         super().delete(*args, **kwargs)
+        
+    class Meta:
+        verbose_name_plural = "Gallery Items"
 
 
 class LocationPageContent(models.Model):
@@ -433,6 +448,7 @@ class UserVideo(models.Model):
 
     class Meta:
         ordering = ["user"]
+        verbose_name_plural = "User Videos"
 
 
 class UserFirstOrder(models.Model):
@@ -444,15 +460,16 @@ class UserFirstOrder(models.Model):
 
     class Meta:
         ordering = ["user"]
+        verbose_name_plural = "User First Orders"
 
 
 ############################################ Coupons and Promotions ############################################
 class StripeCoupon(models.Model):
     name = models.CharField(max_length=50, unique=True, primary_key=True)
-    amount_off = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    percent_off = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    max_redemptions = models.PositiveIntegerField(null=True, blank=True)
-    redeem_by = models.DateTimeField(null=True, blank=True)
+    amount_off = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, help_text='You cannot change this field after creating the Coupon.')
+    percent_off = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True, help_text='You cannot change this field after creating the Coupon.')
+    max_redemptions = models.PositiveIntegerField(null=True, blank=True, help_text='You cannot change this field after creating the Coupon.')
+    redeem_by = models.DateTimeField(null=True, blank=True, help_text='You cannot change this field after creating the Coupon.')
     stripe_coupon_id = models.CharField(max_length=100, blank=True, editable=False)
     # maybe add applies_to to just allow certain cakes and cupcakes 
 
@@ -461,6 +478,7 @@ class StripeCoupon(models.Model):
 
     class Meta:
         ordering = ["name"]
+        verbose_name_plural = "Stripe Coupons"
 
     def save(self, *args, **kwargs):
         if self.pk:
@@ -533,13 +551,14 @@ def delete_stripe_coupon(sender, instance, **kwargs):
 
 ############### Promotion ###############
 class StripePromotion(models.Model):
-    code = models.CharField(max_length=50, blank=True, unique=True, primary_key=True)
-    coupon = models.ForeignKey(StripeCoupon, on_delete=models.CASCADE)  # Add the coupon field
+    code = models.CharField(max_length=50, blank=True, unique=True, primary_key=True, help_text='You cannot change this field after creating the promotion.')
+    coupon = models.ForeignKey(StripeCoupon, on_delete=models.CASCADE, help_text='You cannot change this field after creating the promotion.') 
     stripe_promotion_id = models.CharField(max_length=100, blank=True, editable=False)
     # Frontend:
     is_displayed = models.BooleanField(default=False)
-    onlyLoggedInUsers = models.BooleanField(default=False)
-    onlyFirstPurchaseOfUser = models.BooleanField(default=False)
+    display_after = models.IntegerField(default=30, help_text='Set this field to display the popup after the given amount of seconds. (Recommended 30 seconds)')
+    only_logged_in_users = models.BooleanField(default=False)
+    only_first_purchase_of_user = models.BooleanField(default=False)
     description = models.TextField(blank=True)
 
     def __str__(self):
@@ -547,6 +566,7 @@ class StripePromotion(models.Model):
 
     class Meta:
         ordering = ["code"]
+        verbose_name_plural = "Stripe Promotions"
 
     def save(self, *args, **kwargs):
         if self.pk:

@@ -28,11 +28,11 @@ const Popup = ({ api }) => {
     }, []);
 
     // Show popup
-    const showPopupWithTimeout = () => {
+    const showPopupWithTimeout = (time) => {
         const timeout = setTimeout(() => {
             setShowPopup(true);
             Cookies.set('popupShown', 'true', { expires: 1 });
-        }, 30000); // Delay of 30 seconds (30000 milliseconds)
+        }, time*1000); // Delay of 30 seconds (30000 milliseconds)
 
         return () => clearTimeout(timeout); // Clear the timeout if the component unmounts before the delay
     };
@@ -61,7 +61,7 @@ const Popup = ({ api }) => {
                                 // Set the retrieved content in the state
                                 if (response.status === 200) {
                                     if (!response.data.madeFirstOrder) {
-                                        showPopupWithTimeout();
+                                        showPopupWithTimeout(promotion.display_after);
                                     }
                                 }
                             })
@@ -69,12 +69,13 @@ const Popup = ({ api }) => {
                                 console.error('Error fetching data:', error);
                             });
                     } else {
-                        showPopupWithTimeout();
+                        // Promotion doesn't require user first purchase
+                        showPopupWithTimeout(promotion.display_after);
                     }
                 }
             } else {
                 // login not required
-                showPopupWithTimeout();
+                showPopupWithTimeout(promotion.display_after);
             }
         }
     }, [promotion, user]);

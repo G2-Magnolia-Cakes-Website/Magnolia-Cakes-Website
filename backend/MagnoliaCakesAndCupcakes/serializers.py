@@ -66,7 +66,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Question
+        model = FAQQuestion
         fields = "__all__"
 
 

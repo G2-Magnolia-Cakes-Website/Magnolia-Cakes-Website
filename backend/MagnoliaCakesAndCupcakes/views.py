@@ -350,7 +350,7 @@ def faq_categories_list(request):
 )  ###### Add this to allow users to access despite not being logged in
 def faq_questions_list(request):
     if request.method == "GET":
-        questions = Question.objects.all()
+        questions = FAQQuestion.objects.all()
         serializer = QuestionSerializer(questions, many=True)
         return Response(serializer.data)
 
@@ -533,6 +533,7 @@ def create_checkout_session(request):
         payment_method_types=['card'],
         line_items=[*line_items, service_fees_item],  # Include service fees item
         mode='payment',
+        allow_promotion_codes=True,
         success_url= f"{settings.FRONTEND_APP_URL}/success" ,
         cancel_url= f"{settings.FRONTEND_APP_URL}/online-store",
     )
@@ -618,8 +619,9 @@ def get_displayed_promotion(request):
         data = {
             'code': promotion.code,
             'description': promotion.description,
-            'only_logged_in_users': promotion.onlyLoggedInUsers,
-            'only_first_purchase_of_user': promotion.onlyFirstPurchaseOfUser
+            'only_logged_in_users': promotion.only_logged_in_users,
+            'only_first_purchase_of_user': promotion.only_first_purchase_of_user,
+            'display_after': promotion.display_after
         }
         return Response(data, status=200)
     
