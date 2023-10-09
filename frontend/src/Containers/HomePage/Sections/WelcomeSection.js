@@ -46,7 +46,7 @@ const WelcomeSection = ({ api }) => {
       /> */}
       <h2>{content.heading}</h2>
       <div className="welcome-body">
-        <div className="body-paragraph">
+        <div className="body-content">
           {content.paragraph.map((paragraph) => (
             <p>{paragraph}</p>
           ))}

@@ -1,10 +1,11 @@
 .cupcakes-banner-wrapper {
-  background-image: url("utils/white_blue_cupcakes.jpg");
+  background-image: url("utils/rainbow_cupcakes.jpg");
   /* background-size: 500px; */
   background-size: auto 100%;
   width: auto;
   height: 400px;
   background-repeat: repeat-x;
+  margin-top: 3rem;
 }
 
 .cupcakes-banner {
@@ -24,5 +25,6 @@
   .cupcakes-banner-wrapper {
     /* background-size: 300px; */
     height: 180px;
+    margin-top: 1rem;
   }
 }

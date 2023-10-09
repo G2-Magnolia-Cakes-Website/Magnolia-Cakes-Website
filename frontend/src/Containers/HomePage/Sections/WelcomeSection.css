@@ -26,17 +26,20 @@
   align-items: center;
 }
 
-.body-paragaph {
+.welcome-body .body-content {
   display: flex;
   flex-direction: column;
   margin: auto 0 auto 0;
-  width: 50%;
+  width: 40%;
+  height: 100%;
+  width: fit-content;
 }
 
 .welcome-body p {
   font-size: 24px;
   text-align: center;
   margin: auto 0 auto 0;
+  padding-bottom: 1rem;
 }
 
 .welcome-body .welcome-cake {
