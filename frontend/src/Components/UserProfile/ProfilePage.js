@@ -22,12 +22,17 @@ function ProfilePage({ api }) {
     return (
         <>
             <h1 className='profile-header'>Account Settings</h1>
-            <div className='profile-white-background'>
-                <div className='profile-left'>
-                    <div className='profile-welcome'>Welcome {firstName}!</div>
-                    <div className='profile-info'>This is where you can edit your profile details and change password.</div>
+            <div className='profile-side-by-side'>
+                <div className='profile-white-background'>
+                        <div className='profile-welcome'>Welcome {firstName}!</div>
+                        <div className='profile-info'>This is where you can edit your profile details and change password.</div>
                 </div>
-                <Form api={api} email={email} first_name={firstName} last_name={lastName} />
+                <div className='profile-white-background'>
+                    <Form api={api} email={email} first_name={firstName} last_name={lastName} />
+                </div>
+                <div className='profile-white-background'>
+                    Your Purchases
+                </div>
             </div>
         </>
     );
