@@ -2,13 +2,17 @@
   display: flex;
   justify-content: center;
   gap: 5rem;
-  margin: 4rem 3rem 5rem;
+  padding: 4rem 3rem 5rem;
 }
 
 .intro-quote {
   padding: 4rem 0;
   margin: auto 3rem;
-  width: 30.5%;
+  width: 40%;
+}
+
+.intro-quote.mobile {
+  display: none;
 }
 
 .quote-wrapper2 {
@@ -21,21 +25,20 @@
 .quote-wrapper2 .quote {
   text-align: center;
   font-size: 24px;
-  margin: 0;
+  margin-bottom: 0.5rem;
 }
 
 .cake-pop {
   width: 100px;
   height: auto;
   object-fit: cover;
-  margin-top: 5rem;
 }
 
 .swiper {
   /* aspect-ratio: 400/500; */
   height: auto;
   min-height: 500px;
-  width: 420px;
+  width: 500px;
   margin: 0;
   display: inline-block;
 }
@@ -89,10 +92,8 @@
   /* min-height: 460px; */
   z-index: -6;
   margin: 0;
-}
-
-.intro-quote.mobile {
-  display: none;
+  border-radius: 900px 900px 0 0;
+  box-shadow: 0px -1px 2px #efc7c7;
 }
 
 @media (max-width: 1440px) {
@@ -102,6 +103,7 @@
 
   .intro-quote {
     margin: 3rem 2rem;
+    padding: 0;
   }
 
   .quote-wrapper2 .quote {
@@ -110,11 +112,11 @@
 
   .swiper {
     min-height: 400px;
-    width: 336px;
+    width: 420px;
   }
 
-  .cake-pop {
-    margin-top: 3rem;
+  .intro-quote {
+    width: 50%;
   }
 }
 
@@ -133,14 +135,20 @@
   }
 
   .cake-pop {
-    margin-top: 1.5rem;
     width: 80px;
   }
 }
 
-@media (max-width: 630px) {
+@media (max-width: 875px) {
+  .intro-quote {
+    padding: auto 0;
+    margin: auto 1rem;
+  }
+}
+
+@media (max-width: 701px) {
   .carousel-wrapper {
-    margin: 1.5rem;
+    padding: 1.5rem;
   }
 
   .intro-quote {
@@ -161,6 +169,11 @@
   .quote-wrapper2 .quote {
     font-size: 21px;
   }
+
+  .swiper {
+    aspect-ratio: 400/500;
+    width: 300px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -172,8 +185,13 @@
     font-size: 25px;
   }
 
+  .swiper {
+    width: 250px;
+    min-height: 250px;
+  }
+
   .quote-wrapper2 {
-    margin: 1.5rem 1.5rem 0 1.5rem;
+    margin: 0 1.5rem 0 1.5rem;
   }
 
   .quote-wrapper2 .quote {

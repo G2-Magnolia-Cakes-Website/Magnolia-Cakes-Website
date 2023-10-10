@@ -1,0 +1,43 @@
+h1.business-name {
+  font-family: "Sacramento", cursive;
+  font-size: 96px;
+  text-align: center;
+}
+
+.quote-p-wrapper {
+  margin: 5rem 0 5rem;
+}
+
+@media (max-width: 1489px) {
+  h1.business-name {
+    font-size: 80px;
+  }
+}
+
+@media (max-width: 1440px) {
+  .quote-p-wrapper {
+    margin: 3rem 0 3rem;
+  }
+}
+
+@media (max-width: 1257px) {
+  .quote-p-wrapper {
+    margin: 1rem 0 1rem;
+  }
+
+  .cake-pop {
+    width: 70px;
+  }
+}
+
+@media (max-width: 1024px) {
+  h1.business-name {
+    font-size: 64px;
+  }
+}
+
+@media (max-width: 768px) {
+  h1.business-name {
+    font-size: 55px;
+  }
+}

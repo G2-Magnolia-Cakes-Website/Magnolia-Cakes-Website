@@ -11,7 +11,7 @@ const PAGELINKS = {
   TERMS_AND_CONDITIONS_LINK: "/terms-and-conditions",
   FAQ: "/faq",
   PAYMENT: "/payment",
-  PROFILE_LINK: "/profile"
+  PROFILE_LINK: "/profile",
 };
 
 const FOOTERSECTIONS = {
@@ -23,7 +23,7 @@ const FOOTERSECTIONS = {
 };
 
 const SHOPDETAILS = {
-  MAGNOLIA_CAKE_SHOP_NAME: "Magnolia Cakes and Cupcakes",
+  MAGNOLIA_CAKE_SHOP_NAME: "Magnolia Cakes & Cupcakes",
   MAGNOLIA_CAKE_GOOGLE_MAPS_LINK: "https://maps.app.goo.gl/idYwJGFTCJ8WejKW6",
 };
 
