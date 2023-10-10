@@ -9,6 +9,8 @@ function OnlineStore({ api }) {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(allCategory);
 
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
   // Loading
   const [loading, setLoading] = useState(true);
 
@@ -65,6 +67,13 @@ function OnlineStore({ api }) {
   };
 
   const handleAddToCart = (cake) => {
+    // show a success message or perform any other desired action after copying to the clipboard
+    setShowSuccessMessage(true);
+    // set a timeout to hide the message after a certain duration
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 3000); // Hide the message after 3 seconds 
+    
     // Add the selected cake to the cart
     const cartItem = {
       name: cake.name,
@@ -94,6 +103,8 @@ function OnlineStore({ api }) {
 
 
   return (
+    <>
+    {showSuccessMessage && <div className="success-message">Added to cart!</div>}
     <div className='online-store'>
 
       <BarLoader
@@ -148,6 +159,7 @@ function OnlineStore({ api }) {
         ))}
       </div>
     </div>
+    </>
   );
 }
 

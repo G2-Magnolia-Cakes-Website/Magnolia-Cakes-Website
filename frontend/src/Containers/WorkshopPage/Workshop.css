@@ -65,6 +65,18 @@
   font-weight: bold;
 }
 
+.success-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 9999;
+}
+
 /* Media Query for smaller screen sizes */
 @media screen and (max-width: 600px) {
   .video-item {
@@ -79,17 +91,4 @@
   .video-description {
     height: auto; /* Adjust the height for smaller screens */
   }
-}
-
-
-.success-message {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #4caf50;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  z-index: 9999;
 }
