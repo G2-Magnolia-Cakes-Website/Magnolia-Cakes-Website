@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 const SuccessPage = ({ api }) => {
   const [sessionData, setSessionData] = useState(null);
   const [videoItemsJson, setVideoItemsJson] = useState(null);
+  const [purchased, setPurchased] = useState(false); // Flag variable
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -12,17 +13,20 @@ const SuccessPage = ({ api }) => {
     setVideoItemsJson(videoItems);  // Store videoItemsJson in state
 
     const stripeKey = process.env.REACT_APP_STRIPE_SECRET_KEY;
-    
+
     // Fetch the session object with the given session id
     const fetchData = async () => {
       try {
         // Stripe's url for session retrieving
-        const response = await fetch(`https://api.stripe.com/v1/checkout/sessions/${sessionId}`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${stripeKey}`
+        const response = await fetch(
+          `https://api.stripe.com/v1/checkout/sessions/${sessionId}`,
+          {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${stripeKey}`
+            }
           }
-        });
+        );
 
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -38,46 +42,45 @@ const SuccessPage = ({ api }) => {
     if (sessionId) {
       fetchData();
     }
-
   }, [api, setSessionData]);
 
-  // Only attempt to unlock the video if everything is valid to prevent user from messing up in the url
   useEffect(() => {
-    if (sessionData && sessionData.payment_status === 'paid') {
-      if (videoItemsJson) {
-        const videosToPurchase = JSON.parse(videoItemsJson);
+    if (sessionData && sessionData.payment_status === 'paid' && videoItemsJson && !purchased) {
+      const videosToPurchase = JSON.parse(videoItemsJson);
 
-        if (localStorage.getItem('access_token')) {
-          const purchaseVideos = async () => {
-            for (const videoId of videosToPurchase) {
-              try {
-                const response = await api.post(
-                  `/api/user/purchase/video/${videoId}/`,
-                  {},
-                  {
-                    headers: {
-                      'Content-Type': 'application/json',
-                      'Accept': 'application/json',
-                      Authorization: `Bearer ${localStorage.getItem(
-                        'access_token'
-                      )}`
-                    },
-                    withCredentials: true
-                  }
-                );
-                console.log(`Video ${videoId} purchased:`, response.data);
-              } catch (error) {
-                console.error(`Error purchasing video ${videoId}:`, error);
-              }
+      if (localStorage.getItem('access_token')) {
+        const purchaseVideos = async () => {
+          for (const videoId of videosToPurchase) {
+            try {
+              const response = await api.post(
+                `/api/user/purchase/video/${videoId}/`,
+                {},
+                {
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem(
+                      'access_token'
+                    )}`
+                  },
+                  withCredentials: true
+                }
+              );
+              console.log(`Video ${videoId} purchased:`, response.data);
+            } catch (error) {
+              console.error(`Error purchasing video ${videoId}:`, error);
             }
-          };
+          }
+        };
 
-          purchaseVideos();
-        }
+        purchaseVideos();
+        setPurchased(true); // Set the flag variable to true
       }
     }
-  }, [api, sessionData, videoItemsJson]);
-  localStorage.removeItem('Cart')
+  }, [api, sessionData, videoItemsJson, purchased]);
+
+  localStorage.removeItem('Cart');
+
   return (
     <div>
       <h2>Payment Successful</h2>
@@ -87,5 +90,3 @@ const SuccessPage = ({ api }) => {
 };
 
 export default SuccessPage;
-
-
