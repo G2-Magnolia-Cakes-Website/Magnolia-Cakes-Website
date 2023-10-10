@@ -67,7 +67,7 @@ function WorkshopPage({ api }) {
     return userVideos.some((userVideo) => userVideo.id === video.id);
   };
 
-  const handlePurchaseClick = (event, video) => {
+  const handleAddToCartClick = (event, video) => {
     // show a success message or perform any other desired action after copying to the clipboard
     setShowSuccessMessage(true);
     // set a timeout to hide the message after a certain duration
@@ -110,17 +110,9 @@ function WorkshopPage({ api }) {
       <div className="video-container">
         {videos.map((video, index) => (
           <div key={index} className="video-item">
-            <h2 className="video-title">{video.title}</h2>
-            <div className='video-or-button'>
+            <div className='video'>
               {!hasAccess(video) ? (
-                <form onSubmit={(e) => handlePurchaseClick(e, video)} className='video-purchase-btn'>
-                  <RoseGoldButton
-                    buttonText="Add to Cart"
-                    buttonType="submit"
-                    height="36px"
-                    margin="auto 0 8px"
-                  />
-                </form>
+                <div className='video-placeholder'>You haven't purchased this video.</div>
               ) : (
                 <video controls>
                   <source src={video.video} type="video/mp4" />
@@ -128,9 +120,28 @@ function WorkshopPage({ api }) {
                 </video>
               )}
             </div>
-            <label className='video-description-label'>Description:</label>
-            <p className='video-description'>{video.description}</p>
-            {video.price}
+            <div className='container-containers'>
+              <div className='title-description-container'>
+                <h2 className="video-title">{video.title}</h2>
+                <p className='video-description'>{video.description}</p>
+              </div>
+              {!hasAccess(video) &&
+                <div className='purchase-container'>
+                  <div className='purchase-border'>
+                    <div className='price-container'>
+                      Price: ${video.price}
+                    </div>
+                    <form onSubmit={(e) => handleAddToCartClick(e, video)} className='video-purchase-btn'>
+                      <RoseGoldButton
+                        buttonText="Add to Cart"
+                        buttonType="submit"
+                        height="36px"
+                      />
+                    </form>
+                  </div>
+                </div>
+              }
+            </div>
           </div>
         ))}
       </div>
