@@ -155,9 +155,6 @@ class FAQCategory(models.Model):
 
     def __str__(self):
         return self.title
-    
-    class Meta:
-        verbose_name_plural = "FAQ Categories"
 
 
 class FAQQuestion(models.Model):
@@ -171,9 +168,6 @@ class FAQQuestion(models.Model):
 
     def __str__(self):
         return self.question
-    
-    class Meta:
-        verbose_name_plural = "FAQ Questions"
 
 
 class FooterLocation(models.Model):
