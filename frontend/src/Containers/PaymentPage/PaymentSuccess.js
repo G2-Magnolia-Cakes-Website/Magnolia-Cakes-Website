@@ -42,27 +42,31 @@ const SuccessPage = ({ api }) => {
   }, [api, setSessionData]);
 
   // Only attempt to unlock the video if everything is valid to prevent user from messing up in the url
-  if(sessionData && sessionData.payment_status =="paid"){
+  if(sessionData && sessionData.payment_status === "paid"){
     if (videoItemsJson) {
       const videosToPurchase = JSON.parse(videoItemsJson);
-      
-      videosToPurchase.forEach(async videoId => {
-        // Unlock the video for the given user
-        await api.post(`/api/user/purchase/video/${videoId}/`, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('access_token')}`
-          },
-          withCredentials: true,
-        })
-          .then(data => {
-            console.log(`Video ${videoId} purchased:`, data);
+
+      if (localStorage.getItem('access_token')) {
+        videosToPurchase.forEach(async videoId => {
+          // Unlock the video for the given user
+          await api.post(`/api/user/purchase/video/${videoId}/`, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              Authorization: `Bearer ${localStorage.getItem('access_token')}`
+            },
+            withCredentials: true,
           })
-          .catch(error => {
-            console.error(`Error purchasing video ${videoId}:`, error);
-          });
-      });
+            .then(data => {
+              console.log(`Video ${videoId} purchased:`, data);
+            })
+            .catch(error => {
+              console.error(`Error purchasing video ${videoId}:`, error);
+            });
+        });
+      }
+      
+      
     }
   }
   localStorage.removeItem('Cart')

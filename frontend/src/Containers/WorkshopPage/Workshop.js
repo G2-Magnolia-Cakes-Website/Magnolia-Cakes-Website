@@ -83,7 +83,7 @@ function WorkshopPage({ api }) {
     // Check if the item already exists in the cart
     const existingCartItemIndex = existingCart.findIndex(item => item.name === video.title);
 
-    if (existingCartItemIndex == -1) {
+    if (existingCartItemIndex === -1) {
       // Item already exists, update its quantity
       existingCart.push(cartItem);
       
