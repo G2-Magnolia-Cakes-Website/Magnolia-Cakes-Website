@@ -11,6 +11,7 @@ function ViewCartPopup(props,{api}) {
         setCartItems(JSON.parse(localStorage.getItem('Cart')) || []);
       }, [props.trigger]);
 
+    
     const handleDeleteItem = (index) => {
       const updatedCart = cartItems.filter((item, idx) => idx !== index);
       localStorage.setItem('Cart', JSON.stringify(updatedCart));
@@ -19,10 +20,17 @@ function ViewCartPopup(props,{api}) {
   
     const handleQuantityChange = (index, event) => {
       const newCart = [...cartItems];
-      newCart[index].quantity = parseInt(event.target.value, 10);
+    
+      // Only allow to change quantiy for non-video product
+      if (newCart[index].type === 'video') {
+        newCart[index].quantity = 1;
+      } else {
+        newCart[index].quantity = parseInt(event.target.value, 10);
+      }
+      
       localStorage.setItem('Cart', JSON.stringify(newCart));
       setCartItems(newCart);
-    };
+      };
   
     const handleEmptyCart = () => {
       localStorage.removeItem('Cart');
@@ -37,12 +45,13 @@ function ViewCartPopup(props,{api}) {
         const response = await props.api.post('/api/checkout/', {
           amount: (totalPrice) * 100, // Convert to cents
           items: cartItems,
+          email: localStorage.getItem("email")
         });
     
         const result = await stripe.redirectToCheckout({
           sessionId: response.data.id, // Use the sessionId from the API response
         });
-    
+
         if (result.error) {
           console.error(result.error.message);
         } 
