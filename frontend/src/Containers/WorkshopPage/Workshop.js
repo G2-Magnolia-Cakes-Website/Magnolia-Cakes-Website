@@ -16,7 +16,9 @@ function WorkshopPage({ api }) {
 
   // Loading
   const [loading, setLoading] = useState(true);
-  
+
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
   useEffect(() => {
     setLoading(true);
     if (!localStorage.getItem('access_token')) {
@@ -65,16 +67,22 @@ function WorkshopPage({ api }) {
     return userVideos.some((userVideo) => userVideo.id === video.id);
   };
 
-  const handlePurchaseClick =(event, video) => {
+  const handlePurchaseClick = (event, video) => {
+    // show a success message or perform any other desired action after copying to the clipboard
+    setShowSuccessMessage(true);
+    // set a timeout to hide the message after a certain duration
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 3000); // Hide the message after 3 seconds 
 
     event.preventDefault();
-     // Add the selected cake to the cart
-     const cartItem = {
+    // Add the selected cake to the cart
+    const cartItem = {
       name: video.title,
       type: "video",
       price: video.price,
       quantity: 1,
-      videoId:  video.id
+      videoId: video.id
     };
 
     // Retrieve existing cart items or initialize an empty array
@@ -86,10 +94,10 @@ function WorkshopPage({ api }) {
     if (existingCartItemIndex === -1) {
       // Item already exists, update its quantity
       existingCart.push(cartItem);
-      
+
     } else {
       // Item doesn't exist, add it to the cart
-      
+
     }
 
     // Store the updated cart in local storage
@@ -98,6 +106,7 @@ function WorkshopPage({ api }) {
 
   return (
     <div>
+      {showSuccessMessage && <div className="success-message">Added to cart!</div>}
       <div className="video-container">
         {videos.map((video, index) => (
           <div key={index} className="video-item">
@@ -106,7 +115,7 @@ function WorkshopPage({ api }) {
               {!hasAccess(video) ? (
                 <form onSubmit={(e) => handlePurchaseClick(e, video)} className='video-purchase-btn'>
                   <RoseGoldButton
-                    buttonText="Purchase Video"
+                    buttonText="Add to Cart"
                     buttonType="submit"
                     height="36px"
                     margin="auto 0 8px"
