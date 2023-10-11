@@ -66,7 +66,8 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Question
+        model = FAQQuestion
+
         fields = "__all__"
 
 
@@ -138,6 +139,21 @@ class VideoSerializer(serializers.ModelSerializer):
 class UserVideoSerialiser(serializers.ModelSerializer):
     class Meta:
         model = UserVideo
+        fields = "__all__"
+
+class StripeCouponSerialiser(serializers.ModelSerializer):
+    class Meta:
+        model = StripeCoupon
+        fields = "__all__"
+        
+class StripePromotionSerialiser(serializers.ModelSerializer):
+    class Meta:
+        model = StripePromotion
+        fields = "__all__"
+        
+class UserFirstOrderSerialiser(serializers.ModelSerializer):
+    class Meta:
+        model = UserFirstOrder
         fields = "__all__"
 
 class QuoteSerializer(serializers.Serializer):

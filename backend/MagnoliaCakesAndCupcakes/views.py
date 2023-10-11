@@ -38,6 +38,7 @@ from django.conf import settings
 import stripe
 import json
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
 
 # create a class for the Todo model viewsets
 class MagnoliaCakesAndCupcakesView(viewsets.ModelViewSet):
@@ -65,6 +66,7 @@ def register(request):
 
             # Create user profile
             UserVideo.objects.create(user=user)
+            UserFirstOrder.objects.create(user=user)
 
             return activateEmail(request, user, form.cleaned_data.get("username"))
         return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -340,7 +342,7 @@ def faq_categories_list(request):
 )  ###### Add this to allow users to access despite not being logged in
 def faq_questions_list(request):
     if request.method == "GET":
-        questions = Question.objects.all()
+        questions = FAQQuestion.objects.all()
         serializer = QuestionSerializer(questions, many=True)
         return Response(serializer.data)
 
@@ -464,21 +466,23 @@ def location_page_content(request):
         return Response(serializer.data)
 
 
-@api_view(["GET"])
 @csrf_exempt
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def create_checkout_session(request):
     stripe.api_key = settings.STRIPE_SECRET_KEY
-    FRONTEND_DOMAIN = "http://localhost:3000"
-    # FRONTEND_DOMAIN = "https://alpine-avatar-399423.ts.r.appspot.com/"
+
     
     # Get the cart items from the request
     cart_items = request.data.get('items', [])
-
+    
     # Transform cart items into line items for Stripe checkout
     line_items = []
+    
+    # Retrieve video list if any 
+    video_items = []
     for item in cart_items:
+
         try:
             # Convert the price to a float and then to an integer (cents)
             price = int(float(item.get('price', 0)) * 100)
@@ -497,6 +501,11 @@ def create_checkout_session(request):
             },
             'quantity': item.get('quantity', 1),
         }
+        # add to the list if not null
+        video_item = item.get("videoId")
+        if video_item != None:
+            video_items.append(video_item)
+            
         line_items.append(line_item)
 
     # Calculate total amount
@@ -521,12 +530,16 @@ def create_checkout_session(request):
         },
         'quantity': 1,
     }
-
+    # Serialize the video array to json
+    
+    video_items_json = json.dumps(video_items)
+    
+   
     checkout_session = stripe.checkout.Session.create(
         payment_method_types=['card'],
         line_items=[*line_items, service_fees_item],  # Include service fees item
         mode='payment',
-        success_url= f"{settings.FRONTEND_APP_URL}/success" ,
+        success_url = f"{settings.FRONTEND_APP_URL}/success?checkout_session={{CHECKOUT_SESSION_ID}}&user={request.data.get('email')}&code={video_items_json}",
         cancel_url= f"{settings.FRONTEND_APP_URL}/online-store",
     )
 
@@ -614,3 +627,42 @@ def purchase_videos(request, video_id):
             return Response({'message': 'Video added to user videos list'}, status=200)
         except UserVideo.DoesNotExist:
             return Response({'message': 'User profile not found.'}, status=404)
+
+@api_view(['GET'])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def get_displayed_promotion(request):
+    if request.method == "GET":
+        promotion = get_object_or_404(StripePromotion, is_displayed=True)
+        data = {
+            'code': promotion.code,
+            'description': promotion.description,
+            'only_logged_in_users': promotion.only_logged_in_users,
+            'only_first_purchase_of_user': promotion.only_first_purchase_of_user,
+            'display_after': promotion.display_after
+        }
+        return Response(data, status=200)
+    
+@api_view(['GET'])
+def get_user_firstOrderBoolean(request):
+    if request.method == "GET":
+        user = request.user
+        try:
+            user_firstOrder = UserFirstOrder.objects.get(user=user)
+            madeFirstOrder = user_firstOrder.madeFirstOrder
+            return Response({"madeFirstOrder": madeFirstOrder}, status=200)
+        except UserVideo.DoesNotExist:
+            return Response({'message': 'User not found in UserFirstOrder.'}, status=404)
+
+@api_view(['POST'])
+def set_user_firstOrder_true(request):
+    if request.method == "POST":
+        user = request.user
+        try:
+            user_firstOrder = UserFirstOrder.objects.get(user=user)
+            user_firstOrder.madeFirstOrder = True
+            user_firstOrder.save()
+            return Response({"madeFirstOrder": True}, status=200)
+        except UserVideo.DoesNotExist:
+            return Response({'message': 'User not found in UserFirstOrder.'}, status=404)
