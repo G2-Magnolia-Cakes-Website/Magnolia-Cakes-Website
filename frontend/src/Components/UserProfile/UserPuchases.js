@@ -114,53 +114,70 @@ function UserPurchases({ api }) {
 
     return (
         <div>
-          <div className='profile-welcome'>Your Purchases</div>
-          <table className='purchase-table'>
-            <thead>
-              <tr>
-                <th>Order ID</th>
-                <th>Items</th>
-                <th>Price</th>
-                <th>Amount Paid</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {purchases.map(purchase => (
-                <tr key={purchase.id}>
-                  <td>{purchase.id}</td>
-                  <td>
-                    {purchase.videos.map(video => (
-                      <div key={video.id} className='item-row'>
-                        <span className='item-name'>{video.title}</span>
-                      </div>
-                    ))}
-                    {purchase.cakes.map(cake => (
-                      <div key={cake.id} className='item-row'>
-                        <span className='item-name'>{cake.name}</span>
-                      </div>
-                    ))}
-                  </td>
-                  <td>
-                    {purchase.videos.map(video => (
-                      <div key={video.id} className='item-row'>
-                        <span className='item-price'>${video.price}</span>
-                      </div>
-                    ))}
-                    {purchase.cakes.map(cake => (
-                      <div key={cake.id} className='item-row'>
-                        <span className='item-price'>${cake.price}</span>
-                      </div>
-                    ))}
-                  </td>
-                  <td>${purchase.amount_paid}</td>
-                  <td>
-                    {formatDate(purchase.time_submitted)}, {formatTime(purchase.time_submitted)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className='profile-title first-title'>Your Purchases</div>
+          {purchases.map((purchase, index) => (
+            <div key={purchase.id} className='purchase-container'>
+              <table className='purchase-table'>
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{purchase.id}</td>
+                  </tr>
+                </tbody>
+              </table>
+    
+              <table className='purchase-table'>
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Items</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {purchase.videos.map(video => (
+                    <tr key={video.id}>
+                      <td>Video</td>
+                      <td>{video.title}</td>
+                      <td>${video.price}</td>
+                    </tr>
+                  ))}
+                  {purchase.cakes.map(cake => (
+                    <tr key={cake.id}>
+                      <td>Cake</td>
+                      <td>{cake.name}</td>
+                      <td>${cake.price}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+    
+              <table className='purchase-table'>
+                <thead>
+                  <tr>
+                    <th>Amount Paid</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>${purchase.amount_paid}</td>
+                    <td>
+                      {formatDate(purchase.time_submitted)}, {formatTime(purchase.time_submitted)}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <hr className='order-divider' />
+    
+              {/* {index < purchases.length - 1 && <hr className='order-divider' />} */}
+            </div>
+          ))}
         </div>
     );
 }
