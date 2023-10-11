@@ -482,7 +482,7 @@ class Video(models.Model):
 
 class UserVideo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    videos = models.ManyToManyField(Video)
+    videos = models.ManyToManyField(Video, blank=True)
 
     def __str__(self):
         return self.user.username

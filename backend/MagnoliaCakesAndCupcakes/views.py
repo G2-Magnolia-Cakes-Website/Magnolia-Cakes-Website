@@ -466,20 +466,23 @@ def location_page_content(request):
         return Response(serializer.data)
 
 
-@api_view(["GET"])
 @csrf_exempt
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def create_checkout_session(request):
     stripe.api_key = settings.STRIPE_SECRET_KEY
-    FRONTEND_DOMAIN = settings.FRONTEND_APP_URL
+
     
     # Get the cart items from the request
     cart_items = request.data.get('items', [])
-
+    
     # Transform cart items into line items for Stripe checkout
     line_items = []
+    
+    # Retrieve video list if any 
+    video_items = []
     for item in cart_items:
+
         try:
             # Convert the price to a float and then to an integer (cents)
             price = int(float(item.get('price', 0)) * 100)
@@ -498,6 +501,11 @@ def create_checkout_session(request):
             },
             'quantity': item.get('quantity', 1),
         }
+        # add to the list if not null
+        video_item = item.get("videoId")
+        if video_item != None:
+            video_items.append(video_item)
+            
         line_items.append(line_item)
 
     # Calculate total amount
@@ -522,7 +530,11 @@ def create_checkout_session(request):
         },
         'quantity': 1,
     }
-
+    # Serialize the video array to json
+    
+    video_items_json = json.dumps(video_items)
+    
+   
     checkout_session = stripe.checkout.Session.create(
         payment_method_types=['card'],
         line_items=[*line_items, service_fees_item],  # Include service fees item
