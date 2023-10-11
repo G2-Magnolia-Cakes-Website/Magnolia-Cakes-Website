@@ -38,6 +38,7 @@ from django.conf import settings
 import stripe
 import json
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
 
 # create a class for the Todo model viewsets
 class MagnoliaCakesAndCupcakesView(viewsets.ModelViewSet):
@@ -65,6 +66,7 @@ def register(request):
 
             # Create user profile
             UserVideo.objects.create(user=user)
+            UserFirstOrder.objects.create(user=user)
 
             return activateEmail(request, user, form.cleaned_data.get("username"))
         return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -340,7 +342,7 @@ def faq_categories_list(request):
 )  ###### Add this to allow users to access despite not being logged in
 def faq_questions_list(request):
     if request.method == "GET":
-        questions = Question.objects.all()
+        questions = FAQQuestion.objects.all()
         serializer = QuestionSerializer(questions, many=True)
         return Response(serializer.data)
 
@@ -625,3 +627,42 @@ def purchase_videos(request, video_id):
             return Response({'message': 'Video added to user videos list'}, status=200)
         except UserVideo.DoesNotExist:
             return Response({'message': 'User profile not found.'}, status=404)
+
+@api_view(['GET'])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def get_displayed_promotion(request):
+    if request.method == "GET":
+        promotion = get_object_or_404(StripePromotion, is_displayed=True)
+        data = {
+            'code': promotion.code,
+            'description': promotion.description,
+            'only_logged_in_users': promotion.only_logged_in_users,
+            'only_first_purchase_of_user': promotion.only_first_purchase_of_user,
+            'display_after': promotion.display_after
+        }
+        return Response(data, status=200)
+    
+@api_view(['GET'])
+def get_user_firstOrderBoolean(request):
+    if request.method == "GET":
+        user = request.user
+        try:
+            user_firstOrder = UserFirstOrder.objects.get(user=user)
+            madeFirstOrder = user_firstOrder.madeFirstOrder
+            return Response({"madeFirstOrder": madeFirstOrder}, status=200)
+        except UserVideo.DoesNotExist:
+            return Response({'message': 'User not found in UserFirstOrder.'}, status=404)
+
+@api_view(['POST'])
+def set_user_firstOrder_true(request):
+    if request.method == "POST":
+        user = request.user
+        try:
+            user_firstOrder = UserFirstOrder.objects.get(user=user)
+            user_firstOrder.madeFirstOrder = True
+            user_firstOrder.save()
+            return Response({"madeFirstOrder": True}, status=200)
+        except UserVideo.DoesNotExist:
+            return Response({'message': 'User not found in UserFirstOrder.'}, status=404)

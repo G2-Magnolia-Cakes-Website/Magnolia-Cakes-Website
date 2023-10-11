@@ -105,4 +105,9 @@ urlpatterns = [
     # User videos
     path("api/user/videos/", views.get_videos, name="videos"),
     path("api/user/purchase/video/<int:video_id>/", views.purchase_videos, name="purchase_videos"),
+
+    # Promotions
+    path("api/promotions/displayed/", views.get_displayed_promotion, name="displayed_promotion"),
+    path("api/user/purchase/first/get/", views.get_user_firstOrderBoolean, name="first_order_boolean"),
+    path("api/user/purchase/success/", views.set_user_firstOrder_true, name="first_order_true"),
 ]
