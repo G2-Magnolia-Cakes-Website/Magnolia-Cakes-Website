@@ -539,8 +539,7 @@ def create_checkout_session(request):
         payment_method_types=['card'],
         line_items=[*line_items, service_fees_item],  # Include service fees item
         mode='payment',
-        allow_promotion_codes=True,
-        success_url= f"{settings.FRONTEND_APP_URL}/success" ,
+        success_url = f"{settings.FRONTEND_APP_URL}/success?checkout_session={{CHECKOUT_SESSION_ID}}&user={request.data.get('email')}&code={video_items_json}",
         cancel_url= f"{settings.FRONTEND_APP_URL}/online-store",
     )
 
