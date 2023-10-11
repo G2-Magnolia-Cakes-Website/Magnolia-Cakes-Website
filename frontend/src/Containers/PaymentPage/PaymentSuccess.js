@@ -3,7 +3,9 @@ import React, { useState, useEffect } from 'react';
 const SuccessPage = ({ api }) => {
   const [sessionData, setSessionData] = useState(null);
   const [videoItemsJson, setVideoItemsJson] = useState(null);
-  const [purchased, setPurchased] = useState(false); // Flag variable
+  const [cakeItemsJson, setCakeItemsJson] = useState(null);
+  const [purchased, setPurchased] = useState(false);
+  const [processed, setProcessed] = useState(false);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -11,6 +13,9 @@ const SuccessPage = ({ api }) => {
 
     const videoItems = urlParams.get('code');
     setVideoItemsJson(videoItems);  // Store videoItemsJson in state
+
+    const cakeItems = urlParams.get('i');
+    setCakeItemsJson(cakeItems);  // Store cakeItemsJson in state
 
     const stripeKey = process.env.REACT_APP_STRIPE_SECRET_KEY;
 
@@ -45,6 +50,49 @@ const SuccessPage = ({ api }) => {
   }, [api, setSessionData]);
 
   useEffect(() => {
+    // For videos, we have videoID only, we need to save for the user: list of video names.
+    // For cakes and cupcakes
+    // Overall, it would save one purchase as each item purchased, total paid, and date paid 
+    if (sessionData && sessionData.payment_status === 'paid' && !processed) {
+      const cakesToPurchase = JSON.parse(cakeItemsJson);
+      const videosToPurchase = JSON.parse(videoItemsJson);
+
+      console.log(sessionData.amount_total/100);
+      console.log(cakesToPurchase);
+      console.log(videosToPurchase);
+
+      const purchaseItems = async () => {
+          try {
+            const response = await api.post(
+              `/api/user/purchase/items/`,
+              {
+                amount_paid: sessionData.amount_total/100,
+                cakes: cakesToPurchase,
+                videos: videosToPurchase
+              },
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json',
+                  Authorization: `Bearer ${localStorage.getItem(
+                    'access_token'
+                  )}`
+                },
+                withCredentials: true
+              }
+            );
+          } catch (error) {
+            console.error(`Error processing purchase:`, error);
+          }
+      };
+
+      purchaseItems();
+      setProcessed(true);
+    }
+  }, [sessionData])
+
+  useEffect(() => {
+    console.log(sessionData);
     if (sessionData && sessionData.payment_status === 'paid' && videoItemsJson && !purchased) {
       const videosToPurchase = JSON.parse(videoItemsJson);
 
@@ -66,7 +114,6 @@ const SuccessPage = ({ api }) => {
                   withCredentials: true
                 }
               );
-              console.log(`Video ${videoId} purchased:`, response.data);
             } catch (error) {
               console.error(`Error purchasing video ${videoId}:`, error);
             }

@@ -504,6 +504,18 @@ class UserFirstOrder(models.Model):
         verbose_name_plural = "User First Orders"
 
 
+class UserPurchase(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    videos = models.ManyToManyField(Video, blank=True)
+    cakes = models.ManyToManyField(Cake, blank=True)
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    time_submitted = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-time_submitted"]
+        verbose_name_plural = "User Purchases"
+
+
 ############################################ Coupons and Promotions ############################################
 class StripeCoupon(models.Model):
     name = models.CharField(max_length=50, unique=True, primary_key=True)

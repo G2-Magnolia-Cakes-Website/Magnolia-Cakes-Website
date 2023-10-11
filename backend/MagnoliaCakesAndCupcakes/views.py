@@ -481,6 +481,7 @@ def create_checkout_session(request):
     
     # Retrieve video list if any 
     video_items = []
+    cake_items = []
     for item in cart_items:
 
         try:
@@ -505,6 +506,8 @@ def create_checkout_session(request):
         video_item = item.get("videoId")
         if video_item != None:
             video_items.append(video_item)
+        else:
+            cake_items.append(item.get('cakeId'))
             
         line_items.append(line_item)
 
@@ -533,13 +536,15 @@ def create_checkout_session(request):
     # Serialize the video array to json
     
     video_items_json = json.dumps(video_items)
+    cake_items_json = json.dumps(cake_items)
     
    
     checkout_session = stripe.checkout.Session.create(
         payment_method_types=['card'],
         line_items=[*line_items, service_fees_item],  # Include service fees item
         mode='payment',
-        success_url = f"{settings.FRONTEND_APP_URL}/success?checkout_session={{CHECKOUT_SESSION_ID}}&user={request.data.get('email')}&code={video_items_json}",
+        allow_promotion_codes=True,
+        success_url = f"{settings.FRONTEND_APP_URL}/success?checkout_session={{CHECKOUT_SESSION_ID}}&user={request.data.get('email')}&code={video_items_json}&i={cake_items_json}",
         cancel_url= f"{settings.FRONTEND_APP_URL}/online-store",
     )
 
@@ -666,3 +671,13 @@ def set_user_firstOrder_true(request):
             return Response({"madeFirstOrder": True}, status=200)
         except UserVideo.DoesNotExist:
             return Response({'message': 'User not found in UserFirstOrder.'}, status=404)
+
+@api_view(['POST'])
+def process_order(request):
+    if request.method == "POST":
+        print("-----------------", request.data)
+        serializer = UserPurchaseSerializer(data=request.data, context={'user': request.user})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)

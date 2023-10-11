@@ -100,6 +100,17 @@ class UserVideoAdmin(admin.ModelAdmin):
 class VideoAdmin(admin.ModelAdmin):
     list_display = ('title', 'price', 'description')
 
+class UserPurchaseAdmin(admin.ModelAdmin):
+    list_display = ('user', 'display_cakes', 'display_videos', 'amount_paid', 'time_submitted')
+
+    def display_videos(self, obj):
+        return ', '.join([video.title for video in obj.videos.all()])
+    display_videos.short_description = 'Videos'
+
+    def display_cakes(self, obj):
+        return ', '.join([cake.name for cake in obj.cakes.all()])
+    display_cakes.short_description = 'Cake'
+
 
 admin.site.register(TermsAndCondition)
 admin.site.register(Cake, CakeAdmin)
@@ -127,3 +138,4 @@ admin.site.register(UserVideo, UserVideoAdmin)
 admin.site.register(UserFirstOrder, UserFirstOrderAdmin)
 admin.site.register(StripeCoupon, StripeCouponAdmin)
 admin.site.register(StripePromotion, StripePromotionAdmin)
+admin.site.register(UserPurchase, UserPurchaseAdmin)

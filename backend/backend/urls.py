@@ -110,4 +110,6 @@ urlpatterns = [
     path("api/promotions/displayed/", views.get_displayed_promotion, name="displayed_promotion"),
     path("api/user/purchase/first/get/", views.get_user_firstOrderBoolean, name="first_order_boolean"),
     path("api/user/purchase/success/", views.set_user_firstOrder_true, name="first_order_true"),
+    
+    path("api/user/purchase/items/", views.process_order, name="purchase_order"),
 ]
