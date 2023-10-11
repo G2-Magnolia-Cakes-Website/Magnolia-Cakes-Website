@@ -9,7 +9,7 @@ import DeliverySection from "./Sections/DeliverySection";
 import GallerySection from "./Sections/GallerySection";
 import WelcomeSection from "./Sections/WelcomeSection";
 import WelcomePopup from "Components/WelcomePopup/WelcomePopup";
-import { parseStringToParagraphsByNewline } from "utils/parseParagraphs";
+import { parseStringToParagraphsByNewline } from "utils/parseStringsToArray";
 import CupcakesBanner from "Components/CupcakesBanner/CupcakesBanner";
 
 const HomePage = ({ api }) => {
