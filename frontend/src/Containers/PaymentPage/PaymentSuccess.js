@@ -57,10 +57,6 @@ const SuccessPage = ({ api }) => {
       const cakesToPurchase = JSON.parse(cakeItemsJson);
       const videosToPurchase = JSON.parse(videoItemsJson);
 
-      console.log(sessionData.amount_total/100);
-      console.log(cakesToPurchase);
-      console.log(videosToPurchase);
-
       const purchaseItems = async () => {
           try {
             const response = await api.post(
@@ -92,7 +88,6 @@ const SuccessPage = ({ api }) => {
   }, [sessionData])
 
   useEffect(() => {
-    console.log(sessionData);
     if (sessionData && sessionData.payment_status === 'paid' && videoItemsJson && !purchased) {
       const videosToPurchase = JSON.parse(videoItemsJson);
 

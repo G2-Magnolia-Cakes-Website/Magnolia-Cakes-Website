@@ -685,10 +685,26 @@ def process_order(request):
 def get_orders(request):
     if request.method == "GET":
         user = request.user
-        print(user)
         queryset = UserPurchase.objects.filter(user=user)
-        print(queryset)
         serializer = UserPurchaseSerializer(queryset, many=True)
-        print(serializer)
-        print("serializer.data ", serializer.data)
         return Response(serializer.data)
+
+@api_view(['GET'])
+def get_video(request, video_id):
+    video = get_object_or_404(Video, id=video_id)
+    video_data = {
+        'id': video.id,
+        'title': video.title,
+        'price': video.price,
+    }
+    return Response(video_data, status=200)
+
+@api_view(['GET'])
+def get_cake(request, cake_id):
+    cake = get_object_or_404(Cake, id=cake_id)
+    cake_data = {
+        'id': cake.id,
+        'name': cake.name,
+        'price': cake.price,
+    }
+    return Response(cake_data, status=200)
