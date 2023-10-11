@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
 import BarLoader from "react-spinners/BarLoader";
 import { loadStripe } from '@stripe/stripe-js';
+import LoginSignupContainer from 'Components/NotLoggedIn/LoginSignupContainer';
+
 
 function WorkshopPage({ api }) {
 
@@ -19,11 +21,15 @@ function WorkshopPage({ api }) {
 
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Add the isLoggedIn state
+
   useEffect(() => {
     setLoading(true);
     if (!localStorage.getItem('access_token')) {
-      navigate('/login');
+      setIsLoggedIn(false); // Set isLoggedIn to false if access_token is not present
+      setLoading(false);
     } else {
+      setIsLoggedIn(true); // Set isLoggedIn to true if access_token is present
       api
         .get('/api/video/', {
           headers: {
@@ -103,6 +109,10 @@ function WorkshopPage({ api }) {
     // Store the updated cart in local storage
     localStorage.setItem('Cart', JSON.stringify(existingCart));
   };
+
+  if (!isLoggedIn) {
+    return <LoginSignupContainer />;
+  }
 
   return (
     <div>
