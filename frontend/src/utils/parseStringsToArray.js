@@ -4,3 +4,7 @@ export const parseStringToParagraphsByNewline = (data) => {
     .split("\n")
     .filter((x) => x);
 };
+
+export const parseStringToArrayByComma = (data) => {
+  return data.split(", ").filter((x) => x);
+};

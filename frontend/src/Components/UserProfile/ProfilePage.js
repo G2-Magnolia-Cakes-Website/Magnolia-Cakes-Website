@@ -7,7 +7,7 @@ function ProfilePage({ api }) {
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-
+    
     useEffect(() => {
         const email = localStorage.getItem('email');
         const first_name = localStorage.getItem('first_name');

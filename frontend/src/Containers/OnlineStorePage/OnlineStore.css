@@ -2,54 +2,61 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white; /* Set the background color to white */
-  padding: 20px; /* Add padding for spacing */
-  margin-right: 400px ;
+  background-color: white;
+  /* Set the background color to white */
+  padding: 20px;
+  /* Add padding for spacing */
+  margin-right: 400px;
   margin-left: 400px;
-  margin-top: 50px ;
+  margin-top: 50px;
   margin-bottom: 50px;
 }
 
 .category-buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px; /* Add some gap between buttons */
+  gap: 10px;
+  /* Add some gap between buttons */
 }
 
 
 .cakes-list {
-    display: flex; 
-    flex-wrap: wrap; 
-    justify-content: space-between;
-  }
-  .cake-item {
-    position: relative;
-    display: inline-block; 
-    text-align: left; 
-    margin-top: 20px; 
-    margin-right: 50px;
-    margin-left: 50px;
-  }
-  
-.image {
-    width: 300px;
-    height: 350px;
-    /*Must ensure that all uploaded image is in square shape*/
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
 
-  /* Style for the quantity section */
+.cake-item {
+  position: relative;
+  display: inline-block;
+  text-align: left;
+  margin-top: 20px;
+  margin-right: 50px;
+  margin-left: 50px;
+}
+
+.image {
+  width: 300px;
+  height: 350px;
+  /*Must ensure that all uploaded image is in square shape*/
+}
+
+/* Style for the quantity section */
 .quantity-section {
   display: flex;
   align-items: center;
-  margin-bottom: 10px; /* Adjust as needed */
+  margin-bottom: 10px;
+  /* Adjust as needed */
 }
 
 .quantity-section label {
-  margin-right: 10px; /* Adjust as needed */
+  margin-right: 10px;
+  /* Adjust as needed */
 }
 
 .quantity-section input {
-  width: 50px; /* Adjust the width as needed */
+  width: 50px;
+  /* Adjust the width as needed */
 }
 
 /* Style for the buttons section */
@@ -59,8 +66,8 @@
   justify-content: center;
   align-items: center;
 }
+
 .button {
-  
   display: block;
   text-decoration: none;
   color: white;
@@ -73,7 +80,7 @@
   text-align: center;
   transition: 0.5s;
   font-family: "Fredoka", sans-serif;
-  
+
 }
 
 .button:hover {
@@ -81,3 +88,14 @@
   border-color: #834b54;
 }
 
+.success-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 9999;
+}

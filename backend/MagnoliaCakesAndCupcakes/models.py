@@ -12,6 +12,16 @@ from django.urls import reverse
 from django.core.mail import EmailMessage
 from django_rest_passwordreset.signals import reset_password_token_created
 
+# Coupon/Promotions
+from django.db.models.signals import post_save
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+import stripe
+from django.core.exceptions import ValidationError
+from django.core.exceptions import ObjectDoesNotExist
+import pytz
+from stripe.error import InvalidRequestError
+
 
 class MagnoliaCakesAndCupcakes(models.Model):
     title = models.CharField(max_length=150)
@@ -28,6 +38,7 @@ class TermsAndCondition(models.Model):
 
     class Meta:
         ordering = ["policy_name"]
+        verbose_name_plural = "Terms And Conditions"
 
     def __str__(self):
         return self.policy_name
@@ -46,6 +57,8 @@ class CakeCategory(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "Cake Categories"
 
 def upload_to(instance, filename):
     # Upload the image to a 'cakes' directory with the filename as the cake's name
@@ -93,6 +106,9 @@ class SliderImage(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "Slider Images"
+
     def save(self, *args, **kwargs):
         # Rename the uploaded image to match the cake's name
         if self.image and hasattr(self.image, "name"):
@@ -108,6 +124,9 @@ class SliderImage(models.Model):
             default_storage.delete(image_path)
 
         super(SliderImage, self).delete(*args, **kwargs)
+        
+    class Meta:
+        verbose_name_plural = "Slider Images"
 
 
 class AboutUs(models.Model):
@@ -132,18 +151,20 @@ class FAQCategory(models.Model):
 
     class Meta:
         ordering = ["title"]
+        verbose_name_plural = "FAQ Categories"
 
     def __str__(self):
         return self.title
 
 
-class Question(models.Model):
+class FAQQuestion(models.Model):
     question = models.CharField(max_length=150)
     answer = models.TextField()
     category = models.ManyToManyField(FAQCategory)
 
     class Meta:
         ordering = ["question"]
+        verbose_name_plural = "FAQ Questions"
 
     def __str__(self):
         return self.question
@@ -199,7 +220,13 @@ class FooterBusinessHours(models.Model):
 
 
 class FlavoursAndServings(models.Model):
+    CHOICES = (
+        ("Flavours", "Flavours"),
+        ("Fillings", "Fillings"),
+    )
+
     title = models.CharField(max_length=100)
+    type = models.CharField(max_length=100, choices=CHOICES, default="Flavours")
     list = models.TextField()
     last_updated = models.DateTimeField(auto_now=True)
 
@@ -300,6 +327,9 @@ class GalleryItem(models.Model):
             image_path = self.image.name
             default_storage.delete(image_path)
         super().delete(*args, **kwargs)
+        
+    class Meta:
+        verbose_name_plural = "Gallery Items"
 
 
 class LocationPageContent(models.Model):
@@ -337,6 +367,41 @@ class ContactUsEmail(models.Model):
     class Meta:
         verbose_name_plural = "Contact Us Email"
 
+
+class BackupEmail(models.Model):
+    email = models.CharField(
+        max_length=200,
+        help_text="This will be a backup email that receives Contact Us and Get A Quote submissions.",
+    )
+
+    def __str__(self):
+        return "Backup Email"
+
+    class Meta:
+        verbose_name_plural = "Contact Us Backup Emails"
+
+
+class Quote(models.Model):
+    name = models.CharField(max_length=200)
+    mobile = models.CharField(max_length=10, blank=True, null=True)
+    email = models.CharField(max_length=200)
+    product_type = models.CharField(max_length=20, blank=True, null=True)
+    servings_or_amount = models.IntegerField()
+    serves = models.CharField(max_length=20, blank=True, null=True)
+    date_of_event = models.DateField(blank=True, null=True)
+    flavour = models.CharField(max_length=30, blank=True, null=True)
+    filling = models.CharField(max_length=30, blank=True, null=True)
+    time_submitted = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = [
+            "time_submitted",
+            "name",
+            "product_type",
+            "date_of_event",
+            "flavour",
+            "filling",
+        ]
 
 class HomepageWelcomeSection(models.Model):
     def upload_to_welcome(instance, filename):
@@ -417,10 +482,177 @@ class Video(models.Model):
 
 class UserVideo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    videos = models.ManyToManyField(Video)
+    videos = models.ManyToManyField(Video, blank=True)
 
     def __str__(self):
         return self.user.username
 
     class Meta:
         ordering = ["user"]
+        verbose_name_plural = "User Videos"
+
+
+class UserFirstOrder(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    madeFirstOrder = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username 
+
+    class Meta:
+        ordering = ["user"]
+        verbose_name_plural = "User First Orders"
+
+
+############################################ Coupons and Promotions ############################################
+class StripeCoupon(models.Model):
+    name = models.CharField(max_length=50, unique=True, primary_key=True)
+    amount_off = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, help_text='You cannot change this field after creating the Coupon.')
+    percent_off = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True, help_text='You cannot change this field after creating the Coupon.')
+    max_redemptions = models.PositiveIntegerField(null=True, blank=True, help_text='You cannot change this field after creating the Coupon.')
+    redeem_by = models.DateTimeField(null=True, blank=True, help_text='You cannot change this field after creating the Coupon.')
+    stripe_coupon_id = models.CharField(max_length=100, blank=True, editable=False)
+    # maybe add applies_to to just allow certain cakes and cupcakes 
+
+    def __str__(self):
+        return self.name 
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name_plural = "Stripe Coupons"
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            try:
+                # Update the promotion code
+                original_coupon = StripeCoupon.objects.get(pk=self.pk)
+                if (
+                    original_coupon.name != self.name
+                    or original_coupon.amount_off != self.amount_off
+                    or original_coupon.percent_off != self.percent_off
+                    or original_coupon.max_redemptions != self.max_redemptions
+                    or original_coupon.redeem_by != self.redeem_by
+                    or original_coupon.stripe_coupon_id != self.stripe_coupon_id
+                ):
+                    raise ValidationError(
+                        "Cannot update fields other than 'name'",
+                        code='restricted_fields'
+                    )
+            except ObjectDoesNotExist:
+                # Coupon object with the given primary key does not exist, so try adding or modifying
+                pass
+
+        try:
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            if self.stripe_coupon_id:
+                stripe.Coupon.modify(
+                    self.stripe_coupon_id,
+                    name=self.name
+                )
+            else:
+                redeem_by_aest = None
+                if self.redeem_by:
+                    # Convert redeem_by to AEST
+                    tz_aest = pytz.timezone('Australia/Melbourne')
+                    redeem_by_aest = self.redeem_by.astimezone(tz_aest)
+
+                # Create a new coupon in Stripe
+                coupon = stripe.Coupon.create(
+                    currency='AUD',
+                    name=self.name,
+                    amount_off=int((self.amount_off) * 100) if self.amount_off else None,  # Convert to cents
+                    percent_off=self.percent_off,
+                    max_redemptions=self.max_redemptions,
+                    redeem_by=int(redeem_by_aest.timestamp()) if redeem_by_aest else None,
+                )
+                self.stripe_coupon_id = coupon.id
+
+            super().save(*args, **kwargs)
+        except stripe.error.StripeError as e:
+            # Handle the Stripe API error
+            raise ValidationError(f"Failed to update Stripe coupon: {str(e)}")
+
+
+@receiver(pre_delete, sender=StripeCoupon)
+def delete_stripe_coupon(sender, instance, **kwargs):
+    if instance.stripe_coupon_id:
+        try:
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            stripe.Coupon.delete(instance.stripe_coupon_id)
+        except InvalidRequestError as e:
+            if e.code == "resource_missing":
+                # The coupon does not exist in Stripe, so it's considered deleted
+                pass
+            else:
+                # Handle any other errors that occur during the API request
+                raise ValidationError(f"Failed to delete Stripe coupon: {str(e)}")
+        except stripe.error.StripeError as e:
+            # Handle any other errors that occur during the API request
+            raise ValidationError(f"Failed to delete Stripe coupon: {str(e)}")
+
+############### Promotion ###############
+class StripePromotion(models.Model):
+    code = models.CharField(max_length=50, blank=True, unique=True, primary_key=True, help_text='You cannot change this field after creating the promotion.')
+    coupon = models.ForeignKey(StripeCoupon, on_delete=models.CASCADE, help_text='You cannot change this field after creating the promotion.') 
+    stripe_promotion_id = models.CharField(max_length=100, blank=True, editable=False)
+    # Frontend:
+    is_displayed = models.BooleanField(default=False)
+    display_after = models.IntegerField(default=30, help_text='Set this field to display the popup after the given amount of seconds. (Recommended 30 seconds)')
+    only_logged_in_users = models.BooleanField(default=False)
+    only_first_purchase_of_user = models.BooleanField(default=False)
+    description = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.code 
+
+    class Meta:
+        ordering = ["code"]
+        verbose_name_plural = "Stripe Promotions"
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            # Make sure the code, coupon and promotion id arent being changed
+            try:
+                original_promotion = StripePromotion.objects.get(pk=self.pk)
+                if (
+                    original_promotion.code != self.code
+                    or original_promotion.coupon != self.coupon
+                    or original_promotion.stripe_promotion_id != self.stripe_promotion_id
+                ):
+                    raise ValidationError(
+                        "Cannot update fields other than 'is_displayed' or 'description'",
+                        code='restricted_fields'
+                    )
+            except StripePromotion.DoesNotExist:
+                # Promotion object with the given primary key does not exist, so try adding or modifying
+                pass
+
+        # Either edit is_displayed and description, or create new promotion
+        try:
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            if not self.stripe_promotion_id:
+                # Create a new promotion in Stripe
+                if (self.code):
+                    stripe_promotion = stripe.PromotionCode.create(
+                        code=self.code,
+                        coupon=self.coupon.stripe_coupon_id,  # Pass the coupon id
+                    )
+                else:
+                    stripe_promotion = stripe.PromotionCode.create(
+                        coupon=self.coupon.stripe_coupon_id,  # Pass the coupon id
+                    )
+                    self.code = stripe_promotion.code
+                self.stripe_promotion_id = stripe_promotion.id
+
+            if self.is_displayed:
+                StripePromotion.objects.exclude(pk=self.pk).update(is_displayed=False)
+
+            super().save(*args, **kwargs)
+
+        except stripe.error.StripeError as e:
+            # Handle the Stripe API error
+            raise ValidationError(f"Failed to update Stripe coupon: {str(e)}")
+
+# There is no delete api for promotion codes
+
+################################################################################################################

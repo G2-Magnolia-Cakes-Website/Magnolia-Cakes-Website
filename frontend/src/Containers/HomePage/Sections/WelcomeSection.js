@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import welcomePhoto from "utils/welcome-photo.jpg";
-import magnoliaFlower from "utils/magnolia_transparent.png";
+import { parseStringToParagraphsByNewline } from "utils/parseStringsToArray";
 import "./WelcomeSection.css";
-import { parseStringToParagraphsByNewline } from "utils/parseParagraphs";
-import CupcakesBanner from "Components/CupcakesBanner/CupcakesBanner";
 
 const WelcomeSection = ({ api }) => {
   const [content, setContent] = useState({

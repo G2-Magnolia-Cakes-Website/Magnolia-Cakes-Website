@@ -66,7 +66,8 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Question
+        model = FAQQuestion
+
         fields = "__all__"
 
 
@@ -139,3 +140,43 @@ class UserVideoSerialiser(serializers.ModelSerializer):
     class Meta:
         model = UserVideo
         fields = "__all__"
+
+class StripeCouponSerialiser(serializers.ModelSerializer):
+    class Meta:
+        model = StripeCoupon
+        fields = "__all__"
+        
+class StripePromotionSerialiser(serializers.ModelSerializer):
+    class Meta:
+        model = StripePromotion
+        fields = "__all__"
+        
+class UserFirstOrderSerialiser(serializers.ModelSerializer):
+    class Meta:
+        model = UserFirstOrder
+        fields = "__all__"
+
+class QuoteSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    mobile = serializers.CharField(required=False, allow_null=True)
+    email = serializers.CharField()
+    product_type = serializers.CharField(required=False, allow_null=True)
+    servings_or_amount = serializers.IntegerField()
+    serves = serializers.CharField(required=False, allow_null=True)
+    date_of_event = serializers.DateField(required=False, allow_null=True)
+    flavour = serializers.CharField(required=False, allow_null=True)
+    filling = serializers.CharField(required=False, allow_null=True)
+    
+    class Meta:
+        model = Quote
+        fields = "__all__"
+        extra_kwargs = {
+            'name': {'required': True},
+            'email': {'required': True},
+            'servings_or_amount': {'required': True},
+        }
+        
+    def create(self, validated_data):
+        return Quote.objects.create(**validated_data)
+    
+    
