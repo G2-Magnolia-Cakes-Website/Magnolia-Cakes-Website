@@ -1,6 +1,7 @@
 import './ProfilePage.css';
 import Form from "./ProfileForm"
 import React, { useEffect, useState } from "react";
+import UserPurchases from './UserPuchases';
 
 function ProfilePage({ api }) {
 
@@ -31,7 +32,7 @@ function ProfilePage({ api }) {
                     <Form api={api} email={email} first_name={firstName} last_name={lastName} />
                 </div>
                 <div className='profile-white-background'>
-                    Your Purchases
+                    <UserPurchases api={api} />
                 </div>
             </div>
         </>

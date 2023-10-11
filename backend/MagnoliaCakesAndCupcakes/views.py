@@ -675,9 +675,20 @@ def set_user_firstOrder_true(request):
 @api_view(['POST'])
 def process_order(request):
     if request.method == "POST":
-        print("-----------------", request.data)
         serializer = UserPurchaseSerializer(data=request.data, context={'user': request.user})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+
+@api_view(['GET'])
+def get_orders(request):
+    if request.method == "GET":
+        user = request.user
+        print(user)
+        queryset = UserPurchase.objects.filter(user=user)
+        print(queryset)
+        serializer = UserPurchaseSerializer(queryset, many=True)
+        print(serializer)
+        print("serializer.data ", serializer.data)
+        return Response(serializer.data)

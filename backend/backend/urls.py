@@ -112,4 +112,5 @@ urlpatterns = [
     path("api/user/purchase/success/", views.set_user_firstOrder_true, name="first_order_true"),
     
     path("api/user/purchase/items/", views.process_order, name="purchase_order"),
+    path("api/user/get/purchases/", views.get_orders, name="get_purchases"),
 ]
