@@ -23,7 +23,7 @@ import IntroQuote from "Components/IntroQuote/IntroQuote";
 
 const CarouselGallery = ({ quote, images, loading }) => {
   return (
-    <>
+    <div className="pink-bg">
       <div className="carousel-wrapper">
         <Swiper
           modules={[Autoplay, EffectFade, Navigation, Pagination, Keyboard]}
@@ -65,7 +65,7 @@ const CarouselGallery = ({ quote, images, loading }) => {
       <div className="intro-quote mobile">
         <IntroQuote quote={quote} />
       </div>
-    </>
+    </div>
   );
 };
 

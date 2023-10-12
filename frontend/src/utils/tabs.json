@@ -1,9 +1,5 @@
 [
   {
-    "tabName": "Home",
-    "tabLink": "/"
-  },
-  {
     "tabName": "Gallery",
     "tabLink": "/gallery"
   },

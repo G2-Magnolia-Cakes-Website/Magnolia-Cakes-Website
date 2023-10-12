@@ -11,6 +11,7 @@
   text-align: center;
   transition: 0.5s;
   font-family: "Fredoka", sans-serif;
+  height: 45px;
 }
 
 /* Use media query to avoid hover styling when clicked on mobile devices */
@@ -21,7 +22,7 @@
   }
 }
 
-@media (max-width: 1440px) and (min-width: 480px) {
+@media (max-width: 1440px) {
   .cart-button {
     font-size: 14px;
     padding: 7px 10px;

@@ -7,13 +7,14 @@
   font-family: "Fredoka", sans-serif;
   align-items: center;
   text-align: center;
+  height: 45px;
 }
 
 .profile-link:not(.active):hover {
   color: #b76e79;
 }
 
-@media (max-width: 1440px) and (min-width: 480px) {
+@media (max-width: 1440px) {
   .profile-link {
     font-size: 14px;
   }

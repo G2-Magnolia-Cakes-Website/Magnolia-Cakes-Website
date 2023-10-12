@@ -1,8 +1,15 @@
 .signup-login-group {
   display: flex;
   margin: 0 1.5rem 0 1rem;
+  align-items: center;
 }
 
 .signup-login-group > * {
   margin: 1rem 0.5rem;
+}
+
+@media (max-width: 1093px) {
+  .signup-login-group {
+    margin: 0;
+  }
 }

@@ -1,15 +1,15 @@
 import React from "react";
 import LogoutLink from "../../Components/LogoutLink/LogoutLink";
 import ProfileLink from "../../Components/UserProfile/ProfileLink";
-import "./SignedInGroup.css";
 import ViewCart from "../../Components/ViewCart/ViewCart";
+import "./SignedInGroup.css";
 
-const SignedInGroup = ({ api, user }) => {
+const SignedInGroup = ({ api, user, isMenuOpen }) => {
   return (
     <div className="signed-in-group">
       <ViewCart api={api} />
       <LogoutLink api={api} />
-      <ProfileLink user={user} />
+      {isMenuOpen && <ProfileLink user={user} />}
     </div>
   );
 };

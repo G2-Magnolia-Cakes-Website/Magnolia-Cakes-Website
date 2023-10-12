@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./LogoutLink.css";
 import LogoutPopup from "./LogoutPopup.js";
+import "./LogoutLink.css";
 
 const LogoutLink = ({ api }) => {
   const [buttonPopup, setButtonPopup] = useState(false);

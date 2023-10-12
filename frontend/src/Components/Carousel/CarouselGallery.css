@@ -1,3 +1,7 @@
+.pink-bg {
+  background-color: #ffc1dc;
+}
+
 .carousel-wrapper {
   display: flex;
   justify-content: center;
@@ -35,11 +39,10 @@
 }
 
 .swiper {
-  /* aspect-ratio: 400/500; */
-  height: auto;
-  min-height: 500px;
-  width: 500px;
-  margin: 0;
+  aspect-ratio: 500/500;
+  height: 600px;
+  width: 600px;
+  margin: auto 0 auto 0;
   display: inline-block;
 }
 
@@ -93,7 +96,7 @@
   z-index: -6;
   margin: 0;
   border-radius: 900px 900px 0 0;
-  box-shadow: 0px -1px 2px #efc7c7;
+  box-shadow: 0px -1px 2px #ffc1dc;
 }
 
 @media (max-width: 1440px) {
@@ -111,8 +114,8 @@
   }
 
   .swiper {
-    min-height: 400px;
-    width: 420px;
+    height: 500px;
+    width: 500px;
   }
 
   .intro-quote {
@@ -130,8 +133,8 @@
   }
 
   .swiper {
-    min-height: 300px;
-    width: 336px;
+    height: 400px;
+    width: 400px;
   }
 
   .cake-pop {
@@ -171,7 +174,7 @@
   }
 
   .swiper {
-    aspect-ratio: 400/500;
+    height: 300px;
     width: 300px;
   }
 }
@@ -187,7 +190,7 @@
 
   .swiper {
     width: 250px;
-    min-height: 250px;
+    height: 250px;
   }
 
   .quote-wrapper2 {
