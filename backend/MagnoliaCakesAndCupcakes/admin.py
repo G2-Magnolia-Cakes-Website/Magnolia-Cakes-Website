@@ -75,7 +75,7 @@ class StripePromotionAdmin(admin.ModelAdmin):
     )
 
 class CakeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'display_categories', 'price', 'flavor')
+    list_display = ('name', 'description', 'flavor', 'display_categories', 'price', 'active')
 
     def display_categories(self, obj):
         return ', '.join([category.name for category in obj.categories.all()])
@@ -98,7 +98,7 @@ class UserVideoAdmin(admin.ModelAdmin):
     display_videos.short_description = 'Videos'
 
 class VideoAdmin(admin.ModelAdmin):
-    list_display = ('title', 'price', 'description')
+    list_display = ('title', 'description', 'price', 'active')
 
 class UserPurchaseAdmin(admin.ModelAdmin):
     list_display = ('user', 'display_cakes', 'display_videos', 'amount_paid', 'time_submitted')

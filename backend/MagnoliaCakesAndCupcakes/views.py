@@ -40,6 +40,8 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 
+import urllib.request
+
 # create a class for the Todo model viewsets
 class MagnoliaCakesAndCupcakesView(viewsets.ModelViewSet):
     # create a serializer class and
@@ -491,17 +493,41 @@ def create_checkout_session(request):
             # Handle the case where the price is not a valid number
             # You may want to log an error or take appropriate action here
             price = 0
+        
+        # Get price_id for product
+        gotPrice = False
+        cake_id = item.get("cakeId")
+        if cake_id != None:
+            cake = get_object_or_404(Cake, id=cake_id)
+            if (cake.price_id):
+                line_item = {
+                    'price': cake.price_id,  # Stripe price ID associated with the product
+                    'quantity': item.get('quantity', 1),
+                }
+                gotPrice = True
 
-        line_item = {
-            'price_data': {
-                'currency': 'aud',
-                'product_data': {
-                    'name': item.get('name', 'Product'),
+        video_id = item.get("videoId")
+        if video_id != None:
+            video = get_object_or_404(Video, id=video_id)
+            if (video.price_id):
+                line_item = {
+                    'price': video.price_id,  # Stripe price ID associated with the product
+                    'quantity': item.get('quantity', 1),
+                }
+                gotPrice = True
+
+
+        if not gotPrice:
+            line_item = {
+                'price_data': {
+                    'currency': 'aud',
+                    'product_data': {
+                        'name': item.get('name', 'Product'),
+                    },
+                    'unit_amount': price,  # Amount in cents
                 },
-                'unit_amount': price,  # Amount in cents
-            },
-            'quantity': item.get('quantity', 1),
-        }
+                'quantity': item.get('quantity', 1),
+            }
         # add to the list if not null
         video_item = item.get("videoId")
         if video_item != None:
@@ -706,5 +732,6 @@ def get_cake(request, cake_id):
         'id': cake.id,
         'name': cake.name,
         'price': cake.price,
+        'price_id': cake.price_id
     }
     return Response(cake_data, status=200)
