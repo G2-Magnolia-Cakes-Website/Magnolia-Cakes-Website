@@ -77,6 +77,24 @@ class Cake(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
+        # Stripe create product or Modify
+
+        # To create:
+        # save id but make it not editable
+        # name
+        # active = True
+        # description
+        # default_price_data: need to create price object
+            # currency
+            # unit_amount (cents)
+        # Can save images
+        # eg: stripe.Product.create(name="Gold Special")
+
+        # To modify:
+        # need to use id
+        # can modify:
+        # active, default_price, description, name, images
+
         # Rename the uploaded image to match the cake's name
         if self.picture and hasattr(self.picture, "name"):
             self.picture.name = (
@@ -85,6 +103,9 @@ class Cake(models.Model):
         super(Cake, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
+        # Delete on stripe:
+        # stripe.Product.delete(product_id)
+        
         # Delete the associated image from Google Cloud Storage
         if self.picture and hasattr(self.picture, "name"):
             image_path = self.picture.name
