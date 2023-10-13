@@ -1,15 +1,12 @@
 import React from "react";
-import cupcakesBanner from "utils/white_blue_cupcakes.jpg";
+import cupcakeBanner from "utils/cupcake-banner.jpg";
 import "./CupcakesBanner.css";
 
 const CupcakesBanner = () => {
   return (
-    <div className="cupcakes-banner-wrapper">
-      {/* <img
-        src={cupcakesBanner}
-        alt="Blue White Cupcakes Banner"
-        className="cupcakes-banner"
-      /> */}
+    <div className="banner-wrapper">
+      <div className="cupcakes-banner" />
+      {/* <img src={cupcakeBanner} alt="cupcake banner" className="banner-img" /> */}
     </div>
   );
 };

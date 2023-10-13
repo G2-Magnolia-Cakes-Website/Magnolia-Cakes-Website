@@ -29,7 +29,7 @@
   }
 }
 
-.popup {
+/* .popup {
   position: fixed;
   top: 0;
   left: 0;
@@ -40,9 +40,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
-.popup-inner {
+/* .popup-inner {
   border: 2px solid black;
   position: relative;
   padding: 32px;
@@ -55,7 +55,9 @@
   flex-direction: column;
   font-size: 18px;
   font-family: "Fredoka", sans-serif;
-}
+} */
+
+
 
 .popup-inner .close-btn {
   position: absolute;

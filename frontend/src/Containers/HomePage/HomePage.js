@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { AuthContext } from "../../AuthContext";
 import AboutUsSection from "./Sections/AboutUsSection";
-import SubheadingDivider from "Components/SubheadingDivider/SubheadingDivider";
 import CarouselGallery from "Components/Carousel/CarouselGallery";
 import LocationPage from "Containers/LocationPage/LocationPage";
 import DeliverySection from "./Sections/DeliverySection";
@@ -82,11 +81,9 @@ const HomePage = ({ api }) => {
       {images.length > 0 && (
         <CarouselGallery quote={quote} images={images} loading={loading} />
       )}
-
       <CupcakesBanner />
       <WelcomeSection api={api} />
       <GallerySection api={api} />
-      {/* <SubheadingDivider subheadingText="Cakes for all occasions" /> */}
       <AboutUsSection api={api} />
       <DeliverySection />
       <LocationPage api={api} />

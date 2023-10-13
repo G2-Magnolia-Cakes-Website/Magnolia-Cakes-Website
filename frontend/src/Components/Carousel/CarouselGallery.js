@@ -35,7 +35,6 @@ const CarouselGallery = ({ quote, images, loading }) => {
           loop={true}
           centeredSlides={true}
           effect="fade"
-          // crossFade={true}
           enabled={true}
           observer={true}
           observeParents={true}

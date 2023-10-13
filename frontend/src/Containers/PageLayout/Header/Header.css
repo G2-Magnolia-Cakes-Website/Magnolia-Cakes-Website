@@ -35,6 +35,10 @@
   display: none;
 }
 
+.button-group {
+  margin-left: 0.5rem;
+}
+
 @media (max-width: 1093px) {
   .header .navbar-signup-login-group {
     flex-direction: column;

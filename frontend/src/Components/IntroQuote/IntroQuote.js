@@ -1,5 +1,6 @@
 import React from "react";
 import cakePop from "utils/cake_pop_transparent.png";
+import magnoliaFlower from "utils/magnolia_transparent.png";
 import { SHOPDETAILS } from "utils/constants";
 
 import "./IntroQuote.css";
@@ -15,7 +16,7 @@ const IntroQuote = (props) => {
           <p className="quote">{paragraph}</p>
         ))}
       </div>
-      <img src={cakePop} alt="Cake Pop" className="cake-pop" />
+      <img src={magnoliaFlower} alt="Cake Pop" className="cake-pop" />
     </div>
   );
 };

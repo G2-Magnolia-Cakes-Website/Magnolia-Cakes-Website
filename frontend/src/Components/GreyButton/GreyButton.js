@@ -1,8 +1,8 @@
 import React from "react";
 
-import "./RoseGoldButton.css";
+import "./GreyButton.css";
 
-const RoseGoldButton = (props) => {
+const GreyButton = (props) => {
   const {
     buttonText,
     buttonType,
@@ -16,7 +16,7 @@ const RoseGoldButton = (props) => {
 
   return (
     <button
-      className="rose-gold-button"
+      className="grey-button"
       type={buttonType}
       style={{ height: height, margin: margin, width: width, padding: padding }}
       disabled={disabled}
@@ -27,4 +27,4 @@ const RoseGoldButton = (props) => {
   );
 };
 
-export default RoseGoldButton;
+export default GreyButton;
