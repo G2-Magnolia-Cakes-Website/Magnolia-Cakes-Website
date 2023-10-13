@@ -11,6 +11,7 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
 
     // Loading
     const [loading, setLoading] = useState(false);
+    const [loadingPassword, setLoadingPassword] = useState(false);
 
     const [disabledFirstName, setDisableFirstName] = useState(true);
     const [disabledLastName, setDisableLastName] = useState(true);
@@ -87,7 +88,6 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
                 if (res.status === 200) {
                     setError(false);
                     await getUserDetails();
-                    setLoading(false);
                     window.location.reload();
                 } else {
                     setSubmitted(false);
@@ -126,6 +126,7 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
                 setError(true);
             }
         }
+        setLoading(false);
     };
 
     const getUserDetails = async (e) => {
@@ -162,7 +163,7 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
 
     const handleChangePassword = async (event) => {
         event.preventDefault();
-        setLoading(true);
+        setLoadingPassword(true);
         // Send API msg to backend
         try {
 
@@ -185,7 +186,6 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
                 setSubmitted(true);
                 setError(false);
                 setErrorMessage(defaultPasswordResetErrorMessage);
-                setLoading(false);
             } else {
                 setSubmitted(false);
                 if (res.data["detail"]) {
@@ -214,6 +214,7 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
             }
             setError(true);
         }
+        setLoadingPassword(false);
     };
 
     // Showing success message
@@ -250,8 +251,17 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
     }, []);
 
     return (
-        <div className='profile-right'>
-            <div className='profile-title first-title'>Name</div>
+        <div>
+
+            <div className='profile-title first-title'>Contact</div>
+            <label className='profile-label'>Email</label>
+            <input
+                value={email}
+                disabled={true}
+                className='profile-input'
+            />
+
+            <div className='profile-title name-title'>Name</div>
             <label className='profile-label'>First Name</label>
             <div className='label-edit'>
                 <input
@@ -274,27 +284,26 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
                 <button onClick={handleLastNameEdit} className='profile-edit-btn'>edit</button>
             </div>
 
-            <div className='profile-title'>Contact</div>
-            <label className='profile-label'>Email</label>
-            <input
-                value={email}
-                disabled={true}
-                className='profile-input'
-            />
-
-            <div className='profile-title'>Privacy</div>
-            <label className='profile-label'>Password</label>
-            <button onClick={handleChangePassword} className='profile-change-btn'>Change Password</button>
-
             <button type="submit" disabled={!isFormModified} onClick={handleUpdateAccount} className='update-profile'>
                 Update Account
             </button>
-
             <BarLoader
-            loading={loading}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-            width={"100%"}
+                loading={loading}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+                width={"100%"}
+            />
+
+            <hr />
+
+            <div className='profile-title'>Privacy</div>
+            <label className='profile-label password-label'>Password</label>
+            <button onClick={handleChangePassword} className='profile-change-btn'>Change Password</button>
+            <BarLoader
+                loading={loadingPassword}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+                width={"100%"}
             />
 
             <div className="messages-profile">
