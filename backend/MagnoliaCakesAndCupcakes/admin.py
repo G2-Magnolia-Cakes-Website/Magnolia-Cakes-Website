@@ -1,6 +1,7 @@
 from django.contrib import admin
 import pytz
 from django.utils import timezone
+from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
 from .models import *
@@ -75,7 +76,7 @@ class StripePromotionAdmin(admin.ModelAdmin):
     )
 
 class CakeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'display_categories', 'price', 'flavor')
+    list_display = ('name', 'description', 'flavor', 'display_categories', 'price', 'active')
 
     def display_categories(self, obj):
         return ', '.join([category.name for category in obj.categories.all()])
@@ -98,7 +99,18 @@ class UserVideoAdmin(admin.ModelAdmin):
     display_videos.short_description = 'Videos'
 
 class VideoAdmin(admin.ModelAdmin):
-    list_display = ('title', 'price', 'description')
+    list_display = ('title', 'description', 'price', 'active')
+
+class UserPurchaseAdmin(admin.ModelAdmin):
+    list_display = ('user', 'display_cakes', 'display_videos', 'amount_paid', 'time_submitted')
+
+    def display_videos(self, obj):
+        return ', '.join([video.title for video in obj.videos.all()])
+    display_videos.short_description = 'Videos'
+
+    def display_cakes(self, obj):
+        return ', '.join([cake.name for cake in obj.cakes.all()])
+    display_cakes.short_description = 'Cake'
 
 
 admin.site.register(TermsAndCondition)
@@ -118,7 +130,7 @@ admin.site.register(LocationPageContent)
 admin.site.register(SliderImage)
 admin.site.register(ContactUsEmail, ContactUsEmailAdmin)
 admin.site.register(BackupEmail)
-admin.site.register(Quote)
+admin.site.register(Quote, ImportExportModelAdmin)
 admin.site.register(HomepageWelcomeSection)
 admin.site.register(HomepageAboutUsSection)
 admin.site.register(HomepageGallerySection)
@@ -127,3 +139,4 @@ admin.site.register(UserVideo, UserVideoAdmin)
 admin.site.register(UserFirstOrder, UserFirstOrderAdmin)
 admin.site.register(StripeCoupon, StripeCouponAdmin)
 admin.site.register(StripePromotion, StripePromotionAdmin)
+admin.site.register(UserPurchase, UserPurchaseAdmin)

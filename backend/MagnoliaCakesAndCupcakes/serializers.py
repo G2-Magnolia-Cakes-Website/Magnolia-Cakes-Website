@@ -179,4 +179,24 @@ class QuoteSerializer(serializers.Serializer):
     def create(self, validated_data):
         return Quote.objects.create(**validated_data)
     
-    
+class UserPurchaseSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.id')
+
+    class Meta:
+        model = UserPurchase
+        fields = "__all__"
+
+    def create(self, validated_data):
+        cakes_data = validated_data.get('cakes', [])
+        videos_data = validated_data.get('videos', [])
+
+        user_purchase = UserPurchase.objects.create(
+            user=self.context['user'],
+            amount_paid=validated_data.get('amount_paid')
+        )
+
+        # Save cakes and videos related to the purchase
+        user_purchase.cakes.set(cakes_data)
+        user_purchase.videos.set(videos_data)
+
+        return user_purchase

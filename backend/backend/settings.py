@@ -7,6 +7,7 @@ from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_URL = 'http://127.0.0.1:8000/'
 
 FRONTEND_APP_URL = "http://localhost:3000"
 # FRONTEND_APP_URL = "https://alpine-avatar-399423.ts.r.appspot.com/"
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
     'django_rest_passwordreset',
+    'import_export',
 ]
 
 MIDDLEWARE = [
