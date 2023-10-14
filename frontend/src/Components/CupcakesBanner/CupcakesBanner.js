@@ -1,13 +1,31 @@
-import React from "react";
-import cupcakeBanner from "utils/cupcake-banner.jpg";
+import React, { useEffect, useState } from "react";
 import "./CupcakesBanner.css";
 
-const CupcakesBanner = () => {
+const CupcakesBanner = ({ api }) => {
+  const [banner, setBanner] = useState(null);
+
+  useEffect(() => {
+    api
+      .get("/api/homepage-welcome/")
+      .then((response) => {
+        setBanner(response.data.banner);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [api]);
+
+  console.log("kim", banner);
+
   return (
-    <div className="banner-wrapper">
-      <div className="cupcakes-banner" />
-      {/* <img src={cupcakeBanner} alt="cupcake banner" className="banner-img" /> */}
-    </div>
+    <>
+      {banner && (
+        <div
+          className="cupcakes-banner"
+          style={{ backgroundImage: `url(${banner})` }}
+        />
+      )}
+    </>
   );
 };
 

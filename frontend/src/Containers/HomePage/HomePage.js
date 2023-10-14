@@ -81,7 +81,7 @@ const HomePage = ({ api }) => {
       {images.length > 0 && (
         <CarouselGallery quote={quote} images={images} loading={loading} />
       )}
-      <CupcakesBanner />
+      <CupcakesBanner api={api} />
       <WelcomeSection api={api} />
       <GallerySection api={api} />
       <AboutUsSection api={api} />

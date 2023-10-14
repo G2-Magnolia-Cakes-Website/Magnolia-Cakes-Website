@@ -5,7 +5,6 @@ import "./WelcomeSection.css";
 
 const WelcomeSection = ({ api }) => {
   const [content, setContent] = useState({
-    quote: ["Loading..."],
     heading: "Loading...",
     paragraph: ["Loading..."],
     image: welcomePhoto,
@@ -18,7 +17,6 @@ const WelcomeSection = ({ api }) => {
         // Set the retrieved content in the state
         const responseData = response.data;
         setContent({
-          quote: parseStringToParagraphsByNewline(responseData.quote),
           heading: responseData.heading,
           paragraph: parseStringToParagraphsByNewline(responseData.paragraph),
           image: responseData.image,
@@ -31,17 +29,6 @@ const WelcomeSection = ({ api }) => {
 
   return (
     <div className="welcome-section">
-      {/* <div className="quote-wrapper">
-        {content.quote.map((paragraph) => (
-          <p className="welcome-quote">{paragraph}</p>
-        ))}
-      </div>
-
-      <img
-        src={magnoliaFlower}
-        alt="Magnolia Flower"
-        className="magnolia-flower"
-      /> */}
       <h2>{content.heading}</h2>
       <div className="welcome-body">
         <div className="body-content">
@@ -49,7 +36,6 @@ const WelcomeSection = ({ api }) => {
             <p>{paragraph}</p>
           ))}
         </div>
-
         <img className="welcome-cake" src={content.image} alt="welcome cake" />
       </div>
     </div>

@@ -1,43 +1,10 @@
-.banner-wrapper {
-  width: 100%;
-}
-
 .cupcakes-banner {
-  background-image: url("utils/rainbow_cupcakes.jpg");
+  /* background-image: url("utils/rainbow_cupcakes.jpg"); */
   background-size: 35%;
   width: auto;
-  height: 400px;
-  background-repeat: no-repeat;
-  /* background-repeat: repeat-x; */
-  /* transform: scale(1.5); */
-  background-size: 100%;
-  background-position: right 35% top 20%;
-}
-
-/* .cupcakes-banner {
-  background-image: url("utils/cupcake-banner.jpg");
-  background-size: 40%;
-  width: auto;
   height: 0;
-  background-repeat: repeat-x;
-  background-position: right 35% top 20%;
-  padding-top: 12.5%;
-} */
-
-/* .banner-img {
-  width: 100%;
-} */
-
-@media (max-width: 1440px) {
-  .cupcakes-banner {
-    /* background-size: 300px; */
-    /* height: 180px; */
-  }
-}
-
-@media (max-width: 768px) {
-  .cupcakes-banner {
-    /* background-size: 300px; */
-    /* height: 180px; */
-  }
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: top;
+  padding-top: 16%;
 }
