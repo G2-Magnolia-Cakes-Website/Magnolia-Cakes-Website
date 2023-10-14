@@ -83,13 +83,16 @@ function OnlineStore({ api }) {
       setShowSuccessMessage(false);
     }, 3000); // Hide the message after 3 seconds 
 
+    console.log(cake);
+
     // Add the selected cake to the cart
     const cartItem = {
       name: cake.name,
       type: "cake",
       price: cake.price,
       quantity: quantities[cake.id],
-      videoId: null
+      videoId: null,
+      cakeId: cake.id
     };
 
     // Retrieve existing cart items or initialize an empty array
