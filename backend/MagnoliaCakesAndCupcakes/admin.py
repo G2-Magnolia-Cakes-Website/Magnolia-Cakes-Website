@@ -1,6 +1,7 @@
 from django.contrib import admin
 import pytz
 from django.utils import timezone
+from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
 from .models import *
@@ -129,7 +130,7 @@ admin.site.register(LocationPageContent)
 admin.site.register(SliderImage)
 admin.site.register(ContactUsEmail, ContactUsEmailAdmin)
 admin.site.register(BackupEmail)
-admin.site.register(Quote)
+admin.site.register(Quote, ImportExportModelAdmin)
 admin.site.register(HomepageWelcomeSection)
 admin.site.register(HomepageAboutUsSection)
 admin.site.register(HomepageGallerySection)
