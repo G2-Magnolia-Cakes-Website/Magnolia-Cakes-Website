@@ -64,24 +64,33 @@ def upload_to(instance, filename):
     # Upload the image to a 'cakes' directory with the filename as the cake's name
     return f"cakes/{filename}"
 
+class ProductType(models.TextChoices):
+    CAKE = 'cake', 'Cake'
+    CUPCAKE = 'cupcake', 'Cupcake'
 
-class Cake(models.Model):
+    
+class Product(models.Model):
     name = models.CharField(max_length=100, unique=True)
-
-    picture = models.ImageField(upload_to=upload_to)  # Use the custom upload function
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    picture = models.ImageField(upload_to=upload_to)
+    price = models.DecimalField(max_digits=10,blank=True, decimal_places=2, default=0.00)
     flavor = models.CharField(max_length=50)
-    categories = models.ManyToManyField(CakeCategory)
     description = models.TextField(default='', max_length=300)
-
     active = models.BooleanField(default=True)
     product_id = models.CharField(max_length=100, blank=True, editable=False)
     price_id = models.CharField(max_length=100, blank=True, editable=False)
-
+    product_type = models.CharField(
+        max_length=10,
+        choices=ProductType.choices,
+        default=ProductType.CAKE
+    )
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
+        if self.product_type == ProductType.CAKE:
+            # If the product type is "Cake," simply save the instance
+            super(Product, self).save(*args, **kwargs)
+            return
         try:
             stripe.api_key = settings.STRIPE_SECRET_KEY
             if self.product_id:
@@ -156,7 +165,7 @@ class Cake(models.Model):
                 self.picture.name = (
                     f"{self.name}.png"  # You can change the file extension if needed
                 )
-            super(Cake, self).save(*args, **kwargs)
+            super(Product, self).save(*args, **kwargs)
 
         except stripe.error.StripeError as e:
             # Handle the Stripe API error
@@ -187,9 +196,98 @@ class Cake(models.Model):
             image_path = self.picture.name
             default_storage.delete(image_path)
 
-        super(Cake, self).delete(*args, **kwargs)
+        super(Product, self).delete(*args, **kwargs)
 
+class Cake(models.Model):
+    cake = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='size_prices', limit_choices_to={'product_type': ProductType.CAKE})
+    size = models.CharField(max_length=50)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    active = models.BooleanField(default=True)
 
+    def __str__(self):
+        return f"{self.cake.name} - {self.size} - ${self.price}"
+    
+    def save(self, *args, **kwargs):
+        try:
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            if self.cake.product_id:
+                # Cake product is being modified
+                stripe_product = stripe.Product.retrieve(self.cake.product_id)
+                stripe_price = stripe.Price.retrieve(stripe_product.default_price)
+
+                # Price changed or not
+                if ((self.price * 100) != stripe_price.unit_amount):
+                    # Price changed
+                    price = stripe.Price.create(
+                        product=self.cake.product_id,
+                        unit_amount=int(self.price * 100),
+                        currency='aud',
+                    )
+
+                    stripe.Product.modify(
+                        self.cake.product_id,
+                        default_price=price.id
+                    )
+
+                    stripe.Price.modify(
+                        self.cake.price_id,
+                        active=False,
+                    )
+                else:
+                    # Price not changed
+                    stripe.Product.modify(
+                        self.cake.product_id,
+                        default_price=self.cake.price_id
+                    )
+            else:
+                # Create a new product in Stripe
+                product = stripe.Product.create(
+                    name=f"{self.cake.name} - {self.size}",
+                    description=f"Cake variant: {self.size}",
+                    active=self.active,
+                )
+                self.cake.product_id = product.id
+
+                # Create the price
+                price = stripe.Price.create(
+                    product=product.id,
+                    unit_amount=int(self.price * 100),
+                    currency='aud',
+                )
+                self.cake.price_id = price.id
+
+                # Make price the default price
+                stripe.Product.modify(
+                    self.cake.product_id,
+                    default_price=price.id
+                )
+
+            super().save(*args, **kwargs)
+
+        except stripe.error.StripeError as e:
+            # Handle the Stripe API error
+            raise ValidationError(f"Failed to update Stripe product: {str(e)}")
+
+    def delete(self, *args, **kwargs):
+        # Delete on stripe:
+        try:
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            stripe.Product.modify(
+                self.cake.product_id,
+                active=False,
+            )
+        except stripe.error.InvalidRequestError as e:
+            if e.code == "resource_missing":
+                # The product does not exist in Stripe, so it's considered deleted
+                pass
+            else:
+                # Handle any other errors that occur during the API request
+                raise ValidationError(f"Failed to delete Stripe product: {str(e)}")
+        except stripe.error.StripeError as e:
+            # Handle any other errors that occur during the API request
+            raise ValidationError(f"Failed to delete Stripe product: {str(e)}")
+
+        super().delete(*args, **kwargs)
 
 class SliderImage(models.Model):
     def upload_to_slider(instance, filename):
@@ -691,7 +789,7 @@ class UserFirstOrder(models.Model):
 class UserPurchase(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     videos = models.ManyToManyField(Video, blank=True)
-    cakes = models.ManyToManyField(Cake, blank=True)
+    cakes = models.ManyToManyField(Product, blank=True)
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     time_submitted = models.DateTimeField(auto_now=True)
 
@@ -852,3 +950,4 @@ class StripePromotion(models.Model):
 # There is no delete api for promotion codes
 
 ################################################################################################################
+
