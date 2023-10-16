@@ -5,14 +5,14 @@
 .carousel-wrapper {
   display: flex;
   justify-content: center;
-  gap: 5rem;
-  padding: 4rem 3rem 5rem;
+  gap: 3rem;
+  padding: 3rem 5rem;
 }
 
 .intro-quote {
-  padding: 4rem 0;
-  margin: auto 3rem;
-  width: 40%;
+  padding: 3rem 0;
+  margin: auto 1rem;
+  width: fit-content;
 }
 
 .intro-quote.mobile {
@@ -26,22 +26,11 @@
   justify-content: center;
 }
 
-.quote-wrapper2 .quote {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 0.5rem;
-}
-
-.cake-pop {
-  width: 100px;
-  height: auto;
-  object-fit: cover;
-}
-
 .swiper {
   aspect-ratio: 500/500;
-  height: 600px;
-  width: 600px;
+  height: 660px;
+  width: 100%;
+  max-width: 900px;
   margin: auto 0 auto 0;
   display: inline-block;
 }
@@ -68,18 +57,19 @@
 }
 
 .swiper-button-next {
-  color: #efc7c7;
-  font-size: 25px;
+  color: white;
+  /* font-size: 25px; */
+  font-weight: bold;
 }
 
 .swiper-button-prev {
-  color: #efc7c7;
+  color: white;
   /* font-size: 30px; */
+  font-weight: bold;
 }
 
 .swiper-slide img {
   max-width: 100%;
-  /* max-height: 100%; */
   bottom: 0;
   left: 0;
   margin: auto;
@@ -95,46 +85,45 @@
   /* min-height: 460px; */
   z-index: -6;
   margin: 0;
-  border-radius: 900px 900px 0 0;
+  border-radius: 3000px 3000px 0 0;
   box-shadow: 0px -1px 2px #ffc1dc;
 }
 
-@media (max-width: 1440px) {
+@media (min-width: 1950px) {
+  .swiper {
+    height: 800px;
+    max-width: 1500px;
+  }
+}
+
+@media (max-width: 1565px) {
+  .swiper {
+    height: 550px;
+    max-width: 1000px;
+  }
+
   .carousel-wrapper {
-    gap: 3rem;
+    gap: 2rem;
+    padding: 2rem 3rem;
   }
 
   .intro-quote {
-    margin: 3rem 2rem;
-    padding: 0;
+    padding: 1rem 0;
+    margin: auto 1rem;
   }
+}
 
-  .quote-wrapper2 .quote {
-    font-size: 21px;
-  }
-
+@media (max-width: 1240px) {
   .swiper {
     height: 500px;
-    width: 500px;
-  }
-
-  .intro-quote {
-    width: 50%;
+    max-width: 1000px;
   }
 }
 
 @media (max-width: 1024px) {
   .carousel-wrapper {
     gap: 1.5rem;
-  }
-
-  .quote-wrapper2 .quote {
-    font-size: 16px;
-  }
-
-  .swiper {
-    height: 400px;
-    width: 400px;
+    padding: 1.5rem 2rem;
   }
 
   .cake-pop {
@@ -142,14 +131,7 @@
   }
 }
 
-@media (max-width: 875px) {
-  .intro-quote {
-    padding: auto 0;
-    margin: auto 1rem;
-  }
-}
-
-@media (max-width: 701px) {
+@media (max-width: 890px) {
   .carousel-wrapper {
     padding: 1.5rem;
   }
@@ -174,22 +156,29 @@
   }
 
   .swiper {
-    height: 300px;
-    width: 300px;
+    max-width: 600px;
+    height: 500px;
+  }
+}
+
+@media (max-width: 630px) {
+  .swiper {
+    max-width: 600px;
+    height: 500px;
   }
 }
 
 @media (max-width: 480px) {
   .swiper-button-next::after {
-    font-size: 25px;
+    font-size: 20px;
   }
 
   .swiper-button-prev::after {
-    font-size: 25px;
+    font-size: 20px;
   }
 
   .swiper {
-    width: 250px;
+    max-width: 500px;
     height: 250px;
   }
 
@@ -199,9 +188,5 @@
 
   .quote-wrapper2 .quote {
     font-size: 16px;
-  }
-
-  .cake-pop {
-    width: 70px;
   }
 }

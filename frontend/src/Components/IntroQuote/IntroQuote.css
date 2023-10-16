@@ -1,28 +1,69 @@
 h1.business-name {
   font-family: "Sacramento", cursive;
-  font-size: 96px;
+  font-size: 128px;
   text-align: center;
+  width: fit-content;
+  white-space: nowrap;
 }
 
 .quote-p-wrapper {
-  margin: 5rem 0 5rem;
+  margin: 3rem 0 1rem;
 }
 
-@media (max-width: 1489px) {
+.quote-p-wrapper .quote {
+  width: fit-content;
+  white-space: nowrap;
+  text-align: center;
+  font-size: 24px;
+  margin: 0 auto 0.5rem auto;
+}
+
+.cake-pop {
+  width: 100px;
+  height: auto;
+  object-fit: cover;
+}
+
+@media (min-width: 1950px) {
+  h1.business-name {
+    font-size: 128px;
+  }
+
+  .quote-p-wrapper .quote {
+    font-size: 32px;
+    margin: 1rem auto;
+  }
+}
+
+@media (max-width: 1565px) {
+  h1.business-name {
+    font-size: 96px;
+  }
+
+  .quote-p-wrapper {
+    margin: 2rem 0 1.5rem;
+  }
+
+  .quote-p-wrapper .quote {
+    font-size: 24px;
+  }
+
+  .cake-pop {
+    width: 80px;
+  }
+}
+
+@media (max-width: 1400px) {
   h1.business-name {
     font-size: 80px;
   }
-}
 
-@media (max-width: 1440px) {
-  .quote-p-wrapper {
-    margin: 3rem 0 3rem;
-  }
-}
-
-@media (max-width: 1257px) {
   .quote-p-wrapper {
     margin: 1rem 0 1rem;
+  }
+
+  .quote-p-wrapper .quote {
+    font-size: 21px;
   }
 
   .cake-pop {
@@ -30,14 +71,62 @@ h1.business-name {
   }
 }
 
+@media (max-width: 1240px) {
+  .quote-p-wrapper .quote {
+    font-size: 21px;
+    white-space: unset;
+  }
+}
+
 @media (max-width: 1024px) {
+  h1.business-name {
+    font-size: 64px;
+  }
+
+  .quote-p-wrapper .quote {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 890px) {
+  h1.business-name {
+    font-size: 96px;
+  }
+
+  .quote-p-wrapper .quote {
+    font-size: 21px;
+    margin: 1rem auto 0.5rem auto;
+  }
+}
+
+@media (max-width: 630px) {
+  h1.business-name {
+    font-size: 80px;
+  }
+}
+
+@media (max-width: 505px) {
   h1.business-name {
     font-size: 64px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
+  .cake-pop {
+    width: 70px;
+  }
+
   h1.business-name {
     font-size: 55px;
+  }
+
+  .quote-p-wrapper .quote {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 355px) {
+  h1.business-name {
+    font-size: 48px;
   }
 }

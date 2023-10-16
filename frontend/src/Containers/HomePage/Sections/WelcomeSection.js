@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import welcomePhoto from "utils/welcome-photo.jpg";
 import { parseStringToParagraphsByNewline } from "utils/parseStringsToArray";
 import "./WelcomeSection.css";
 
@@ -7,7 +6,7 @@ const WelcomeSection = ({ api }) => {
   const [content, setContent] = useState({
     heading: "Loading...",
     paragraph: ["Loading..."],
-    image: welcomePhoto,
+    image: null,
   });
 
   useEffect(() => {
@@ -36,7 +35,13 @@ const WelcomeSection = ({ api }) => {
             <p>{paragraph}</p>
           ))}
         </div>
-        <img className="welcome-cake" src={content.image} alt="welcome cake" />
+        {content.image && (
+          <img
+            className="welcome-cake"
+            src={content.image}
+            alt="welcome cake"
+          />
+        )}
       </div>
     </div>
   );

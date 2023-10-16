@@ -4,12 +4,12 @@ import ProfileLink from "../../Components/UserProfile/ProfileLink";
 import ViewCart from "../../Components/ViewCart/ViewCart";
 import "./SignedInGroup.css";
 
-const SignedInGroup = ({ api, user, isMenuOpen }) => {
+const SignedInGroup = ({ api, isMenuOpen }) => {
   return (
     <div className="signed-in-group">
       <ViewCart api={api} />
       <LogoutLink api={api} />
-      {isMenuOpen && <ProfileLink user={user} />}
+      <ProfileLink isMenuOpen={isMenuOpen} />
     </div>
   );
 };

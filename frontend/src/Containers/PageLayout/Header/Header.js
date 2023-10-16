@@ -45,7 +45,7 @@ const Header = ({ api, isAuth, setIsAuth }) => {
             </div>
           )}
           {isAuth ? (
-            <SignedInGroup api={api} user={user} isMenuOpen={isMenuOpen} />
+            <SignedInGroup api={api} isMenuOpen={isMenuOpen} />
           ) : (
             <SignUpLogInLinkGroup />
           )}

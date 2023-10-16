@@ -5,5 +5,6 @@ import ArrowUp from "./fi-br-arrow-up.svg";
 import CloudArrowUp from "./icloud.and.arrow.up.svg";
 import Cross from "./fi-bs-cross.svg";
 import Cart from "./fi-rs-shopping-cart.svg";
+import User from "./user.svg";
 
-export { Facebook, Instagram, Car, ArrowUp, CloudArrowUp, Cross, Cart };
+export { Facebook, Instagram, Car, ArrowUp, CloudArrowUp, Cross, Cart, User };

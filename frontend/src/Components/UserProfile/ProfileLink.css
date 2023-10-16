@@ -3,7 +3,7 @@
   text-decoration: none;
   color: #000000;
   font-size: 20px;
-  padding: 7px 10px;
+  padding: 7px 5px;
   font-family: "Fredoka", sans-serif;
   align-items: center;
   text-align: center;
@@ -14,8 +14,22 @@
   color: #b76e79;
 }
 
+.profile-icon {
+  width: 29px;
+}
+
 @media (max-width: 1440px) {
   .profile-link {
     font-size: 14px;
+  }
+}
+
+@media (max-width: 367px) {
+  .profile-link {
+    display: none;
+  }
+
+  .profile-link.menu-open {
+    display: flex;
   }
 }
