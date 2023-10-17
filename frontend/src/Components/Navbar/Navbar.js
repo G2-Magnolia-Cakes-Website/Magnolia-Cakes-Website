@@ -3,6 +3,7 @@ import tabs from "utils/tabs.json";
 //hamburger menu animation from https://hamburger-react.netlify.app/
 import { Fade as Hamburger } from "hamburger-react";
 import NavbarTab from "./NavbarTab";
+import LogoHomeLink from "Components/LogoHomeLink/LogoHomeLink";
 
 import "./Navbar.css";
 
@@ -32,7 +33,27 @@ const Navbar = (props) => {
           color={isMenuOpen ? "#000000" : "#b76e79"}
         />
       </div>
-      <ul className={isMenuOpen ? "open" : ""}>{renderTabs()}</ul>
+      {!isMenuOpen && (
+        <div className="home-tab mobile">
+          <LogoHomeLink />
+        </div>
+      )}
+      <ul className={isMenuOpen ? "open" : ""}>
+        <div className="home-tab">
+          <LogoHomeLink />
+        </div>
+        <div className="home-tab as-text">
+          <NavbarTab
+            key={"/"}
+            onMenuItemClick={onMenuItemClick}
+            tab={{
+              tabName: "Home",
+              tabLink: "/",
+            }}
+          />
+        </div>
+        {renderTabs()}
+      </ul>
     </nav>
   );
 };

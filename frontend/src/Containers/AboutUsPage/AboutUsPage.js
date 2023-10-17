@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { aboutUsPortrait } from "utils/cover";
 import BarLoader from "react-spinners/BarLoader";
 import magnoliaFlower from "utils/magnolia_transparent.png";
 
@@ -7,7 +6,7 @@ import "./AboutUsPage.css";
 
 const AboutUsPage = ({ api }) => {
   const [content, setContent] = useState([]);
-  const [portrait, setPortrait] = useState(aboutUsPortrait);
+  const [portrait, setPortrait] = useState(null);
 
   // Loading
   const [loading, setLoading] = useState(true);
@@ -37,13 +36,15 @@ const AboutUsPage = ({ api }) => {
 
   return (
     <div className="about-us-page">
-      <div className="portrait-wrapper">
-        <img
-          className="about-us-portrait"
-          src={portrait}
-          alt="About Us Portrait"
-        />
-      </div>
+      {portrait && (
+        <div className="portrait-wrapper">
+          <img
+            className="about-us-portrait"
+            src={portrait}
+            alt="About Us Portrait"
+          />
+        </div>
+      )}
       <div className="page-content">
         <div className="about-us-title">
           <h1>About Us</h1>
