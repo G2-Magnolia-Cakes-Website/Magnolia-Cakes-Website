@@ -45,7 +45,7 @@ function TermsAndConditionsPage({ api }) {
   return (
     <div className="TermsAndConditionsContainer">
       <div className="TermsAndConditionsPage">
-        <div>
+        <div className= "TextSection">
           <h1 className="PageHeader">Terms & Conditions</h1>
           <p className="PageDescription">
             By accepting this cake agreement and paying a deposit, you agree to
