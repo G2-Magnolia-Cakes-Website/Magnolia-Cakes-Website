@@ -17,6 +17,10 @@
   width: 100%;
 }
 
+.navbar-signup-login-group .button-group {
+  display: flex;
+}
+
 .fixed {
   position: fixed;
   top: 0;
@@ -27,8 +31,24 @@
   background: white;
 }
 
-@media (max-width: 768px) {
+.home-logo-header {
+  display: none;
+}
+
+.button-group {
+  margin-left: 0.5rem;
+}
+
+@media (max-width: 1093px) {
   .header .navbar-signup-login-group {
     flex-direction: column;
+  }
+
+  .navbar-signup-login-group .button-group {
+    display: flex;
+  }
+
+  .home-logo-header {
+    display: block;
   }
 }

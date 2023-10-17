@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import GalleryGridItem from "Components/GalleryGridItem/GalleryGridItem";
 import { getGalleryCategoryParam } from "utils/getGalleryCategoryParam";
 import { everyFirst, everyNth } from "utils/getEveryNthElementInArray";
+import { getSortedObjectsByAscId } from "utils/getSortedObjects";
 
 import "./GallerySection.css";
-import { getSortedObjectsByAscId } from "utils/getSortedObjects";
 
 const GallerySection = ({ api }) => {
   const [heading, setHeading] = useState("Loading...");

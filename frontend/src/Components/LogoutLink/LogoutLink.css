@@ -11,14 +11,7 @@
   text-align: center;
   transition: 0.5s;
   font-family: "Fredoka", sans-serif;
-}
-
-.logout-div {
-  margin-right: 15px;
-  margin-left: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 45px;
 }
 
 /* Use media query to avoid hover styling when clicked on mobile devices */
@@ -29,14 +22,14 @@
   }
 }
 
-@media (max-width: 1440px) and (min-width: 480px) {
+@media (max-width: 1440px) {
   .logout {
     font-size: 14px;
     padding: 7px 10px;
   }
 }
 
-.popup {
+/* .popup {
   position: fixed;
   top: 0;
   left: 0;
@@ -47,9 +40,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
-.popup-inner {
+/* .popup-inner {
   border: 2px solid black;
   position: relative;
   padding: 32px;
@@ -62,7 +55,9 @@
   flex-direction: column;
   font-size: 18px;
   font-family: "Fredoka", sans-serif;
-}
+} */
+
+
 
 .popup-inner .close-btn {
   position: absolute;
