@@ -34,11 +34,47 @@
   /* Style for the quantity input */
   .quantity-input {
     width: 50px; /* Adjust the width as needed */
-    -webkit-appearance: textfield; /* Safari and Chrome */
-    -moz-appearance: textfield; /* Firefox */
-    appearance: textfield; /* Other browsers */
   }
+  .quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  .quantity-decrease,
+  .quantity-increase {
+    display: block;
+    width: 22px;
   
+    background: #e6c3c3;
+    text-decoration: none;
+    text-align: center;
+  
+  }
+  .quantity-decrease:hover,
+  .quantity-increase:hover {
+    background: #575b71;
+    color: #fff;
+  } 
+  .quantity-decrease {
+    border-radius: 3px 0 0 3px;
+  }
+  .quantity-increase {
+    border-radius: 0 3px 3px 0;
+  }
+  .quantity__input {
+    width: 32px;
+  
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    border-top: 2px solid #fdeef3;
+    border-bottom: 2px solid #fdeef3;
+    border-left: 1px solid #fdeef3;
+    border-right: 2px solid #fdeef3;
+    background: #f8dcdc;
+    color: #000000;
+  }
   .button-container {
     display: flex;
     justify-content: space-between;
@@ -48,9 +84,9 @@
   .button-container button {
     padding: 10px 20px;
   }
-  .small-button {
-    padding: 0.3rem; /* Adjust the padding to control the button size */
-    font-size: 0.8rem; /* Adjust the font size to control the button text size */
+
+  .remove{
+    background: #d87272;
   }
   
 /* Styles for mobile devices */

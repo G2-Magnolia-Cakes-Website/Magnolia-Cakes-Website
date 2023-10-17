@@ -11,7 +11,15 @@
   margin-top: 50px;
   margin-bottom: 50px;
 }
-
+.PageHeader {
+  text-align: center;
+  color: #B76E79;
+  font-weight: bold;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 64px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .category-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -57,6 +65,48 @@
 .quantity-section input {
   width: 50px;
   /* Adjust the width as needed */
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.quantity-decrease,
+.quantity-increase {
+  display: block;
+  width: 22px;
+
+
+  background: #e6c3c3;
+  text-decoration: none;
+  text-align: center;
+
+}
+.quantity-decrease:hover,
+.quantity-increase:hover {
+  background: #575b71;
+  color: #fff;
+} 
+.quantity-decrease {
+  border-radius: 3px 0 0 3px;
+}
+.quantity-increase {
+  border-radius: 0 3px 3px 0;
+}
+.quantity__input {
+  width: 32px;
+
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  border-top: 2px solid #fdeef3;
+  border-bottom: 2px solid #fdeef3;
+  border-left: 1px solid #fdeef3;
+  border-right: 2px solid #fdeef3;
+  background: #f8dcdc;
+  color: #000000;
 }
 
 /* Style for the buttons section */

@@ -41,7 +41,7 @@ function OnlineStore({ api }) {
   const handleQuantityChange = (productId, action) => {
     const product = products.find((product) => product.id === productId);
     const currentQuantity = quantities[productId];
-    const minQuantity = product.product_type === 'Cupcake' ? 12 : 0;
+    const minQuantity =  0;
     let step;
   
     if (product.product_type === 'Cupcake' && currentQuantity < 12) {
@@ -54,7 +54,7 @@ function OnlineStore({ api }) {
     if (action === 'increment') {
       newQuantity = currentQuantity + step;
     } else if (action === 'decrement') {
-      if (currentQuantity === 12) {
+      if (currentQuantity === 12 && product.product_type === 'Cupcake') {
         newQuantity = 0; // If current quantity is 12 for cupcakes, set to 0
       } else {
         newQuantity = Math.max(currentQuantity - step, minQuantity);
@@ -66,8 +66,6 @@ function OnlineStore({ api }) {
     const newQuantities = { ...quantities, [productId]: newQuantity };
     setQuantities(newQuantities);
   };
-  
-  
   
   
   
@@ -213,9 +211,9 @@ function OnlineStore({ api }) {
               <div className="quantity-section">
                 <label htmlFor={`quantity-${product.id}`}>Quantity:</label>
                 <div className="quantity-control">
-                  <span> {quantities[product.id]} </span>
-                  <button onClick={() => handleQuantityChange(product.id, 'decrement')}>-</button>
-                  <button onClick={() => handleQuantityChange(product.id, 'increment')}>+</button>
+                  <button className='quantity-decrease' onClick={() => handleQuantityChange(product.id, 'decrement')}>-</button>
+                  <span className="quantity__input"> {quantities[product.id]} </span>
+                  <button className='quantity-increase' onClick={() => handleQuantityChange(product.id, 'increment')}>+</button>
                   
                 </div>
               </div>

@@ -103,15 +103,15 @@ function ViewCartPopup(props, { api }) {
                 <td>${item.price}</td>
                 <td>
                   <div className="quantity-control">
+                  <button className="quantity-decrease" onClick={() => handleDecrementQuantity(index)}> - </button>
+                    <span className="quantity__input"> {item.quantity} </span>
                     
-                    <span> {item.quantity} </span>
-                    <button className="small-button" onClick={() => handleDecrementQuantity(index)}> - </button>
-                    <button className="small-button" onClick={() => handleIncrementQuantity(index)}> + </button>
+                    <button className="quantity-increase" onClick={() => handleIncrementQuantity(index)}> + </button>
                   </div>
                 </td>
                 <td className='total-price'>${(item.price * item.quantity).toFixed(2)}</td>
                 <td className='button-column'>
-                  <button onClick={() => handleDeleteItem(index)}>Remove</button>
+                  <button className= "remove" onClick={() => handleDeleteItem(index)}>Remove</button>
                 </td>
               </tr>
             ))}
