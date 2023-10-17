@@ -39,11 +39,10 @@ function UserPurchases({ api }) {
           setPurchases(res.data);
           displayPurchaseDetails(res.data);
         } else {
-          console.log(res);
+          console.error(res);
         }
       } catch (err) {
-        console.log(err);
-        console.log(err.response.data);
+        console.error(err);
       }
     };
 
