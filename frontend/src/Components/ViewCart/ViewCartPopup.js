@@ -88,7 +88,8 @@ function ViewCartPopup(props, { api }) {
                   <td>
                     <input
                       type='number'
-                      min='1'
+                      min={item.type === 'cupcake' ? 12 : 0}
+                      step={item.type === 'cupcake' ? 6 : 1}
                       value={item.quantity}
                       onChange={(event) => handleQuantityChange(index, event)}
                       className='quantity-input'

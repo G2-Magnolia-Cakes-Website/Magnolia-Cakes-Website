@@ -65,8 +65,8 @@ def upload_to(instance, filename):
     return f"cakes/{filename}"
 
 class ProductType(models.TextChoices):
-    CAKE = 'cake', 'Cake'
-    CUPCAKE = 'cupcake', 'Cupcake'
+    CAKE = 'Cake'
+    CUPCAKE = 'Cupcake'
 
     
 class Product(models.Model):
@@ -204,6 +204,9 @@ class Cake(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     active = models.BooleanField(default=True)
 
+    product_id = models.CharField(max_length=100, blank=True, editable=False)
+    price_id = models.CharField(max_length=100, blank=True, editable=False)
+    
     def __str__(self):
         return f"{self.cake.name} - {self.size} - ${self.price}"
     
