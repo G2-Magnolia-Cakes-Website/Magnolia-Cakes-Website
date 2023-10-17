@@ -599,7 +599,7 @@ class StripePromotion(models.Model):
     is_displayed = models.BooleanField(default=False)
     display_after = models.IntegerField(default=30, help_text='Set this field to display the popup after the given amount of seconds. (Recommended 30 seconds)')
     only_logged_in_users = models.BooleanField(default=False)
-    only_first_purchase_of_user = models.BooleanField(default=False)
+    only_first_purchase_of_user = models.BooleanField(default=False, help_text='You cannot change this field after creating the promotion.')
     description = models.TextField(blank=True)
 
     def __str__(self):
@@ -618,9 +618,10 @@ class StripePromotion(models.Model):
                     original_promotion.code != self.code
                     or original_promotion.coupon != self.coupon
                     or original_promotion.stripe_promotion_id != self.stripe_promotion_id
+                    or original_promotion.only_first_purchase_of_user != self.only_first_purchase_of_user
                 ):
                     raise ValidationError(
-                        "Cannot update fields other than 'is_displayed' or 'description'",
+                        "Cannot update fields other than 'is_displayed', 'display_after', 'only_logged_in_users' or 'description'",
                         code='restricted_fields'
                     )
             except StripePromotion.DoesNotExist:
@@ -630,14 +631,15 @@ class StripePromotion(models.Model):
         # Either edit is_displayed and description, or create new promotion
         try:
             stripe.api_key = settings.STRIPE_SECRET_KEY
-            if not self.stripe_promotion_id:
-                # Create a new promotion in Stripe
-                if (self.code):
+            if not self.stripe_promotion_id: # Create a new promotion in Stripe
+
+                if (self.code): # If admin gave a code
                     stripe_promotion = stripe.PromotionCode.create(
                         code=self.code,
                         coupon=self.coupon.stripe_coupon_id,  # Pass the coupon id
                     )
                 else:
+                    # If code empty, stripe will create it
                     stripe_promotion = stripe.PromotionCode.create(
                         coupon=self.coupon.stripe_coupon_id,  # Pass the coupon id
                     )
