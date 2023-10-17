@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../../AuthContext';
 import BarLoader from "react-spinners/BarLoader";
+import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
+import FormInput from "Components/FormInput/FormInput";
 
 export default function ProfileForm({ api, email, first_name, last_name }) {
 
@@ -254,39 +256,67 @@ export default function ProfileForm({ api, email, first_name, last_name }) {
         <div>
 
             <div className='profile-title first-title'>Contact</div>
-            <label className='profile-label'>Email</label>
+            {/* <label className='profile-label'>Email</label>
             <input
                 value={email}
                 disabled={true}
                 className='profile-input'
+            /> */}
+
+            <FormInput
+              value={email}
+              disabled={true}
+              labelText="Email"
+              inputName="Email"
             />
 
             <div className='profile-title name-title'>Name</div>
-            <label className='profile-label'>First Name</label>
+            {/* <label className='profile-label'>First Name</label> */}
             <div className='label-edit'>
-                <input
+                {/* <input
                     value={firstNameValue}
                     disabled={disabledFirstName}
                     onChange={handleFirstNameChange}
                     className='profile-input'
+                /> */}
+
+                <FormInput
+                  onChange={handleFirstNameChange}
+                  value={firstNameValue}
+                  disabled={disabledFirstName}
+                  labelText="First Name"
+                  inputName="FirstName"
                 />
                 <button onClick={handleFirstNameEdit} className='profile-edit-btn'>edit</button>
             </div>
 
-            <label className='profile-label'>Last Name</label>
+            {/* <label className='profile-label'>Last Name</label> */}
             <div className='label-edit'>
-                <input
+                {/* <input
                     value={lastNameValue}
                     disabled={disabledLastName}
                     onChange={handleLastNameChange}
                     className='profile-input'
+                /> */}
+
+                <FormInput
+                  onChange={handleLastNameChange}
+                  value={lastNameValue}
+                  disabled={disabledLastName}
+                  labelText="Last Name"
+                  inputName="LastName"
                 />
                 <button onClick={handleLastNameEdit} className='profile-edit-btn'>edit</button>
             </div>
 
-            <button type="submit" disabled={!isFormModified} onClick={handleUpdateAccount} className='update-profile'>
-                Update Account
-            </button>
+            <RoseGoldButton
+                buttonText="Update Account"
+                buttonType="submit"
+                height="36px"
+                margin="30px 0 30px"
+                disabled={!isFormModified}
+                onClick={handleUpdateAccount}
+            />
             <BarLoader
                 loading={loading}
                 aria-label="Loading Spinner"
