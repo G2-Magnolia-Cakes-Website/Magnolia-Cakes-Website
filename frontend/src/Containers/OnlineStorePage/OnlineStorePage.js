@@ -155,7 +155,7 @@ function OnlineStore({ api }) {
   
 
   return (
-    <>
+    <><h1 className="PageHeader">Online Store</h1>
       {showSuccessMessage && <div className="success-message">Added to cart!</div>}
       <div className='online-store'>
 
@@ -165,7 +165,7 @@ function OnlineStore({ api }) {
           data-testid="loader"
           width={"100%"}
         />
-  
+      
         <div className="cakes-list">
 
           {products.map((product) => (
