@@ -72,25 +72,123 @@ class Cake(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     flavor = models.CharField(max_length=50)
     categories = models.ManyToManyField(CakeCategory)
+    description = models.TextField(default='', max_length=300)
+
+    active = models.BooleanField(default=True)
+    product_id = models.CharField(max_length=100, blank=True, editable=False)
+    price_id = models.CharField(max_length=100, blank=True, editable=False)
 
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
-        # Rename the uploaded image to match the cake's name
-        if self.picture and hasattr(self.picture, "name"):
-            self.picture.name = (
-                f"{self.name}.png"  # You can change the file extension if needed
-            )
-        super(Cake, self).save(*args, **kwargs)
+        try:
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            if self.product_id:
+                # Product is being modified
+                stripe_product = stripe.Product.retrieve(self.product_id)
+                stripe_price = stripe.Price.retrieve(stripe_product.default_price)
+
+                # Price changed or not
+                if ((self.price * 100) != stripe_price.unit_amount):
+                    # Price changed
+
+                    price = stripe.Price.create(
+                        product= self.product_id,
+                        unit_amount=int(self.price * 100),
+                        currency='aud',
+                    )
+                
+                    stripe.Product.modify(
+                        self.product_id,
+                        name=self.name,
+                        description= self.description,
+                        active = self.active,
+                        metadata = {
+                            'flavor': self.flavor
+                        },
+                        default_price= price.id
+                    )
+
+                    stripe.Price.modify(
+                        self.price_id,
+                        active=False,
+                    )
+                else:
+                    # Price not changed
+                    stripe.Product.modify(
+                        self.product_id,
+                        name=self.name,
+                        description= self.description,
+                        active = self.active,
+                        metadata = {
+                            'flavor': self.flavor
+                        },
+                    )
+            else:
+                # Create a new coupon in Stripe
+                product = stripe.Product.create(
+                    name = self.name,
+                    description = self.description,
+                    active = self.active,
+                    metadata = {
+                        'flavor': self.flavor
+                    },
+                )
+                self.product_id = product.id
+
+                # Create the price
+                price = stripe.Price.create(
+                    product= product.id,
+                    unit_amount=int(self.price * 100),
+                    currency='aud',
+                )
+                self.price_id = price.id
+
+                # Make price default price
+                stripe.Product.modify(
+                    self.product_id,
+                    default_price= price.id
+                )
+
+            # Rename the uploaded image to match the cake's name
+            if self.picture and hasattr(self.picture, "name"):
+                self.picture.name = (
+                    f"{self.name}.png"  # You can change the file extension if needed
+                )
+            super(Cake, self).save(*args, **kwargs)
+
+        except stripe.error.StripeError as e:
+            # Handle the Stripe API error
+            raise ValidationError(f"Failed to update Stripe product: {str(e)}")
+
 
     def delete(self, *args, **kwargs):
+        # Delete on stripe:
+        try:
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            stripe.Product.modify(
+                self.product_id,
+                active=False,
+            )
+        except InvalidRequestError as e:
+            if e.code == "resource_missing":
+                # The product does not exist in Stripe, so it's considered deleted
+                pass
+            else:
+                # Handle any other errors that occur during the API request
+                raise ValidationError(f"Failed to delete Stripe product: {str(e)}")
+        except stripe.error.StripeError as e:
+            # Handle any other errors that occur during the API request
+            raise ValidationError(f"Failed to delete Stripe product: {str(e)}")
+        
         # Delete the associated image from Google Cloud Storage
         if self.picture and hasattr(self.picture, "name"):
             image_path = self.picture.name
             default_storage.delete(image_path)
 
         super(Cake, self).delete(*args, **kwargs)
+
 
 
 class SliderImage(models.Model):
@@ -462,17 +560,103 @@ class Video(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     video = models.FileField(upload_to="videos/")
 
+    active = models.BooleanField(default=True)
+    product_id = models.CharField(max_length=100, blank=True, editable=False)
+    price_id = models.CharField(max_length=100, blank=True, editable=False)
+
     def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
-        if self.video:
-            # Generate a unique filename based on the title
-            filename = f"{slugify(self.title)}.mp4"
-            self.video.name = filename  # Save directly to 'videos' folder
-        super().save(*args, **kwargs)
+        try:
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            if self.product_id:
+                # Product is being modified
+                stripe_product = stripe.Product.retrieve(self.product_id)
+                stripe_price = stripe.Price.retrieve(stripe_product.default_price)
+
+                # Price changed or not
+                if ((self.price * 100) != stripe_price.unit_amount):
+                    # Price changed
+
+                    price = stripe.Price.create(
+                        product= self.product_id,
+                        unit_amount=int(self.price * 100),
+                        currency='aud',
+                    )
+                
+                    stripe.Product.modify(
+                        self.product_id,
+                        name=self.title,
+                        description= self.description,
+                        active = self.active,
+                        default_price= price.id
+                    )
+
+                    stripe.Price.modify(
+                        self.price_id,
+                        active=False,
+                    )
+                else:
+                    # Price not changed
+                    stripe.Product.modify(
+                        self.product_id,
+                        name=self.title,
+                        description= self.description,
+                        active = self.active,
+                    )
+            else:
+                # Create a new coupon in Stripe
+                product = stripe.Product.create(
+                    name = self.title,
+                    description = self.description,
+                    active = self.active,
+                )
+                self.product_id = product.id
+
+                # Create the price
+                price = stripe.Price.create(
+                    product= product.id,
+                    unit_amount=int(self.price * 100),
+                    currency='aud',
+                )
+                self.price_id = price.id
+
+                # Make price default price
+                stripe.Product.modify(
+                    self.product_id,
+                    default_price= price.id
+                )
+
+            if self.video:
+                # Generate a unique filename based on the title
+                filename = f"{slugify(self.title)}.mp4"
+                self.video.name = filename  # Save directly to 'videos' folder
+            super().save(*args, **kwargs)
+
+        except stripe.error.StripeError as e:
+            # Handle the Stripe API error
+            raise ValidationError(f"Failed to update Stripe product: {str(e)}")
 
     def delete(self, *args, **kwargs):
+        # Delete on stripe:
+        try:
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            stripe.Product.modify(
+                self.product_id,
+                active=False,
+            )
+        except InvalidRequestError as e:
+            if e.code == "resource_missing":
+                # The product does not exist in Stripe, so it's considered deleted
+                pass
+            else:
+                # Handle any other errors that occur during the API request
+                raise ValidationError(f"Failed to delete Stripe product: {str(e)}")
+        except stripe.error.StripeError as e:
+            # Handle any other errors that occur during the API request
+            raise ValidationError(f"Failed to delete Stripe product: {str(e)}")
+        
         # Delete the associated video from the bucket
         if self.video:
             video_path = self.video.name
@@ -502,6 +686,18 @@ class UserFirstOrder(models.Model):
     class Meta:
         ordering = ["user"]
         verbose_name_plural = "User First Orders"
+
+
+class UserPurchase(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    videos = models.ManyToManyField(Video, blank=True)
+    cakes = models.ManyToManyField(Cake, blank=True)
+    amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    time_submitted = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-time_submitted"]
+        verbose_name_plural = "User Purchases"
 
 
 ############################################ Coupons and Promotions ############################################

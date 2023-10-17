@@ -40,6 +40,8 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 
+import urllib.request
+
 # create a class for the Todo model viewsets
 class MagnoliaCakesAndCupcakesView(viewsets.ModelViewSet):
     # create a serializer class and
@@ -481,6 +483,7 @@ def create_checkout_session(request):
     
     # Retrieve video list if any 
     video_items = []
+    cake_items = []
     for item in cart_items:
 
         try:
@@ -490,21 +493,47 @@ def create_checkout_session(request):
             # Handle the case where the price is not a valid number
             # You may want to log an error or take appropriate action here
             price = 0
+        
+        # Get price_id for product
+        gotPrice = False
+        cake_id = item.get("cakeId")
+        if cake_id != None:
+            cake = get_object_or_404(Cake, id=cake_id)
+            if (cake.price_id):
+                line_item = {
+                    'price': cake.price_id,  # Stripe price ID associated with the product
+                    'quantity': item.get('quantity', 1),
+                }
+                gotPrice = True
 
-        line_item = {
-            'price_data': {
-                'currency': 'aud',
-                'product_data': {
-                    'name': item.get('name', 'Product'),
+        video_id = item.get("videoId")
+        if video_id != None:
+            video = get_object_or_404(Video, id=video_id)
+            if (video.price_id):
+                line_item = {
+                    'price': video.price_id,  # Stripe price ID associated with the product
+                    'quantity': item.get('quantity', 1),
+                }
+                gotPrice = True
+
+
+        if not gotPrice:
+            line_item = {
+                'price_data': {
+                    'currency': 'aud',
+                    'product_data': {
+                        'name': item.get('name', 'Product'),
+                    },
+                    'unit_amount': price,  # Amount in cents
                 },
-                'unit_amount': price,  # Amount in cents
-            },
-            'quantity': item.get('quantity', 1),
-        }
+                'quantity': item.get('quantity', 1),
+            }
         # add to the list if not null
         video_item = item.get("videoId")
         if video_item != None:
             video_items.append(video_item)
+        else:
+            cake_items.append(item.get('cakeId'))
             
         line_items.append(line_item)
 
@@ -533,13 +562,15 @@ def create_checkout_session(request):
     # Serialize the video array to json
     
     video_items_json = json.dumps(video_items)
+    cake_items_json = json.dumps(cake_items)
     
    
     checkout_session = stripe.checkout.Session.create(
         payment_method_types=['card'],
         line_items=[*line_items, service_fees_item],  # Include service fees item
         mode='payment',
-        success_url = f"{settings.FRONTEND_APP_URL}/success?checkout_session={{CHECKOUT_SESSION_ID}}&user={request.data.get('email')}&code={video_items_json}",
+        allow_promotion_codes=True,
+        success_url = f"{settings.FRONTEND_APP_URL}/success?checkout_session={{CHECKOUT_SESSION_ID}}&user={request.data.get('email')}&code={video_items_json}&i={cake_items_json}",
         cancel_url= f"{settings.FRONTEND_APP_URL}/online-store",
     )
 
@@ -666,3 +697,41 @@ def set_user_firstOrder_true(request):
             return Response({"madeFirstOrder": True}, status=200)
         except UserVideo.DoesNotExist:
             return Response({'message': 'User not found in UserFirstOrder.'}, status=404)
+
+@api_view(['POST'])
+def process_order(request):
+    if request.method == "POST":
+        serializer = UserPurchaseSerializer(data=request.data, context={'user': request.user})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+
+@api_view(['GET'])
+def get_orders(request):
+    if request.method == "GET":
+        user = request.user
+        queryset = UserPurchase.objects.filter(user=user)
+        serializer = UserPurchaseSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+def get_video(request, video_id):
+    video = get_object_or_404(Video, id=video_id)
+    video_data = {
+        'id': video.id,
+        'title': video.title,
+        'price': video.price,
+    }
+    return Response(video_data, status=200)
+
+@api_view(['GET'])
+def get_cake(request, cake_id):
+    cake = get_object_or_404(Cake, id=cake_id)
+    cake_data = {
+        'id': cake.id,
+        'name': cake.name,
+        'price': cake.price,
+        'price_id': cake.price_id
+    }
+    return Response(cake_data, status=200)
