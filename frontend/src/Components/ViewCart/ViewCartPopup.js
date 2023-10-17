@@ -4,7 +4,7 @@ import { loadStripe } from '@stripe/stripe-js';
 
 function ViewCartPopup(props, { api }) {
   const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem('Cart')) || []);
-  const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
   const stripePromise = loadStripe('pk_test_51NveKwI2G7Irdjp2nVREupdlFTx5xA6pSo9hJeULztP4rAzUQA7rHzdSPLIUBFfuDtSnzNFq3Zc07hYQ4YIZ0Qkb00sFf0mfSq');
 
   useEffect(() => {
@@ -16,20 +16,6 @@ function ViewCartPopup(props, { api }) {
     const updatedCart = cartItems.filter((item, idx) => idx !== index);
     localStorage.setItem('Cart', JSON.stringify(updatedCart));
     setCartItems(updatedCart);
-  };
-
-  const handleQuantityChange = (index, event) => {
-    const newCart = [...cartItems];
-
-    // Only allow to change quantiy for non-video product
-    if (newCart[index].type === 'video') {
-      newCart[index].quantity = 1;
-    } else {
-      newCart[index].quantity = parseInt(event.target.value, 10);
-    }
-
-    localStorage.setItem('Cart', JSON.stringify(newCart));
-    setCartItems(newCart);
   };
 
   const handleEmptyCart = () => {
@@ -65,6 +51,36 @@ function ViewCartPopup(props, { api }) {
     handleProceedToPayment();
   };
 
+  // Need to do like this because on mobile view, there is no increment/decrement button for number input
+  const handleIncrementQuantity = (index) => {
+    const newCart = [...cartItems];
+    const item = newCart[index];
+  
+    if (item.type === 'cupcake') {
+      item.quantity = Math.max(item.quantity + 6, 12); // Increment by 6, minimum 12 for cupcakes
+    } else if (item.type !== 'video') {
+      item.quantity += 1;
+    }
+  
+    localStorage.setItem('Cart', JSON.stringify(newCart));
+    setCartItems(newCart);
+  };
+  
+  const handleDecrementQuantity = (index) => {
+    const newCart = [...cartItems];
+    const item = newCart[index];
+  
+    if (item.type === 'cupcake') {
+      item.quantity = Math.max(item.quantity - 6, 12); // Decrement by 6, minimum 12 for cupcakes
+    } else if (item.type !== 'video' && item.quantity > 1) {
+      item.quantity -= 1;
+    }
+  
+    localStorage.setItem('Cart', JSON.stringify(newCart));
+    setCartItems(newCart);
+  };
+  
+  
 
   return props.trigger ? (
     <div className='popup'>
@@ -81,26 +97,25 @@ function ViewCartPopup(props, { api }) {
               </tr>
             </thead>
             <tbody>
-              {cartItems.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.name}</td>
-                  <td>${item.price}</td>
-                  <td>
-                    <input
-                      type='number'
-                      min={item.type === 'cupcake' ? 12 : 0}
-                      step={item.type === 'cupcake' ? 6 : 1}
-                      value={item.quantity}
-                      onChange={(event) => handleQuantityChange(index, event)}
-                      className='quantity-input'
-                    />
-                  </td>
-                  <td className='total-price'>${item.price * item.quantity}</td>
-                  <td className='button-column'>
-                    <button onClick={() => handleDeleteItem(index)}>Remove</button>
-                  </td>
-                </tr>
-              ))}
+            {cartItems.map((item, index) => (
+              <tr key={index}>
+                <td>{item.name}</td>
+                <td>${item.price}</td>
+                <td>
+                  <div className="quantity-control">
+                    
+                    <span> {item.quantity} </span>
+                    <button className="small-button" onClick={() => handleDecrementQuantity(index)}> - </button>
+                    <button className="small-button" onClick={() => handleIncrementQuantity(index)}> + </button>
+                  </div>
+                </td>
+                <td className='total-price'>${(item.price * item.quantity).toFixed(2)}</td>
+                <td className='button-column'>
+                  <button onClick={() => handleDeleteItem(index)}>Remove</button>
+                </td>
+              </tr>
+            ))}
+
             </tbody>
 
             <tfoot>

@@ -16,12 +16,6 @@ function OnlineStore({ api }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    if (!localStorage.getItem('access_token')) {
-
-      setLoading(false);
-    } else {
-
       // Fetch cakes data from the API
       const fetchCakes = async () => {
         try {
@@ -40,16 +34,42 @@ function OnlineStore({ api }) {
         }
       };
       fetchCakes();
-      
-    }
+
   }, [api]);
   
 
-  const handleQuantityChange = (productId, event) => {
-    const newQuantities = { ...quantities, [productId]: parseInt(event.target.value, 10) };
-    
+  const handleQuantityChange = (productId, action) => {
+    const product = products.find((product) => product.id === productId);
+    const currentQuantity = quantities[productId];
+    const minQuantity = product.product_type === 'Cupcake' ? 12 : 0;
+    let step;
+  
+    if (product.product_type === 'Cupcake' && currentQuantity < 12) {
+      step = 12; // If current quantity is less than 12 for cupcakes, increase or decrease by 12
+    } else {
+      step = product.product_type === 'Cupcake' ? 6 : 1;
+    }
+  
+    let newQuantity;
+    if (action === 'increment') {
+      newQuantity = currentQuantity + step;
+    } else if (action === 'decrement') {
+      if (currentQuantity === 12) {
+        newQuantity = 0; // If current quantity is 12 for cupcakes, set to 0
+      } else {
+        newQuantity = Math.max(currentQuantity - step, minQuantity);
+      }
+    } else {
+      return; // Do nothing if action is invalid
+    }
+  
+    const newQuantities = { ...quantities, [productId]: newQuantity };
     setQuantities(newQuantities);
   };
+  
+  
+  
+  
   
   const handleAddToCart = (product) => {
     // show a success message or perform any other desired action after copying to the clipboard
@@ -61,7 +81,7 @@ function OnlineStore({ api }) {
     
     const cakeVariant = cakeVariants
     .find((cakeVariant) => cakeVariant.id === parseInt(selectedCakeVariants[product.id]))
-    console.log(cakeVariant)
+
     // Retrieve existing cart items or initialize an empty array
     const existingCart = JSON.parse(localStorage.getItem('Cart')) || [];
 
@@ -192,15 +212,14 @@ function OnlineStore({ api }) {
 
               <div className="quantity-section">
                 <label htmlFor={`quantity-${product.id}`}>Quantity:</label>
-                <input
-                  type="number"
-                  id={`quantity-${product.id}`}
-                  value={quantities[product.id]}
-                  onChange={(event) => handleQuantityChange(product.id, event)}
-                  min={product.product_type === 'Cupcake' ? 12 : 0}
-                  step={product.product_type === 'Cupcake' ? 6 : 1}
-                />
+                <div className="quantity-control">
+                  <span> {quantities[product.id]} </span>
+                  <button onClick={() => handleQuantityChange(product.id, 'decrement')}>-</button>
+                  <button onClick={() => handleQuantityChange(product.id, 'increment')}>+</button>
+                  
+                </div>
               </div>
+
 
               {
                 (product.product_type === 'Cupcake' && quantities[product.id] > 0) || (product.product_type === 'Cake' 

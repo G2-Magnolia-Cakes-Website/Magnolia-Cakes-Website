@@ -38,7 +38,7 @@
 .image {
   width: 300px;
   height: 350px;
-  /*Must ensure that all uploaded image is in square shape*/
+  object-fit: cover;
 }
 
 /* Style for the quantity section */
@@ -98,4 +98,47 @@
   padding: 10px;
   border-radius: 5px;
   z-index: 9999;
+}
+
+/* For mobile devices */
+@media (max-width: 767px) {
+  .online-store {
+    margin: 20px; /* Adjust margins for mobile */
+  }
+
+  .cake-item {
+    margin: 10px; /* Adjust margins for mobile */
+  }
+
+  .image {
+    width: 100%; /* Adjust image width for mobile */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .buttons-section {
+    flex-direction: column; /* Stack buttons vertically for mobile */
+    align-items: flex-start; /* Align buttons to the left for mobile */
+  }
+}
+
+/* For tablets (portrait) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .online-store {
+    margin: 20px; /* Adjust margins for tablets */
+  }
+
+  .cake-item {
+    margin: 20px; /* Adjust margins for tablets */
+  }
+}
+
+/* For tablets (landscape) */
+@media (min-width: 992px) and (max-width: 1200px) {
+  .online-store {
+    margin: 60px; /* Adjust margins for tablets in landscape orientation */
+  }
+
+  .cake-item {
+    margin: 60px; /* Adjust margins for tablets in landscape orientation */
+  }
 }
