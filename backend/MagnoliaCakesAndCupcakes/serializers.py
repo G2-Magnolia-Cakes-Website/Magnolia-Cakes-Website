@@ -200,3 +200,9 @@ class UserPurchaseSerializer(serializers.ModelSerializer):
         user_purchase.videos.set(videos_data)
 
         return user_purchase
+
+        
+class UserCustomerIDSerialiser(serializers.ModelSerializer):
+    class Meta:
+        model = UserCustomerID
+        fields = "__all__"

@@ -54,6 +54,7 @@ class StripePromotionAdmin(admin.ModelAdmin):
         "display_after_formatted",
         "only_logged_in_users",
         "only_first_purchase_of_user",
+        'minimum_amount',
         "description",
     )
     def display_after_formatted(self, obj):
@@ -70,7 +71,7 @@ class StripePromotionAdmin(admin.ModelAdmin):
             'description': 'You must link the promotion code to a coupon.',
         }),
         ('Display to Users?', {
-            'fields': ('is_displayed', 'display_after', 'only_logged_in_users', 'only_first_purchase_of_user', 'description', ),
+            'fields': ('is_displayed', 'display_after', 'only_logged_in_users', 'only_first_purchase_of_user', 'minimum_amount', 'description', ),
             'description': 'If is_displayed is checked, this promotion will popup on the frontend for users. Add a description if needed for users to see.',
         }),
     )
@@ -140,3 +141,4 @@ admin.site.register(UserFirstOrder, UserFirstOrderAdmin)
 admin.site.register(StripeCoupon, StripeCouponAdmin)
 admin.site.register(StripePromotion, StripePromotionAdmin)
 admin.site.register(UserPurchase, UserPurchaseAdmin)
+# admin.site.register(UserCustomerID)

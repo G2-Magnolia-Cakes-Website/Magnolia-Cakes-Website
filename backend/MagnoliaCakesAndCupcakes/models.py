@@ -688,16 +688,111 @@ class UserFirstOrder(models.Model):
         verbose_name_plural = "User First Orders"
 
 
+class UserPurchaseManager(models.Manager):
+    def create_with_related(self, user, videos_data, cakes_data, amount_paid):
+        user_purchase = self.create(user=user, amount_paid=amount_paid)
+        
+        for video_id in videos_data:
+            UserVideoPurchase.objects.create(user_purchase=user_purchase, video=Video.objects.get(id=video_id))
+
+        for cake_id in cakes_data:
+            UserCakePurchase.objects.create(user_purchase=user_purchase, cake=Cake.objects.get(id=cake_id))
+
+        return user_purchase
+
 class UserPurchase(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    videos = models.ManyToManyField(Video, blank=True)
-    cakes = models.ManyToManyField(Cake, blank=True)
+    videos = models.ManyToManyField(Video, blank=True, through='UserVideoPurchase')
+    cakes = models.ManyToManyField(Cake, blank=True, through='UserCakePurchase')
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     time_submitted = models.DateTimeField(auto_now=True)
+
+    objects = UserPurchaseManager()
 
     class Meta:
         ordering = ["-time_submitted"]
         verbose_name_plural = "User Purchases"
+
+class UserVideoPurchase(models.Model):
+    user_purchase = models.ForeignKey(UserPurchase, on_delete=models.CASCADE)
+    video = models.ForeignKey(Video, on_delete=models.SET_NULL, null=True)
+    # Add other fields related to the user's purchase of the video
+
+class UserCakePurchase(models.Model):
+    user_purchase = models.ForeignKey(UserPurchase, on_delete=models.CASCADE)
+    cake = models.ForeignKey(Cake, on_delete=models.SET_NULL, null=True)
+
+
+class UserCustomerID(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    customer_id = models.CharField(max_length=100, blank=True, editable=False)
+
+    class Meta:
+        ordering = ["user"]
+        verbose_name_plural = "Stripe Customer ID"
+    
+    def __str__(self):
+        return self.customer_id
+
+    def save(self, *args, **kwargs):
+        print(self)
+        if self.pk:
+            # Make sure the code, coupon and promotion id arent being changed
+            try:
+                original = UserCustomerID.objects.get(pk=self.pk)
+                if (
+                    original.user.username != self.user.username
+                    or original.customer_id != self.customer_id
+                ):
+                    raise ValidationError(
+                        "Cannot update fields.",
+                        code='restricted_fields'
+                    )
+            except UserCustomerID.DoesNotExist:
+                # Promotion object with the given primary key does not exist, so try adding or modifying
+                pass
+
+        # Either edit is_displayed and description, or create new promotion
+        try:
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+
+            if self.customer_id:
+                # modify
+                stripe.Customer.modify(
+                    self.customer_id,
+                    name = f'{self.user.first_name} {self.user.last_name}'
+                )
+            else:
+                response = stripe.Customer.create(
+                    email = self.user.email,
+                    name = f'{self.user.first_name} {self.user.last_name}'
+                )
+                self.customer_id = response.id
+
+            super().save(*args, **kwargs)
+
+        except stripe.error.StripeError as e:
+            # Handle the Stripe API error
+            raise ValidationError(f"Failed to create Stripe Customer: {str(e)}")
+    
+
+    def delete(self, *args, **kwargs):
+        # Delete on stripe:
+        try:
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            stripe.Customer.delete(self.customer_id)
+        except InvalidRequestError as e:
+            if e.code == "resource_missing":
+                # The product does not exist in Stripe, so it's considered deleted
+                pass
+            else:
+                # Handle any other errors that occur during the API request
+                raise ValidationError(f"Failed to delete Stripe product: {str(e)}")
+        except stripe.error.StripeError as e:
+            # Handle any other errors that occur during the API request
+            raise ValidationError(f"Failed to delete Stripe product: {str(e)}")
+
+        super(UserCustomerID, self).delete(*args, **kwargs)
 
 
 ############################################ Coupons and Promotions ############################################
@@ -796,6 +891,7 @@ class StripePromotion(models.Model):
     display_after = models.IntegerField(default=30, help_text='Set this field to display the popup after the given amount of seconds. (Recommended 30 seconds)')
     only_logged_in_users = models.BooleanField(default=False)
     only_first_purchase_of_user = models.BooleanField(default=False, help_text='You cannot change this field after creating the promotion.')
+    minimum_amount = models.DecimalField(max_digits=5, decimal_places=2, default=0.0, help_text='You cannot change this field after creating the Coupon.')
     description = models.TextField(blank=True)
 
     def __str__(self):
@@ -815,6 +911,7 @@ class StripePromotion(models.Model):
                     or original_promotion.coupon != self.coupon
                     or original_promotion.stripe_promotion_id != self.stripe_promotion_id
                     or original_promotion.only_first_purchase_of_user != self.only_first_purchase_of_user
+                    or original_promotion.minimum_amount != self.minimum_amount
                 ):
                     raise ValidationError(
                         "Cannot update fields other than 'is_displayed', 'display_after', 'only_logged_in_users' or 'description'",
@@ -829,15 +926,24 @@ class StripePromotion(models.Model):
             stripe.api_key = settings.STRIPE_SECRET_KEY
             if not self.stripe_promotion_id: # Create a new promotion in Stripe
 
+                restrictions = {}
+                if self.only_first_purchase_of_user:
+                    restrictions['first_time_transaction'] = self.only_first_purchase_of_user
+                if self.minimum_amount > 0.0:
+                    restrictions['minimum_amount'] = self.minimum_amount * 100
+                    restrictions['minimum_amount_currency'] = 'aud'
+
                 if (self.code): # If admin gave a code
                     stripe_promotion = stripe.PromotionCode.create(
                         code=self.code,
-                        coupon=self.coupon.stripe_coupon_id,  # Pass the coupon id
+                        coupon=self.coupon.stripe_coupon_id,
+                        restrictions = restrictions,
                     )
                 else:
                     # If code empty, stripe will create it
                     stripe_promotion = stripe.PromotionCode.create(
-                        coupon=self.coupon.stripe_coupon_id,  # Pass the coupon id
+                        coupon=self.coupon.stripe_coupon_id,
+                        restrictions = restrictions,
                     )
                     self.code = stripe_promotion.code
                 self.stripe_promotion_id = stripe_promotion.id

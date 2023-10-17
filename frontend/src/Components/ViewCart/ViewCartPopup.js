@@ -45,7 +45,8 @@ function ViewCartPopup(props, { api }) {
       const response = await props.api.post('/api/checkout/', {
         amount: (totalPrice) * 100, // Convert to cents
         items: cartItems,
-        email: localStorage.getItem("email")
+        email: localStorage.getItem("email"),
+        customer_id: localStorage.getItem("customer_id")
       });
 
       const result = await stripe.redirectToCheckout({
