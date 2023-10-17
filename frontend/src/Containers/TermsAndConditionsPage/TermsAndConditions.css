@@ -73,6 +73,10 @@
   .PolicyList {
     width: 70%; /* Adjusted width for tablet in portrait */
   }
+  .TextSection{
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 
 /* Tablet landscape view */
@@ -80,8 +84,5 @@
   .PolicyList {
     width: 50%; /* Adjusted width for tablet in landscape */
   }
-  .TextSection{
-    padding-left: 20px;
-    padding-right: 20px;
-  }
+  
 }
