@@ -261,21 +261,29 @@ def contact(request):
 @permission_classes(
     [AllowAny]
 )  ###### Add this to allow users to access despite not being logged in
-def cakes_list(request):
+def products_list(request):
     if request.method == "GET":
-        cakes = Cake.objects.all()
-        serializer = CakeSerializer(cakes, many=True)
+        cakes = Product.objects.all()
+        serializer = ProductSerializer(cakes, many=True)
 
         # Create a list to store the updated cake data with image URLs
         cakes_with_image_urls = []
 
         for cake_data in serializer.data:
-            cake = Cake.objects.get(id=cake_data["id"])
+            cake = Product.objects.get(id=cake_data["id"])
             # Add the image URL to the cake data
             cake_data["image"] = cake.picture.url
             cakes_with_image_urls.append(cake_data)
 
         return Response(cakes_with_image_urls, status=status.HTTP_200_OK)
+    
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def cakes_list(request):
+    if request.method == "GET":
+        cakesizeprices = Cake.objects.all()
+        serializer = CakeSerializer(cakesizeprices, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(["GET"])

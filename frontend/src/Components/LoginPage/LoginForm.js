@@ -171,16 +171,6 @@ export default function LoginForm({ api, handleLoginSuccess }) {
 
   return (
     <form onSubmit={handleSubmit} className="login-form">
-      {/* Labels and inputs for form data */}
-      {/* <input
-          onChange={handleEmail}
-          className="input-login"
-          autoCapitalize="none"
-          value={email}
-          type="email"
-          placeholder="Email"
-        /> */}
-
       <FormInput
         onChange={handleEmail}
         value={email}
@@ -199,18 +189,6 @@ export default function LoginForm({ api, handleLoginSuccess }) {
         inputType="password"
         placeholder="Password"
       />
-      {/* 
-        <input
-          onChange={handlePassword}
-          className="input-login"
-          value={password}
-          type="password"
-          placeholder="Password"
-        /> */}
-
-      {/* <button onClick={handleSubmit} className="submit-btn" type="submit">
-          Login
-        </button> */}
 
       <div className="signup-question">
         <Link to="/forgot-password" className="signup-link">
@@ -239,7 +217,6 @@ export default function LoginForm({ api, handleLoginSuccess }) {
         data-testid="loader"
         width={"100%"}
       />
-
       <div className="messages">{errorMessage()}</div>
     </form>
   );

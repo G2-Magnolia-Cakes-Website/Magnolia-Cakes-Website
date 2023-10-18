@@ -27,12 +27,17 @@ class TermsAndConditionsSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = "__all__"
+
+
 class CakeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cake
         fields = "__all__"
-
-
+        
 class SliderImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = SliderImage

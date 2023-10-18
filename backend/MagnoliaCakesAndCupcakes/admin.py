@@ -76,12 +76,7 @@ class StripePromotionAdmin(admin.ModelAdmin):
         }),
     )
 
-class CakeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'flavor', 'display_categories', 'price', 'active')
 
-    def display_categories(self, obj):
-        return ', '.join([category.name for category in obj.categories.all()])
-    display_categories.short_description = 'Categories'
 
 class ContactUsEmailAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'your_email')
@@ -113,9 +108,9 @@ class UserPurchaseAdmin(admin.ModelAdmin):
         return ', '.join([cake.name for cake in obj.cakes.all()])
     display_cakes.short_description = 'Cake'
 
-
+admin.site.register(Cake)
 admin.site.register(TermsAndCondition)
-admin.site.register(Cake, CakeAdmin)
+admin.site.register(Product)
 admin.site.register(FlavoursAndServings, FlavoursAndServingsAdmin)
 admin.site.register(AboutUs)
 admin.site.register(FAQCategory)

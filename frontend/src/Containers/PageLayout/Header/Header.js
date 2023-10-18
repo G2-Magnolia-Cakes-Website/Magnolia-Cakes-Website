@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import Navbar from "Components/Navbar/Navbar";
 import SignUpLogInLinkGroup from "Containers/SignUpLogInLinkGroup/SignUpLogInLinkGroup";
-import "./Header.css";
 import SignedInGroup from "../../SignedInGroup/SignedInGroup";
-import { AuthContext } from '../../../AuthContext';
+import { AuthContext } from "../../../AuthContext";
+import LogoHomeLink from "Components/LogoHomeLink/LogoHomeLink";
+
+import "./Header.css";
 
 const Header = ({ api, isAuth, setIsAuth }) => {
-
   const { user } = useContext(AuthContext);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,9 +21,9 @@ const Header = ({ api, isAuth, setIsAuth }) => {
   }, [isAuth]);
 
   const listenScrollEvent = (event) => {
-    if (window.scrollY < 137) {
+    if (window.scrollY < 50) {
       return setHeaderStyle("header");
-    } else if (window.scrollY > 140) {
+    } else if (window.scrollY > 53) {
       return setHeaderStyle("header colored");
     }
   };
@@ -37,11 +38,18 @@ const Header = ({ api, isAuth, setIsAuth }) => {
     <div className={headerStyle}>
       <div className="navbar-signup-login-group">
         <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-        {isAuth ? (
-          <SignedInGroup api={api} user={user} />
-        ) : (
-          !isMenuOpen && <SignUpLogInLinkGroup />
-        )}
+        <div className="button-group">
+          {!isMenuOpen && (
+            <div className="home-logo-header">
+              <LogoHomeLink height="75px" margin="0.5rem" />
+            </div>
+          )}
+          {isAuth ? (
+            <SignedInGroup api={api} isMenuOpen={isMenuOpen} />
+          ) : (
+            <SignUpLogInLinkGroup />
+          )}
+        </div>
       </div>
     </div>
   );
