@@ -451,8 +451,8 @@ def reset_names(request):
 @permission_classes([AllowAny])
 def gallery_categories_list(request):
     if request.method == "GET":
-        categories = GalleryCategory.objects.all()
-        serializer = GalleryCategorySerializer(categories, many=True)
+        categories = CakeCategory.objects.all()
+        serializer = CakeCategorySerializer(categories, many=True)
         return Response(serializer.data)
 
 
@@ -735,7 +735,7 @@ def get_video(request, video_id):
 
 @api_view(['GET'])
 def get_cake(request, cake_id):
-    cake = get_object_or_404(Cake, id=cake_id)
+    cake = get_object_or_404(CakeVariant, id=cake_id)
     cake_data = {
         'id': cake.id,
         'name': cake.name,

@@ -44,7 +44,7 @@ class TermsAndCondition(models.Model):
         return self.policy_name
 
 
-class GalleryCategory(models.Model):
+class CakeCategory(models.Model):
     def upload_to__cake_category_cover(instance, filename):
         # Upload the image to a 'cakes' directory with the filename as the cake's name
         return f"cake-category-cover/{filename}"
@@ -326,7 +326,6 @@ class SliderImage(models.Model):
         if not self.id and self.name:
             self.original_name = self.name
             
-        
         # Rename the uploaded image to match the cake's name
 
         if self.image and hasattr(self.image, "name") and self.original_name:
@@ -525,7 +524,7 @@ def password_reset_token_created(
 
 class GalleryItem(models.Model):
     title = models.CharField(max_length=100, unique=True)
-    categories = models.ManyToManyField(GalleryCategory)
+    categories = models.ManyToManyField(CakeCategory)
     image = models.ImageField(upload_to="gallery/")
 
     def __str__(self):
