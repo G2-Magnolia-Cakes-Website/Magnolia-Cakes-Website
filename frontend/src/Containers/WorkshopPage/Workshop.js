@@ -111,7 +111,7 @@ function WorkshopPage({ api }) {
   };
 
   if (!isLoggedIn) {
-    return <LoginSignupContainer />;
+    return <LoginSignupContainer api={api} />;
   }
 
   return (
