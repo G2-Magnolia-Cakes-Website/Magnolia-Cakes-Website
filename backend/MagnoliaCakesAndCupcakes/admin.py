@@ -101,7 +101,7 @@ class VideoAdmin(admin.ModelAdmin):
 
 
 class UserPurchaseAdmin(admin.ModelAdmin):
-    list_display = ('user', 'display_videos', 'display_cake_variants', 'display_products', 'amount_paid', 'time_submitted')
+    list_display = ('user', 'display_videos', 'display_cake_variants', 'display_products', 'amount_paid', 'time_submitted', 'id')
 
     def display_videos(self, obj):
         return ', '.join([video.title for video in obj.videos.all()])

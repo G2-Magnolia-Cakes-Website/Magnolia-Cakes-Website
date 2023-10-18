@@ -117,4 +117,5 @@ urlpatterns = [
     path("api/user/get/purchases/", views.get_orders, name="get_purchases"),
     path("api/videos/<int:video_id>/", views.get_video, name="get_video"),
     path("api/cakes/<int:cake_id>/", views.get_cake, name="get_cake"),
+    path("api/cupcakes/<int:cake_id>/", views.get_cupcake, name="get_cupcake"),
 ]

@@ -758,6 +758,17 @@ def get_cake(request, cake_id):
     cake = get_object_or_404(CakeVariant, id=cake_id)
     cake_data = {
         'id': cake.id,
+        'name': cake.cake.name,
+        'price': cake.price,
+        'price_id': cake.price_id
+    }
+    return Response(cake_data, status=200)
+
+@api_view(['GET'])
+def get_cupcake(request, cake_id):
+    cake = get_object_or_404(Product, id=cake_id)
+    cake_data = {
+        'id': cake.id,
         'name': cake.name,
         'price': cake.price,
         'price_id': cake.price_id
