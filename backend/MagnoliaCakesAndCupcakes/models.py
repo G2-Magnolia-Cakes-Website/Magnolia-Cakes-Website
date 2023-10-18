@@ -822,16 +822,40 @@ class UserFirstOrder(models.Model):
         verbose_name_plural = "User First Orders"
 
 
+class UserPurchaseManager(models.Manager):
+    def create_with_related(self, user, videos_data, cakes_data, amount_paid):
+        user_purchase = self.create(user=user, amount_paid=amount_paid)
+        
+        for video_id in videos_data:
+            UserVideoPurchase.objects.create(user_purchase=user_purchase, video=Video.objects.get(id=video_id))
+
+        for cake_id in cakes_data:
+            try:
+                UserCakePurchase.objects.create(user_purchase=user_purchase, cake_variant=CakeVariant.objects.get(id=cake_id))
+            except CakeVariant.DoesNotExist:
+                UserProductPurchase.objects.create(user_purchase=user_purchase, products=Product.objects.get(id=cake_id))
+
+        return user_purchase
+
 class UserPurchase(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    videos = models.ManyToManyField(Video, blank=True)
-    cakes = models.ManyToManyField(Product, blank=True)
+    videos = models.ManyToManyField(Video, blank=True, through='UserVideoPurchase')
+    products = models.ManyToManyField(Product, blank=True, through='UserProductPurchase')
+    cake_variant = models.ManyToManyField(CakeVariant, blank=True, through='UserCakePurchase')
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     time_submitted = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        ordering = ["-time_submitted"]
-        verbose_name_plural = "User Purchases"
+class UserVideoPurchase(models.Model):
+    user_purchase = models.ForeignKey(UserPurchase, on_delete=models.CASCADE)
+    video = models.ForeignKey(Video, on_delete=models.SET_NULL, null=True)
+
+class UserCakePurchase(models.Model):
+    user_purchase = models.ForeignKey(UserPurchase, on_delete=models.CASCADE)
+    cake_variant = models.ForeignKey(CakeVariant, on_delete=models.SET_NULL, null=True)
+
+class UserProductPurchase(models.Model):
+    user_purchase = models.ForeignKey(UserPurchase, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
 
 
 ############################################ Coupons and Promotions ############################################

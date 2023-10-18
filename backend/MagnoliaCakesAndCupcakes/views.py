@@ -506,13 +506,26 @@ def create_checkout_session(request):
         gotPrice = False
         cake_id = item.get("cakeId")
         if cake_id != None:
-            cake = get_object_or_404(CakeVariant, id=cake_id)
-            if (cake.price_id):
-                line_item = {
-                    'price': cake.price_id,  # Stripe price ID associated with the product
-                    'quantity': item.get('quantity', 1),
-                }
-                gotPrice = True
+            try:
+                cake = CakeVariant.objects.get(id=cake_id)
+                if (cake.price_id):
+                    line_item = {
+                        'price': cake.price_id,
+                        'quantity': item.get('quantity', 1),
+                    }
+                    gotPrice = True
+
+            except CakeVariant.DoesNotExist:
+                cake = Product.objects.get(id=cake_id)
+                if (cake.price_id):
+                    line_item = {
+                        'price': cake.price_id,
+                        'quantity': item.get('quantity', 1),
+                    }
+                    gotPrice = True
+
+            except Product.DoesNotExist:
+                return Response({'error': 'CakeVariant and Product not found'}, status=404)
 
         video_id = item.get("videoId")
         if video_id != None:
@@ -709,6 +722,7 @@ def set_user_firstOrder_true(request):
 @api_view(['POST'])
 def process_order(request):
     if request.method == "POST":
+        print(request)
         serializer = UserPurchaseSerializer(data=request.data, context={'user': request.user})
         if serializer.is_valid():
             serializer.save()
