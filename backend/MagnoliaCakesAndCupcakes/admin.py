@@ -107,7 +107,7 @@ class UserPurchaseAdmin(admin.ModelAdmin):
         return ', '.join([cake.name for cake in obj.cakes.all()])
     display_cakes.short_description = 'Cake'
 
-admin.site.register(Cake)
+admin.site.register(CakeVariant)
 admin.site.register(TermsAndCondition)
 admin.site.register(Product)
 admin.site.register(FlavoursAndServings, FlavoursAndServingsAdmin)

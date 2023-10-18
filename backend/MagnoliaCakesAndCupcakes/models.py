@@ -210,7 +210,7 @@ class Product(models.Model):
 
         super(Product, self).delete(*args, **kwargs)
 
-class Cake(models.Model):
+class CakeVariant(models.Model):
     cake = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='size_prices', limit_choices_to={'product_type': ProductType.CAKE})
     size = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -305,6 +305,7 @@ class Cake(models.Model):
         super().delete(*args, **kwargs)
 
 class SliderImage(models.Model):
+    original_name = None
     def upload_to_slider(instance, filename):
         # Upload the image to a 'slider' directory with the filename as the cake's name
         return f"slider/{filename}"
@@ -321,11 +322,14 @@ class SliderImage(models.Model):
         verbose_name_plural = "Slider Images"
 
     def save(self, *args, **kwargs):
+        # Store the original name when the object is created
+        if not self.id and self.name:
+            self.original_name = self.name
+            
         # Rename the uploaded image to match the cake's name
-        if self.image and hasattr(self.image, "name"):
-            self.image.name = (
-                f"{self.name}.png"  # You can change the file extension if needed
-            )
+
+        if self.image and hasattr(self.image, "name") and self.original_name:
+                    self.image.name = f"{self.original_name}.png"
         super(SliderImage, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
@@ -680,10 +684,15 @@ class Video(models.Model):
     product_id = models.CharField(max_length=100, blank=True, editable=False)
     price_id = models.CharField(max_length=100, blank=True, editable=False)
 
+    original_name = None
+    
     def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
+        # Store the original name when the object is created
+        if not self.id and self.title:
+            self.original_name = self.title
         try:
             stripe.api_key = settings.STRIPE_SECRET_KEY
             if self.product_id:
@@ -744,10 +753,16 @@ class Video(models.Model):
                     default_price= price.id
                 )
 
-            if self.video:
-                # Generate a unique filename based on the title
-                filename = f"{slugify(self.title)}.mp4"
-                self.video.name = filename  # Save directly to 'videos' folder
+            if self.video and self.original_name:
+                # Generate a unique filename based on the original title
+                filename = f"{slugify(self.original_name)}.mp4"
+
+                # Ensure the video is saved in the "videos" directory
+                if not self.video.name.startswith(""):
+                    self.video.name = f"/{filename}"
+                else:
+                    self.video.name = filename
+                
             super().save(*args, **kwargs)
 
         except stripe.error.StripeError as e:
