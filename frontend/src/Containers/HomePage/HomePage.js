@@ -2,13 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { AuthContext } from "../../AuthContext";
 import AboutUsSection from "./Sections/AboutUsSection";
-import SubheadingDivider from "Components/SubheadingDivider/SubheadingDivider";
 import CarouselGallery from "Components/Carousel/CarouselGallery";
 import LocationPage from "Containers/LocationPage/LocationPage";
 import DeliverySection from "./Sections/DeliverySection";
 import GallerySection from "./Sections/GallerySection";
 import WelcomeSection from "./Sections/WelcomeSection";
 import WelcomePopup from "Components/WelcomePopup/WelcomePopup";
+import { parseStringToParagraphsByNewline } from "utils/parseStringsToArray";
+import CupcakesBanner from "Components/CupcakesBanner/CupcakesBanner";
 
 const HomePage = ({ api }) => {
   const { user } = useContext(AuthContext);
@@ -41,6 +42,8 @@ const HomePage = ({ api }) => {
   // Loading
   const [loading, setLoading] = useState(true);
 
+  const [quote, setQuote] = useState(["Loading..."]);
+
   useEffect(() => {
     setLoading(true);
     // Fetch cakes data from the API
@@ -54,6 +57,17 @@ const HomePage = ({ api }) => {
       }
     };
     fetchImages();
+
+    api
+      .get("/api/homepage-welcome/")
+      .then((response) => {
+        // Set the retrieved content in the state
+        const responseData = response.data;
+        setQuote(parseStringToParagraphsByNewline(responseData.quote));
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   }, [api]);
 
   return (
@@ -65,11 +79,11 @@ const HomePage = ({ api }) => {
           document.body
         )}
       {images.length > 0 && (
-        <CarouselGallery images={images} loading={loading} />
+        <CarouselGallery quote={quote} images={images} loading={loading} />
       )}
+      <CupcakesBanner api={api} />
       <WelcomeSection api={api} />
       <GallerySection api={api} />
-      {/* <SubheadingDivider subheadingText="Cakes for all occasions" /> */}
       <AboutUsSection api={api} />
       <DeliverySection />
       <LocationPage api={api} />

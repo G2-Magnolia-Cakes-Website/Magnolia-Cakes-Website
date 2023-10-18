@@ -15,6 +15,7 @@ const FormInput = (props) => {
     autoCapitalize,
     min,
     max,
+    disabled,
   } = props;
 
   const asterisk = isRequired ? "*" : "";
@@ -36,6 +37,7 @@ const FormInput = (props) => {
         autoCapitalize={autoCapitalize}
         min={min}
         max={max}
+        disabled={disabled}
       ></input>
     </label>
   );

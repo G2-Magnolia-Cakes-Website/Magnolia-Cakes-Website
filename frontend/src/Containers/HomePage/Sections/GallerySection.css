@@ -1,11 +1,7 @@
 .gallery-section-wrapper {
   padding: 7rem 0 7rem;
-  /* background-color: #fee39a; */
-  /* bone white */
-  /* background-color: rgb(241, 235, 223); */
-
-  /* pearl ivory */
-  background-color: rgb(240, 223, 205);
+  /* background-color: rgb(240, 223, 205); */
+  background-image: url("utils/bg-gold-watercolor.jpg");
 }
 
 .gallery-section-wrapper h2 {
@@ -24,8 +20,6 @@
   margin-right: auto;
   gap: 1rem;
 }
-
-/* Create four equal columns that sits next to each other */
 
 .gallery-section-wrapper .gallery-row .gallery-column {
   flex: 50%;

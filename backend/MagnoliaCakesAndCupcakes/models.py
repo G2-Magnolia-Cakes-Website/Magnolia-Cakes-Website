@@ -604,10 +604,13 @@ class Quote(models.Model):
 
 class HomepageWelcomeSection(models.Model):
     def upload_to_welcome(instance, filename):
-        # Upload the image to a 'cakes' directory with the filename as the cake's name
         return f"welcome/{filename}"
+    
+    def upload_to_banner(instance, filename):
+        return f"banner/{filename}"
 
     quote = models.TextField()
+    banner = models.ImageField(upload_to=upload_to_banner)
     heading = models.TextField()
     paragraph = models.TextField()
     image = models.ImageField(upload_to=upload_to_welcome)
@@ -618,10 +621,10 @@ class HomepageWelcomeSection(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return "Welcome Section Content"
+        return "Section Content"
 
     class Meta:
-        verbose_name_plural = "Homepage Welcome Section"
+        verbose_name_plural = "Homepage Top & Welcome Section"
 
 
 class HomepageAboutUsSection(models.Model):
