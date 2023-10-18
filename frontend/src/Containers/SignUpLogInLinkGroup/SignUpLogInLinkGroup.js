@@ -7,9 +7,9 @@ import "./SignUpLogInLinkGroup.css";
 const SignUpLogInLinkGroup = ( { api } ) => {
   return (
     <div className="signup-login-group">
+      <ViewCart api={api} />
       <LogInLink />
       <SignUpLink />
-      <ViewCart api={api} />
     </div>
   );
 };
