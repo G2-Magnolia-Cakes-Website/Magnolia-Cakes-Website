@@ -108,7 +108,7 @@ class UserPurchaseAdmin(admin.ModelAdmin):
     display_videos.short_description = 'Videos'
 
     def display_cake_variants(self, obj):
-        return ', '.join([cake.name for cake in obj.cake_variant.all()])
+        return ', '.join([str(cake_variant) for cake_variant in obj.cake_variant.all()])
     display_cake_variants.short_description = 'Cake Variants'
 
     def display_products(self, obj):
@@ -143,3 +143,7 @@ admin.site.register(UserFirstOrder, UserFirstOrderAdmin)
 admin.site.register(StripeCoupon, StripeCouponAdmin)
 admin.site.register(StripePromotion, StripePromotionAdmin)
 admin.site.register(UserPurchase, UserPurchaseAdmin)
+
+admin.site.register(UserVideoPurchase)
+admin.site.register(UserCakePurchase)
+admin.site.register(UserProductPurchase)

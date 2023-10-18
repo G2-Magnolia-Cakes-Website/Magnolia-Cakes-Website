@@ -3,6 +3,7 @@ const SuccessPage = ({ api }) => {
   const [sessionData, setSessionData] = useState(null);
   const [videoItemsJson, setVideoItemsJson] = useState(null);
   const [cakeItemsJson, setCakeItemsJson] = useState(null);
+  const [cupcakeItemsJson, setCupcakeItemsJson] = useState(null);
   const [purchased, setPurchased] = useState(false);
   const [processed, setProcessed] = useState(false);
 
@@ -14,6 +15,9 @@ const SuccessPage = ({ api }) => {
 
     const cakeItems = urlParams.get('i');
     setCakeItemsJson(cakeItems);  // Store cakeItemsJson in state
+
+    const cupcakeItems = urlParams.get('x');
+    setCupcakeItemsJson(cupcakeItems);  // Store cakeItemsJson in state
 
     const stripeKey = process.env.REACT_APP_STRIPE_SECRET_KEY;
 
@@ -50,6 +54,7 @@ const SuccessPage = ({ api }) => {
     // Overall, it would save one purchase as each item purchased, total paid, and date paid 
     if (sessionData && sessionData.payment_status === 'paid' && !processed) {
       const cakesToPurchase = JSON.parse(cakeItemsJson);
+      const cupcakesToPurchase = JSON.parse(cupcakeItemsJson);
       const videosToPurchase = JSON.parse(videoItemsJson);
 
       const purchaseItems = async () => {
@@ -59,6 +64,7 @@ const SuccessPage = ({ api }) => {
               {
                 amount_paid: sessionData.amount_total/100,
                 cakes: cakesToPurchase,
+                cupcakes: cupcakesToPurchase,
                 videos: videosToPurchase
               },
               {
