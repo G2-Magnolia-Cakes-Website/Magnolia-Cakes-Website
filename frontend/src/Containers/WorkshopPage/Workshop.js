@@ -5,6 +5,7 @@ import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
 import BarLoader from "react-spinners/BarLoader";
 import { loadStripe } from '@stripe/stripe-js';
 import LoginSignupContainer from 'Components/NotLoggedIn/LoginSignupContainer';
+import NoProducts from 'Components/NoProducts/NoProducts';
 
 
 function WorkshopPage({ api }) {
@@ -27,7 +28,6 @@ function WorkshopPage({ api }) {
     setLoading(true);
     if (!localStorage.getItem('access_token')) {
       setIsLoggedIn(false); // Set isLoggedIn to false if access_token is not present
-      setLoading(false);
     } else {
       setIsLoggedIn(true); // Set isLoggedIn to true if access_token is present
       api
@@ -41,7 +41,6 @@ function WorkshopPage({ api }) {
         })
         .then((response) => {
           setVideos(response.data);
-          setLoading(false);
         })
         .catch((error) => {
           console.error('Error fetching data:', error);
@@ -59,12 +58,12 @@ function WorkshopPage({ api }) {
         })
         .then((response) => {
           setUserVideos(response.data);
-          setLoading(false);
         })
         .catch((error) => {
           console.error('Error fetching user videos:', error);
         });
     }
+    setLoading(false);
   }, [api, navigate]);
 
   const hasAccess = (video) => {
@@ -118,42 +117,49 @@ function WorkshopPage({ api }) {
     <div>
       {showSuccessMessage && <div className="success-message">Added to cart!</div>}
       <div className="video-container">
-        {videos.map((video, index) => (
-          <div key={index} className="video-item">
-            <div className='video'>
-              {!hasAccess(video) ? (
-                <div className='video-placeholder'>You haven't purchased this video.</div>
-              ) : (
-                <video controls>
-                  <source src={video.video} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              )}
-            </div>
-            <div className='container-containers'>
-              <div className='title-description-container'>
-                <h2 className="video-title">{video.title}</h2>
-                <p className='video-description'>{video.description}</p>
-              </div>
-              {!hasAccess(video) &&
-                <div className='purchase-container'>
-                  <div className='purchase-border'>
-                    <div className='price-container'>
-                      Price: ${video.price}
-                    </div>
-                    <form onSubmit={(e) => handleAddToCartClick(e, video)} className='video-purchase-btn'>
-                      <RoseGoldButton
-                        buttonText="Add to Cart"
-                        buttonType="submit"
-                        height="36px"
-                      />
-                    </form>
-                  </div>
+        {videos.length > 0 ? (
+          <>
+            {videos.map((video, index) => (
+              <div key={index} className="video-item">
+                <div className='video'>
+                  {!hasAccess(video) ? (
+                    <div className='video-placeholder'>You haven't purchased this video.</div>
+                  ) : (
+                    <video controls>
+                      <source src={video.video} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  )}
                 </div>
-              }
-            </div>
-          </div>
-        ))}
+                <div className='container-containers'>
+                  <div className='title-description-container'>
+                    <h2 className="video-title">{video.title}</h2>
+                    <p className='video-description'>{video.description}</p>
+                  </div>
+                  {!hasAccess(video) &&
+                    <div className='purchase-container'>
+                      <div className='purchase-border'>
+                        <div className='price-container'>
+                          Price: ${video.price}
+                        </div>
+                        <form onSubmit={(e) => handleAddToCartClick(e, video)} className='video-purchase-btn'>
+                          <RoseGoldButton
+                            buttonText="Add to Cart"
+                            buttonType="submit"
+                            height="36px"
+                          />
+                        </form>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+            ))}
+          </>
+        ) : (
+          <NoProducts />
+        )}
+
       </div>
       <BarLoader
         loading={loading}
