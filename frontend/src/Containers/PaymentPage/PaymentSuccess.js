@@ -66,7 +66,6 @@ const SuccessPage = ({ api }) => {
                   withCredentials: true
                 }
               );
-              console.log(`Video ${videoId} purchased:`, response.data);
             } catch (error) {
               console.error(`Error purchasing video ${videoId}:`, error);
             }

@@ -830,14 +830,18 @@ class UserPurchaseManager(models.Manager):
             UserVideoPurchase.objects.create(user_purchase=user_purchase, video=Video.objects.get(id=video_id))
 
         for cake_id in cakes_data:
-            UserCakePurchase.objects.create(user_purchase=user_purchase, cake=Cake.objects.get(id=cake_id))
+            try:
+                UserCakePurchase.objects.create(user_purchase=user_purchase, cake_variant=CakeVariant.objects.get(id=cake_id))
+            except CakeVariant.DoesNotExist:
+                UserProductPurchase.objects.create(user_purchase=user_purchase, products=Product.objects.get(id=cake_id))
 
         return user_purchase
 
 class UserPurchase(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     videos = models.ManyToManyField(Video, blank=True, through='UserVideoPurchase')
-    cakes = models.ManyToManyField(Cake, blank=True, through='UserCakePurchase')
+    products = models.ManyToManyField(Product, blank=True, through='UserProductPurchase')
+    cake_variant = models.ManyToManyField(CakeVariant, blank=True, through='UserCakePurchase')
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     time_submitted = models.DateTimeField(auto_now=True)
 
@@ -850,11 +854,14 @@ class UserPurchase(models.Model):
 class UserVideoPurchase(models.Model):
     user_purchase = models.ForeignKey(UserPurchase, on_delete=models.CASCADE)
     video = models.ForeignKey(Video, on_delete=models.SET_NULL, null=True)
-    # Add other fields related to the user's purchase of the video
 
 class UserCakePurchase(models.Model):
     user_purchase = models.ForeignKey(UserPurchase, on_delete=models.CASCADE)
-    cake = models.ForeignKey(Cake, on_delete=models.SET_NULL, null=True)
+    cake_variant = models.ForeignKey(CakeVariant, on_delete=models.SET_NULL, null=True)
+
+class UserProductPurchase(models.Model):
+    user_purchase = models.ForeignKey(UserPurchase, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
 
 
 class UserCustomerID(models.Model):
