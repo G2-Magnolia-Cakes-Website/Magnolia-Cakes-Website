@@ -143,7 +143,3 @@ admin.site.register(UserFirstOrder, UserFirstOrderAdmin)
 admin.site.register(StripeCoupon, StripeCouponAdmin)
 admin.site.register(StripePromotion, StripePromotionAdmin)
 admin.site.register(UserPurchase, UserPurchaseAdmin)
-
-admin.site.register(UserVideoPurchase)
-admin.site.register(UserCakePurchase)
-admin.site.register(UserProductPurchase)
