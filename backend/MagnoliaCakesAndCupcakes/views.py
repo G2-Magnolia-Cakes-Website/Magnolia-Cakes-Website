@@ -280,7 +280,7 @@ def products_list(request):
 @permission_classes([AllowAny])
 def cakes_list(request):
     if request.method == "GET":
-        cakesizeprices = Cake.objects.all()
+        cakesizeprices = CakeVariant.objects.all()
         serializer = CakeSerializer(cakesizeprices, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -451,8 +451,8 @@ def reset_names(request):
 @permission_classes([AllowAny])
 def gallery_categories_list(request):
     if request.method == "GET":
-        categories = CakeCategory.objects.all()
-        serializer = CakeCategorySerializer(categories, many=True)
+        categories = GalleryCategory.objects.all()
+        serializer = GalleryCategorySerializer(categories, many=True)
         return Response(serializer.data)
 
 
@@ -506,7 +506,7 @@ def create_checkout_session(request):
         gotPrice = False
         cake_id = item.get("cakeId")
         if cake_id != None:
-            cake = get_object_or_404(Cake, id=cake_id)
+            cake = get_object_or_404(CakeVariant, id=cake_id)
             if (cake.price_id):
                 line_item = {
                     'price': cake.price_id,  # Stripe price ID associated with the product
@@ -735,7 +735,7 @@ def get_video(request, video_id):
 
 @api_view(['GET'])
 def get_cake(request, cake_id):
-    cake = get_object_or_404(Cake, id=cake_id)
+    cake = get_object_or_404(CakeVariant, id=cake_id)
     cake_data = {
         'id': cake.id,
         'name': cake.name,
