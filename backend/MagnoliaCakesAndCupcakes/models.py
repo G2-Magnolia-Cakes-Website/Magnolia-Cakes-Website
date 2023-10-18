@@ -78,6 +78,7 @@ class Product(models.Model):
     active = models.BooleanField(default=True)
     product_id = models.CharField(max_length=100, blank=True, editable=False)
     price_id = models.CharField(max_length=100, blank=True, editable=False)
+    original_name = None  # Store the original name when the object is created
     product_type = models.CharField(
         max_length=10,
         choices=ProductType.choices,
@@ -87,91 +88,94 @@ class Product(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        if self.product_type == ProductType.CAKE:
-            # If the product type is "Cake," simply save the instance
-            super(Product, self).save(*args, **kwargs)
-            return
-        try:
-            stripe.api_key = settings.STRIPE_SECRET_KEY
-            if self.product_id:
-                # Product is being modified
-                stripe_product = stripe.Product.retrieve(self.product_id)
-                stripe_price = stripe.Price.retrieve(stripe_product.default_price)
+        # Store the original name when the object is created
+        if not self.id and self.name:
+            self.original_name = self.name
+        if self.product_type == ProductType.CUPCAKE:
+            try:
+                stripe.api_key = settings.STRIPE_SECRET_KEY
+                if self.product_id:
+                    # Product is being modified
+                    stripe_product = stripe.Product.retrieve(self.product_id)
+                    stripe_price = stripe.Price.retrieve(stripe_product.default_price)
 
-                # Price changed or not
-                if ((self.price * 100) != stripe_price.unit_amount):
-                    # Price changed
+                    # Price changed or not
+                    if ((self.price * 100) != stripe_price.unit_amount):
+                        # Price changed
 
+                        price = stripe.Price.create(
+                            product= self.product_id,
+                            unit_amount=int(self.price * 100),
+                            currency='aud',
+                        )
+                    
+                        stripe.Product.modify(
+                            self.product_id,
+                            name=self.name,
+                            description= self.description,
+                            active = self.active,
+                            metadata = {
+                                'flavor': self.flavor
+                            },
+                            default_price= price.id
+                        )
+
+                        stripe.Price.modify(
+                            self.price_id,
+                            active=False,
+                        )
+                    else:
+                        # Price not changed
+                        stripe.Product.modify(
+                            self.product_id,
+                            name=self.name,
+                            description= self.description,
+                            active = self.active,
+                            metadata = {
+                                'flavor': self.flavor
+                            },
+                        )
+                else:
+                    # Create a new coupon in Stripe
+                    product = stripe.Product.create(
+                        name = self.name,
+                        description = self.description,
+                        active = self.active,
+                        metadata = {
+                            'flavor': self.flavor
+                        },
+                    )
+                    self.product_id = product.id
+
+                    # Create the price
                     price = stripe.Price.create(
-                        product= self.product_id,
+                        product= product.id,
                         unit_amount=int(self.price * 100),
                         currency='aud',
                     )
-                
+                    self.price_id = price.id
+
+                    # Make price default price
                     stripe.Product.modify(
                         self.product_id,
-                        name=self.name,
-                        description= self.description,
-                        active = self.active,
-                        metadata = {
-                            'flavor': self.flavor
-                        },
                         default_price= price.id
                     )
 
-                    stripe.Price.modify(
-                        self.price_id,
-                        active=False,
-                    )
-                else:
-                    # Price not changed
-                    stripe.Product.modify(
-                        self.product_id,
-                        name=self.name,
-                        description= self.description,
-                        active = self.active,
-                        metadata = {
-                            'flavor': self.flavor
-                        },
-                    )
-            else:
-                # Create a new coupon in Stripe
-                product = stripe.Product.create(
-                    name = self.name,
-                    description = self.description,
-                    active = self.active,
-                    metadata = {
-                        'flavor': self.flavor
-                    },
-                )
-                self.product_id = product.id
+                # Rename the uploaded image to match the cake's name
+                if self.picture and hasattr(self.picture, "name") and self.original_name:
+                    self.picture.name = f"{self.original_name}.png"
 
-                # Create the price
-                price = stripe.Price.create(
-                    product= product.id,
-                    unit_amount=int(self.price * 100),
-                    currency='aud',
-                )
-                self.price_id = price.id
+                super(Product, self).save(*args, **kwargs)
 
-                # Make price default price
-                stripe.Product.modify(
-                    self.product_id,
-                    default_price= price.id
-                )
+            except stripe.error.StripeError as e:
+                # Handle the Stripe API error
+                raise ValidationError(f"Failed to update Stripe product: {str(e)}")
 
+        else:
             # Rename the uploaded image to match the cake's name
-            if self.picture and hasattr(self.picture, "name"):
-                self.picture.name = (
-                    f"{self.name}.png"  # You can change the file extension if needed
-                )
+            if self.picture and hasattr(self.picture, "name") and self.original_name:
+                self.picture.name = f"{self.original_name}.png"
             super(Product, self).save(*args, **kwargs)
-
-        except stripe.error.StripeError as e:
-            # Handle the Stripe API error
-            raise ValidationError(f"Failed to update Stripe product: {str(e)}")
-
-
     def delete(self, *args, **kwargs):
         # Only attempt to delete cupcake:
         
@@ -194,10 +198,15 @@ class Product(models.Model):
                 # Handle any other errors that occur during the API request
                 raise ValidationError(f"Failed to delete Stripe product: {str(e)}")
         
-        # Delete the associated image from Google Cloud Storage
+       # Delete the associated image from Google Cloud Storage
         if self.picture and hasattr(self.picture, "name"):
             image_path = self.picture.name
-            default_storage.delete(image_path)
+            try:
+                # Delete the image from the Google Cloud Storage bucket
+                default_storage.delete(image_path)
+            except Exception as e:
+                # Handle any errors that occur during image deletion
+                raise ValidationError(f"Failed to delete image: {str(e)}")
 
         super(Product, self).delete(*args, **kwargs)
 
