@@ -173,23 +173,26 @@ class Product(models.Model):
 
 
     def delete(self, *args, **kwargs):
-        # Delete on stripe:
-        try:
-            stripe.api_key = settings.STRIPE_SECRET_KEY
-            stripe.Product.modify(
-                self.product_id,
-                active=False,
-            )
-        except InvalidRequestError as e:
-            if e.code == "resource_missing":
-                # The product does not exist in Stripe, so it's considered deleted
-                pass
-            else:
+        # Only attempt to delete cupcake:
+        
+        if self.product_type == ProductType.CUPCAKE:
+            # Delete on stripe:
+            try:
+                stripe.api_key = settings.STRIPE_SECRET_KEY
+                stripe.Product.modify(
+                    self.product_id,
+                    active=False,
+                )
+            except InvalidRequestError as e:
+                if e.code == "resource_missing":
+                    # The product does not exist in Stripe, so it's considered deleted
+                    pass
+                else:
+                    # Handle any other errors that occur during the API request
+                    raise ValidationError(f"Failed to delete Stripe product: {str(e)}")
+            except stripe.error.StripeError as e:
                 # Handle any other errors that occur during the API request
                 raise ValidationError(f"Failed to delete Stripe product: {str(e)}")
-        except stripe.error.StripeError as e:
-            # Handle any other errors that occur during the API request
-            raise ValidationError(f"Failed to delete Stripe product: {str(e)}")
         
         # Delete the associated image from Google Cloud Storage
         if self.picture and hasattr(self.picture, "name"):

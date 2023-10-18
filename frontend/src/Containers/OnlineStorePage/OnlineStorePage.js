@@ -195,33 +195,38 @@ function OnlineStore({ api }) {
                       Select variant
                     </option>
                     {cakeVariants
-                      .filter((cakeVariant) => cakeVariant.cake === product.id)
-                      .map((cakeVariant) => (
-                        <option key={cakeVariant.id} value={cakeVariant.id}>
-                          {cakeVariant.size} - ${cakeVariant.price}
-                        </option>
-                      ))}
+                    .filter((cakeVariant) => cakeVariant.cake === product.id && cakeVariant.active)
+                    .map((cakeVariant) => (
+                      <option key={cakeVariant.id} value={cakeVariant.id}>
+                        {cakeVariant.size} - ${cakeVariant.price}
+                      </option>
+                    ))}
+
                   </select>
                 </div>
               )}
 
 
               {product.product_type === 'Cupcake' && <p>Price: ${product.price}</p>}
-
-              <div className="quantity-section">
-                <label htmlFor={`quantity-${product.id}`}>Quantity:</label>
-                <div className="quantity-control">
-                  <button className='quantity-decrease' onClick={() => handleQuantityChange(product.id, 'decrement')}>-</button>
-                  <span className="quantity__input"> {quantities[product.id]} </span>
-                  <button className='quantity-increase' onClick={() => handleQuantityChange(product.id, 'increment')}>+</button>
-                  
+              {product.active ? (
+                <div className="quantity-section">
+                  <label htmlFor={`quantity-${product.id}`}>Quantity:</label>
+                  <div className="quantity-control">
+                    <button className='quantity-decrease' onClick={() => handleQuantityChange(product.id, 'decrement')}>-</button>
+                    <span className="quantity__input"> {quantities[product.id]} </span>
+                    <button className='quantity-increase' onClick={() => handleQuantityChange(product.id, 'increment')}>+</button>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="buttons-section">
+                  <div className="unavailable-message">
+                    THIS ITEM IS UNAVAILABLE
+                  </div>
+                </div>
+              )}
 
-
-              {
-                (product.product_type === 'Cupcake' && quantities[product.id] > 0) || (product.product_type === 'Cake' 
-                && selectedCakeVariants[product.id] && quantities[product.id] > 0) ? (
+              {product.active && (
+                (product.product_type === 'Cupcake' && quantities[product.id] > 0) || (product.product_type === 'Cake' && selectedCakeVariants[product.id] && quantities[product.id] > 0) ? (
                   <div className="buttons-section">
                     <button className="button" onClick={() => handleAddToCart(product)}>
                       ADD TO CART
@@ -234,7 +239,9 @@ function OnlineStore({ api }) {
                     </button>
                   </div>
                 )
-              }
+)}
+
+
 
 
             </div>
