@@ -1,21 +1,23 @@
 h1.business-name {
   font-family: "Sacramento", cursive;
-  font-size: 128px;
+  font-size: 170px;
   text-align: center;
   width: fit-content;
   white-space: nowrap;
 }
 
 .quote-p-wrapper {
-  margin: 3rem 0 1rem;
+  margin: 4rem 0;
 }
 
 .quote-p-wrapper .quote {
   width: fit-content;
   white-space: nowrap;
   text-align: center;
-  font-size: 24px;
+  font-size: 38px;
   margin: 0 auto 0.5rem auto;
+  color: rgb(175, 83, 124);
+  /* color: rgb(88, 88, 88); */
 }
 
 .cake-pop {
@@ -24,14 +26,34 @@ h1.business-name {
   object-fit: cover;
 }
 
-@media (min-width: 1950px) {
+@media (min-width: 2220px) {
   h1.business-name {
-    font-size: 128px;
+    font-size: 180px;
   }
 
   .quote-p-wrapper .quote {
-    font-size: 32px;
+    font-size: 42px;
     margin: 1rem auto;
+  }
+}
+
+@media (max-width: 1930px) {
+  h1.business-name {
+    font-size: 130px;
+  }
+
+  .quote-p-wrapper .quote {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 1675px) {
+  h1.business-name {
+    font-size: 110px;
+  }
+
+  .quote-p-wrapper .quote {
+    font-size: 28px;
   }
 }
 
