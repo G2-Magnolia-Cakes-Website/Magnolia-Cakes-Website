@@ -35,7 +35,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 class CakeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Cake
+        model = CakeVariant
         fields = "__all__"
         
 class SliderImageSerializer(serializers.ModelSerializer):
@@ -76,9 +76,9 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class CakeCategorySerializer(serializers.ModelSerializer):
+class GalleryCategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = CakeCategory
+        model = GalleryCategory
         fields = "__all__"
 
 

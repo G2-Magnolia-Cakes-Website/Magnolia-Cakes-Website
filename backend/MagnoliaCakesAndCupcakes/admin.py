@@ -108,7 +108,7 @@ class UserPurchaseAdmin(admin.ModelAdmin):
         return ', '.join([cake.name for cake in obj.cakes.all()])
     display_cakes.short_description = 'Cake'
 
-admin.site.register(Cake)
+admin.site.register(CakeVariant)
 admin.site.register(TermsAndCondition)
 admin.site.register(Product)
 admin.site.register(FlavoursAndServings, FlavoursAndServingsAdmin)
@@ -120,7 +120,7 @@ admin.site.register(FooterContactUs)
 admin.site.register(FooterBusinessHours)
 admin.site.register(SocialMedias, SocialMediasAdmin)
 admin.site.register(FlavoursAndServingsInfo)
-admin.site.register(CakeCategory)
+admin.site.register(GalleryCategory)
 admin.site.register(GalleryItem)
 admin.site.register(LocationPageContent)
 admin.site.register(SliderImage)
