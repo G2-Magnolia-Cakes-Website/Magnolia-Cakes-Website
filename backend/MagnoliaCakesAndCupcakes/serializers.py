@@ -192,7 +192,8 @@ class UserPurchaseSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def create(self, validated_data):
-        cakes_data = validated_data.get('cakes', [])
+        cake_variant_data = validated_data.get('cake_variant', [])
+        products_data = validated_data.get('products', [])
         videos_data = validated_data.get('videos', [])
 
         user_purchase = UserPurchase.objects.create(
@@ -201,7 +202,8 @@ class UserPurchaseSerializer(serializers.ModelSerializer):
         )
 
         # Save cakes and videos related to the purchase
-        user_purchase.cakes.set(cakes_data)
         user_purchase.videos.set(videos_data)
+        user_purchase.cake_variant.set(cake_variant_data)
+        user_purchase.products.set(products_data)
 
         return user_purchase
