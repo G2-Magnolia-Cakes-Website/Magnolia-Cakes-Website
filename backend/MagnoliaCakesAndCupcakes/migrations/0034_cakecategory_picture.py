@@ -13,9 +13,9 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name='cakecategory',
+            model_name='gallerycategory',
             name='picture',
-            field=models.ImageField(default=django.utils.timezone.now, upload_to=MagnoliaCakesAndCupcakes.models.CakeCategory.upload_to__cake_category_cover),
+            field=models.ImageField(default=django.utils.timezone.now, upload_to=MagnoliaCakesAndCupcakes.models.CakeCategory.upload_to__gallery_category_cover),
             preserve_default=False,
         ),
     ]
