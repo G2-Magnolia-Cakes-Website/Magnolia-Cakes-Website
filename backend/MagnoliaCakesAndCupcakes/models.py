@@ -44,14 +44,14 @@ class TermsAndCondition(models.Model):
         return self.policy_name
 
 
-class CakeCategory(models.Model):
-    def upload_to__cake_category_cover(instance, filename):
+class GalleryCategory(models.Model):
+    def upload_to__gallery_category_cover(instance, filename):
         # Upload the image to a 'cakes' directory with the filename as the cake's name
-        return f"cake-category-cover/{filename}"
+        return f"gallery-category-cover/{filename}"
 
     name = models.CharField(max_length=100)
     picture = models.ImageField(
-        upload_to=upload_to__cake_category_cover
+        upload_to=upload_to__gallery_category_cover
     )  # Use the custom upload function
 
     def __str__(self):
@@ -523,17 +523,20 @@ def password_reset_token_created(
 
 
 class GalleryItem(models.Model):
+    original_name = None
+    # Rename the uploaded image to match the cake's name
     title = models.CharField(max_length=100, unique=True)
-    categories = models.ManyToManyField(CakeCategory)
+    categories = models.ManyToManyField(GalleryCategory)
     image = models.ImageField(upload_to="gallery/")
 
     def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
-        # Generate a unique filename based on the title
-        filename = f"{slugify(self.title)}.png"
-        self.image.name = filename  # Save directly to 'gallery' folder
+        if not self.id and self.title:
+            self.original_name = self.title
+        if self.image and hasattr(self.image, "name") and self.original_name:
+                    self.image.name = f"{self.original_name}.png"
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):

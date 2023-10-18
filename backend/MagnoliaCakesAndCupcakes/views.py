@@ -451,8 +451,8 @@ def reset_names(request):
 @permission_classes([AllowAny])
 def gallery_categories_list(request):
     if request.method == "GET":
-        categories = CakeCategory.objects.all()
-        serializer = CakeCategorySerializer(categories, many=True)
+        categories = GalleryCategory.objects.all()
+        serializer = GalleryCategorySerializer(categories, many=True)
         return Response(serializer.data)
 
 
