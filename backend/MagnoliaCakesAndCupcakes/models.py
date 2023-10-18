@@ -541,9 +541,8 @@ class GalleryItem(models.Model):
 
     def delete(self, *args, **kwargs):
         # Delete the associated image from the bucket
-        for image in self.images.all():
-            image_path = image.image.name
-            default_storage.delete(image_path)
+        image_path = self.image.name
+        default_storage.delete(image_path)
         super().delete(*args, **kwargs)
         
     class Meta:
