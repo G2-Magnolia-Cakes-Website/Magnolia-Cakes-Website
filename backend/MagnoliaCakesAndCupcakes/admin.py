@@ -76,15 +76,17 @@ class StripePromotionAdmin(admin.ModelAdmin):
     )
 
 
-
 class ContactUsEmailAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'your_email')
+
 
 class FlavoursAndServingsAdmin(admin.ModelAdmin):
     list_display = ('title', 'list', 'last_updated')
 
+
 class UserFirstOrderAdmin(admin.ModelAdmin):
     list_display = ('user', 'madeFirstOrder')
+
 
 class UserVideoAdmin(admin.ModelAdmin):
     list_display = ('user', 'display_videos')
@@ -93,19 +95,25 @@ class UserVideoAdmin(admin.ModelAdmin):
         return ', '.join([video.title for video in obj.videos.all()])
     display_videos.short_description = 'Videos'
 
+
 class VideoAdmin(admin.ModelAdmin):
     list_display = ('title', 'description', 'price', 'active')
 
+
 class UserPurchaseAdmin(admin.ModelAdmin):
-    list_display = ('user', 'display_cakes', 'display_videos', 'amount_paid', 'time_submitted')
+    list_display = ('user', 'display_videos', 'display_cake_variants', 'display_products', 'amount_paid', 'time_submitted', 'id')
 
     def display_videos(self, obj):
         return ', '.join([video.title for video in obj.videos.all()])
     display_videos.short_description = 'Videos'
 
-    def display_cakes(self, obj):
-        return ', '.join([cake.name for cake in obj.cakes.all()])
-    display_cakes.short_description = 'Cake'
+    def display_cake_variants(self, obj):
+        return ', '.join([str(cake_variant) for cake_variant in obj.cake_variant.all()])
+    display_cake_variants.short_description = 'Cake Variants'
+
+    def display_products(self, obj):
+        return ', '.join([product.name for product in obj.products.all()])
+    display_products.short_description = 'Products'
 
 admin.site.register(CakeVariant)
 admin.site.register(TermsAndCondition)
