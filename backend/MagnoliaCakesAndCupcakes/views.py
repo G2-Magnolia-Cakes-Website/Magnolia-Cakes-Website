@@ -40,6 +40,8 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 
+import requests
+
 import urllib.request
 
 # create a class for the Todo model viewsets
@@ -799,3 +801,19 @@ def get_cupcake(request, cake_id):
         'price_id': cake.price_id
     }
     return Response(cake_data, status=200)
+
+@api_view(['GET'])
+
+def get_stripe_session(request, session_id):
+    stripe_key = settings.STRIPE_SECRET_KEY
+    headers = {
+        "Authorization": f"Bearer {stripe_key}",
+    }
+
+    try:
+        response = requests.get(f"https://api.stripe.com/v1/checkout/sessions/{session_id}", headers=headers)
+        response.raise_for_status()
+        session_data = response.json()
+        return Response(session_data)
+    except Exception as e:
+        return Response({"error": str(e)})

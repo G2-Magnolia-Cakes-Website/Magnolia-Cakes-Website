@@ -119,4 +119,5 @@ urlpatterns = [
     path("api/videos/<int:video_id>/", views.get_video, name="get_video"),
     path("api/cakes/<int:cake_id>/", views.get_cake, name="get_cake"),
     path("api/cupcakes/<int:cake_id>/", views.get_cupcake, name="get_cupcake"),
+    path('api/stripe-session/<str:session_id>/', views.get_stripe_session, name='get_stripe_session'),
 ]

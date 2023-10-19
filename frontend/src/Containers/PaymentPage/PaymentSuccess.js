@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+
+
 const SuccessPage = ({ api }) => {
   const [sessionData, setSessionData] = useState(null);
   const [videoItemsJson, setVideoItemsJson] = useState(null);
@@ -19,34 +21,32 @@ const SuccessPage = ({ api }) => {
     const cupcakeItems = urlParams.get('x');
     setCupcakeItemsJson(cupcakeItems);  // Store cakeItemsJson in state
 
-    const stripeKey = process.env.REACT_APP_STRIPE_SECRET_KEY;
-
-    // Fetch the session object with the given session id
-    const fetchData = async () => {
+    const fetchSession = async () => {
       try {
-        // Stripe's url for session retrieving
-        const response = await fetch(
-          `https://api.stripe.com/v1/checkout/sessions/${sessionId}`,
+        const response = await api.get(
+          `/api/stripe-session/${sessionId}`,
           {
-            method: 'GET',
             headers: {
-              'Authorization': `Bearer ${stripeKey}`
-            }
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              Authorization: `Bearer ${localStorage.getItem(
+                'access_token'
+              )}`
+            },
+            withCredentials: true
           }
         );
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const session = await response.json();
-        setSessionData(session);
+        setSessionData(response.data)
       } catch (error) {
-        console.error('Error retrieving session object:', error);
+        console.error(`Error fetching session:`, error);
       }
-    };
+  };
+
     if (sessionId) {
-      fetchData();
+      fetchSession();
+
     }
-  }, [api, setSessionData]);
+  }, []);
 
   useEffect(() => {
     // For videos, we have videoID only, we need to save for the user: list of video names.
@@ -56,7 +56,6 @@ const SuccessPage = ({ api }) => {
       const cakesToPurchase = JSON.parse(cakeItemsJson);
       const cupcakesToPurchase = JSON.parse(cupcakeItemsJson);
       const videosToPurchase = JSON.parse(videoItemsJson);
-
       const purchaseItems = async () => {
           try {
             const response = await api.post(
