@@ -746,17 +746,11 @@ def set_user_firstOrder_true(request):
 @api_view(['POST'])
 def process_order(request):
     if request.method == "POST":
-        user = request.user
-        video_data = request.data.get('videos', [])
-        cake_data = request.data.get('cakes', [])
-        amount_paid = request.data.get('amount_paid', 0)  # Add logic to get the amount_paid from the request data
-
-        # Create a UserPurchase object along with related UserVideoPurchase and UserCakePurchase objects
-        user_purchase = UserPurchase.objects.create_with_related(user=user, videos_data=video_data, cakes_data=cake_data, amount_paid=amount_paid)
-
-        user_purchase_serializer = UserPurchaseSerializer(user_purchase)
-
-        return Response(user_purchase_serializer.data, status=201)
+        serializer = UserPurchaseSerializer(data=request.data, context={'user': request.user, 'request_data': request.data})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
 @api_view(['GET'])
 def get_orders(request):
