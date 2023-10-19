@@ -1,3 +1,6 @@
+.payment-container {
+    margin: 10px;
+}
 
 .payment-header {
     color: #B76E79;
@@ -14,4 +17,92 @@
     margin-right: auto;
     text-align: center;
     font-family: "Fredoka", sans-serif;
+}
+
+.payment-details-table-container {
+    display: flex;
+    justify-content: center;
+}
+
+.payment-details-table {
+    width: 100%;
+    max-width: 800px;
+    /* Adjust the maximum width as needed */
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.payment-details-table th,
+.payment-details-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.payment-details-table th {
+    background-color: #f2f2f2;
+    text-align: center;
+    font-family: "Fredoka", sans-serif;
+}
+
+.payment-details-table tr {
+    background-color: rgb(240, 223, 205);
+}
+
+.payment-details-table .item-type,
+.payment-details-table .item-name,
+.payment-details-table .item-price {
+    text-align: center;
+    font-family: "Fredoka", sans-serif;
+}
+
+.payment-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding: 8px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto; /* Center the payment-bottom horizontally */
+}
+
+
+.payment-amount {
+    /* padding: 10px; */
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    background-color: rgb(240, 223, 205); /* Set background color */
+}
+
+.amount-paid {
+    margin-right: 8px;
+    font-family: "Fredoka", sans-serif;
+    background-color: rgb(240, 223, 205); /* Set background color */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.amount-paid-value {
+    font-family: "Fredoka", sans-serif;
+    background-color: rgb(240, 223, 205); /* Set background color */
+    padding: 10px;
+    /* border: 1px solid #ccc; */
+    border-radius: 10px;
+}
+
+.payment-return-home {
+    flex-shrink: 0;
+    /* Prevent this section from shrinking */
+}
+
+/* Media Query for responsiveness */
+@media (max-width: 768px) {
+    .payment-details-table {
+        max-width: 100%;
+        /* Full width on small screens */
+    }
 }
