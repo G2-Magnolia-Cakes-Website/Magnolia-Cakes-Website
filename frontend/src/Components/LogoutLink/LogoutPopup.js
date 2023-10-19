@@ -4,6 +4,7 @@ import BarLoader from "react-spinners/BarLoader";
 import RoseGoldButton from "Components/RoseGoldButton/RoseGoldButton";
 import GreyButton from "Components/GreyButton/GreyButton";
 import { Cross } from "hamburger-react";
+import { clearLocalStorage } from 'utils/LocalStorage/LocalStorageUtils';
 
 import "./LogoutPopup.css";
 
@@ -33,7 +34,10 @@ function LogoutPopup(props) {
       });
 
       if (res.status === 205) {
-        localStorage.clear();
+
+        // Remove credentials in local storage
+        clearLocalStorage();
+
         props.api.defaults.headers.common["Authorization"] = null;
 
         props.setTrigger(false);
