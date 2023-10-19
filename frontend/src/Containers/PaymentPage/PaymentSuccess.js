@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import './PaymentSuccess.css'
+
 const SuccessPage = ({ api }) => {
   const [sessionData, setSessionData] = useState(null);
   const [videoItemsJson, setVideoItemsJson] = useState(null);
@@ -43,8 +45,16 @@ const SuccessPage = ({ api }) => {
         console.error('Error retrieving session object:', error);
       }
     };
+    
     if (sessionId) {
       fetchData();
+    }
+
+    // Check if purchase is already processed in localStorage
+    const isPurchaseProcessed = localStorage.getItem('purchaseProcessed');
+    if (isPurchaseProcessed === 'true') {
+      setProcessed(true); // Purchase has already been processed
+      setPurchased(true); // Purchase has already been processed
     }
   }, [api, setSessionData]);
 
@@ -85,6 +95,8 @@ const SuccessPage = ({ api }) => {
 
       purchaseItems();
       setProcessed(true);
+      // Mark the purchase as processed in localStorage
+      localStorage.setItem('purchaseProcessed', 'true');
     }
   }, [sessionData])
 
@@ -125,8 +137,8 @@ const SuccessPage = ({ api }) => {
 
   return (
     <div>
-      <h2>Payment Successful</h2>
-      <p>Thank you for your purchase!</p>
+      <h1 className='payment-header'>Payment Successful</h1>
+      <p className='payment-intro'>Thank you for your purchase! Here are the payment details:</p>
     </div>
   );
 };

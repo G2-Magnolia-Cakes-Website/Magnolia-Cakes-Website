@@ -1,0 +1,17 @@
+
+.payment-header {
+    color: #B76E79;
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-family: "Fredoka", sans-serif;
+    font-size: 50px;
+}
+
+.payment-intro {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-family: "Fredoka", sans-serif;
+}

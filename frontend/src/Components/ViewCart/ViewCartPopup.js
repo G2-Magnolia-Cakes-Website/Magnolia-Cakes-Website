@@ -26,6 +26,10 @@ function ViewCartPopup(props, { api }) {
   };
 
   const handleProceedToPayment = async () => {
+    
+    // Reset purchased to false so user can purchase again
+    localStorage.setItem('purchaseProcessed', 'false');
+    
     if (!localStorage.getItem("access_token")) {
       props.setTrigger(false)
       navigate('/login')
