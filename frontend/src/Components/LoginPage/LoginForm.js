@@ -78,6 +78,8 @@ export default function LoginForm({ api, handleLoginSuccess }) {
 
           getUserDetails();
 
+          getCustomerID();
+
           handleLoginSuccess(); // Call the callback function to update the isAuth state in the App component
 
           navigate("/");
@@ -130,6 +132,29 @@ export default function LoginForm({ api, handleLoginSuccess }) {
       }
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const getCustomerID = async (e) => {
+    try {
+      // get user
+
+      let res = await api.get("/api/user/customer_id/", {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+        withCredentials: true,
+      });
+
+      if (res.status === 200) {
+        localStorage.setItem("customer_id", res.data.customer_id);
+      } else {
+        console.error(res);
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 

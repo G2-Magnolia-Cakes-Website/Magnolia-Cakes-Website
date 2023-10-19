@@ -69,6 +69,7 @@ def register(request):
             # Create user profile
             UserVideo.objects.create(user=user)
             UserFirstOrder.objects.create(user=user)
+            UserCustomerID.objects.create(user=user)
 
             return activateEmail(request, user, form.cleaned_data.get("username"))
         return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -437,6 +438,21 @@ def reset_names(request):
             user.first_name = first_name
             user.last_name = last_name
             user.save()
+
+            # Check if the user has a UserCustomerID associated with them
+            try:
+                user_customer_id = UserCustomerID.objects.get(user=user)
+
+                # Update the Stripe customer's name using the Stripe API
+                if user_customer_id.customer_id:
+                    stripe.api_key = settings.STRIPE_SECRET_KEY
+                    stripe.Customer.modify(
+                        user_customer_id.customer_id,
+                        name=f'{first_name} {last_name}'
+                    )
+            except UserCustomerID.DoesNotExist:
+                # Handle the case where the user doesn't have a UserCustomerID
+                UserCustomerID.objects.create(user=user)
             
             # Return a JSON response indicating success
             return Response({'message': 'Name updated successfully'}, status=status.HTTP_200_OK)
@@ -617,6 +633,7 @@ def create_checkout_session(request):
         allow_promotion_codes=True,
         success_url = f"{settings.FRONTEND_APP_URL}/success?checkout_session={{CHECKOUT_SESSION_ID}}&user={request.data.get('email')}&code={video_items_json}&i={cake_items_json}&x={cupcakes_items_json}",
         cancel_url= f"{settings.FRONTEND_APP_URL}/online-store",
+        customer = request.data.get('customer_id')
     )
 
     return Response({'id': checkout_session.id, 'total_amount_with_fees': round(P_charge, 2)})
@@ -746,11 +763,17 @@ def set_user_firstOrder_true(request):
 @api_view(['POST'])
 def process_order(request):
     if request.method == "POST":
-        serializer = UserPurchaseSerializer(data=request.data, context={'user': request.user, 'request_data': request.data})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+        user = request.user
+        video_data = request.data.get('videos', [])
+        cake_data = request.data.get('cakes', [])
+        amount_paid = request.data.get('amount_paid', 0)  # Add logic to get the amount_paid from the request data
+
+        # Create a UserPurchase object along with related UserVideoPurchase and UserCakePurchase objects
+        user_purchase = UserPurchase.objects.create_with_related(user=user, videos_data=video_data, cakes_data=cake_data, amount_paid=amount_paid)
+
+        user_purchase_serializer = UserPurchaseSerializer(user_purchase)
+
+        return Response(user_purchase_serializer.data, status=201)
 
 @api_view(['GET'])
 def get_orders(request):
@@ -791,3 +814,15 @@ def get_cupcake(request, cake_id):
         'price_id': cake.price_id
     }
     return Response(cake_data, status=200)
+
+@api_view(['GET'])
+def get_customer_id(request):
+    if request.method == "GET":
+        user = request.user
+        try:
+            user_customer_id = UserCustomerID.objects.get(user=user)
+            serializer = UserCustomerIDSerialiser(user_customer_id)
+            return Response(serializer.data)
+        except UserCustomerID.DoesNotExist:
+            # Handle the case where the UserCustomerID does not exist for the user.
+            return Response({"detail": "UserCustomerID does not exist for this user."}, status=status.HTTP_404_NOT_FOUND)
