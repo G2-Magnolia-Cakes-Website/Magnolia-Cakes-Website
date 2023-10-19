@@ -203,28 +203,31 @@ function OnlineStore({ api }) {
                   <br /><br></br>
                   <h3>{product.name}</h3>
 
-                  <p>Flavour: <select
-                        id={`type-${product.id}`}
-                        onChange={(event) => {
-                          const selectedFlavorId = event.target.value;
-                          setSelectedFlavor({
-                            ...selectedFlavor,
-                            [product.id]: selectedFlavorId,
-                          });
-                        }}
-                      >
-                        <option disabled selected>
-                          Select flavour
-                        </option>
-                        {flavors
-                          .filter((flavor) => flavor.product_item === product.id && flavor.active)
-                          .map((flavor) => (
-                            <option key={flavor.id} value={flavor.id}>
-                              {flavor.name} 
-                            </option>
-                          ))}
+                  <p>Flavour:
+                    <select
+                      id={`type-${product.id}`}
+                      onChange={(event) => {
+                        const selectedFlavorId = event.target.value;
+                        setSelectedFlavor({
+                          ...selectedFlavor,
+                          [product.id]: selectedFlavorId,
+                        });
+                        
+                      }}
+                    >
+                      <option disabled selected>
+                        Select flavour
+                      </option>
+                      {flavors
+                        .filter((flavor) => flavor.product_item === product.id && flavor.active)
+                        .map((flavor) => (
+                          <option key={flavor.id} value={flavor.id}>
+                            {flavor.name}
+                          </option>
+                        ))}
+                    </select>
+                  </p>
 
-                      </select></p>
                   <p>Type: {product.product_type}</p>
                   {product.product_type === 'Cake' && (
                     <div className="quantity-section">
@@ -242,16 +245,24 @@ function OnlineStore({ api }) {
                           Select variant
                         </option>
                         {cakeVariants
-                          .filter((cakeVariant) => cakeVariant.product_id_link === product.id && cakeVariant.active)
+                          .filter((cakeVariant) => {
+                            console.log(cakeVariant.cake)
+                            console.log(selectedFlavor[product.id])
+                            return (
+                              cakeVariant.cake === parseInt(selectedFlavor[product.id]) && // Filter by selected flavor
+                              cakeVariant.active
+                            );
+                   
+                          })
                           .map((cakeVariant) => (
                             <option key={cakeVariant.id} value={cakeVariant.id}>
                               {cakeVariant.size} - ${cakeVariant.price}
                             </option>
                           ))}
-
                       </select>
                     </div>
                   )}
+
 
 
                   {product.product_type === 'Cupcake' && 

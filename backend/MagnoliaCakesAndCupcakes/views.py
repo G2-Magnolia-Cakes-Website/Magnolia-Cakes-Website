@@ -783,7 +783,7 @@ def get_cake(request, cake_id):
     cake = get_object_or_404(CakeVariant, id=cake_id)
     cake_data = {
         'id': cake.id,
-        'name': cake.cake.name,
+        'name': cake.product_name,
         'price': cake.price,
         'price_id': cake.price_id
     }

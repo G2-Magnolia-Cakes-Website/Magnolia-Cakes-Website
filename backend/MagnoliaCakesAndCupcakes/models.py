@@ -223,19 +223,25 @@ class CakeVariant(models.Model):
     active = models.BooleanField(default=True)
     product_id_link = models.IntegerField(editable=False)
     
+    product_name = models.CharField(editable=False)
     product_id = models.CharField(max_length=100, blank=True, editable=False)
     price_id = models.CharField(max_length=100, blank=True, editable=False)
     
     def __str__(self):
-        return f"{self.cake.name} - {self.size} - ${self.price}"
+        if self.cake:
+            # Update the product_type based on the linked product
+            self.product_name = self.cake.product_item.name
+
+
+            return f"{self.product_name} - {self.cake.name} - {self.size} - ${self.price}"
     
     def save(self, *args, **kwargs):
         if self.cake:
             # Update the product_type based on the linked product
-            product_name = self.cake.product_item.name
-            print(product_name)
+            self.product_name = self.cake.product_item.name
+
             self.product_id_link = self.cake.product_item.id
-            print(self.product_id_link)
+
             try:
                 stripe.api_key = settings.STRIPE_SECRET_KEY
                 if self.cake.product_id:
@@ -270,7 +276,7 @@ class CakeVariant(models.Model):
                 else:
                     # Create a new product in Stripe
                     product = stripe.Product.create(
-                        name=f"{product_name} - {self.cake.name}",
+                        name=f"{self.product_name} - {self.cake.name}",
                         description=f"Cake variant: {self.size}",
                         active=self.active,
                     )

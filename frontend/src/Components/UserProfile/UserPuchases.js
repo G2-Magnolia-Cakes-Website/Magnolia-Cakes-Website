@@ -132,7 +132,7 @@ function UserPurchases({ api }) {
           const videoDetails = await Promise.all(videoDetailsPromises);
           const cakeDetails = await Promise.all(cakeDetailsPromises);
           const productDetails = await Promise.all(productDetailsPromises);
-
+          console.log(cakeDetails)
           const purchaseWithDetails = {
             ...purchase,
             videos: videoDetails.filter((video) => video !== null),
@@ -186,6 +186,7 @@ function UserPurchases({ api }) {
                   </tr>
                 ))}
                 {purchase.cake_variant.map(cake => (
+                  
                   <tr key={cake.id}>
                     <td>Cake</td>
                     <td>{cake.name}</td>
