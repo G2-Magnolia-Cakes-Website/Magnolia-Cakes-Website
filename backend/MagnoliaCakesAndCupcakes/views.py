@@ -525,6 +525,23 @@ def create_checkout_session(request):
                         'quantity': item.get('quantity', 1),
                     }
                     gotPrice = True
+            try:
+                cake = CakeVariant.objects.get(id=cake_id)
+                if (cake.price_id):
+                    line_item = {
+                        'price': cake.price_id,
+                        'quantity': item.get('quantity', 1),
+                    }
+                    gotPrice = True
+
+            except CakeVariant.DoesNotExist:
+                cake = Product.objects.get(id=cake_id)
+                if (cake.price_id):
+                    line_item = {
+                        'price': cake.price_id,
+                        'quantity': item.get('quantity', 1),
+                    }
+                    gotPrice = True
 
             except Product.DoesNotExist:
                 return Response({'error': 'CakeVariant and Product not found'}, status=404)
