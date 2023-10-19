@@ -10,6 +10,9 @@ function OnlineStore({ api }) {
   const [cakeVariants, setCakeVariants] = useState([]);
   const [selectedCakeVariants, setSelectedCakeVariants] = useState({});
 
+  const [flavors, setFlavors] = useState([]);
+  const [selectedFlavor, setSelectedFlavor] = useState({});
+
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
 
@@ -79,18 +82,22 @@ function OnlineStore({ api }) {
     const cakeVariant = cakeVariants
       .find((cakeVariant) => cakeVariant.id === parseInt(selectedCakeVariants[product.id]))
 
+    const flavor_chose = flavors
+      .find((flavor) => flavor.id === parseInt(selectedFlavor[product.id]))
+    console.log(flavor_chose)
+    console.log(cakeVariant)
     // Retrieve existing cart items or initialize an empty array
     const existingCart = JSON.parse(localStorage.getItem('Cart')) || [];
 
     if (product.product_type === 'Cupcake') {
       // Add the selected cupcake to the cart
       const cartItem = {
-        name: product.name,
+        name: product.name + " - " + flavor_chose.name,
         type: 'cupcake',
         price: product.price,
         quantity: quantities[product.id],
         videoId: null,
-        cakeId: product.id
+        cakeId: flavor_chose.product_item
       };
 
       // Check if the item already exists in the cart
@@ -106,7 +113,7 @@ function OnlineStore({ api }) {
     } else if (product.product_type === 'Cake' && cakeVariant) {
       // Add the selected cake variant to the cart for cake products
       const cartItem = {
-        name: product.name + " - " + cakeVariant.size,
+        name: product.name +" - " + flavor_chose.name + " - " + cakeVariant.size,
         type: 'cake',
         price: cakeVariant.price,
         quantity: quantities[product.id],
@@ -130,8 +137,26 @@ function OnlineStore({ api }) {
     localStorage.setItem('Cart', JSON.stringify(existingCart));
   };
 
+  useEffect(() => {
+    // Fetch cakes data from the API
+    const fetchFlavor = async () => {
+      try {
+        const response = await api.get("api/flavors/");
+    
+        setFlavors(response.data);
+        
+  
+      } catch (error) {
+        console.error("Error fetching flavors:", error);
+      }
+      setLoading(false);
+    };
+    fetchFlavor();
 
-  const fetchCakeVariants = async (cakeId) => {
+  }, [api]);
+
+
+  const fetchCakeVariants = async () => {
     try {
       const response = await api.get('api/cakes/');
       setCakeVariants(response.data);
@@ -145,11 +170,10 @@ function OnlineStore({ api }) {
     // Fetch cake variants for each cake product
     products.forEach((product) => {
       if (product.product_type === 'Cake') {
-        fetchCakeVariants(product.id);
+        fetchCakeVariants();
       }
     });
   }, [products]);
-
 
   return (
     <>
@@ -179,7 +203,28 @@ function OnlineStore({ api }) {
                   <br /><br></br>
                   <h3>{product.name}</h3>
 
-                  <p>Flavour: {product.flavor}</p>
+                  <p>Flavour: <select
+                        id={`type-${product.id}`}
+                        onChange={(event) => {
+                          const selectedFlavorId = event.target.value;
+                          setSelectedFlavor({
+                            ...selectedFlavor,
+                            [product.id]: selectedFlavorId,
+                          });
+                        }}
+                      >
+                        <option disabled selected>
+                          Select flavour
+                        </option>
+                        {flavors
+                          .filter((flavor) => flavor.product_item === product.id && flavor.active)
+                          .map((flavor) => (
+                            <option key={flavor.id} value={flavor.id}>
+                              {flavor.name} 
+                            </option>
+                          ))}
+
+                      </select></p>
                   <p>Type: {product.product_type}</p>
                   {product.product_type === 'Cake' && (
                     <div className="quantity-section">
@@ -197,7 +242,7 @@ function OnlineStore({ api }) {
                           Select variant
                         </option>
                         {cakeVariants
-                          .filter((cakeVariant) => cakeVariant.cake === product.id && cakeVariant.active)
+                          .filter((cakeVariant) => cakeVariant.product_id_link === product.id && cakeVariant.active)
                           .map((cakeVariant) => (
                             <option key={cakeVariant.id} value={cakeVariant.id}>
                               {cakeVariant.size} - ${cakeVariant.price}
@@ -209,7 +254,8 @@ function OnlineStore({ api }) {
                   )}
 
 
-                  {product.product_type === 'Cupcake' && <p>Price: ${product.price}</p>}
+                  {product.product_type === 'Cupcake' && 
+                  <p>Price: ${product.price}</p>}
                   {product.active ? (
                     <div className="quantity-section">
                       <label htmlFor={`quantity-${product.id}`}>Quantity:</label>
@@ -228,7 +274,7 @@ function OnlineStore({ api }) {
                   )}
 
                   {product.active && (
-                    (product.product_type === 'Cupcake' && quantities[product.id] > 0) || (product.product_type === 'Cake' && selectedCakeVariants[product.id] && quantities[product.id] > 0) ? (
+                    (product.product_type === 'Cupcake' && quantities[product.id] > 0) && selectedFlavor[product.id]|| (product.product_type === 'Cake' && selectedCakeVariants[product.id] && quantities[product.id] > 0 && selectedFlavor[product.id] ) ? (
                       <div className="buttons-section">
                         <button className="button" onClick={() => handleAddToCart(product)}>
                           ADD TO CART

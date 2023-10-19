@@ -115,6 +115,7 @@ class UserPurchaseAdmin(admin.ModelAdmin):
         return ', '.join([product.name for product in obj.products.all()])
     display_products.short_description = 'Products'
 
+admin.site.register(Flavor)
 admin.site.register(CakeVariant)
 admin.site.register(TermsAndCondition)
 admin.site.register(Product)

@@ -278,6 +278,14 @@ def products_list(request):
     
 @api_view(["GET"])
 @permission_classes([AllowAny])
+def flavor_list(request):
+    if request.method == "GET":
+        flavor = Flavor.objects.all()
+        serializer = FlavorSerializer(flavor, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+@api_view(["GET"])
+@permission_classes([AllowAny])
 def cakes_list(request):
     if request.method == "GET":
         cakesizeprices = CakeVariant.objects.all()

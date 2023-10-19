@@ -34,7 +34,10 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = "__all__"
 
-
+class FlavorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Flavor
+        fields = "__all__"
 class CakeSerializer(serializers.ModelSerializer):
     class Meta:
         model = CakeVariant
