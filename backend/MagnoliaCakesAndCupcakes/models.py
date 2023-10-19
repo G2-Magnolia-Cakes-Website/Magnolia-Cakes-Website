@@ -1025,7 +1025,7 @@ class StripePromotion(models.Model):
     is_displayed = models.BooleanField(default=False)
     display_after = models.IntegerField(default=30, help_text='Set this field to display the popup after the given amount of seconds. (Recommended 30 seconds)')
     only_logged_in_users = models.BooleanField(default=False)
-    only_first_purchase_of_user = models.BooleanField(default=False)
+    only_first_purchase_of_user = models.BooleanField(default=False, help_text='You cannot change this field after creating the promotion.')
     minimum_amount = models.DecimalField(max_digits=5, decimal_places=2, default=0.0, help_text='You cannot change this field after creating the Coupon.')
     description = models.TextField(blank=True)
 
@@ -1049,7 +1049,7 @@ class StripePromotion(models.Model):
                     or original_promotion.minimum_amount != self.minimum_amount
                 ):
                     raise ValidationError(
-                        "Cannot update fields other than 'is_displayed' or 'description'",
+                        "Cannot update fields other than 'is_displayed', 'display_after', 'only_logged_in_users' or 'description'",
                         code='restricted_fields'
                     )
             except StripePromotion.DoesNotExist:

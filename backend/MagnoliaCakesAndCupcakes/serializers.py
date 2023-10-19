@@ -230,6 +230,7 @@ class UserPurchaseSerializer(serializers.ModelSerializer):
 
         return user_purchase
 
+        
 class UserCustomerIDSerialiser(serializers.ModelSerializer):
     class Meta:
         model = UserCustomerID

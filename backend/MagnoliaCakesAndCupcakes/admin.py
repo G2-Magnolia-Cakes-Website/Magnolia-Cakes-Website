@@ -53,7 +53,7 @@ class StripePromotionAdmin(admin.ModelAdmin):
         "is_displayed",
         "display_after_formatted",
         "only_logged_in_users",
-        "only_first_purchase_of_user",        
+        "only_first_purchase_of_user",
         'minimum_amount',
         "description",
     )
@@ -81,12 +81,15 @@ class ContactUsEmailAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'your_email')
 
 
+
 class FlavoursAndServingsAdmin(admin.ModelAdmin):
     list_display = ('title', 'list', 'last_updated')
 
 
+
 class UserFirstOrderAdmin(admin.ModelAdmin):
     list_display = ('user', 'madeFirstOrder')
+
 
 
 class UserVideoAdmin(admin.ModelAdmin):
@@ -97,8 +100,10 @@ class UserVideoAdmin(admin.ModelAdmin):
     display_videos.short_description = 'Videos'
 
 
+
 class VideoAdmin(admin.ModelAdmin):
     list_display = ('title', 'description', 'price', 'active')
+
 
 
 class UserPurchaseAdmin(admin.ModelAdmin):

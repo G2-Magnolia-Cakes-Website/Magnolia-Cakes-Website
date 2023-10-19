@@ -442,7 +442,7 @@ def reset_names(request):
             # Check if the user has a UserCustomerID associated with them
             try:
                 user_customer_id = UserCustomerID.objects.get(user=user)
-
+                
                 # Update the Stripe customer's name using the Stripe API
                 if user_customer_id.customer_id:
                     stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -524,23 +524,6 @@ def create_checkout_session(request):
         gotPrice = False
         cake_id = item.get("cakeId")
         if cake_id != None:
-            try:
-                cake = CakeVariant.objects.get(id=cake_id)
-                if (cake.price_id):
-                    line_item = {
-                        'price': cake.price_id,
-                        'quantity': item.get('quantity', 1),
-                    }
-                    gotPrice = True
-
-            except CakeVariant.DoesNotExist:
-                cake = Product.objects.get(id=cake_id)
-                if (cake.price_id):
-                    line_item = {
-                        'price': cake.price_id,
-                        'quantity': item.get('quantity', 1),
-                    }
-                    gotPrice = True
             try:
                 cake = CakeVariant.objects.get(id=cake_id)
                 if (cake.price_id):
