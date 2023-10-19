@@ -5,6 +5,7 @@ import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import BarLoader from "react-spinners/BarLoader";
 import { AuthContext } from "../../AuthContext";
+import { clearLocalStorage } from 'utils/LocalStorage/LocalStorageUtils';
 
 export default function LoginForm({ api, handleLoginSuccess }) {
   const navigate = useNavigate();
@@ -65,8 +66,10 @@ export default function LoginForm({ api, handleLoginSuccess }) {
           setError(false);
           setErrorMessage(defaultErrorMessage);
 
+          // Remove credentials in local storage
+          clearLocalStorage();
+
           // Initialize the access & refresh token in localstorage.
-          localStorage.clear();
           localStorage.setItem("access_token", res.data.access);
           localStorage.setItem("refresh_token", res.data.refresh);
           api.defaults.headers.common[

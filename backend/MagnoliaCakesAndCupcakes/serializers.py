@@ -1,6 +1,8 @@
 # import serializers from the REST framework
 from rest_framework import serializers
 
+from django.db import transaction
+
 # import the todo data model
 from .models import *
 
@@ -192,8 +194,10 @@ class UserPurchaseSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def create(self, validated_data):
-        cakes_data = validated_data.get('cakes', [])
-        videos_data = validated_data.get('videos', [])
+        request_data = self.context.get('request_data')
+        cake_variant_data = request_data.get('cakes', [])
+        products_data = request_data.get('cupcakes', [])
+        videos_data = request_data.get('videos', [])
 
         user_purchase = UserPurchase.objects.create(
             user=self.context['user'],
@@ -201,8 +205,28 @@ class UserPurchaseSerializer(serializers.ModelSerializer):
         )
 
         # Save cakes and videos related to the purchase
-        user_purchase.cakes.set(cakes_data)
-        user_purchase.videos.set(videos_data)
+        try:
+            with transaction.atomic():
+                # user_purchase = UserPurchase.objects.create(user=user, amount_paid=amount_paid)
+
+                # Create UserVideoPurchase objects
+                for video_id in videos_data:
+                    video = Video.objects.get(id=video_id)
+                    UserVideoPurchase.objects.create(user_purchase=user_purchase, video=video)
+
+                # Create UserCakePurchase objects
+                for cake_id in cake_variant_data:
+                    cake_variant = CakeVariant.objects.get(id=cake_id)
+                    UserCakePurchase.objects.create(user_purchase=user_purchase, cake_variant=cake_variant)
+
+                # Create UserProductPurchase objects
+                for product_id in products_data:
+                    product = Product.objects.get(id=product_id)
+                    UserProductPurchase.objects.create(user_purchase=user_purchase, product=product)
+
+        except Exception as e:
+            print(f"Error creating related objects: {str(e)}")
+            raise e
 
         return user_purchase
 
