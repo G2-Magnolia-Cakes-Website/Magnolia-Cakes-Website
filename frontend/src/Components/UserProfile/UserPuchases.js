@@ -1,6 +1,5 @@
 import './ProfilePage.css';
 import './UserPurchases.css';
-import Form from "./ProfileForm"
 import React, { useEffect, useState } from "react";
 
 function formatDate(timestamp) {
@@ -53,7 +52,14 @@ function UserPurchases({ api }) {
 
       const fetchVideoDetails = async (videoId) => {
         try {
-          const res = await api.get(`/api/videos/${videoId}/`);
+          const res = await api.get(`/api/videos/${videoId}/`, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            },
+            withCredentials: true,
+          });
 
           if (res.status === 200) {
             return res.data; // Return the video details
@@ -70,7 +76,14 @@ function UserPurchases({ api }) {
 
       const fetchCakeDetails = async (cakeId) => {
         try {
-          const res = await api.get(`/api/cakes/${cakeId}/`);
+          const res = await api.get(`/api/cakes/${cakeId}/`, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            },
+            withCredentials: true,
+          });
 
           if (res.status === 200) {
             return res.data; // Return the cake details
@@ -87,7 +100,14 @@ function UserPurchases({ api }) {
 
       const fetchProductDetails = async (productId) => {
         try {
-          const res = await api.get(`/api/cupcakes/${productId}/`);
+          const res = await api.get(`/api/cupcakes/${productId}/`, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            },
+            withCredentials: true,
+          });
       
           if (res.status === 200) {
             return res.data; // Return the product details
@@ -123,8 +143,6 @@ function UserPurchases({ api }) {
           return purchaseWithDetails;
         })
       );
-
-      console.log('Purchases with Details:', purchasesWithDetails);
 
       setPurchases(purchasesWithDetails);
     };
