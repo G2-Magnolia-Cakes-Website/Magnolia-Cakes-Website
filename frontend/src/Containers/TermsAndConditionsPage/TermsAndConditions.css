@@ -57,15 +57,32 @@
   width: 100%;
 }
 
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 650px) {
-
-  .FAQ-header {
-      font-size: 50px;
+/* Mobile view */
+@media (max-width: 767px) {
+  .PolicyList {
+    width: 90%; /* Adjusted width for mobile */
   }
-
-  .FAQ-questions {
-      width: 90%;
+  .TextSection{
+    padding-left: 20px;
+    padding-right: 20px;
   }
+}
 
+/* Tablet portrait view */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .PolicyList {
+    width: 70%; /* Adjusted width for tablet in portrait */
+  }
+  .TextSection{
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+/* Tablet landscape view */
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
+  .PolicyList {
+    width: 50%; /* Adjusted width for tablet in landscape */
+  }
+  
 }

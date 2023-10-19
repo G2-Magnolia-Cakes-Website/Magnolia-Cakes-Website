@@ -43,7 +43,8 @@ urlpatterns = [
     path("api/login/", views.login, name="api-login"),
     path("api/user/", views.get_user, name="get-user"),
     path("api/logout/", views.LogoutView.as_view(), name="logout"),
-    path("api/cakes/", views.cakes_list, name="cake-list"),
+    path("api/products/", views.products_list, name="products-list"),
+    path("api/cakes/", views.cakes_list, name="cakes-list"),
     path("api/faq/categories/", views.faq_categories_list, name="faq-categories-list"),
     path("api/faq/questions/", views.faq_questions_list, name="faq-questions-list"),
     path("api/contact/", views.contact, name="contact"),
@@ -116,4 +117,5 @@ urlpatterns = [
     path("api/user/get/purchases/", views.get_orders, name="get_purchases"),
     path("api/videos/<int:video_id>/", views.get_video, name="get_video"),
     path("api/cakes/<int:cake_id>/", views.get_cake, name="get_cake"),
+    path("api/cupcakes/<int:cake_id>/", views.get_cupcake, name="get_cupcake"),
 ]

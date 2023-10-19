@@ -8,7 +8,7 @@ function ProfilePage({ api }) {
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    
+
     useEffect(() => {
         const email = localStorage.getItem('email');
         const first_name = localStorage.getItem('first_name');
@@ -22,17 +22,21 @@ function ProfilePage({ api }) {
 
     return (
         <>
-            <h1 className='profile-header'>Account Settings</h1>
+            <h1 className='profile-header'>User Profile</h1>
             <div className='profile-side-by-side'>
-                <div className='profile-white-background'>
+                <div className='profile-one-side'>
+                    <div className='profile-white-background'>
                         <div className='profile-welcome'>Welcome {firstName}!</div>
                         <div className='profile-info'>This is where you can edit your profile details and change password.</div>
+                    </div>
+                    <div className='profile-white-background'>
+                        <Form api={api} email={email} first_name={firstName} last_name={lastName} />
+                    </div>
                 </div>
-                <div className='profile-white-background'>
-                    <Form api={api} email={email} first_name={firstName} last_name={lastName} />
-                </div>
-                <div className='profile-white-background'>
-                    <UserPurchases api={api} />
+                <div className='profile-one-side'>
+                    <div className='profile-white-background'>
+                        <UserPurchases api={api} />
+                    </div>
                 </div>
             </div>
         </>

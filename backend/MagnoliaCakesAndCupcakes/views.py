@@ -260,21 +260,29 @@ def contact(request):
 @permission_classes(
     [AllowAny]
 )  ###### Add this to allow users to access despite not being logged in
-def cakes_list(request):
+def products_list(request):
     if request.method == "GET":
-        cakes = Cake.objects.all()
-        serializer = CakeSerializer(cakes, many=True)
+        cakes = Product.objects.all()
+        serializer = ProductSerializer(cakes, many=True)
 
         # Create a list to store the updated cake data with image URLs
         cakes_with_image_urls = []
 
         for cake_data in serializer.data:
-            cake = Cake.objects.get(id=cake_data["id"])
+            cake = Product.objects.get(id=cake_data["id"])
             # Add the image URL to the cake data
             cake_data["image"] = cake.picture.url
             cakes_with_image_urls.append(cake_data)
 
         return Response(cakes_with_image_urls, status=status.HTTP_200_OK)
+    
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def cakes_list(request):
+    if request.method == "GET":
+        cakesizeprices = CakeVariant.objects.all()
+        serializer = CakeSerializer(cakesizeprices, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(["GET"])
@@ -443,8 +451,8 @@ def reset_names(request):
 @permission_classes([AllowAny])
 def gallery_categories_list(request):
     if request.method == "GET":
-        categories = CakeCategory.objects.all()
-        serializer = CakeCategorySerializer(categories, many=True)
+        categories = GalleryCategory.objects.all()
+        serializer = GalleryCategorySerializer(categories, many=True)
         return Response(serializer.data)
 
 
@@ -484,6 +492,8 @@ def create_checkout_session(request):
     # Retrieve video list if any 
     video_items = []
     cake_items = []
+    cakes = []
+    cupcakes = []
     for item in cart_items:
 
         try:
@@ -498,13 +508,43 @@ def create_checkout_session(request):
         gotPrice = False
         cake_id = item.get("cakeId")
         if cake_id != None:
-            cake = get_object_or_404(Cake, id=cake_id)
-            if (cake.price_id):
-                line_item = {
-                    'price': cake.price_id,  # Stripe price ID associated with the product
-                    'quantity': item.get('quantity', 1),
-                }
-                gotPrice = True
+            try:
+                cake = CakeVariant.objects.get(id=cake_id)
+                if (cake.price_id):
+                    line_item = {
+                        'price': cake.price_id,
+                        'quantity': item.get('quantity', 1),
+                    }
+                    gotPrice = True
+
+            except CakeVariant.DoesNotExist:
+                cake = Product.objects.get(id=cake_id)
+                if (cake.price_id):
+                    line_item = {
+                        'price': cake.price_id,
+                        'quantity': item.get('quantity', 1),
+                    }
+                    gotPrice = True
+            try:
+                cake = CakeVariant.objects.get(id=cake_id)
+                if (cake.price_id):
+                    line_item = {
+                        'price': cake.price_id,
+                        'quantity': item.get('quantity', 1),
+                    }
+                    gotPrice = True
+
+            except CakeVariant.DoesNotExist:
+                cake = Product.objects.get(id=cake_id)
+                if (cake.price_id):
+                    line_item = {
+                        'price': cake.price_id,
+                        'quantity': item.get('quantity', 1),
+                    }
+                    gotPrice = True
+
+            except Product.DoesNotExist:
+                return Response({'error': 'CakeVariant and Product not found'}, status=404)
 
         video_id = item.get("videoId")
         if video_id != None:
@@ -534,6 +574,10 @@ def create_checkout_session(request):
             video_items.append(video_item)
         else:
             cake_items.append(item.get('cakeId'))
+            if item.get("type") == "cake":
+                cakes.append(item.get('cakeId'))
+            else:
+                cupcakes.append(item.get('cakeId'))
             
         line_items.append(line_item)
 
@@ -562,7 +606,8 @@ def create_checkout_session(request):
     # Serialize the video array to json
     
     video_items_json = json.dumps(video_items)
-    cake_items_json = json.dumps(cake_items)
+    cake_items_json = json.dumps(cakes)
+    cupcakes_items_json = json.dumps(cupcakes)
     
    
     checkout_session = stripe.checkout.Session.create(
@@ -570,7 +615,7 @@ def create_checkout_session(request):
         line_items=[*line_items, service_fees_item],  # Include service fees item
         mode='payment',
         allow_promotion_codes=True,
-        success_url = f"{settings.FRONTEND_APP_URL}/success?checkout_session={{CHECKOUT_SESSION_ID}}&user={request.data.get('email')}&code={video_items_json}&i={cake_items_json}",
+        success_url = f"{settings.FRONTEND_APP_URL}/success?checkout_session={{CHECKOUT_SESSION_ID}}&user={request.data.get('email')}&code={video_items_json}&i={cake_items_json}&x={cupcakes_items_json}",
         cancel_url= f"{settings.FRONTEND_APP_URL}/online-store",
     )
 
@@ -701,7 +746,7 @@ def set_user_firstOrder_true(request):
 @api_view(['POST'])
 def process_order(request):
     if request.method == "POST":
-        serializer = UserPurchaseSerializer(data=request.data, context={'user': request.user})
+        serializer = UserPurchaseSerializer(data=request.data, context={'user': request.user, 'request_data': request.data})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)
@@ -727,7 +772,18 @@ def get_video(request, video_id):
 
 @api_view(['GET'])
 def get_cake(request, cake_id):
-    cake = get_object_or_404(Cake, id=cake_id)
+    cake = get_object_or_404(CakeVariant, id=cake_id)
+    cake_data = {
+        'id': cake.id,
+        'name': cake.cake.name,
+        'price': cake.price,
+        'price_id': cake.price_id
+    }
+    return Response(cake_data, status=200)
+
+@api_view(['GET'])
+def get_cupcake(request, cake_id):
+    cake = get_object_or_404(Product, id=cake_id)
     cake_data = {
         'id': cake.id,
         'name': cake.name,
