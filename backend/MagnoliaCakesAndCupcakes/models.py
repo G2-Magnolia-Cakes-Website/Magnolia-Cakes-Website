@@ -839,13 +839,11 @@ class UserPurchaseManager(models.Manager):
 
 class UserPurchase(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    videos = models.ManyToManyField(Video, blank=True, through='uservideopurchase')
-    products = models.ManyToManyField(Product, blank=True, through='userproductpurchase')
-    cake_variant = models.ManyToManyField(CakeVariant, blank=True, through='usercakepurchase')
+    videos = models.ManyToManyField(Video, blank=True, through='UserVideoPurchase')
+    products = models.ManyToManyField(Product, blank=True, through='UserProductPurchase')
+    cake_variant = models.ManyToManyField(CakeVariant, blank=True, through='UserCakePurchase')
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     time_submitted = models.DateTimeField(auto_now=True)
-
-    objects = UserPurchaseManager()
 
 class UserVideoPurchase(models.Model):
     user_purchase = models.ForeignKey(UserPurchase, on_delete=models.CASCADE)
