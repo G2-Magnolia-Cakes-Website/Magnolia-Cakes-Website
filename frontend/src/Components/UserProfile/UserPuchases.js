@@ -1,6 +1,5 @@
 import './ProfilePage.css';
 import './UserPurchases.css';
-import Form from "./ProfileForm"
 import React, { useEffect, useState } from "react";
 
 function formatDate(timestamp) {
@@ -48,12 +47,19 @@ function UserPurchases({ api }) {
 
     const displayPurchaseDetails = async (purchases) => {
       if (purchases.length === 0) {
-        return; // If purchases is empty, exit the function
+        return; // If purchases are empty, exit the function
       }
 
       const fetchVideoDetails = async (videoId) => {
         try {
-          const res = await api.get(`/api/videos/${videoId}/`);
+          const res = await api.get(`/api/videos/${videoId}/`, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            },
+            withCredentials: true,
+          });
 
           if (res.status === 200) {
             return res.data; // Return the video details
@@ -70,7 +76,14 @@ function UserPurchases({ api }) {
 
       const fetchCakeDetails = async (cakeId) => {
         try {
-          const res = await api.get(`/api/cakes/${cakeId}/`);
+          const res = await api.get(`/api/cakes/${cakeId}/`, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            },
+            withCredentials: true,
+          });
 
           if (res.status === 200) {
             return res.data; // Return the cake details
@@ -85,25 +98,51 @@ function UserPurchases({ api }) {
         }
       };
 
+      const fetchProductDetails = async (productId) => {
+        try {
+          const res = await api.get(`/api/cupcakes/${productId}/`, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+            },
+            withCredentials: true,
+          });
+      
+          if (res.status === 200) {
+            return res.data; // Return the product details
+          } else {
+            console.log(res);
+            return null; // Return null if there's an error
+          }
+        } catch (err) {
+          console.log(err);
+          console.log(err.response.data);
+          return null; // Return null if there's an error
+        }
+      };
+      
+
       const purchasesWithDetails = await Promise.all(
         purchases.map(async (purchase) => {
           const videoDetailsPromises = purchase.videos.map((videoId) => fetchVideoDetails(videoId));
-          const cakeDetailsPromises = purchase.cakes.map((cakeId) => fetchCakeDetails(cakeId));
+          const cakeDetailsPromises = purchase.cake_variant.map((cakeId) => fetchCakeDetails(cakeId));
+          const productDetailsPromises = purchase.products.map((productId) => fetchProductDetails(productId));
 
           const videoDetails = await Promise.all(videoDetailsPromises);
           const cakeDetails = await Promise.all(cakeDetailsPromises);
+          const productDetails = await Promise.all(productDetailsPromises);
 
           const purchaseWithDetails = {
             ...purchase,
             videos: videoDetails.filter((video) => video !== null),
-            cakes: cakeDetails.filter((cake) => cake !== null),
+            cake_variant: cakeDetails.filter((cake) => cake !== null),
+            products: productDetails.filter((product) => product !== null),
           };
 
           return purchaseWithDetails;
         })
       );
-
-      console.log('Purchases with Details:', purchasesWithDetails);
 
       setPurchases(purchasesWithDetails);
     };
@@ -146,11 +185,18 @@ function UserPurchases({ api }) {
                     <td>${video.price}</td>
                   </tr>
                 ))}
-                {purchase.cakes.map(cake => (
+                {purchase.cake_variant.map(cake => (
                   <tr key={cake.id}>
                     <td>Cake</td>
                     <td>{cake.name}</td>
                     <td>${cake.price}</td>
+                  </tr>
+                ))}
+                {purchase.products.map(product => (
+                  <tr key={product.id}>
+                    <td>Cupcake</td>
+                    <td>{product.name}</td>
+                    <td>${product.price}</td>
                   </tr>
                 ))}
               </tbody>
@@ -174,8 +220,6 @@ function UserPurchases({ api }) {
             </table>
 
             <hr className='order-divider' />
-
-            {/* {index < purchases.length - 1 && <hr className='order-divider' />} */}
           </div>
         ))
       )}
