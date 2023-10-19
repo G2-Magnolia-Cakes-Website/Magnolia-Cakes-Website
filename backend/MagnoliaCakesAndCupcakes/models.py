@@ -58,7 +58,7 @@ class GalleryCategory(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = "Cake Categories"
+        verbose_name_plural = "Gallery Categories"
 
 def upload_to(instance, filename):
     # Upload the image to a 'cakes' directory with the filename as the cake's name
@@ -541,13 +541,13 @@ class GalleryItem(models.Model):
 
     def delete(self, *args, **kwargs):
         # Delete the associated image from the bucket
-        if self.image:
-            image_path = self.image.name
-            default_storage.delete(image_path)
+        image_path = self.image.name
+        default_storage.delete(image_path)
         super().delete(*args, **kwargs)
         
     class Meta:
         verbose_name_plural = "Gallery Items"
+
 
 
 class LocationPageContent(models.Model):
