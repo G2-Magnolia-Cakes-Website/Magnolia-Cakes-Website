@@ -803,7 +803,6 @@ def get_cupcake(request, cake_id):
     return Response(cake_data, status=200)
 
 @api_view(['GET'])
-
 def get_stripe_session(request, session_id):
     stripe_key = settings.STRIPE_SECRET_KEY
     headers = {

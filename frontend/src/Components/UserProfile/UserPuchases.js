@@ -132,7 +132,6 @@ function UserPurchases({ api }) {
           const videoDetails = await Promise.all(videoDetailsPromises);
           const cakeDetails = await Promise.all(cakeDetailsPromises);
           const productDetails = await Promise.all(productDetailsPromises);
-          console.log(cakeDetails)
           const purchaseWithDetails = {
             ...purchase,
             videos: videoDetails.filter((video) => video !== null),

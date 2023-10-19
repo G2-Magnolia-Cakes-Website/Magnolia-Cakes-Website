@@ -47,7 +47,7 @@ const SuccessPage = ({ api }) => {
 
     }
   }, []);
-
+  console.log(sessionData)
   useEffect(() => {
     // For videos, we have videoID only, we need to save for the user: list of video names.
     // For cakes and cupcakes

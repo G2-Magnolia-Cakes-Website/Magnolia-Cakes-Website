@@ -246,8 +246,6 @@ function OnlineStore({ api }) {
                         </option>
                         {cakeVariants
                           .filter((cakeVariant) => {
-                            console.log(cakeVariant.cake)
-                            console.log(selectedFlavor[product.id])
                             return (
                               cakeVariant.cake === parseInt(selectedFlavor[product.id]) && // Filter by selected flavor
                               cakeVariant.active
