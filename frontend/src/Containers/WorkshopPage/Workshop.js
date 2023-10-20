@@ -25,6 +25,7 @@ function WorkshopPage({ api }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Add the isLoggedIn state
 
   useEffect(() => {
+    
     setLoading(true);
     if (!localStorage.getItem('access_token')) {
       setIsLoggedIn(false); // Set isLoggedIn to false if access_token is not present

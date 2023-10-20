@@ -54,6 +54,7 @@ class StripePromotionAdmin(admin.ModelAdmin):
         "display_after_formatted",
         "only_logged_in_users",
         "only_first_purchase_of_user",
+        'minimum_amount',
         "description",
     )
     def display_after_formatted(self, obj):
@@ -70,7 +71,7 @@ class StripePromotionAdmin(admin.ModelAdmin):
             'description': 'You must link the promotion code to a coupon.',
         }),
         ('Display to Users?', {
-            'fields': ('is_displayed', 'display_after', 'only_logged_in_users', 'only_first_purchase_of_user', 'description', ),
+            'fields': ('is_displayed', 'display_after', 'only_logged_in_users', 'only_first_purchase_of_user', 'minimum_amount', 'description', ),
             'description': 'If is_displayed is checked, this promotion will popup on the frontend for users. Add a description if needed for users to see.',
         }),
     )
@@ -80,12 +81,15 @@ class ContactUsEmailAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'your_email')
 
 
+
 class FlavoursAndServingsAdmin(admin.ModelAdmin):
     list_display = ('title', 'list', 'last_updated')
 
 
+
 class UserFirstOrderAdmin(admin.ModelAdmin):
     list_display = ('user', 'madeFirstOrder')
+
 
 
 class UserVideoAdmin(admin.ModelAdmin):
@@ -96,8 +100,10 @@ class UserVideoAdmin(admin.ModelAdmin):
     display_videos.short_description = 'Videos'
 
 
+
 class VideoAdmin(admin.ModelAdmin):
     list_display = ('title', 'description', 'price', 'active')
+
 
 
 class UserPurchaseAdmin(admin.ModelAdmin):

@@ -26,6 +26,10 @@ function ViewCartPopup(props, { api }) {
   };
 
   const handleProceedToPayment = async () => {
+    
+    // Reset purchased to false so user can purchase again
+    localStorage.setItem('purchaseProcessed', 'false');
+    
     if (!localStorage.getItem("access_token")) {
       props.setTrigger(false)
       navigate('/login')
@@ -38,6 +42,7 @@ function ViewCartPopup(props, { api }) {
           amount: totalPrice * 100, // Convert to cents
           items: cartItems,
           email: localStorage.getItem("email"),
+          customer_id: localStorage.getItem("customer_id"),
         });
 
         const result = await stripe.redirectToCheckout({
