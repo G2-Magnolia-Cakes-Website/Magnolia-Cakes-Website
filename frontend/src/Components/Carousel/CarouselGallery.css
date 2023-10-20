@@ -22,15 +22,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .swiper {
   aspect-ratio: 19/20;
-  height: 850px;
+  height: 835px;
   width: auto;
   /* max-width: 900px; */
-  margin: auto 0 auto 0;
+  margin: auto 0 0 0;
   display: inline-block;
 }
 
@@ -90,7 +90,7 @@
 
 @media (min-width: 2220px) {
   .swiper {
-    height: 1000px;
+    height: 951px;
     /* max-width: 1500px; */
   }
 
@@ -101,31 +101,51 @@
 
 @media (max-width: 1930px) {
   .swiper {
-    height: 750px;
+    height: 744px;
+  }
+}
+
+@media (max-width: 1795px) {
+  .swiper {
+    height: 678px;
+  }
+
+  .carousel-wrapper {
+    gap: 2rem;
   }
 }
 
 @media (max-width: 1565px) {
   .swiper {
-    height: 550px;
-    max-width: 1000px;
+    height: 535px;
+    /* max-width: 1000px; */
   }
 
   .carousel-wrapper {
-    gap: 2rem;
-    padding: 2rem 3rem;
+    gap: 1rem;
+    padding: 2rem;
   }
 
   .intro-quote {
-    padding: 1rem 0;
     margin: auto 1rem;
+  }
+}
+
+@media (max-width: 1400px) {
+  .swiper {
+    height: 500px;
   }
 }
 
 @media (max-width: 1240px) {
   .swiper {
-    height: 500px;
-    max-width: 1000px;
+    height: 515px;
+  }
+}
+
+@media (max-width: 1134px) {
+  .swiper {
+    height: 449px;
   }
 }
 
@@ -137,6 +157,10 @@
 
   .cake-pop {
     width: 80px;
+  }
+
+  .swiper {
+    height: 423px;
   }
 }
 

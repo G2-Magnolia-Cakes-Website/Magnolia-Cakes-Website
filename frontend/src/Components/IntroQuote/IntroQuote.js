@@ -1,5 +1,5 @@
 import React from "react";
-import cakePop from "utils/cake_pop_transparent.png";
+import cakePop from "utils/cakepop_transparent.png";
 
 import "./IntroQuote.css";
 

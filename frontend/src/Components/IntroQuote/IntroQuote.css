@@ -1,6 +1,6 @@
 h1.business-name {
   font-family: "Sacramento", cursive;
-  font-size: 170px;
+  font-size: 150px;
   text-align: center;
   width: fit-content;
   white-space: nowrap;
@@ -16,12 +16,11 @@ h1.business-name {
   text-align: center;
   font-size: 38px;
   margin: 0 auto 0.5rem auto;
-  color: rgb(175, 83, 124);
-  /* color: rgb(88, 88, 88); */
+  font-family: 'Caveat Brush', cursive;
 }
 
 .cake-pop {
-  width: 100px;
+  width: 130px;
   height: auto;
   object-fit: cover;
 }
@@ -45,9 +44,13 @@ h1.business-name {
   .quote-p-wrapper .quote {
     font-size: 34px;
   }
+
+  .cake-pop {
+    width: 110px;
+  }
 }
 
-@media (max-width: 1675px) {
+@media (max-width: 1795px) {
   h1.business-name {
     font-size: 110px;
   }
@@ -67,25 +70,25 @@ h1.business-name {
   }
 
   .quote-p-wrapper .quote {
-    font-size: 24px;
+    font-size: 26px;
   }
 
   .cake-pop {
-    width: 80px;
+    width: 90px;
   }
 }
 
 @media (max-width: 1400px) {
   h1.business-name {
-    font-size: 80px;
+    font-size: 90px;
   }
 
   .quote-p-wrapper {
-    margin: 1rem 0 1rem;
+    margin: 2rem 0 2rem;
   }
 
   .quote-p-wrapper .quote {
-    font-size: 21px;
+    font-size: 24px;
   }
 
   .cake-pop {
@@ -100,9 +103,38 @@ h1.business-name {
   }
 }
 
+@media (max-width: 1134px) {
+  h1.business-name {
+    font-size: 75px;
+  }
+
+  .quote-p-wrapper .quote {
+    font-size: 18px;
+    white-space: unset;
+  }
+
+  .quote-p-wrapper {
+    margin: 1.5rem 0 1.5rem;
+  }
+}
+
 @media (max-width: 1024px) {
   h1.business-name {
     font-size: 64px;
+  }
+
+  .quote-p-wrapper .quote {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 975px) {
+  h1.business-name {
+    font-size: 59px;
+  }
+
+  .quote-p-wrapper {
+    margin: 1rem 0 1rem;
   }
 
   .quote-p-wrapper .quote {
@@ -115,9 +147,13 @@ h1.business-name {
     font-size: 96px;
   }
 
+  .quote-p-wrapper {
+    margin: 2.5rem 0;
+  }
+
   .quote-p-wrapper .quote {
     font-size: 21px;
-    margin: 1rem auto 0.5rem auto;
+    margin: 0.5rem auto 0.5rem auto;
   }
 }
 
@@ -140,6 +176,10 @@ h1.business-name {
 
   h1.business-name {
     font-size: 55px;
+  }
+
+  .quote-p-wrapper {
+    margin: 1.5rem 0;
   }
 
   .quote-p-wrapper .quote {
