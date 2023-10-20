@@ -232,3 +232,9 @@ class UserPurchaseSerializer(serializers.ModelSerializer):
             raise e
 
         return user_purchase
+
+        
+class UserCustomerIDSerialiser(serializers.ModelSerializer):
+    class Meta:
+        model = UserCustomerID
+        fields = "__all__"

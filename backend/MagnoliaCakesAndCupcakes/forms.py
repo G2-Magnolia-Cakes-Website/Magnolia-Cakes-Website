@@ -2,7 +2,6 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.validators import validate_email
-from .models import Video
 
 from MagnoliaCakesAndCupcakes.models import Quote
 
@@ -10,6 +9,7 @@ from MagnoliaCakesAndCupcakes.models import Quote
 class NewUserForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
+    customer_id = forms.IntegerField(required=False, initial=None)
 
     class Meta:
         model = User
@@ -35,6 +35,7 @@ class NewUserForm(UserCreationForm):
         user.email = self.cleaned_data["username"]
         user.first_name = self.cleaned_data["first_name"]
         user.last_name = self.cleaned_data["last_name"]
+
         if commit:
             user.save()
         return user
