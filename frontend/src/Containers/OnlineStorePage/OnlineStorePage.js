@@ -230,7 +230,7 @@ function OnlineStore({ api }) {
 
                   <p>Type: {product.product_type}</p>
                   {product.product_type === 'Cake' && (
-                    <div className="quantity-section">
+                    <p><div className="quantity-section">
                       <select
                         id={`type-${product.id}`}
                         onChange={(event) => {
@@ -242,7 +242,7 @@ function OnlineStore({ api }) {
                         }}
                       >
                         <option disabled selected>
-                          Select variant
+                          Select size
                         </option>
                         {cakeVariants
                           .filter((cakeVariant) => {
@@ -258,7 +258,7 @@ function OnlineStore({ api }) {
                             </option>
                           ))}
                       </select>
-                    </div>
+                    </div></p>
                   )}
 
 
