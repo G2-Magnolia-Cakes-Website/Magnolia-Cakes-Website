@@ -46,6 +46,7 @@ const CarouselGallery = ({ quote, images, loading }) => {
           {images.map((i) => (
             <SwiperSlide key={i.id}>
               <CarouselItem image={i.image} title={i.name} />
+              {/* <CarouselItem image={mario} title={"mario"} /> */}
             </SwiperSlide>
           ))}
         </Swiper>

@@ -39,7 +39,7 @@
   margin-left: 0.5rem;
 }
 
-@media (max-width: 1093px) {
+@media (max-width: 1110px) {
   .header .navbar-signup-login-group {
     flex-direction: column;
   }
