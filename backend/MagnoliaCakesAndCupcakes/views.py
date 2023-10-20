@@ -816,6 +816,8 @@ def get_stripe_session(request, session_id):
         return Response(session_data)
     except Exception as e:
         return Response({"error": str(e)})
+    
+@api_view(['GET'])
 def get_customer_id(request):
     if request.method == "GET":
         user = request.user
