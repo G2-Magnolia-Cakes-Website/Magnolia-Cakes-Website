@@ -24,7 +24,7 @@ const SuccessPage = ({ api }) => {
     const fetchSession = async () => {
       try {
         const response = await api.get(
-          `/api/stripe-session/${sessionId}`,
+          `/api/stripe-session/${sessionId}/`,
           {
             headers: {
               'Content-Type': 'application/json',
