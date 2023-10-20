@@ -1,24 +1,38 @@
+.online-store-page-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
 .online-store {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white;
+  /* background-color: white; */
   /* Set the background color to white */
-  padding: 20px;
+  /* padding: 20px; */
   /* Add padding for spacing */
-  margin-right: 400px;
+  /* margin-right: 400px;
   margin-left: 400px;
   margin-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 50px; */
+  /* width: fit-content; */
+  /* max-width: 78.125%; */
+  /* margin: 0 10.9375%; */
+  width: 100%;
 }
 .PageHeader {
   text-align: center;
-  color: #B76E79;
+  color: #b76e79;
   font-weight: bold;
-  font-family: 'Fredoka', sans-serif;
+  font-family: "Fredoka", sans-serif;
   font-size: 64px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  /* margin-top: 20px;
+  margin-bottom: 20px; */
+  margin: 20px;
 }
 .category-buttons {
   display: flex;
@@ -27,19 +41,34 @@
   /* Add some gap between buttons */
 }
 
-
 .cakes-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  /* display: flex;
+  flex-wrap: wrap; */
+  display: grid;
+  gap: 2rem;
+  /* grid-template-columns: repeat(auto-fit, minmax(0, min(100%/1, max(400px, 100%/5)))); */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* justify-content: space-between; */
+  /* width: fit-content; */
+  /* max-width: 78.125%; */
+  /* max-width: 100%; */
+  max-width: 78.125%;
+  width: fit-content;
+  background-color: white;
+  padding: 50px;
 }
 
 .cake-item {
-
+  width: 300px;
   text-align: left;
-  margin-top: 20px;
+  /* margin-top: 20px;
   margin-right: 50px;
-  margin-left: 50px;
+  margin-left: 50px; */
+  /* margin: 50px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .image {
@@ -77,17 +106,17 @@
   display: block;
   width: 22px;
 
-
-  background: #e6c3c3;
+  background: #b76e79;
   text-decoration: none;
   text-align: center;
-
+  color: white;
+  border: 1px solid #b76e79;
 }
 .quantity-decrease:hover,
 .quantity-increase:hover {
   background: #575b71;
   color: #fff;
-} 
+}
 .quantity-decrease {
   border-radius: 3px 0 0 3px;
 }
@@ -100,12 +129,20 @@
   margin: 0;
   padding: 0;
   text-align: center;
-  border-top: 2px solid #fdeef3;
-  border-bottom: 2px solid #fdeef3;
-  border-left: 1px solid #fdeef3;
-  border-right: 2px solid #fdeef3;
+  border-top: 2px solid #b76e79;
+  border-bottom: 2px solid #b76e79;
+  border-left: 1px solid #b76e79;
+  border-right: 2px solid #b76e79;
   background: #f8dcdc;
   color: #000000;
+}
+
+@media (hover: hover) {
+  .quantity-decrease:hover,
+  .quantity-increase:hover {
+    background-color: #834b54;
+    border-color: #834b54;
+  }
 }
 
 /* Style for the buttons section */
@@ -113,9 +150,9 @@
 .buttons-section {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: end;
 }
-.unavailable-message{
+.unavailable-message {
   display: block;
   text-decoration: none;
   color: white;
@@ -128,7 +165,6 @@
   text-align: center;
   transition: 0.5s;
   font-family: "Fredoka", sans-serif;
-
 }
 .button {
   display: block;
@@ -143,7 +179,6 @@
   text-align: center;
   transition: 0.5s;
   font-family: "Fredoka", sans-serif;
-
 }
 
 .button:hover {
@@ -169,8 +204,14 @@
     margin: 20px; /* Adjust margins for mobile */
   }
 
+  .cakes-list {
+    padding: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+  }
+
   .cake-item {
-    margin: 10px; /* Adjust margins for mobile */
+    margin: 0; /* Adjust margins for mobile */
+    width: 100%;
   }
 
   .image {
@@ -187,21 +228,32 @@
 /* For tablets (portrait) */
 @media (min-width: 768px) and (max-width: 991px) {
   .online-store {
-    margin: 20px; /* Adjust margins for tablets */
+    /* margin: 20px;  */
+    /* Adjust margins for tablets */
   }
 
   .cake-item {
-    margin: 20px; /* Adjust margins for tablets */
+    /* margin: 20px;  */
+    /* Adjust margins for tablets */
+  }
+
+  .cakes-list {
+    padding: 20px;
   }
 }
 
 /* For tablets (landscape) */
 @media (min-width: 992px) and (max-width: 1200px) {
   .online-store {
-    margin: 60px; /* Adjust margins for tablets in landscape orientation */
+    /* margin: 60px;  */
+    /* Adjust margins for tablets in landscape orientation */
   }
 
   .cake-item {
-    margin: 60px; /* Adjust margins for tablets in landscape orientation */
+    /* margin: 60px;  */
+    /* Adjust margins for tablets in landscape orientation */
+  }
+  .cakes-list {
+    padding: 60px;
   }
 }
