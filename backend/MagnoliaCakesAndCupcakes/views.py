@@ -44,6 +44,7 @@ import requests
 
 import urllib.request
 
+
 # create a class for the Todo model viewsets
 class MagnoliaCakesAndCupcakesView(viewsets.ModelViewSet):
     # create a serializer class and
@@ -54,7 +55,7 @@ class MagnoliaCakesAndCupcakesView(viewsets.ModelViewSet):
     # with the Todo list objects
     queryset = MagnoliaCakesAndCupcakes.objects.all()
 
-
+############### Authentication view ###############
 @api_view(["POST"])
 @permission_classes(
     [AllowAny]
@@ -188,17 +189,19 @@ class LogoutView(APIView):
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
-
+############### Base View ###############
 @api_view(["GET", "PUT"])
 @permission_classes(
     [AllowAny]
 )  ###### Add this to allow users to access despite not being logged in
 def terms_and_conditions(request):
+    # Retrieve the t&c
     if request.method == "GET":
         terms = TermsAndCondition.objects.all()
         serializer = TermsAndConditionsSerializer(terms, many=True)
         return Response(serializer.data)
-
+    
+    # Admin edit t&c
     elif request.method == "PUT":
         terms = TermsAndCondition.objects.first()
         serializer = TermsAndConditionsSerializer(terms, data=request.data)
@@ -217,6 +220,8 @@ def terms_and_conditions(request):
 def contact(request):
     if request.method == "GET":
         form = ContactForm()
+    
+    # Divert contact us to send the email to admin
     else:
         form = ContactForm(request.POST, request.FILES)
         if form.is_valid():
@@ -501,7 +506,72 @@ def location_page_content(request):
         serializer = LocationPageContentSerializer(location_page_content)
         return Response(serializer.data)
 
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def welcome_section(request):
+    if request.method == "GET":
+        content = HomepageWelcomeSection.objects.first()
+        serializer = WelcomeSectionContentSerializer(content)
+        return Response(serializer.data)
 
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def about_us_section(request):
+    if request.method == "GET":
+        content = HomepageAboutUsSection.objects.first()
+        serializer = AboutUsSectionContentSerializer(content)
+        return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def gallery_section(request):
+    if request.method == "GET":
+        content = HomepageGallerySection.objects.first()
+        serializer = GallerySectionContentSerializer(content)
+        return Response(serializer.data)
+
+@api_view(['GET'])
+def video(request):
+    if request.method == "GET":
+        items = Video.objects.all()
+        serializer = VideoSerializer(items, many=True)
+        return Response(serializer.data)
+
+
+@api_view(["GET", "POST"])
+@permission_classes([AllowAny])
+def log_quote(request):
+
+    if request.method == "POST":
+        serializer = QuoteSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+
+            return Response({"message": "Quote data logged"}, status=status.HTTP_200_OK)
+        return Response({"serializer_errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['GET'])
+def get_videos(request):
+    if request.method == "GET":
+        user = request.user
+        try:
+            user_profile = UserVideo.objects.get(user=user)
+            videos = user_profile.videos.all()
+            serializer = VideoSerializer(videos, many=True)
+            return Response(serializer.data)
+        except UserVideo.DoesNotExist:
+            return Response({'message': 'User profile not found.'}, status=404)
+
+############### Checkout with Stripe ###############
 @csrf_exempt
 @api_view(["POST"])
 @permission_classes([AllowAny])
@@ -621,9 +691,10 @@ def create_checkout_session(request):
    
     checkout_session = stripe.checkout.Session.create(
         payment_method_types=['card'],
-        line_items=[*line_items, service_fees_item],  # Include service fees item
+        line_items=[*line_items, service_fees_item],
         mode='payment',
         allow_promotion_codes=True,
+        # Return back to the frontend with correspond path when payment success or cancelled
         success_url = f"{settings.FRONTEND_APP_URL}/success?checkout_session={{CHECKOUT_SESSION_ID}}&user={request.data.get('email')}&code={video_items_json}&i={cake_items_json}&x={cupcakes_items_json}",
         cancel_url= f"{settings.FRONTEND_APP_URL}/online-store",
         customer = request.data.get('customer_id')
@@ -632,71 +703,7 @@ def create_checkout_session(request):
     return Response({'id': checkout_session.id, 'total_amount_with_fees': round(P_charge, 2)})
 
 
-@api_view(["GET"])
-@permission_classes(
-    [AllowAny]
-)  ###### Add this to allow users to access despite not being logged in
-def welcome_section(request):
-    if request.method == "GET":
-        content = HomepageWelcomeSection.objects.first()
-        serializer = WelcomeSectionContentSerializer(content)
-        return Response(serializer.data)
-
-
-@api_view(["GET"])
-@permission_classes(
-    [AllowAny]
-)  ###### Add this to allow users to access despite not being logged in
-def about_us_section(request):
-    if request.method == "GET":
-        content = HomepageAboutUsSection.objects.first()
-        serializer = AboutUsSectionContentSerializer(content)
-        return Response(serializer.data)
-
-
-@api_view(["GET"])
-@permission_classes(
-    [AllowAny]
-)  ###### Add this to allow users to access despite not being logged in
-def gallery_section(request):
-    if request.method == "GET":
-        content = HomepageGallerySection.objects.first()
-        serializer = GallerySectionContentSerializer(content)
-        return Response(serializer.data)
-
-@api_view(['GET'])
-def video(request):
-    if request.method == "GET":
-        items = Video.objects.all()
-        serializer = VideoSerializer(items, many=True)
-        return Response(serializer.data)
-
-
-@api_view(["GET", "POST"])
-@permission_classes([AllowAny])
-def log_quote(request):
-
-    if request.method == "POST":
-        serializer = QuoteSerializer(data=request.data)
-
-        if serializer.is_valid():
-            serializer.save()
-
-            return Response({"message": "Quote data logged"}, status=status.HTTP_200_OK)
-        return Response({"serializer_errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-    
-@api_view(['GET'])
-def get_videos(request):
-    if request.method == "GET":
-        user = request.user
-        try:
-            user_profile = UserVideo.objects.get(user=user)
-            videos = user_profile.videos.all()
-            serializer = VideoSerializer(videos, many=True)
-            return Response(serializer.data)
-        except UserVideo.DoesNotExist:
-            return Response({'message': 'User profile not found.'}, status=404)
-
+############### Payment views ###############
 @api_view(['POST'])
 def purchase_videos(request, video_id):
     if request.method == "POST":
@@ -801,7 +808,20 @@ def get_cupcake(request, cake_id):
         'price_id': cake.price_id
     }
     return Response(cake_data, status=200)
+    
+@api_view(['GET'])
+def get_customer_id(request):
+    if request.method == "GET":
+        user = request.user
+        try:
+            user_customer_id = UserCustomerID.objects.get(user=user)
+            serializer = UserCustomerIDSerialiser(user_customer_id)
+            return Response(serializer.data)
+        except UserCustomerID.DoesNotExist:
+            # Handle the case where the UserCustomerID does not exist for the user.
+            return Response({"detail": "UserCustomerID does not exist for this user."}, status=status.HTTP_404_NOT_FOUND)
 
+# Retrive transaction
 @api_view(['GET'])
 def get_stripe_session(request, session_id):
     stripe_key = settings.STRIPE_SECRET_KEY
@@ -816,15 +836,3 @@ def get_stripe_session(request, session_id):
         return Response(session_data)
     except Exception as e:
         return Response({"error": str(e)})
-    
-@api_view(['GET'])
-def get_customer_id(request):
-    if request.method == "GET":
-        user = request.user
-        try:
-            user_customer_id = UserCustomerID.objects.get(user=user)
-            serializer = UserCustomerIDSerialiser(user_customer_id)
-            return Response(serializer.data)
-        except UserCustomerID.DoesNotExist:
-            # Handle the case where the UserCustomerID does not exist for the user.
-            return Response({"detail": "UserCustomerID does not exist for this user."}, status=status.HTTP_404_NOT_FOUND)
