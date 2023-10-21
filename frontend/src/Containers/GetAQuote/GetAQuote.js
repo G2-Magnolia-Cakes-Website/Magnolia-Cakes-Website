@@ -11,7 +11,7 @@ import FormTextArea from "Components/FormTextArea/FormTextArea";
 import { CAKETYPES, FLAVSERVLISTTYPE } from "utils/constants";
 import { parseStringToArrayByComma } from "utils/parseStringsToArray";
 import BarLoader from "react-spinners/BarLoader";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const GetAQuote = ({ api }) => {
   const servesList = ["Coffee", "Standard"];
@@ -55,27 +55,9 @@ const GetAQuote = ({ api }) => {
       Message: message.current.value,
     };
 
-    //     const body = `
-    //       Name: ${name.current.value}
-    // Mobile: ${mobile.current.value}
-    // Email: ${email.current.value}
-    // Servings: ${servings.current.value}
-    // Serves: ${serves}
-    // Date: ${date.current.value}
-    // Flavour: ${flavour}
-    // Extra: ${extra.current.value}
-    // Message: ${message.current.value}
-    //     `;
-
     const body = Object.keys(bodyContent)
       .map((key) => `${key}: ${bodyContent[key]}`)
       .join("\n");
-
-    // const data = {
-    //   email: email.current.value,
-    //   subject: `${name.current.value} Requests a Quote`,
-    //   message: body,
-    // };
 
     const contactFormData = new FormData();
     contactFormData.append("email", email.current.value);
@@ -93,11 +75,10 @@ const GetAQuote = ({ api }) => {
       });
 
       if (res.status === 200) {
-
         alert("Thanks for reaching out to us. We will get back to you soon!");
 
-         // Navigate to the homepage after a successful form submission
-         navigate('/');
+        // Navigate to the homepage after a successful form submission
+        navigate("/");
       }
     } catch (err) {
       console.log("Form submit error.", err);
@@ -106,11 +87,13 @@ const GetAQuote = ({ api }) => {
 
     // Convert to django date value
     const dateValue = date.current.value;
-    const formattedDate = dateValue ? new Date(dateValue).toISOString().split('T')[0] : null;
+    const formattedDate = dateValue
+      ? new Date(dateValue).toISOString().split("T")[0]
+      : null;
 
     const quoteData = {
       name: name.current.value,
-      mobile: mobile.current.value|| null,
+      mobile: mobile.current.value || null,
       email: email.current.value,
       product_type: cakeType,
       servings_or_amount: servings.current.value,
@@ -192,8 +175,8 @@ const GetAQuote = ({ api }) => {
   const getCurrentDate = () => {
     const today = new Date();
     const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
 
@@ -310,11 +293,11 @@ const GetAQuote = ({ api }) => {
             disabled={loading}
           />
           <BarLoader
-          loading={loading}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-          width={"100%"}
-        />
+            loading={loading}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+            width={"100%"}
+          />
 
           {files.length > 0 && (
             <>

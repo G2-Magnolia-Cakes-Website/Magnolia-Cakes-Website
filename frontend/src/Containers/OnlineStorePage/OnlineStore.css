@@ -11,17 +11,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* background-color: white; */
-  /* Set the background color to white */
-  /* padding: 20px; */
-  /* Add padding for spacing */
-  /* margin-right: 400px;
-  margin-left: 400px;
-  margin-top: 50px;
-  margin-bottom: 50px; */
-  /* width: fit-content; */
-  /* max-width: 78.125%; */
-  /* margin: 0 10.9375%; */
   width: 100%;
 }
 .PageHeader {
@@ -30,8 +19,6 @@
   font-weight: bold;
   font-family: "Fredoka", sans-serif;
   font-size: 64px;
-  /* margin-top: 20px;
-  margin-bottom: 20px; */
   margin: 20px;
 }
 .category-buttons {
@@ -42,16 +29,9 @@
 }
 
 .cakes-list {
-  /* display: flex;
-  flex-wrap: wrap; */
   display: grid;
   gap: 2rem;
-  /* grid-template-columns: repeat(auto-fit, minmax(0, min(100%/1, max(400px, 100%/5)))); */
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  /* justify-content: space-between; */
-  /* width: fit-content; */
-  /* max-width: 78.125%; */
-  /* max-width: 100%; */
   max-width: 78.125%;
   width: fit-content;
   background-color: white;
@@ -61,10 +41,6 @@
 .cake-item {
   width: 300px;
   text-align: left;
-  /* margin-top: 20px;
-  margin-right: 50px;
-  margin-left: 50px; */
-  /* margin: 50px; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -227,16 +203,6 @@
 
 /* For tablets (portrait) */
 @media (min-width: 768px) and (max-width: 991px) {
-  .online-store {
-    /* margin: 20px;  */
-    /* Adjust margins for tablets */
-  }
-
-  .cake-item {
-    /* margin: 20px;  */
-    /* Adjust margins for tablets */
-  }
-
   .cakes-list {
     padding: 20px;
   }
@@ -244,15 +210,6 @@
 
 /* For tablets (landscape) */
 @media (min-width: 992px) and (max-width: 1200px) {
-  .online-store {
-    /* margin: 60px;  */
-    /* Adjust margins for tablets in landscape orientation */
-  }
-
-  .cake-item {
-    /* margin: 60px;  */
-    /* Adjust margins for tablets in landscape orientation */
-  }
   .cakes-list {
     padding: 60px;
   }

@@ -1,7 +1,5 @@
 .form-label,
 .form-input {
-  /* display: flex;
-  flex-direction: column; */
   text-align: left;
 }
 
@@ -12,7 +10,6 @@
 }
 
 .form-label .form-input {
-  /* flex-direction: row; */
   height: 36px;
   width: 100%;
   border: 1px solid #a6a6a6;

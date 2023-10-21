@@ -184,14 +184,6 @@ export default function SignupForm({ api }) {
   return (
     <div className="signup-form">
       <form onSubmit={handleSubmit}>
-        {/* <input
-          onChange={handleFirstName}
-          className="input-signup"
-          value={firstname}
-          type="text"
-          placeholder="First Name"
-        /> */}
-
         <FormInput
           onChange={handleFirstName}
           value={firstname}
@@ -200,15 +192,6 @@ export default function SignupForm({ api }) {
           inputType="text"
           placeholder="First Name"
         />
-
-        {/* <input
-          onChange={handleLastName}
-          className="input-signup"
-          value={lastname}
-          type="text"
-          placeholder="Last Name"
-        /> */}
-
         <FormInput
           onChange={handleLastName}
           value={lastname}
@@ -217,23 +200,6 @@ export default function SignupForm({ api }) {
           inputType="text"
           placeholder="Last Name"
         />
-
-        {/* <input
-          onChange={handleEmail}
-          className="input-signup"
-          value={email}
-          type="email"
-          placeholder="Email"
-        />
-
-        <input
-          onChange={handlePassword1}
-          className="input-signup"
-          value={password1}
-          type="password"
-          placeholder="Password"
-        /> */}
-
         <FormInput
           onChange={handleEmail}
           value={email}
@@ -251,15 +217,6 @@ export default function SignupForm({ api }) {
           inputType="password"
           placeholder="Password"
         />
-
-        {/* <input
-          onChange={handlePassword2}
-          className="input-signup"
-          value={password2}
-          type="password"
-          placeholder="Confirm Password"
-        /> */}
-
         <FormInput
           onChange={handlePassword2}
           value={password2}
@@ -288,22 +245,11 @@ export default function SignupForm({ api }) {
             </p>
           </label>
         </div>
-
-        {/* <button
-          onClick={handleSubmit}
-          disabled={!agree}
-          className="submit-btn"
-          type="submit"
-        >
-          Create Account
-        </button> */}
-
         <RoseGoldButton
           buttonText="Create Account"
           buttonType="submit"
           height="36px"
           margin="auto 0 8px"
-        // disabled={!agree}
         />
 
         <Popup

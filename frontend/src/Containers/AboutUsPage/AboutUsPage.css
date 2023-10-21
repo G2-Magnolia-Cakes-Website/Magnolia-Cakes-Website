@@ -29,16 +29,12 @@
   font-family: "Sacramento", cursive;
   font-size: 96px;
   color: #b76e79;
-  /* font-family: 'Sacramento', cursive; */
   margin: auto 0 auto;
   padding-top: 10%;
 }
 
 .about-us-page .page-content p {
   font-size: 18px;
-  /* font-family: 'Patrick Hand', cursive; */
-  /* font-family: 'Amatic SC', cursive;
-  font-weight: 900; */
 }
 
 .about-us-title {
@@ -81,11 +77,6 @@
     margin-left: 2.5rem;
   }
 
-  /* .about-us-page .page-content h1 {
-    font-size: 54px;
-    margin-bottom: 1rem;
-  } */
-
   .about-us-page .page-content p {
     font-size: 16px;
   }
@@ -127,7 +118,6 @@
   .about-us-page {
     flex-wrap: nowrap;
     flex-direction: column;
-    /* margin: 3rem; */
   }
 
   .about-us-page > * {

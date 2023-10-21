@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import lists from "./flavours-fillings.json";
 import List from "./List";
 
 import "./FlavoursAndServings.css";

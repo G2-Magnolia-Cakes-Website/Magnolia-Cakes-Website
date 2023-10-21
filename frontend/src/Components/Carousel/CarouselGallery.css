@@ -191,19 +191,10 @@
   }
 
   .swiper {
-    /* max-width: 600px;
-    height: 500px; */
     height: auto;
     width: 100%;
   }
 }
-
-/* @media (max-width: 630px) {
-  .swiper {
-    max-width: 600px;
-    height: 500px;
-  }
-} */
 
 @media (max-width: 480px) {
   .swiper-button-next::after {
@@ -216,11 +207,6 @@
   
   .carousel-wrapper {
     padding: 2rem;
-  }
-
-  .swiper {
-    /* max-width: 500px;
-    height: 250px; */
   }
 
   .quote-wrapper2 {

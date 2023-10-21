@@ -15,8 +15,6 @@ const CupcakesBanner = ({ api }) => {
       });
   }, [api]);
 
-  console.log("kim", banner);
-
   return (
     <>
       {banner && (

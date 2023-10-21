@@ -1,7 +1,5 @@
 .form-label,
 .form-textarea {
-  /* display: flex;
-  flex-direction: column; */
   text-align: left;
 }
 
@@ -11,7 +9,6 @@
 }
 
 .form-label .form-textarea {
-  /* flex-direction: row; */
   height: 150px;
   width: 100%;
   border: 1px solid #a6a6a6;
