@@ -10,9 +10,13 @@ https://github.com/G2-Magnolia-Cakes-Website/Magnolia-Cakes-Website
 ## Developed by:
 
 Kim Ta (s3840049)
+
 Omer Yalavac (s3849677)
+
 Quang Minh Duong (s3759757)
+
 Ya-Tse Lu (s3933328)
+
 
 ## Release notes:
 
