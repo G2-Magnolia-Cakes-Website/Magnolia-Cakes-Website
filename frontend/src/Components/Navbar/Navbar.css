@@ -59,7 +59,7 @@ nav .logo {
   display: none;
 }
 
-@media (max-width: 1935px) {
+@media (max-width: 1943px) {
   nav ul li {
     font-size: 16px;
   }
@@ -70,7 +70,7 @@ nav .logo {
   }
 }
 
-@media (max-width: 1601px) {
+@media (max-width: 1609px) {
   nav ul li {
     font-size: 16px;
   }
@@ -111,7 +111,7 @@ nav .logo {
   }
 }
 
-@media (max-width: 1093px) {
+@media (max-width: 1110px) {
   nav {
     flex-direction: column;
     align-items: flex-start;

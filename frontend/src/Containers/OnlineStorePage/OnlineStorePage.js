@@ -18,6 +18,7 @@ function OnlineStore({ api }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+
     // Fetch cakes data from the API
     const fetchCakes = async () => {
       try {
