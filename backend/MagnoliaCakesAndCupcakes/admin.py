@@ -7,6 +7,8 @@ from import_export.admin import ImportExportModelAdmin
 from .models import *
 
 
+# Admin's features
+
 class SocialMediasAdmin(admin.ModelAdmin):
     list_display = (
         "social_media_platform",
