@@ -4,7 +4,7 @@
   align-items: center;
 }
 
-.signup-login-group > * {
+.signup-login-group > *:not(.popup) {
   margin: 1rem 0.5rem;
 }
 
