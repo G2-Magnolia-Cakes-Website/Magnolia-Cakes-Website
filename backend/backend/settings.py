@@ -7,10 +7,14 @@ from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_URL = 'http://127.0.0.1:8000/'
 
-FRONTEND_APP_URL = "http://localhost:3000"
-# FRONTEND_APP_URL = "https://alpine-avatar-399423.ts.r.appspot.com/"
+#BASE_URL = 'http://127.0.0.1:8000/'
+#BACKEND_URL = '127.0.0.1:8000'
+BASE_URL = 'https://backend-dot-alpine-avatar-399423.ts.r.appspot.com/'
+BACKEND_URL = 'backend-dot-alpine-avatar-399423.ts.r.appspot.com'
+
+# FRONTEND_APP_URL = "http://localhost:3000"
+FRONTEND_APP_URL = "https://alpine-avatar-399423.ts.r.appspot.com"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -21,7 +25,7 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [BACKEND_URL]
 
 
 # Application definition
@@ -125,8 +129,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
 
+CORS_ALLOWED_ORIGINS = [
+    FRONTEND_APP_URL,
+]
 
 CORS_ALLOW_CREDENTIALS = True
 
