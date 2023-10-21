@@ -2,6 +2,11 @@
 
 A full-stack application for Magnolia Cakes and Cupcakes with the Frontend created with ReachJS, Backend created with django and a PostgreSQL database server. All of the mentioned components are currently hosted on Google Cloud.
 
+
+## Github URL:
+
+https://github.com/G2-Magnolia-Cakes-Website/Magnolia-Cakes-Website
+
 ## Developed by:
 
 Kim Ta (s3840049)
