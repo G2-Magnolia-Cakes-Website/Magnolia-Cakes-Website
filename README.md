@@ -84,7 +84,7 @@ Prerequisite: Make sure you have Node.js installed
 
 ## Development Guide
 
-- Follow django's documentation to make suitable adjustments to the backend application: `https://docs.djangoproject.com/`
+- Follow django's documentation to make suitable adjustments to the backend application: https://docs.djangoproject.com/
 
 - After you made any modification towards the `models.py` file, always remember to run the following commands before you start the application again so that your changes are reflected on the sql database:
 
@@ -92,11 +92,11 @@ Prerequisite: Make sure you have Node.js installed
 
 ### `python manage.py migrate`
 
-- Follow React's documentation to make suitable adjustments to the frontend application `https://legacy.reactjs.org/docs/getting-started.html`
+- Follow React's documentation to make suitable adjustments to the frontend application https://legacy.reactjs.org/docs/getting-started.html
 
 ## Deployment Guide
 
-- Follow this page to install gcloud CLI and configure your Google Developer account: `https://cloud.google.com/sdk/docs/install-sdk`
+- Follow this page to install gcloud CLI and configure your Google Developer account: https://cloud.google.com/sdk/docs/install-sdk
 
 ### To deploy backend
 
