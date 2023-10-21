@@ -14,7 +14,9 @@ BASE_URL = 'https://backend-dot-alpine-avatar-399423.ts.r.appspot.com/'
 BACKEND_URL = 'backend-dot-alpine-avatar-399423.ts.r.appspot.com'
 
 # FRONTEND_APP_URL = "http://localhost:3000"
-FRONTEND_APP_URL = "https://alpine-avatar-399423.ts.r.appspot.com"
+
+#FRONTEND_APP_URL = "https://alpine-avatar-399423.ts.r.appspot.com"
+FRONTEND_APP_URL = "https://magnoliacake.com.au"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -23,7 +25,7 @@ FRONTEND_APP_URL = "https://alpine-avatar-399423.ts.r.appspot.com"
 SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = False
 
 ALLOWED_HOSTS = [BACKEND_URL]
 
@@ -132,7 +134,7 @@ AUTH_PASSWORD_VALIDATORS = [
 CORS_ALLOW_ALL_ORIGINS = False
 
 CORS_ALLOWED_ORIGINS = [
-    FRONTEND_APP_URL,
+    FRONTEND_APP_URL, "https://www.magnoliacake.com.au"
 ]
 
 CORS_ALLOW_CREDENTIALS = True

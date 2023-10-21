@@ -82,8 +82,6 @@ function OnlineStore({ api }) {
     const flavor_chose = flavors.find(
       (flavor) => flavor.id === parseInt(selectedFlavor[product.id])
     );
-    console.log(flavor_chose);
-    console.log(cakeVariant);
     // Retrieve existing cart items or initialize an empty array
     const existingCart = JSON.parse(localStorage.getItem("Cart")) || [];
 
