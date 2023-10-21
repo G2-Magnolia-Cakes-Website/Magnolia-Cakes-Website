@@ -1,0 +1,39 @@
+[
+  {
+    "title": "Cake & Cupcake Flavours",
+    "options": ["Chocolate", "Vanilla"]
+  },
+  {
+    "title": "Specialty Flavours",
+    "options": [
+      "Marble Swirl",
+      "Coffee",
+      "Mocha",
+      "Red Velvet",
+      "Carrot & Cinnamon"
+    ]
+  },
+  {
+    "title": "Fillings",
+    "options": [
+      "Chocolate",
+      "Vanilla Bean",
+      "Cream Cookies",
+      "Caramel",
+      "Coconut"
+    ]
+  },
+  {
+    "title": "Specialty Fillings",
+    "options": [
+      "Rasberry",
+      "Strawberry",
+      "Blueberry",
+      "Pineapple",
+      "Mixed Berries",
+      "Mango",
+      "Passionfruit",
+      "Mint"
+    ]
+  }
+]

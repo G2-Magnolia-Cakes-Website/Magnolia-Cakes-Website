@@ -1,0 +1,52 @@
+.square-button {
+  border: 3px solid white;
+  width: fit-content;
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  padding: 15px 32px;
+  color: white;
+  font-family: "Fredoka", sans-serif;
+
+  background: linear-gradient(to right, #ede5e3 0%, #efc7c7 70%);
+  background-color: #efc7c7;
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.5s ease-out;
+}
+
+.square-button.small {
+  border: 2px solid white;
+  padding: 7px 16px;
+}
+
+.square-button.unfilled {
+  background: none;
+  background-color: transparent;
+}
+
+.square-button:not(.active):hover {
+  background-position: left bottom;
+  color: #daa41a;
+  border-color: #daa41a;
+}
+
+@media (max-width: 1024px) {
+  .square-button {
+    font-size: 16px;
+    padding: 10px 27px;
+  }
+}
+
+@media (max-width: 768px) {
+  .square-button {
+    font-size: 21px;
+  }
+}
+
+@media (max-width: 480px) {
+  .square-button {
+    font-size: 16px;
+    text-align: center;
+  }
+}

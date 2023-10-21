@@ -1,0 +1,30 @@
+.form-label,
+.form-input {
+  text-align: left;
+}
+
+.form-label {
+  font-weight: bold;
+  font-size: 16px;
+  width: 100%;
+}
+
+.form-label .form-input {
+  height: 36px;
+  width: 100%;
+  border: 1px solid #a6a6a6;
+  padding-left: 0.5rem;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box; /* Firefox, other Gecko */
+  box-sizing: border-box; /* Opera/IE 8+ */
+}
+
+.form-label .form-input:focus {
+  outline: none;
+  border: 2px solid #b76e79;
+  border-radius: 4px;
+}
+
+.form-label .form-input::placeholder {
+  font-family: "Fredoka", sans-serif;
+}

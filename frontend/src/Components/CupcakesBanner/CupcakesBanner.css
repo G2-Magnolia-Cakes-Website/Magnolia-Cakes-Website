@@ -1,0 +1,9 @@
+.cupcakes-banner {
+  background-size: 35%;
+  width: auto;
+  height: 0;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: top;
+  padding-top: 16%;
+}

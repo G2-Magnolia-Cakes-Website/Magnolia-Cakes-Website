@@ -1,10 +1,28 @@
+.watercolor-bg {
+  background-image: url("./utils/background-pink-watercolor.png");
+  /* background-image: url("./utils/brown-gold-bg.jpg"); */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
 .App {
   text-align: center;
+  height: 100%;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+p,
+a,
+button,
+input,
+label,
+li {
+  font-family: "Fredoka", sans-serif;
 }
 
 @media (prefers-reduced-motion: no-preference) {

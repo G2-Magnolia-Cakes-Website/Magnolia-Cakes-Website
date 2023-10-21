@@ -1,0 +1,54 @@
+.header {
+  /* keeps header at the top */
+  position: sticky;
+  top: 0;
+  z-index: 99;
+
+  background-color: transparent;
+}
+
+.header.colored {
+  background-color: #fce1dd;
+}
+
+.navbar-signup-login-group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.navbar-signup-login-group .button-group {
+  display: flex;
+}
+
+.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 99;
+  background: white;
+}
+
+.home-logo-header {
+  display: none;
+}
+
+.button-group {
+  margin-left: 0.5rem;
+}
+
+@media (max-width: 1110px) {
+  .header .navbar-signup-login-group {
+    flex-direction: column;
+  }
+
+  .navbar-signup-login-group .button-group {
+    display: flex;
+  }
+
+  .home-logo-header {
+    display: block;
+  }
+}

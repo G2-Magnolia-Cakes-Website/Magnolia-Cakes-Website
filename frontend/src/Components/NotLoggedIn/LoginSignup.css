@@ -1,0 +1,17 @@
+.not-logged-in {
+    margin-top: 100px;
+    /* margin-bottom: 100px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-and-signup {
+  display: flex;
+  align-items: center;
+}
+
+.links {
+    margin: 10px;
+}

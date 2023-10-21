@@ -1,0 +1,155 @@
+.active {
+  color: #b76e79;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+nav ul {
+  display: flex;
+  margin: 0;
+}
+
+nav ul li {
+  list-style: none;
+  font-size: 18px;
+  margin: auto 0 auto;
+}
+
+nav ul li a {
+  display: block;
+  text-decoration: none;
+  color: #000000;
+  padding: 1rem;
+  margin: 0 2rem;
+  transition: 0.3s;
+  font-family: "Fredoka", sans-serif;
+}
+
+nav ul li a:not(.active):hover {
+  color: #b76e79;
+}
+
+nav .menu {
+  display: none;
+  position: absolute;
+  top: 1.25rem;
+  right: 1rem;
+}
+
+nav ul.tabs-short {
+  display: none;
+}
+
+nav .logo {
+  width: 90px;
+  object-fit: contain;
+  margin: 0.5rem 0.5rem 0.5rem 2rem;
+}
+
+.home-tab.as-text {
+  display: none;
+}
+
+.home-tab.mobile {
+  display: none;
+}
+
+@media (max-width: 1943px) {
+  nav ul li {
+    font-size: 16px;
+  }
+
+  nav ul li a {
+    padding: 1rem;
+    margin: 0 1rem;
+  }
+}
+
+@media (max-width: 1609px) {
+  nav ul li {
+    font-size: 16px;
+  }
+
+  nav ul li a {
+    padding: 1rem;
+    margin: 0;
+  }
+}
+
+@media (max-width: 1308px) {
+  nav .logo {
+    width: 80px;
+    object-fit: contain;
+    margin: 0.5rem 0.5rem 0.5rem 2rem;
+  }
+
+  nav ul li {
+    font-size: 15px;
+  }
+
+  nav ul li a {
+    padding: 0.8rem;
+    margin: 0;
+  }
+}
+
+@media (max-width: 1236px) {
+  nav ul li {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1200px) {
+  nav ul li a {
+    padding: 0.5rem;
+    margin: 0;
+  }
+}
+
+@media (max-width: 1110px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav .menu {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  nav ul {
+    background-color: transparent;
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    padding: 3rem 0 1rem;
+  }
+
+  nav ul.open {
+    display: flex;
+    margin-top: 0.5rem;
+  }
+
+  nav ul li {
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+  }
+
+  nav ul li a {
+    margin: 0.5rem;
+  }
+
+  .home-tab {
+    display: none;
+  }
+
+  .home-tab.as-text{
+    display: block;
+  }
+}

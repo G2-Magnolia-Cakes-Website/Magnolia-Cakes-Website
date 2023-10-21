@@ -1,185 +1,197 @@
-// import Component from the react module
-import React, { Component } from "react";
-import Modal from "./Components/Modal";
-import axios from 'axios';
+import React, { useLayoutEffect, useState } from "react";
+import PageLayout from "./Containers/PageLayout/PageLayout";
+import { Route, Routes, BrowserRouter, useLocation } from "react-router-dom";
+import pages from "./utils/all_pages.json";
+import ComingSoonPage from "./Components/ComingSoonPage/ComingSoonPage";
+import HomePage from "./Containers/HomePage/HomePage";
+import LoginPage from "./Components/LoginPage/LoginPage";
+import PasswordPage from "./Components/ForgotPassword/ForgotPasswordPage";
+import PasswordResetPage from "./Components/ForgotPassword/ResetPasswordPage";
+import LocationPage from "./Containers/LocationPage/LocationPage";
+import TermsAndConditionsPage from "./Containers/TermsAndConditionsPage/TermsAndConditionsPage";
+import GalleryPage from "./Containers/GalleryPage/GalleryPage";
+import SignupPage from "./Components/SignupPage/SignupPage";
+import FAQsPage from "./Components/FAQs/FAQsPage";
+import OnlineStorePage from "./Containers/OnlineStorePage/OnlineStorePage";
+import GetAQuote from "Containers/GetAQuote/GetAQuote";
+import FlavoursAndServings from "Containers/FlavoursAndServings/FlavoursAndServings";
+import AboutUsPage from "Containers/AboutUsPage/AboutUsPage";
+import UserProfilePage from "Components/UserProfile/ProfilePage";
+import "./App.css";
+import ContactUsPage from "Containers/ContactUsPage/ContactUsPage";
+import PromotionPopup from "Components/PromotionPopup/PromotionPopup"
+import SuccessPage from "Containers/PaymentPage/PaymentSuccess";
+import WorkshopPage from "Containers/WorkshopPage/Workshop";
+import { PAGELINKS } from "utils/constants";
 
-// create a class that extends the component
-class App extends Component {
+/*
+ * axios instance
+ * Set base url in it
+ * interceptor logic
+ */
+import api from "./axios";
 
-// add a constructor to take props
-constructor(props) {
-	super(props);
-	
-	// add the props here
-	this.state = {
-	
-	// the viewCompleted prop represents the status
-	// of the task. Set it to false by default
-	viewCompleted: false,
-	activeItem: {
-		title: "",
-		description: "",
-		completed: false
-	},
-	
-	// this list stores all the completed tasks
-	taskList: []
-	};
-}
+/*
+* Authentication Context (to update everything after login and logout, not persistent)
+Persistent authentication is handled using localstorage where we store
+- access_token
+- refresh_token
+- email
+- first_name
+- last_name
+*/
+import { AuthProvider } from "./AuthContext";
 
-// Add componentDidMount()
-componentDidMount() {
-	this.refreshList();
-}
-
-
-refreshList = () => {
-	axios //Axios to send and receive HTTP requests
-	.get("http://localhost:8000/api/tasks/")
-	.then(res => this.setState({ taskList: res.data }))
-	.catch(err => console.log(err));
+const Wrapper = ({ children }) => {
+  const location = useLocation();
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+  return children;
 };
 
-// this arrow function takes status as a parameter
-// and changes the status of viewCompleted to true
-// if the status is true, else changes it to false
-displayCompleted = status => {
-	if (status) {
-	return this.setState({ viewCompleted: true });
-	}
-	return this.setState({ viewCompleted: false });
-};
+const App = () => {
+  const [isAuth, setIsAuth] = useState(false);
 
-// this array function renders two spans that help control
-// the set of items to be displayed(ie, completed or incomplete)
-renderTabList = () => {
-	return (
-	<div className="my-5 tab-list">
-		<span
-		onClick={() => this.displayCompleted(true)}
-		className={this.state.viewCompleted ? "active" : ""}
-		>
-		completed
-			</span>
-		<span
-		onClick={() => this.displayCompleted(false)}
-		className={this.state.viewCompleted ? "" : "active"}
-		>
-		Incompleted
-			</span>
-	</div>
-	);
-};
-// Main variable to render items on the screen
-renderItems = () => {
-	const { viewCompleted } = this.state;
-	const newItems = this.state.taskList.filter(
-	(item) => item.completed === viewCompleted
-	);
-	return newItems.map((item) => (
-	<li
-		key={item.id}
-		className="list-group-item d-flex justify-content-between align-items-center"
-	>
-		<span
-		className={`todo-title mr-2 ${
-			this.state.viewCompleted ? "completed-todo" : ""
-		}`}
-		title={item.description}
-		>
-		{item.title}
-		</span>
-		<span>
-		<button
-			onClick={() => this.editItem(item)}
-			className="btn btn-secondary mr-2"
-		>
-			Edit
-		</button>
-		<button
-			onClick={() => this.handleDelete(item)}
-			className="btn btn-danger"
-		>
-			Delete
-		</button>
-		</span>
-	</li>
-	));
-};
+  const handleLoginSuccess = () => {
+    setIsAuth(true);
+  };
 
-toggle = () => {
-	//add this after modal creation
-	this.setState({ modal: !this.state.modal });
+  const nonPlaceHolderPages = [
+    "/location",
+    "/terms-and-conditions",
+    "/flavours-and-servings",
+  ];
+
+  // temporary until pages created
+  const routeAllPagesComingSoon = () => {
+    return pages
+      .filter((page) => {
+        return !nonPlaceHolderPages.includes(page.pageLink);
+      })
+      .map((page) => (
+        <Route
+          key={page.pageLink}
+          path={page.pageLink}
+          element={<ComingSoonPage />}
+        />
+      ));
+  };
+
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Wrapper>
+          <div className="watercolor-bg">
+            <PromotionPopup api={api} />
+            <PageLayout api={api} isAuth={isAuth} setIsAuth={setIsAuth}>
+              <Routes>
+                <Route key="/" path="/" element={<HomePage api={api} />} />
+                <Route
+                  key="/location"
+                  path="/location"
+                  element={<LocationPage api={api} />}
+                />
+                <Route
+                  key="/online-store"
+                  path="/online-store"
+                  element={<OnlineStorePage api={api} />}
+                />
+                <Route
+                  key="/terms-and-conditions"
+                  path="/terms-and-conditions"
+                  element={<TermsAndConditionsPage api={api} />}
+                />
+                <Route
+                  key="/flavours-and-servings"
+                  path="/flavours-and-servings"
+                  element={<FlavoursAndServings api={api} />}
+                />
+                <Route
+                  key="about-us"
+                  path="about-us"
+                  element={<AboutUsPage api={api} />}
+                />
+                <Route path="/gallery" element={<GalleryPage api={api} />}>
+                  <Route
+                    path="/gallery/wedding-and-anniversary"
+                    element={<ComingSoonPage />}
+                  />
+                  <Route
+                    path="/gallery/birthday"
+                    element={<ComingSoonPage />}
+                  />
+                  <Route
+                    path="/gallery/christening-and-communion"
+                    element={<ComingSoonPage />}
+                  />
+                  <Route
+                    path="/gallery/cupcakes"
+                    element={<ComingSoonPage />}
+                  />
+                </Route>
+                <Route
+                  key="/signup"
+                  path="/signup"
+                  element={<SignupPage api={api} />}
+                />
+                <Route
+                  key="/login"
+                  path="/login"
+                  element={
+                    <LoginPage
+                      api={api}
+                      handleLoginSuccess={handleLoginSuccess}
+                    />
+                  }
+                />
+                <Route
+                  key="/get-a-quote"
+                  path="/get-a-quote"
+                  element={<GetAQuote api={api} />}
+                />
+                <Route
+                  key="/contact-us"
+                  path="/contact-us"
+                  element={<ContactUsPage api={api} />}
+                />
+                <Route
+                  key="/forgot-password"
+                  path="/forgot-password"
+                  element={<PasswordPage api={api} />}
+                />
+                <Route
+                  key="/reset-password"
+                  path="/reset-password"
+                  element={<PasswordResetPage api={api} />}
+                />
+                <Route
+                  key="/faq"
+                  path="/faq"
+                  element={<FAQsPage api={api} />}
+                />
+                <Route
+                  key={PAGELINKS.PROFILE_LINK}
+                  path={PAGELINKS.PROFILE_LINK}
+                  element={<UserProfilePage api={api} />}
+                />
+                <Route
+                  key="/workshop"
+                  path="/workshop"
+                  element={<WorkshopPage api={api} />}
+                />
+                <Route
+                  key="/success"
+                  path="/success"
+                  element={<SuccessPage api={api} />}
+                />
+                {routeAllPagesComingSoon()}
+              </Routes>
+            </PageLayout>
+          </div>
+        </Wrapper>
+      </BrowserRouter>
+    </AuthProvider>
+  );
 };
-
-
-// Submit an item
-handleSubmit = (item) => {
-	this.toggle();
-	alert("save" + JSON.stringify(item));
-	if (item.id) {
-	// if old post to edit and submit
-	axios
-		.put(`http://localhost:8000/api/tasks/${item.id}/`, item)
-		.then((res) => this.refreshList());
-	return;
-	}
-	// if new post to submit
-	axios
-	.post("http://localhost:8000/api/tasks/", item)
-	.then((res) => this.refreshList());
-};
-
-// Delete item
-handleDelete = (item) => {
-	alert("delete" + JSON.stringify(item));
-	axios
-	.delete(`http://localhost:8000/api/tasks/${item.id}/`)
-	.then((res) => this.refreshList());
-};
-
-// Create item
-createItem = () => {
-	const item = { title: "", description: "", completed: false };
-	this.setState({ activeItem: item, modal: !this.state.modal });
-};
-
-//Edit item
-editItem = (item) => {
-	this.setState({ activeItem: item, modal: !this.state.modal });
-};
-
-// Start by visual effects to viewer
-render() {
-	return (
-	<main className="content">
-		<h1 className="text-success text-uppercase text-center my-4">
-		GFG Task Manager
-		</h1>
-		<div className="row ">
-		<div className="col-md-6 col-sm-10 mx-auto p-0">
-			<div className="card p-3">
-			<div className="">
-				<button onClick={this.createItem} className="btn btn-info">
-				Add task
-				</button>
-			</div>
-			{this.renderTabList()}
-			<ul className="list-group list-group-flush">
-				{this.renderItems()}
-			</ul>
-			</div>
-		</div>
-		</div>
-		{this.state.modal ? (
-		<Modal
-			activeItem={this.state.activeItem}
-			toggle={this.toggle}
-			onSave={this.handleSubmit}
-		/>
-		) : null}
-	</main>
-	);
-}
-}
 export default App;

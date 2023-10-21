@@ -1,0 +1,64 @@
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  justify-content: center;
+}
+
+.footer-section h4 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: black;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.footer-section p {
+  text-align: center;
+  color: black;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 18px;
+}
+
+.footer-section .business-hours p {
+  margin-bottom: 0.1rem;
+}
+
+.footer-section a {
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  display: block;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.footer-section a:hover {
+  color: #b76e79;
+}
+
+.footer-section .social-medias {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+@media (max-width: 768px) {
+  .footer-section {
+    width: 100%;
+  }
+
+  .footer-section p {
+    margin-bottom: 0.2rem;
+  }
+
+  .footer-section .social-medias {
+    display: flex;
+    gap: 1rem;
+  }
+}

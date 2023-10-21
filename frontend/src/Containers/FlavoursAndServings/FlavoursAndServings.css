@@ -1,0 +1,119 @@
+.flavours-and-servings {
+  margin: 0 auto 0 auto;
+  padding: 8rem 20rem 8rem 20rem;
+  align-items: center;
+  justify-content: center;
+  background-color: #fee39a;
+}
+
+.flavours-and-servings h1 {
+  text-align: center;
+  font-family: "Sacramento", cursive;
+  font-size: 96px;
+  color: #daa41a;
+}
+
+.flavours-and-servings p.description {
+  font-size: 24px;
+  text-align: center;
+  margin: 2rem 0 2rem 0;
+}
+
+.flavours-and-servings .flav-serv-lists {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: fit-content;
+  margin: 5rem auto 5rem auto;
+}
+
+.flavours-and-servings .flav-serv-lists .list-wrapper {
+  flex: 50%;
+  flex-grow: 1;
+  padding: 1rem;
+}
+
+.flavours-and-servings .extra-info {
+  list-style-position: outside;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.flavours-and-servings .extra-info li {
+  font-size: 24px;
+}
+
+.flavours-and-servings .extra-info li::marker {
+  font-size: 20px;
+}
+
+@media (max-width: 1440px) {
+  .flavours-and-servings {
+    padding: 8rem 15rem 8rem 15rem;
+  }
+
+  .flavours-and-servings h1 {
+    font-size: 64px;
+  }
+
+  .flavours-and-servings p.description {
+    font-size: 21px;
+  }
+
+  .flavours-and-servings .extra-info li {
+    font-size: 21px;
+  }
+}
+
+@media (max-width: 1440px) {
+  .flavours-and-servings {
+    padding: 6rem 10rem 6rem 10rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .flavours-and-servings {
+    padding: 6rem 7rem 6rem 7rem;
+  }
+
+  .flavours-and-servings p.description {
+    font-size: 18px;
+  }
+
+  .flavours-and-servings .extra-info li {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 580px) {
+  .flavours-and-servings .flav-serv-lists {
+    display: block;
+    margin: 2rem auto 2rem auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .flavours-and-servings {
+    padding: 3rem;
+  }
+
+  .flavours-and-servings h1 {
+    font-size: 45px;
+  }
+
+  .flavours-and-servings p.description {
+    font-size: 16px;
+  }
+
+  .flavours-and-servings .extra-info li {
+    font-size: 16px;
+  }
+
+  .flavours-and-servings .flav-serv-lists .list-wrapper {
+    padding: 0.5rem;
+  }
+
+  .flavours-and-servings .extra-info {
+    gap: 2rem;
+  }
+}

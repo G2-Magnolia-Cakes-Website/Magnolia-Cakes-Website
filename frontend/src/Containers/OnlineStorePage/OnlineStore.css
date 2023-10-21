@@ -1,0 +1,216 @@
+.online-store-page-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.online-store {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.PageHeader {
+  text-align: center;
+  color: #b76e79;
+  font-weight: bold;
+  font-family: "Fredoka", sans-serif;
+  font-size: 64px;
+  margin: 20px;
+}
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  /* Add some gap between buttons */
+}
+
+.cakes-list {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  max-width: 78.125%;
+  width: fit-content;
+  background-color: white;
+  padding: 50px;
+}
+
+.cake-item {
+  width: 300px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.image {
+  width: 300px;
+  height: 350px;
+  object-fit: cover;
+}
+
+/* Style for the quantity section */
+.quantity-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  /* Adjust as needed */
+}
+
+.quantity-section label {
+  margin-right: 10px;
+  /* Adjust as needed */
+}
+
+.quantity-section input {
+  width: 50px;
+  /* Adjust the width as needed */
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.quantity-decrease,
+.quantity-increase {
+  display: block;
+  width: 22px;
+
+  background: #b76e79;
+  text-decoration: none;
+  text-align: center;
+  color: white;
+  border: 1px solid #b76e79;
+}
+.quantity-decrease:hover,
+.quantity-increase:hover {
+  background: #575b71;
+  color: #fff;
+}
+.quantity-decrease {
+  border-radius: 3px 0 0 3px;
+}
+.quantity-increase {
+  border-radius: 0 3px 3px 0;
+}
+.quantity__input {
+  width: 32px;
+
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  border-top: 2px solid #b76e79;
+  border-bottom: 2px solid #b76e79;
+  border-left: 1px solid #b76e79;
+  border-right: 2px solid #b76e79;
+  background: #f8dcdc;
+  color: #000000;
+}
+
+@media (hover: hover) {
+  .quantity-decrease:hover,
+  .quantity-increase:hover {
+    background-color: #834b54;
+    border-color: #834b54;
+  }
+}
+
+/* Style for the buttons section */
+
+.buttons-section {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+.unavailable-message {
+  display: block;
+  text-decoration: none;
+  color: white;
+  padding: 3px 10px;
+  margin: 1rem 0;
+  font-size: 20px;
+  background-color: #af283c;
+  border: 2px solid #b76e79;
+  border-radius: 3px;
+  text-align: center;
+  transition: 0.5s;
+  font-family: "Fredoka", sans-serif;
+}
+.button {
+  display: block;
+  text-decoration: none;
+  color: white;
+  padding: 3px 10px;
+  margin: 1rem 0;
+  font-size: 20px;
+  background-color: #b76e79;
+  border: 2px solid #b76e79;
+  border-radius: 3px;
+  text-align: center;
+  transition: 0.5s;
+  font-family: "Fredoka", sans-serif;
+}
+
+.button:hover {
+  background-color: #834b54;
+  border-color: #834b54;
+}
+
+.success-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 9999;
+}
+
+/* For mobile devices */
+@media (max-width: 767px) {
+  .online-store {
+    margin: 20px; /* Adjust margins for mobile */
+  }
+
+  .cakes-list {
+    padding: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+  }
+
+  .cake-item {
+    margin: 0; /* Adjust margins for mobile */
+    width: 100%;
+  }
+
+  .image {
+    width: 100%; /* Adjust image width for mobile */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .buttons-section {
+    flex-direction: column; /* Stack buttons vertically for mobile */
+    align-items: flex-start; /* Align buttons to the left for mobile */
+  }
+}
+
+/* For tablets (portrait) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .cakes-list {
+    padding: 20px;
+  }
+}
+
+/* For tablets (landscape) */
+@media (min-width: 992px) and (max-width: 1200px) {
+  .cakes-list {
+    padding: 60px;
+  }
+}

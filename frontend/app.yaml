@@ -1,0 +1,24 @@
+
+runtime: nodejs20  # Use the appropriate runtime version
+
+handlers:
+  - url: /static
+    static_dir: build/static
+  - url: /.*
+    static_files: build/index.html
+    upload: build/index.html
+
+env_variables:
+  REACT_APP_API_BASE_URL: "https://backend-dot-alpine-avatar-399423.ts.r.appspot.com/"
+  REACT_APP_ENVIRONMENT: "production"
+
+automatic_scaling:
+  target_cpu_utilization: 0.60 
+  target_throughput_utilization: 0.5
+  min_instances: 0
+  max_instances: 1
+
+resources:
+  cpu: 0.1
+  memory_gb: 0.125
+  disk_size_gb: 10

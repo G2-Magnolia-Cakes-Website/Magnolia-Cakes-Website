@@ -1,0 +1,62 @@
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  overflow-y: auto;
+
+  z-index: 99;
+}
+
+.popup-inner {
+  position: relative;
+  padding: 32px;
+  width: 100%;
+  max-width: 800px;
+  background-color: #fff;
+  border-radius: 25px;
+  max-height: 40vh;
+  overflow-y: auto;
+  top: 10%;
+  justify-content: right;
+}
+
+.popup-inner .close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  border: none;
+  background-color: #fff;
+  font-family: "Fredoka", sans-serif;
+  font-size: 18px;
+  color: red;
+}
+
+.popup-inner h2 {
+  text-align: left; /* Align the heading to the left */
+  font-size: 20px; /* Adjust the font size for h2 */
+  margin-bottom: 10px; /* Add some margin to separate h2 from p */
+}
+
+.popup-inner p {
+  text-align: left; /* Align paragraphs to the left */
+  font-size: 16px; /* Adjust the font size for paragraphs */
+  margin-bottom: 10px; /* Add some margin between paragraphs */
+}
+
+.popup-inner .cross {
+  position: relative;
+  top: -1rem;
+  right: -1rem;
+  display: flex;
+  justify-content: right;
+}

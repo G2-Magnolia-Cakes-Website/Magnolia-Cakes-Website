@@ -1,0 +1,145 @@
+.profile-header {
+    color: #B76E79;
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-family: "Fredoka", sans-serif;
+    font-size: 50px;
+}
+
+.profile-side-by-side {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.profile-white-background {
+    background-color: white;
+    padding: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+.profile-one-side {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+}
+
+.profile-welcome {
+    font-family: "Fredoka", sans-serif;
+    font-size: 25px;
+}
+
+.profile-info {
+    font-family: "Fredoka", sans-serif;
+    margin-top: 20px;
+}
+
+.profile-title {
+    font-family: "Fredoka", sans-serif;
+    font-size: 25px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.first-title {
+    margin-top: 0;
+}
+
+.name-title {
+    margin-top: 40px;
+}
+
+.profile-input {
+    width: 100%;
+}
+
+.label-edit {
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-edit-btn,
+.profile-change-btn {
+    border: none;
+    background-color: white;
+    color: #008EE2;
+    text-align: left;
+    padding: 0;
+}
+
+.profile-edit-btn {
+    padding-left: 20px;
+}
+
+.profile-label {
+    margin-top: 10px;
+}
+
+.password-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.messages-profile {
+    text-align: center;
+    margin-bottom: 130px;
+    margin-top: 20px;
+}
+
+.error-profile {
+    background-color: lightcoral;
+    color: white;
+    font-family: "Fredoka", sans-serif;
+}
+
+.success-profile {
+    background-color: rgb(190, 255, 190);
+    color: black;
+    font-family: "Fredoka", sans-serif;
+}
+
+.msgs-profile {
+    padding: 10px;
+}
+
+/* Small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .profile-side-by-side {
+        flex-direction: column;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .profile-white-background {
+        width: 100%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .profile-one-side {
+        width: 100%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .profile-info {
+        text-align: center;
+    }
+
+    .profile-welcome {
+        text-align: center;
+    }
+
+    .profile-header {
+        font-size: 40px;
+    }
+}

@@ -1,0 +1,121 @@
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-table td {
+  text-align: right;
+}
+.cart-table th {
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  padding: 5px;
+  text-align: left;
+}
+
+.cart-table td.total-price {
+  color: blue;
+}
+
+.total-price-cell {
+  color: red;
+}
+
+.cart-table tfoot tr {
+  border: none; /* Remove border for tfoot */
+}
+
+.cart-table tfoot td {
+  border: none; /* Remove border for tfoot cells */
+}
+
+/* Style for the quantity input */
+.quantity-input {
+  width: 50px; /* Adjust the width as needed */
+}
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.quantity-decrease,
+.quantity-increase {
+  display: block;
+  width: 22px;
+
+  background: #e6c3c3;
+  text-decoration: none;
+  text-align: center;
+}
+.quantity-decrease:hover,
+.quantity-increase:hover {
+  background: #575b71;
+  color: #fff;
+}
+.quantity-decrease {
+  border-radius: 3px 0 0 3px;
+}
+.quantity-increase {
+  border-radius: 0 3px 3px 0;
+}
+.quantity__input {
+  width: 32px;
+
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  border-top: 2px solid #fdeef3;
+  border-bottom: 2px solid #fdeef3;
+  border-left: 1px solid #fdeef3;
+  border-right: 2px solid #fdeef3;
+  background: #f8dcdc;
+  color: #000000;
+}
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.button-container button {
+  padding: 10px 20px;
+}
+
+.remove {
+  background: #d87272;
+}
+
+/* Styles for mobile devices */
+@media (max-width: 767px) {
+  .cart-table th,
+  .cart-table td {
+    text-align: left; /* Align text to left on small screens */
+    padding: 2px; /* Adjust padding for spacing */
+  }
+
+  .cart-table th {
+    background-color: transparent; /* Remove background color for th */
+    border: none; /* Remove border for th */
+  }
+
+  .cart-table td.total-price,
+  .total-price-cell {
+    color: blue; /* Adjust colors as needed */
+  }
+
+  .button-container {
+    flex-direction: column; /* Stack buttons vertically for mobile */
+    margin-top: 10px; /* Adjust margin for spacing */
+  }
+
+  .button-container button {
+    width: 100%; /* Make buttons full width */
+    margin-bottom: 10px; /* Adjust margin for spacing */
+  }
+
+  .quantity-input {
+    width: 80%; /* Make quantity input full width */
+    margin: 10px; /* Adjust margin for spacing */
+  }
+}

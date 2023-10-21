@@ -1,0 +1,166 @@
+.about-us-section {
+  background-image: url("../../../utils/cover/about-us-portrait-bg.png");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  color: #fff;
+  max-height: 1022px;
+  aspect-ratio: 2560 / 1022;
+
+  margin: 0;
+
+  display: block;
+  align-items: center;
+  justify-content: center;
+  object-fit: cover;
+}
+
+.about-us-section .about-us-portrait {
+  display: block;
+  width: 40%;
+  height: auto;
+  min-width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-us-section .about-us-text {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.about-us-section .about-us-text h2 {
+  font-size: 80px;
+  /* font-family: "Pacifico", cursive; */
+  font-family: "Sacramento", cursive;
+  margin: 0;
+}
+
+.about-us-section .about-us-text p {
+  font-size: 24px;
+  width: 70%;
+  text-align: center;
+  margin: 0;
+}
+
+.about-us-section .about-us-text .readmore-black {
+  display: none;
+}
+
+.about-us-section .about-us-portrait {
+  display: none;
+}
+
+@media (max-width: 1440px) {
+  .about-us-section .about-us-text {
+    gap: 2rem;
+  }
+
+  .about-us-section .about-us-text h2 {
+    font-size: 50px;
+  }
+
+  .about-us-section .about-us-text p {
+    font-size: 21px;
+    width: 60%;
+  }
+}
+
+@media (max-width: 1210px) {
+  .about-us-section .about-us-text {
+    width: 60%;
+    gap: 1rem;
+  }
+
+  .about-us-section .about-us-text p {
+    width: 80%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .about-us-section .about-us-text {
+    gap: 0.5rem;
+  }
+
+  .about-us-section .about-us-text h2 {
+    font-size: 45px;
+  }
+
+  .about-us-section .about-us-text p {
+    font-size: 16px;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 810px) {
+  .about-us-section {
+    background-image: none;
+    padding: 0;
+    aspect-ratio: auto;
+    margin-top: 2.5rem;
+    margin-bottom: 4.5rem;
+    width: 100%;
+  }
+
+  .about-us-section .about-us-portrait {
+    display: block;
+    min-width: 225px;
+    width: 225px;
+    height: auto;
+    margin-bottom: 3rem;
+  }
+
+  .about-us-section .about-us-text {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .about-us-section .about-us-text > *:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+
+  .about-us-section .about-us-text h2 {
+    text-align: center;
+    font-size: 50px;
+    color: black;
+  }
+
+  .about-us-section .about-us-text p {
+    font-size: 21px;
+    width: 100%;
+    color: black;
+  }
+
+  .about-us-section .about-us-text .readmore-white {
+    display: none;
+  }
+
+  .about-us-section .about-us-text .readmore-black {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-us-section {
+    margin-bottom: 2rem;
+  }
+
+  .about-us-section .about-us-portrait {
+    margin-bottom: 2rem;
+  }
+
+  .about-us-section .about-us-text p {
+    font-size: 16px;
+  }
+}

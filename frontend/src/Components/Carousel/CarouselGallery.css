@@ -1,0 +1,219 @@
+.pink-bg {
+  background-color: #ffc1dc;
+}
+
+.carousel-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+  padding: 3rem;
+}
+
+.intro-quote {
+  margin: auto 1rem;
+  width: fit-content;
+}
+
+.intro-quote.mobile {
+  display: none;
+}
+
+.quote-wrapper2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.swiper {
+  aspect-ratio: 19/20;
+  height: 835px;
+  width: auto;
+  /* max-width: 900px; */
+  margin: auto 0 0 0;
+  display: inline-block;
+}
+
+.swiper-pagination-bullet {
+  background-color: white;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #daa41a;
+}
+
+.swiper-slide {
+  /* text-align: center;
+  font-size: 18px;
+  background: transparent;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  opacity: 0.55; */
+}
+
+.swiper-button-next {
+  color: white;
+  /* font-size: 25px; */
+  font-weight: bold;
+}
+
+.swiper-button-prev {
+  color: white;
+  /* font-size: 30px; */
+  font-weight: bold;
+}
+
+.swiper-slide img {
+  max-width: 100%;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+  -o-object-fit: cover;
+  object-fit: cover;
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* min-height: 460px; */
+  z-index: -6;
+  margin: 0;
+  border-radius: 3000px 3000px 0 0;
+  box-shadow: 0px -1px 2px #ffc1dc;
+}
+
+@media (min-width: 2220px) {
+  .swiper {
+    height: 951px;
+    /* max-width: 1500px; */
+  }
+
+  .carousel-wrapper {
+    padding: 5rem;
+  }
+}
+
+@media (max-width: 1930px) {
+  .swiper {
+    height: 744px;
+  }
+}
+
+@media (max-width: 1795px) {
+  .swiper {
+    height: 678px;
+  }
+
+  .carousel-wrapper {
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 1565px) {
+  .swiper {
+    height: 535px;
+    /* max-width: 1000px; */
+  }
+
+  .carousel-wrapper {
+    gap: 1rem;
+    padding: 2rem;
+  }
+
+  .intro-quote {
+    margin: auto 1rem;
+  }
+}
+
+@media (max-width: 1400px) {
+  .swiper {
+    height: 500px;
+  }
+}
+
+@media (max-width: 1240px) {
+  .swiper {
+    height: 515px;
+  }
+}
+
+@media (max-width: 1134px) {
+  .swiper {
+    height: 449px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .carousel-wrapper {
+    gap: 1.5rem;
+    padding: 1.5rem 2rem;
+  }
+
+  .cake-pop {
+    width: 80px;
+  }
+
+  .swiper {
+    height: 423px;
+  }
+}
+
+@media (max-width: 890px) {
+  .carousel-wrapper {
+    padding: 2rem 3rem 3rem 3rem;
+    gap: 0;
+    justify-content: center;
+  }
+
+  .intro-quote {
+    display: none;
+  }
+
+  .intro-quote.mobile {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 2rem;
+  }
+
+  .quote-wrapper2 {
+    margin: 0;
+  }
+
+  .quote-wrapper2 .quote {
+    font-size: 21px;
+  }
+
+  .swiper {
+    height: auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .swiper-button-next::after {
+    font-size: 20px;
+  }
+
+  .swiper-button-prev::after {
+    font-size: 20px;
+  }
+  
+  .carousel-wrapper {
+    padding: 2rem;
+  }
+
+  .quote-wrapper2 {
+    margin: 0 1.5rem 0 1.5rem;
+  }
+
+  .quote-wrapper2 .quote {
+    font-size: 16px;
+  }
+}

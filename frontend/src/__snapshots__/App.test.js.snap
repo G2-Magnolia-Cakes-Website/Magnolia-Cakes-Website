@@ -1,0 +1,805 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test App renders App 1`] = `
+<div
+  className="watercolor-bg"
+>
+  <div
+    className="layout"
+  >
+    <div
+      className="business-name-wrapper"
+    >
+      <img
+        alt="Magnolia Cake Logo"
+        className="logo"
+        src="Magnolia_Cake_logo.png"
+      />
+      <h1
+        className="business-name"
+      >
+        Magnolia Cakes and Cupcakes
+      </h1>
+    </div>
+    <div
+      className="header"
+    >
+      <div
+        className="navbar-signup-login-group"
+      >
+        <nav>
+          <div
+            className="menu"
+          >
+            <div
+              aria-expanded={false}
+              className="hamburger-react"
+              onClick={[Function]}
+              onKeyUp={[Function]}
+              role="button"
+              style={
+                Object {
+                  "cursor": "pointer",
+                  "height": "48px",
+                  "outline": "none",
+                  "position": "relative",
+                  "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
+                  "userSelect": "none",
+                  "width": "48px",
+                }
+              }
+              tabIndex={0}
+            >
+              <div
+                style={
+                  Object {
+                    "background": "#b76e79",
+                    "height": "3px",
+                    "left": "8px",
+                    "position": "absolute",
+                    "top": "13px",
+                    "transform": "none",
+                    "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
+                    "width": "32px",
+                  }
+                }
+              />
+              <div
+                style={
+                  Object {
+                    "background": "#b76e79",
+                    "height": "3px",
+                    "left": "8px",
+                    "opacity": "1",
+                    "position": "absolute",
+                    "top": "23px",
+                    "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
+                    "width": "32px",
+                  }
+                }
+              />
+              <div
+                style={
+                  Object {
+                    "background": "#b76e79",
+                    "height": "3px",
+                    "left": "8px",
+                    "position": "absolute",
+                    "top": "33px",
+                    "transform": "none",
+                    "transition": "0.4s cubic-bezier(0, 0, 0, 1)",
+                    "width": "32px",
+                  }
+                }
+              />
+            </div>
+          </div>
+          <ul
+            className=""
+          >
+            <li
+              onClick={[Function]}
+            >
+              <a
+                aria-current="page"
+                className="active"
+                href="/"
+                onClick={[Function]}
+              >
+                Home
+              </a>
+            </li>
+            <li
+              onClick={[Function]}
+            >
+              <a
+                className=""
+                href="/gallery"
+                onClick={[Function]}
+              >
+                Gallery
+              </a>
+            </li>
+            <li
+              onClick={[Function]}
+            >
+              <a
+                className=""
+                href="/online-store"
+                onClick={[Function]}
+              >
+                Online Store
+              </a>
+            </li>
+            <li
+              onClick={[Function]}
+            >
+              <a
+                className=""
+                href="/workshop"
+                onClick={[Function]}
+              >
+                Workshop
+              </a>
+            </li>
+            <li
+              onClick={[Function]}
+            >
+              <a
+                className=""
+                href="/about-us"
+                onClick={[Function]}
+              >
+                About Us
+              </a>
+            </li>
+            <li
+              onClick={[Function]}
+            >
+              <a
+                className=""
+                href="/contact-us"
+                onClick={[Function]}
+              >
+                Contact Us
+              </a>
+            </li>
+            <li
+              onClick={[Function]}
+            >
+              <a
+                className=""
+                href="/faq"
+                onClick={[Function]}
+              >
+                FAQ
+              </a>
+            </li>
+            <li
+              onClick={[Function]}
+            >
+              <a
+                className=""
+                href="/get-a-quote"
+                onClick={[Function]}
+              >
+                Get a Quote
+              </a>
+            </li>
+            <li
+              onClick={[Function]}
+            >
+              <a
+                className=""
+                href="/flavours-and-servings"
+                onClick={[Function]}
+              >
+                Flavours & Servings
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <div
+          className="signup-login-group"
+        >
+          <button
+            className="login"
+            onClick={[Function]}
+          >
+            Log In
+          </button>
+          <a
+            className="signup"
+            href="/signup"
+            onClick={[Function]}
+          >
+            Sign Up
+          </a>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Christening & Communion"
+          src="carousel/carousel-1.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Kids Birthday 1"
+          src="carousel/carousel-2.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Any Occassion 1"
+          src="carousel/carousel-3.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Birthday 1"
+          src="carousel/carousel-4.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Kids Birthday 2"
+          src="carousel/carousel-5.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Birthday 2"
+          src="carousel/carousel-6.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Birthday 3"
+          src="carousel/carousel-7.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Birthday 4"
+          src="carousel/carousel-8.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Kids Birthday 3"
+          src="carousel/carousel-9.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Kids Birthday 4"
+          src="carousel/carousel-10.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Kids Birthday 5"
+          src="carousel/carousel-11.jpg"
+        />
+      </div>
+      <div
+        className="slide-wrapper"
+      >
+        <img
+          alt="Birthday 5"
+          src="carousel/carousel-12.jpg"
+        />
+      </div>
+    </div>
+    <div
+      className="gallery-section-wrapper"
+    >
+      <h2>
+        Cakes for all occasions
+      </h2>
+      <div
+        className="gallery-row"
+      >
+        <div
+          className="gallery-column"
+        >
+          <div
+            className="gallery-grid-item-wrapper"
+          >
+            <h4>
+              Wedding Anniversary
+            </h4>
+            <div
+              className="gallery-lines-group"
+            >
+              <img
+                alt="gold line"
+                className="gold-line"
+                src="gold-circled-line-left.svg"
+              />
+              <img
+                alt="white line"
+                className="white-line"
+                src="white-triangle-line-left.svg"
+              />
+            </div>
+            <a
+              href="/gallery/wedding-and-anniversary"
+            >
+              <div
+                className="img-wrapper"
+              >
+                <img
+                  alt="Wedding & Anniversary"
+                  className="gallery-img"
+                  src="wedding-and-ann.jpg"
+                />
+              </div>
+            </a>
+          </div>
+          <div
+            className="gallery-grid-item-wrapper"
+          >
+            <h4>
+              Christening Communion
+            </h4>
+            <div
+              className="gallery-lines-group"
+            >
+              <img
+                alt="gold line"
+                className="gold-line"
+                src="gold-circled-line-left.svg"
+              />
+              <img
+                alt="white line"
+                className="white-line"
+                src="white-triangle-line-left.svg"
+              />
+            </div>
+            <a
+              href="/gallery/christening-and-communion"
+            >
+              <div
+                className="img-wrapper"
+              >
+                <img
+                  alt="Christening & Communion"
+                  className="gallery-img"
+                  src="christening-communion.jpg"
+                />
+              </div>
+            </a>
+          </div>
+          <div
+            className="gallery-grid-item-wrapper"
+          >
+            <h4>
+              Cupcakes
+            </h4>
+            <div
+              className="gallery-lines-group"
+            >
+              <img
+                alt="gold line"
+                className="gold-line"
+                src="gold-circled-line-left.svg"
+              />
+              <img
+                alt="white line"
+                className="white-line"
+                src="white-triangle-line-left.svg"
+              />
+            </div>
+            <a
+              href="/gallery/cupcakes"
+            >
+              <div
+                className="img-wrapper"
+              >
+                <img
+                  alt="Cupcakes"
+                  className="gallery-img"
+                  src="cupcakes.jpg"
+                />
+              </div>
+            </a>
+          </div>
+        </div>
+        <div
+          className="gallery-column"
+        >
+          <div
+            className="gallery-grid-item-wrapper row-reverse"
+          >
+            <h4>
+              Birthday
+            </h4>
+            <div
+              className="gallery-lines-group"
+            >
+              <img
+                alt="gold line"
+                className="gold-line"
+                src="gold-circled-line-right.svg"
+              />
+              <img
+                alt="white line"
+                className="white-line"
+                src="white-triangle-line-right.svg"
+              />
+            </div>
+            <a
+              href="/gallery/birthday"
+            >
+              <div
+                className="img-wrapper"
+              >
+                <img
+                  alt="Birthday"
+                  className="gallery-img"
+                  src="birthday.jpg"
+                />
+              </div>
+            </a>
+          </div>
+          <div
+            className="gallery-grid-item-wrapper row-reverse"
+          >
+            <h4>
+              Kids Birthday
+            </h4>
+            <div
+              className="gallery-lines-group"
+            >
+              <img
+                alt="gold line"
+                className="gold-line"
+                src="gold-circled-line-right.svg"
+              />
+              <img
+                alt="white line"
+                className="white-line"
+                src="white-triangle-line-right.svg"
+              />
+            </div>
+            <a
+              href="/gallery/kids-birthday"
+            >
+              <div
+                className="img-wrapper"
+              >
+                <img
+                  alt="Kids Birthday"
+                  className="gallery-img"
+                  src="kids-birthday.jpg"
+                />
+              </div>
+            </a>
+          </div>
+          <div
+            className="gallery-grid-item-wrapper row-reverse"
+          >
+            <h4>
+              Any Occassion
+            </h4>
+            <div
+              className="gallery-lines-group"
+            >
+              <img
+                alt="gold line"
+                className="gold-line"
+                src="gold-circled-line-right.svg"
+              />
+              <img
+                alt="white line"
+                className="white-line"
+                src="white-triangle-line-right.svg"
+              />
+            </div>
+            <a
+              href="/gallery/any-occassion"
+            >
+              <div
+                className="img-wrapper"
+              >
+                <img
+                  alt="Any Occassion"
+                  className="gallery-img"
+                  src="any-occassion.jpg"
+                />
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="about-us-section"
+    >
+      <img
+        alt="About Us Portrait"
+        className="about-us-portrait"
+        src="about-us-portrait.jpg"
+      />
+      <div
+        className="about-us-text"
+      >
+        <h2>
+          About Us
+        </h2>
+        <p>
+          Got a cake idea, whether conventional or wild? Let's craft it together with love and care.
+        </p>
+        <button
+          className="square-button unfilled"
+          onClick={[Function]}
+        >
+          Read More
+        </button>
+      </div>
+    </div>
+    <div
+      className="flavours-and-servings"
+    >
+      <h1>
+        Our Flavours
+      </h1>
+      <p
+        className="description"
+      >
+        Our focus extends beyond designing beautiful cakes; we are dedicated to using exclusively premium quality ingredients. This unwavering commitment guarantees that the cake for your special occasion not only looks stunning but also delivers an unparalleled taste experience, ensuring your celebration is truly remarkable.
+      </p>
+      <div
+        className="flav-serv-lists"
+      />
+      <ul
+        className="extra-info"
+      >
+        <li>
+          If you have any special flavour suggestions that are not currently on our menu, please feel free to contact us. We are always expanding and eager to introduce new flavours to our offerings. Your input is valuable to us, and we would love to hear your ideas for unique and exciting flavours.
+        </li>
+        <li>
+          Please note that selecting our specially flavoured cakes will incur an additional cost, which will be determined in accordance with the size of the cake chosen.
+        </li>
+      </ul>
+    </div>
+    <div
+      className="delivery-section"
+    >
+      <p>
+        Delivery available
+      </p>
+      <img
+        alt="Delivery Car"
+        className="delivery-car"
+        src="car.svg"
+      />
+      <p
+        className="desktop-view"
+      >
+        reach us at 0422-733-882
+      </p>
+      <p
+        className="mobile-view"
+      >
+        reach us at 
+        <br />
+         0422-733-882
+      </p>
+    </div>
+    <div
+      className="location-page-wrapper"
+    >
+      <div
+        className="location-info"
+      >
+        <h2>
+          Where to find us?
+        </h2>
+        <p>
+          Melbourne
+          <br />
+          VIC 3752
+        </p>
+        <h2>
+          Business Hours
+        </h2>
+        <p>
+          Monday - Sunday
+          <br />
+          9:00 am - 18:00 pm
+        </p>
+      </div>
+    </div>
+    <div
+      className="scroll-to-top"
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      <img
+        alt="Scroll To Top"
+        className="arrow-up"
+        onClick={[Function]}
+        src="fi-br-arrow-up.svg"
+      />
+    </div>
+    <div
+      className="footer"
+    >
+      <div
+        className="footer-row"
+      >
+        <div
+          className="footer-section"
+        >
+          <h4>
+            Our Location
+          </h4>
+          <p>
+            Melbourne Victoria 3752
+          </p>
+          <a
+            href="/location"
+            onClick={[Function]}
+          >
+            Click here to view map
+          </a>
+        </div>
+        <div
+          className="footer-section"
+        >
+          <h4>
+            Contact Us
+          </h4>
+          <p>
+            Email: magnolia.cake.au@gmail.com
+          </p>
+          <p>
+            Phone: 0422-733-882
+          </p>
+        </div>
+        <div
+          className="footer-section"
+        >
+          <h4>
+            Follow Us
+          </h4>
+          <div
+            className="social-medias"
+          >
+            <div
+              className="social-media-wrapper"
+            >
+              <a
+                href="https://www.facebook.com/magnolia.cake.au?mibextid=ZbWKwL"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="facebook"
+                  className="social-media-logo"
+                  src="facebook.svg"
+                />
+              </a>
+              <a
+                className="profile-name"
+                href="https://www.facebook.com/magnolia.cake.au?mibextid=ZbWKwL"
+                rel="noreferrer"
+                target="_blank"
+              >
+                Magnolia Cake
+              </a>
+            </div>
+            <div
+              className="social-media-wrapper"
+            >
+              <a
+                href="https://www.instagram.com/cakes_magnolia/?igshid=MzRlODBiNWFlZA"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="instagram"
+                  className="social-media-logo"
+                  src="instagram.svg"
+                />
+              </a>
+              <a
+                className="profile-name"
+                href="https://www.instagram.com/cakes_magnolia/?igshid=MzRlODBiNWFlZA"
+                rel="noreferrer"
+                target="_blank"
+              >
+                cakes_magnolia
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div
+        className="footer-row"
+      >
+        <div
+          className="footer-section"
+        >
+          <h4 />
+          <div
+            className="business-hours"
+          >
+            <p>
+              Business Hours
+            </p>
+            <p>
+              Monday - Friday
+            </p>
+            <p>
+              9:00 am - 18:00 pm
+            </p>
+            <p>
+              Saturday - Sunday
+            </p>
+            <p>
+              9:00 am - 17:00 pm
+            </p>
+          </div>
+        </div>
+        <div
+          className="footer-section"
+        >
+          <h4 />
+          <a
+            href="/terms-and-conditions"
+            onClick={[Function]}
+          >
+            Terms & Conditions
+          </a>
+          <a
+            href="/faq"
+            onClick={[Function]}
+          >
+            FAQs
+          </a>
+        </div>
+        <div
+          className="footer-section"
+        >
+          <h4 />
+          <p>
+            Magnolia Cakes and Cupcakes
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

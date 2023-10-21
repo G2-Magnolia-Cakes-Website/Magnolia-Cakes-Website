@@ -1,0 +1,181 @@
+.welcome-section {
+  padding: 10rem 0 10rem;
+  /* background-color: white; */
+  display: flex;
+  flex-direction: column;
+}
+
+.welcome-section h2 {
+  display: block;
+  text-align: center;
+  font-family: "Sacramento", cursive;
+  /* font-family: "Courgette", cursive; */
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+  /* font-size: 40px; */
+  font-size: 80px;
+}
+
+.welcome-body {
+  display: flex;
+  margin: 5rem auto 0 auto;
+  width: 70%;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome-body .body-content {
+  display: flex;
+  flex-direction: column;
+  margin: auto 0 auto 0;
+  width: 40%;
+  height: 100%;
+  width: fit-content;
+}
+
+.welcome-body p {
+  font-size: 24px;
+  text-align: center;
+  margin: auto 0 auto 0;
+  padding-bottom: 1rem;
+}
+
+.welcome-body .welcome-cake {
+  width: 25%;
+  height: 100%;
+  margin-left: 3rem;
+  object-fit: contain;
+}
+
+.magnolia-flower {
+  width: 100px;
+  height: auto;
+  object-fit: cover;
+  margin: 5rem auto;
+}
+
+.quote-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 0 auto;
+  width: 70%;
+  justify-content: center;
+  align-items: center;
+}
+
+.quote-wrapper .welcome-quote {
+  text-align: center;
+  font-size: 24px;
+  margin: auto 0 auto 0;
+}
+
+@media (max-width: 1895px) {
+  .welcome-body .welcome-cake {
+    width: 40%;
+  }
+}
+
+@media (max-width: 1440px) {
+  .welcome-section h2 {
+    width: 75%;
+  }
+
+  .welcome-body {
+    width: 80%;
+  }
+
+  .welcome-body p {
+    font-size: 21px;
+  }
+
+  .welcome-body .welcome-cake {
+    width: 30%;
+  }
+
+  .magnolia-flower {
+    margin: 3rem auto;
+    width: 80px;
+  }
+
+  .quote-wrapper .welcome-quote {
+    font-size: 21px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .welcome-section {
+    padding: 5rem 0 5rem;
+  }
+
+  .welcome-section h2 {
+    font-size: 64px;
+    width: 60%;
+  }
+
+  .welcome-body {
+    margin-top: 3rem;
+  }
+
+  .welcome-body p {
+    font-size: 16px;
+  }
+
+  .welcome-body .welcome-cake {
+    width: 40%;
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-section h2 {
+    width: 75%;
+    font-size: 55px;
+  }
+
+  .welcome-body {
+    flex-direction: column-reverse;
+    gap: 3rem;
+  }
+
+  .welcome-body .welcome-cake {
+    width: 70%;
+    margin: 0;
+  }
+
+  .welcome-body p {
+    font-size: 21px;
+  }
+
+  .magnolia-flower {
+    margin: 2rem auto;
+    width: 70px;
+  }
+
+  .body-paragaph {
+    width: 70%;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-section {
+    padding: 3rem 0 3rem;
+  }
+
+
+  .welcome-section h2 {
+    font-size: 38px;
+  }
+
+  .welcome-body .welcome-cake {
+    width: 75%;
+  }
+
+  .welcome-body p {
+    font-size: 16px;
+  }
+
+  .body-paragaph {
+    width: 75%;
+  }
+}

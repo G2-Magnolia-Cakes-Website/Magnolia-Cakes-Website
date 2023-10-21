@@ -1,0 +1,207 @@
+.gallery-grid-item-wrapper {
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+  justify-content: right;
+  margin-left: 2rem;
+}
+
+.gallery-grid-item-wrapper h4 {
+  margin-right: 2.5rem;
+  text-align: right;
+
+  font-family: "Courgette", cursive;
+  font-size: 30px;
+  color: black;
+}
+
+.gallery-grid-item-wrapper .gallery-lines-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 176px;
+  justify-content: right;
+}
+
+.gallery-grid-item-wrapper .gallery-lines-group img.gold-line {
+  position: relative;
+  left: -2rem;
+}
+
+.gallery-grid-item-wrapper.row-reverse .gallery-lines-group img.gold-line {
+  left: 2rem;
+}
+
+.gallery-grid-item-wrapper a {
+  min-width: 40%;
+  width: 40%;
+  z-index: 1;
+}
+
+.gallery-grid-item-wrapper a .img-wrapper {
+  position: relative; /* Required for positioning the pseudo-element */
+}
+
+.gallery-grid-item-wrapper a .img-wrapper::before {
+  content: ""; /* Create a pseudo-element for the overlay */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  /* light gold */
+  background-image: linear-gradient(
+    to bottom,
+    rgba(254, 227, 154, 0),
+    rgba(254, 227, 154, 1)
+  );
+  /* pearl ivory */
+  background-image: linear-gradient(
+    to bottom,
+    rgba(254, 227, 154, 0),
+    rgba(240, 223, 205, 1)
+  );
+  z-index: 2;
+  opacity: 0; /* Hide the overlay by default */
+  transition: opacity 0.3s ease; /* Add a transition for smooth effect */
+}
+
+.gallery-grid-item-wrapper a .img-wrapper:hover::before {
+  opacity: 1; /* Show the overlay on hover */
+}
+
+.gallery-grid-item-wrapper a .img-wrapper img.gallery-img {
+  width: 100%;
+}
+
+.gallery-grid-item-wrapper.row-reverse {
+  flex-direction: row-reverse;
+  justify-content: left;
+  margin-left: 0;
+  margin-right: 2rem;
+}
+
+.gallery-grid-item-wrapper.row-reverse h4 {
+  margin-right: 0;
+  margin-left: 2.5rem;
+  text-align: left;
+}
+
+@media (max-width: 2100px) {
+  .gallery-grid-item-wrapper h4 {
+    font-size: 26px;
+  }
+
+  .gallery-grid-item-wrapper a {
+    min-width: 40%;
+  }
+
+  .gallery-grid-item-wrapper .gallery-lines-group {
+    width: 130px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .gallery-grid-item-wrapper h4 {
+    font-size: 24px;
+  }
+
+  .gallery-grid-item-wrapper .gallery-lines-group {
+    width: 100px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .gallery-grid-item-wrapper h4 {
+    font-size: 20px;
+  }
+
+  .gallery-grid-item-wrapper .gallery-lines-group {
+    width: 90px;
+  }
+
+  .gallery-grid-item-wrapper.row-reverse .gallery-lines-group {
+    width: 90px;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-grid-item-wrapper h4 {
+    font-size: 18px;
+    margin-right: 2rem;
+  }
+
+  .gallery-grid-item-wrapper.row-reverse h4 {
+    margin-right: 0;
+    margin-left: 2rem;
+  }
+
+  .gallery-grid-item-wrapper .gallery-lines-group img.gold-line {
+    left: -1rem;
+  }
+
+  .gallery-grid-item-wrapper.row-reverse .gallery-lines-group img.gold-line {
+    left: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-grid-item-wrapper h4 {
+    position: relative;
+    top: -1.5rem;
+    left: 6rem;
+  }
+
+  .gallery-grid-item-wrapper.row-reverse h4 {
+    left: -6rem;
+  }
+
+  .gallery-grid-item-wrapper .gallery-lines-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .gallery-grid-item-wrapper .gallery-lines-group img {
+    width: 80px;
+  }
+
+  .gallery-grid-item-wrapper .gallery-lines-group img.gold-line {
+    left: -1rem;
+  }
+
+  .gallery-grid-item-wrapper a {
+    min-width: 55%;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid-item-wrapper {
+    margin-left: 0.5rem;
+  }
+
+  .gallery-grid-item-wrapper.row-reverse {
+    margin-left: 0;
+    margin-right: 0.5rem;
+  }
+
+  .gallery-grid-item-wrapper h4 {
+    left: 5.5rem;
+  }
+
+  .gallery-grid-item-wrapper.row-reverse h4 {
+    left: -5.5rem;
+  }
+
+  .gallery-grid-item-wrapper .gallery-lines-group img {
+    width: 65px;
+  }
+
+  .gallery-grid-item-wrapper .gallery-lines-group img.gold-line {
+    left: -0.5rem;
+  }
+
+  .gallery-grid-item-wrapper h4 {
+    font-size: 14px;
+  }
+}

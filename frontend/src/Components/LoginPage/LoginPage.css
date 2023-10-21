@@ -1,0 +1,134 @@
+.login-page {
+  display: flex;
+  background-color: white;
+}
+
+.login-page .form-wrapper {
+  margin: 5rem 5rem 5rem 5rem;
+  width: 100%;
+}
+
+.login-page .form-wrapper .logo {
+  margin: 0 0 3rem;
+  width: 200px;
+}
+
+.login-page .login-image {
+  aspect-ratio: 1024/1365.33;
+  max-width: 50%;
+  height: auto;
+}
+
+.login-page .form-wrapper .login-header {
+  margin-bottom: 5rem;
+  width: fit-content;
+}
+
+.login-form {
+  width: 400px;
+  float: left;
+}
+
+.login-form .signup-question {
+  font-family: "Fredoka", sans-serif;
+  font-size: 16px;
+  margin: auto 0 8px;
+}
+
+.login-form .signup-question .signup-link {
+  transition: 0.3s;
+  color: #000000;
+  font-weight: bold;
+}
+
+.login-form .signup-question .signup-link:not(.active):hover {
+  color: #b76e79;
+}
+
+.msgs {
+  padding: 10px;
+  text-align: center;
+  color: #b76e79;
+  border: 2px solid #b76e79;
+  border-radius: 3px;
+  margin: 1rem 0 1rem;
+}
+
+@media (max-width: 1440px) {
+  .login-page .form-wrapper {
+    margin: 3rem;
+  }
+
+  .login-page .login-image {
+    height: 100%;
+  }
+
+  .login-page .form-wrapper .logo {
+    margin: 0 0 3rem;
+    width: 130px;
+  }
+}
+
+@media (max-width: 1130px) {
+  .login-page .form-wrapper {
+    margin: 2rem;
+  }
+
+  .login-page .form-wrapper .login-header {
+    margin-bottom: 3rem;
+    font-size: 30px;
+  }
+
+  .login-form .signup-question {
+    font-family: "Fredoka", sans-serif;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .login-page .login-image {
+    max-width: 55%;
+  }
+
+  .login-page .form-wrapper .logo {
+    margin: 0 0 1rem;
+    width: 100px;
+  }
+
+  .login-page .form-wrapper .login-header {
+    margin-bottom: 1rem;
+    font-size: 28px;
+  }
+
+  .login-form {
+    width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-page .login-image {
+    display: none;
+  }
+
+  .login-page .form-wrapper {
+    margin: 5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-page .form-wrapper {
+    margin: 3rem;
+  }
+
+  .login-form {
+    width: 100%;
+  }
+
+  .login-form .signup-question {
+    font-size: 12px;
+  }
+
+  .msgs {
+    font-size: 14px;
+  }
+}
