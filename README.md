@@ -4,10 +4,10 @@ A full-stack application for Magnolia Cakes and Cupcakes with the Frontend creat
 
 ## Developed by:
 
-Kim Ta (s3840049)
-Omer Yalavac (s3849677)
-Quang Minh Duong (s3759757)
-Ya-Tse Lu (s3933328)
+Kim Ta (s3840049) \n
+Omer Yalavac (s3849677) \n
+Quang Minh Duong (s3759757) \n
+Ya-Tse Lu (s3933328) \n
 
 ## Release notes:
 
