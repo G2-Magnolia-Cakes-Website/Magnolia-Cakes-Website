@@ -2,12 +2,21 @@
 
 A full-stack application for Magnolia Cakes and Cupcakes with the Frontend created with ReachJS, Backend created with django and a PostgreSQL database server. All of the mentioned components are currently hosted on Google Cloud.
 
+
+## Github URL:
+
+https://github.com/G2-Magnolia-Cakes-Website/Magnolia-Cakes-Website
+
 ## Developed by:
 
 Kim Ta (s3840049)
+
 Omer Yalavac (s3849677)
+
 Quang Minh Duong (s3759757)
+
 Ya-Tse Lu (s3933328)
+
 
 ## Release notes:
 
@@ -79,7 +88,7 @@ Prerequisite: Make sure you have Node.js installed
 
 ## Development Guide
 
-- Follow django's documentation to make suitable adjustments to the backend application: `https://docs.djangoproject.com/`
+- Follow django's documentation to make suitable adjustments to the backend application: https://docs.djangoproject.com/
 
 - After you made any modification towards the `models.py` file, always remember to run the following commands before you start the application again so that your changes are reflected on the sql database:
 
@@ -87,11 +96,11 @@ Prerequisite: Make sure you have Node.js installed
 
 ### `python manage.py migrate`
 
-- Follow React's documentation to make suitable adjustments to the frontend application `https://legacy.reactjs.org/docs/getting-started.html`
+- Follow React's documentation to make suitable adjustments to the frontend application https://legacy.reactjs.org/docs/getting-started.html
 
 ## Deployment Guide
 
-- Follow this page to install gcloud CLI and configure your Google Developer account: `https://cloud.google.com/sdk/docs/install-sdk`
+- Follow this page to install gcloud CLI and configure your Google Developer account: https://cloud.google.com/sdk/docs/install-sdk
 
 ### To deploy backend
 
