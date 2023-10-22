@@ -4,7 +4,7 @@
   align-items: center;
 }
 
-.signed-in-group > *:not(.popup) {
+.signed-in-group > *:not(.popup):not(.logout-popup) {
   margin: 1rem 0.5rem;
 }
 

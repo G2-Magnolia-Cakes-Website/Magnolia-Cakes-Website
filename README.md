@@ -13,7 +13,7 @@ Kim Ta (s3840049)
 
 Omer Yalavac (s3849677)
 
-Quang Minh Duong (s3759757)
+Quang Minh Duong (s3759757) 
 
 Ya-Tse Lu (s3933328)
 
