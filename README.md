@@ -104,11 +104,15 @@ Prerequisite: Make sure you have Node.js installed
 
 ### To deploy backend
 
+- Navigate to 'backend' under that 'backend' folder on your own IDE and find 'settings.py', follow the comment in that file to make suitable adjustment to the url
+
 - Navigate to 'backend' on your Terminal and make suitable adjustment to backend.yaml file if you want to change your host settings
 
 - Enter `gcloud app deploy backend.yaml` followed by `y` when the command ask you to confirm to deploy the backend application to cloud
 
 ### To deploy frontend
+
+- Locate `axios.js` file on your IDE and follow the comment in that file to make suitable adjustment to the url
 
 - Navigate to 'frontend' on your Terminal and make suitable adjustment to app.yaml file if you want to change your host settings
 
