@@ -1,6 +1,6 @@
 h1.business-name {
   font-family: "Sacramento", cursive;
-  font-size: 150px;
+  font-size: 180px;
   text-align: center;
   width: fit-content;
   white-space: nowrap;
@@ -14,7 +14,7 @@ h1.business-name {
   width: fit-content;
   white-space: nowrap;
   text-align: center;
-  font-size: 38px;
+  font-size: 50px;
   margin: 0 auto 0.5rem auto;
   font-family: 'Caveat', cursive;
 }
@@ -25,24 +25,34 @@ h1.business-name {
   object-fit: cover;
 }
 
-@media (min-width: 2220px) {
+@media (min-width: 2380px) {
   h1.business-name {
     font-size: 180px;
   }
 
   .quote-p-wrapper .quote {
-    font-size: 42px;
+    font-size: 55px;
     margin: 1rem auto;
   }
 }
 
-@media (max-width: 1930px) {
+@media (max-width: 2115px) {
   h1.business-name {
-    font-size: 130px;
+    font-size: 150px;
   }
 
   .quote-p-wrapper .quote {
-    font-size: 34px;
+    font-size: 45px;
+  }
+}
+
+@media (max-width: 1945px) {
+  h1.business-name {
+    font-size: 140px;
+  }
+
+  .quote-p-wrapper .quote {
+    font-size: 40px;
   }
 
   .cake-pop {
@@ -52,17 +62,27 @@ h1.business-name {
 
 @media (max-width: 1795px) {
   h1.business-name {
-    font-size: 110px;
+    font-size: 130px;
   }
 
   .quote-p-wrapper .quote {
-    font-size: 28px;
+    font-size: 35px;
+  }
+}
+
+@media (max-width: 1600px) {
+  h1.business-name {
+    font-size: 120px;
+  }
+
+  .quote-p-wrapper .quote {
+    font-size: 30px;
   }
 }
 
 @media (max-width: 1565px) {
   h1.business-name {
-    font-size: 96px;
+    font-size: 110px;
   }
 
   .quote-p-wrapper {
@@ -70,7 +90,7 @@ h1.business-name {
   }
 
   .quote-p-wrapper .quote {
-    font-size: 26px;
+    font-size: 32px;
   }
 
   .cake-pop {
@@ -80,7 +100,7 @@ h1.business-name {
 
 @media (max-width: 1400px) {
   h1.business-name {
-    font-size: 90px;
+    font-size: 100px;
   }
 
   .quote-p-wrapper {
@@ -88,7 +108,7 @@ h1.business-name {
   }
 
   .quote-p-wrapper .quote {
-    font-size: 24px;
+    font-size: 30px;
   }
 
   .cake-pop {
@@ -97,19 +117,23 @@ h1.business-name {
 }
 
 @media (max-width: 1240px) {
+  h1.business-name {
+    font-size: 90px;
+  }
+
   .quote-p-wrapper .quote {
-    font-size: 21px;
+    font-size: 26px;
     white-space: unset;
   }
 }
 
 @media (max-width: 1134px) {
   h1.business-name {
-    font-size: 75px;
+    font-size: 80px;
   }
 
   .quote-p-wrapper .quote {
-    font-size: 18px;
+    font-size: 21px;
     white-space: unset;
   }
 
@@ -120,11 +144,11 @@ h1.business-name {
 
 @media (max-width: 1024px) {
   h1.business-name {
-    font-size: 64px;
+    font-size: 70px;
   }
 
   .quote-p-wrapper .quote {
-    font-size: 18px;
+    font-size: 21px;
   }
 }
 
@@ -152,7 +176,7 @@ h1.business-name {
   }
 
   .quote-p-wrapper .quote {
-    font-size: 21px;
+    font-size: 28px;
     margin: 0.5rem auto 0.5rem auto;
   }
 }
@@ -183,7 +207,7 @@ h1.business-name {
   }
 
   .quote-p-wrapper .quote {
-    font-size: 18px;
+    font-size: 21px;
   }
 }
 

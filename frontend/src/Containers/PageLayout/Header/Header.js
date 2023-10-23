@@ -41,7 +41,7 @@ const Header = ({ api, isAuth, setIsAuth }) => {
         <div className="button-group">
           {!isMenuOpen && (
             <div className="home-logo-header">
-              <LogoHomeLink height="75px" margin="0.5rem" />
+              <LogoHomeLink height="75px" margin="0.5rem 0" />
             </div>
           )}
           {isAuth ? (
