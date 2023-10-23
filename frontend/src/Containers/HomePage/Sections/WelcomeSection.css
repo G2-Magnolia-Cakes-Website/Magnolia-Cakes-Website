@@ -36,6 +36,7 @@
 }
 
 .welcome-body p {
+  font-family: 'Caveat Brush', cursive;
   font-size: 24px;
   text-align: center;
   margin: auto 0 auto 0;
