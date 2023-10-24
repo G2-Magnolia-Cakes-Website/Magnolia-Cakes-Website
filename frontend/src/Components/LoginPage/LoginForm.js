@@ -19,7 +19,7 @@ export default function LoginForm({ api, handleLoginSuccess }) {
   // States for checking the errors
   const [error, setError] = useState(false);
   const defaultErrorMessage =
-    "Login failed! Please enter a correct username and password. Note that both fields may be case-sensitive.";
+    "Login failed! Please enter a correct email and password. Note that both fields may be case-sensitive.";
   const [errorMessagePrint, setErrorMessage] = useState(defaultErrorMessage);
 
   // Loading
@@ -84,25 +84,11 @@ export default function LoginForm({ api, handleLoginSuccess }) {
 
           navigate("/");
         } else {
-          if (res.data["detail"]) {
-            setErrorMessage(res.data["detail"]);
-          } else if (res.data["message"]) {
-            setErrorMessage(res.data["message"]);
-          } else {
-            setErrorMessage(defaultErrorMessage);
-          }
+          console.error(res);
           setError(true);
-          console.log(res);
         }
       } catch (err) {
-        console.log(err);
-        if (err.response.data["detail"]) {
-          setErrorMessage(err.response.data["detail"]);
-        } else if (err.response.data["message"]) {
-          setErrorMessage(err.response.data["message"]);
-        } else {
-          setErrorMessage(defaultErrorMessage);
-        }
+        console.error(err);
         setError(true);
       }
     }

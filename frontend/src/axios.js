@@ -1,9 +1,12 @@
 import axios from "axios";
 
+
+import { clearLocalStorage } from 'utils/LocalStorage/LocalStorageUtils';
+
 // Define the base URL based on the environment, only one of them should be used at a time
 const instance = axios.create({
   baseURL: "https://backend-dot-alpine-avatar-399423.ts.r.appspot.com/", // Uncomment this before deploying
-  //baseURL: "http://127.0.0.1:8000/", // Uncomment this when you run it locally
+  // baseURL: "http://127.0.0.1:8000/", // Uncomment this when you run it locally
 });
 
 let refresh = false;
@@ -53,55 +56,62 @@ instance.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response.status === 401 && !refresh) {
-      refresh = true;
-      try {
-        // Perform token refreshing logic here
-        const { access, refresh } = await refreshToken(); // Call your token refreshing function
-        instance.defaults.headers.common["Authorization"] = `Bearer ${access}`;
+      const access_token = localStorage.getItem("access_token");
 
-        // Update the refresh token in error.config data
-        error.config.data = JSON.stringify({ refresh_token: refresh });
+      if (access_token) {
+        refresh = true;
 
-        // Update the Authorization header in error.config
-        error.config.headers["Authorization"] = `Bearer ${access}`;
+        try {
+          // Perform token refreshing logic here
+          const { access, refresh } = await refreshToken(); // Call your token refreshing function
+          instance.defaults.headers.common["Authorization"] = `Bearer ${access}`;
 
-        // Retry the original request
-        return instance.request(error.config);
-      } catch (refreshError) {
-        // Handle token refreshing error or logout the user
-        console.error("Issue with refreshing access token!");
-        console.error(refreshError);
+          // Update the refresh token in error.config data
+          error.config.data = JSON.stringify({ refresh_token: refresh });
 
-        // Check the URL of the original request
-        if (error.config.url !== "/api/logout/") {
-          const token = {
-            refresh_token: localStorage.getItem("refresh_token"),
-          };
+          // Update the Authorization header in error.config
+          error.config.headers["Authorization"] = `Bearer ${access}`;
 
-          let res = await instance.post("/api/logout/", token, {
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-            },
-            withCredentials: true,
-          });
-          if (res.status !== 200) {
-            console.log(res);
+          // Retry the original request
+          return instance.request(error.config);
+        } catch (refreshError) {
+          // Handle token refreshing error or logout the user
+          console.error("Issue with refreshing access token!");
+          console.error(refreshError);
+
+          // Check the URL of the original request
+          if (error.config.url !== "/api/logout/") {
+            const token = {
+              refresh_token: localStorage.getItem("refresh_token"),
+            };
+
+            let res = await instance.post("/api/logout/", token, {
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: `Bearer ${access_token}`,
+              },
+              withCredentials: true,
+            });
+            if (res.status !== 200) {
+              console.log(res);
+            } else {
+              console.log("Please refresh your screen!");
+            }
           } else {
             console.log("Please refresh your screen!");
           }
-        } else {
-          console.log("Please refresh your screen!");
-        }
 
-        localStorage.clear();
-        instance.defaults.headers.common["Authorization"] = null;
+          // Remove credentials in local storage
+          clearLocalStorage();
+          instance.defaults.headers.common["Authorization"] = null;
+        }
       }
     }
     refresh = false;
     return Promise.reject(error);
   }
 );
+
 
 export default instance;
