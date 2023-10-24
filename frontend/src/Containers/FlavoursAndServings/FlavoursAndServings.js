@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
+import {
+  parseStringToArrayByComma,
+  parseStringToParagraphsByNewline,
+} from "utils/parseStringsToArray";
 import List from "./List";
-
+import ServingsTable from "Components/ServingsTable/ServingsTable";
 import "./FlavoursAndServings.css";
-import { parseStringToArrayByComma } from "utils/parseStringsToArray";
 
 const FlavoursAndServings = ({ api }) => {
   const [flavServLists, setFlavServLists] = useState([]);
@@ -11,6 +14,12 @@ const FlavoursAndServings = ({ api }) => {
     description: "",
     extra_points: [],
   });
+  const [servingsGuideInfo, setServingsGuideInfo] = useState({
+    heading: "",
+    paragraph: [],
+  });
+  const [servingsRoundCake, setServingsRoundCake] = useState([]);
+  const [servingsSquareCake, setServingsSquareCake] = useState([]);
 
   useEffect(() => {
     // Make a GET request using the passed api instance
@@ -40,6 +49,34 @@ const FlavoursAndServings = ({ api }) => {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
+
+    api
+      .get("/api/servings-guide-info/")
+      .then((response) => {
+        setServingsGuideInfo({
+          heading: response.data.heading,
+          paragraph: parseStringToParagraphsByNewline(response.data.paragraph),
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+    api
+      .get("/api/servings-round-cake/")
+      .then((response) => {
+        setServingsRoundCake(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+    api
+      .get("/api/servings-square-cake/")
+      .then((response) => {
+        setServingsSquareCake(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   }, [api]);
 
   return (
@@ -55,11 +92,21 @@ const FlavoursAndServings = ({ api }) => {
           />
         ))}
       </div>
-      <ul className="extra-info">
-        {flavServInfo.extra_points.map((point) => (
-          <li key={flavServInfo.extra_points.indexOf(point)}>{point}</li>
-        ))}
-      </ul>
+      {flavServInfo.extra_points.length > 0 && (
+        <ul className="extra-info">
+          {flavServInfo.extra_points.map((point) => (
+            <li key={flavServInfo.extra_points.indexOf(point)}>{point}</li>
+          ))}
+        </ul>
+      )}
+      <h1>{servingsGuideInfo.heading}</h1>
+      {servingsGuideInfo.paragraph.map((p) => (
+        <p className="description">{p}</p>
+      ))}
+      <div className="servings-tables-wrapper">
+        <ServingsTable data={servingsRoundCake} />
+        <ServingsTable data={servingsSquareCake} />
+      </div>
     </div>
   );
 };

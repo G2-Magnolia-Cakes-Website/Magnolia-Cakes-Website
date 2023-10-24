@@ -21,7 +21,9 @@ a,
 button,
 input,
 label,
-li {
+li,
+th,
+td {
   font-family: "Fredoka", sans-serif;
 }
 

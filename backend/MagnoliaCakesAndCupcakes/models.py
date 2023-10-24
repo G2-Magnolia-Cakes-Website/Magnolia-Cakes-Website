@@ -60,30 +60,32 @@ class GalleryCategory(models.Model):
     class Meta:
         verbose_name_plural = "Gallery Categories"
 
+
 def upload_to(instance, filename):
     # Upload the image to a 'cakes' directory with the filename as the cake's name
     return f"cakes/{filename}"
 
-class ProductType(models.TextChoices):
-    CAKE = 'Cake'
-    CUPCAKE = 'Cupcake'
 
-    
+class ProductType(models.TextChoices):
+    CAKE = "Cake"
+    CUPCAKE = "Cupcake"
+
+
 class Product(models.Model):
     name = models.CharField(max_length=100, unique=True)
     picture = models.ImageField(upload_to=upload_to)
-    price = models.DecimalField(max_digits=10, blank=True, decimal_places=2, default=0.00)
+    price = models.DecimalField(
+        max_digits=10, blank=True, decimal_places=2, default=0.00
+    )
     active = models.BooleanField(default=True)
-    
+
     original_name = None  # Store the original name when the object is created
     product_type = models.CharField(
-        max_length=10,
-        choices=ProductType.choices,
-        default=ProductType.CAKE
+        max_length=10, choices=ProductType.choices, default=ProductType.CAKE
     )
     product_id = models.CharField(max_length=100, blank=True, editable=False)
     price_id = models.CharField(max_length=100, blank=True, editable=False)
-    
+
     def __str__(self):
         return self.name
 
@@ -105,16 +107,19 @@ class Product(models.Model):
 
         super(Product, self).delete(*args, **kwargs)
 
+
 class Flavor(models.Model):
     name = models.CharField(max_length=50)
-    product_item = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='flavors', null=True, blank=True)
+    product_item = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="flavors", null=True, blank=True
+    )
     product_type = models.CharField(
         max_length=10,
         choices=ProductType.choices,
         default=ProductType.CAKE,
-        editable=False  # Make it non-editable
+        editable=False,  # Make it non-editable
     )
-    
+
     active = models.BooleanField(default=True)
     product_id = models.CharField(max_length=100, blank=True, editable=False)
     price_id = models.CharField(max_length=100, blank=True, editable=False)
@@ -126,31 +131,33 @@ class Flavor(models.Model):
         if self.product_item:
             # Update the product_type based on the linked product
             self.product_type = self.product_item.product_type
-            
+
             if self.product_type == ProductType.CUPCAKE:
                 try:
                     stripe.api_key = settings.STRIPE_SECRET_KEY
                     if self.product_id:
                         # Flavor is linked to a product
                         stripe_product = stripe.Product.retrieve(self.product_id)
-                        stripe_price = stripe.Price.retrieve(stripe_product.default_price)
+                        stripe_price = stripe.Price.retrieve(
+                            stripe_product.default_price
+                        )
 
                         # Price changed or not
-                        if ((self.price * 100) != stripe_price.unit_amount):
+                        if (self.price * 100) != stripe_price.unit_amount:
                             # Price changed
                             price = stripe.Price.create(
                                 product=self.product_id,
                                 unit_amount=int(self.product_item.price * 100),
-                                currency='aud',
+                                currency="aud",
                             )
 
                             stripe.Product.modify(
                                 self.product_id,
-                                name= self.product_item.name + " - " + self.name,
+                                name=self.product_item.name + " - " + self.name,
                                 description=self.product_item.name + " - " + self.name,
                                 active=self.active,
-                                metadata={'flavor': self.name},
-                                default_price=price.id
+                                metadata={"flavor": self.name},
+                                default_price=price.id,
                             )
 
                             stripe.Price.modify(self.price_id, active=False)
@@ -161,15 +168,15 @@ class Flavor(models.Model):
                                 name=self.product_item.name + " - " + self.name,
                                 description=self.product_item.name + " - " + self.name,
                                 active=self.active,
-                                metadata={'flavor': self.name},
+                                metadata={"flavor": self.name},
                             )
                     else:
                         # Create a new product in Stripe
                         product = stripe.Product.create(
-                            name= self.product_item.name + " - " + self.name,
-                            description= self.product_item.name + " - " + self.name,
+                            name=self.product_item.name + " - " + self.name,
+                            description=self.product_item.name + " - " + self.name,
                             active=self.active,
-                            metadata={'flavor': self.name},
+                            metadata={"flavor": self.name},
                         )
                         self.product_id = product.id
 
@@ -177,7 +184,7 @@ class Flavor(models.Model):
                         price = stripe.Price.create(
                             product=product.id,
                             unit_amount=int(self.product_item.price * 100),
-                            currency='aud',
+                            currency="aud",
                         )
                         self.price_id = price.id
 
@@ -215,26 +222,31 @@ class Flavor(models.Model):
         super(Flavor, self).delete(*args, **kwargs)
 
 
-
 class CakeVariant(models.Model):
-    cake = models.ForeignKey(Flavor, on_delete=models.CASCADE, related_name='size_prices', limit_choices_to={'product_type': ProductType.CAKE})
+    cake = models.ForeignKey(
+        Flavor,
+        on_delete=models.CASCADE,
+        related_name="size_prices",
+        limit_choices_to={"product_type": ProductType.CAKE},
+    )
     size = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     active = models.BooleanField(default=True)
     product_id_link = models.IntegerField(editable=False)
-    
+
     product_name = models.CharField(editable=False)
     product_id = models.CharField(max_length=100, blank=True, editable=False)
     price_id = models.CharField(max_length=100, blank=True, editable=False)
-    
+
     def __str__(self):
         if self.cake:
             # Update the product_type based on the linked product
             self.product_name = self.cake.product_item.name
 
+            return (
+                f"{self.product_name} - {self.cake.name} - {self.size} - ${self.price}"
+            )
 
-            return f"{self.product_name} - {self.cake.name} - {self.size} - ${self.price}"
-    
     def save(self, *args, **kwargs):
         if self.cake:
             # Update the product_type based on the linked product
@@ -250,17 +262,16 @@ class CakeVariant(models.Model):
                     stripe_price = stripe.Price.retrieve(stripe_product.default_price)
 
                     # Price changed or not
-                    if ((self.price * 100) != stripe_price.unit_amount):
+                    if (self.price * 100) != stripe_price.unit_amount:
                         # Price changed
                         price = stripe.Price.create(
                             product=self.cake.product_id,
                             unit_amount=int(self.price * 100),
-                            currency='aud',
+                            currency="aud",
                         )
 
                         stripe.Product.modify(
-                            self.cake.product_id,
-                            default_price=price.id
+                            self.cake.product_id, default_price=price.id
                         )
 
                         stripe.Price.modify(
@@ -270,8 +281,7 @@ class CakeVariant(models.Model):
                     else:
                         # Price not changed
                         stripe.Product.modify(
-                            self.cake.product_id,
-                            default_price=self.cake.price_id
+                            self.cake.product_id, default_price=self.cake.price_id
                         )
                 else:
                     # Create a new product in Stripe
@@ -286,15 +296,12 @@ class CakeVariant(models.Model):
                     price = stripe.Price.create(
                         product=product.id,
                         unit_amount=int(self.price * 100),
-                        currency='aud',
+                        currency="aud",
                     )
                     self.cake.price_id = price.id
 
                     # Make price the default price
-                    stripe.Product.modify(
-                        self.cake.product_id,
-                        default_price=price.id
-                    )
+                    stripe.Product.modify(self.cake.product_id, default_price=price.id)
 
                 super().save(*args, **kwargs)
             except stripe.error.StripeError as e:
@@ -324,8 +331,10 @@ class CakeVariant(models.Model):
 
         super().delete(*args, **kwargs)
 
+
 class SliderImage(models.Model):
     original_name = None
+
     def upload_to_slider(instance, filename):
         # Upload the image to a 'slider' directory with the filename as the cake's name
         return f"slider/{filename}"
@@ -345,11 +354,11 @@ class SliderImage(models.Model):
         # Store the original name when the object is created
         if not self.id and self.name:
             self.original_name = self.name
-            
+
         # Rename the uploaded image to match the cake's name
 
         if self.image and hasattr(self.image, "name") and self.original_name:
-                    self.image.name = f"{self.original_name}.png"
+            self.image.name = f"{self.original_name}.png"
         super(SliderImage, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
@@ -359,7 +368,7 @@ class SliderImage(models.Model):
             default_storage.delete(image_path)
 
         super(SliderImage, self).delete(*args, **kwargs)
-        
+
     class Meta:
         verbose_name_plural = "Slider Images"
 
@@ -476,7 +485,7 @@ class FlavoursAndServings(models.Model):
 class FlavoursAndServingsInfo(models.Model):
     heading = models.CharField(max_length=200)
     description = models.TextField()
-    extra_points = models.TextField()
+    extra_points = models.TextField(blank=True)
 
     class Meta:
         verbose_name_plural = "Flavours and Servings Info"
@@ -556,7 +565,7 @@ class GalleryItem(models.Model):
         if not self.id and self.title:
             self.original_name = self.title
         if self.image and hasattr(self.image, "name") and self.original_name:
-                    self.image.name = f"{self.original_name}.png"
+            self.image.name = f"{self.original_name}.png"
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
@@ -564,10 +573,9 @@ class GalleryItem(models.Model):
         image_path = self.image.name
         default_storage.delete(image_path)
         super().delete(*args, **kwargs)
-        
+
     class Meta:
         verbose_name_plural = "Gallery Items"
-
 
 
 class LocationPageContent(models.Model):
@@ -641,10 +649,11 @@ class Quote(models.Model):
             "filling",
         ]
 
+
 class HomepageWelcomeSection(models.Model):
     def upload_to_welcome(instance, filename):
         return f"welcome/{filename}"
-    
+
     def upload_to_banner(instance, filename):
         return f"banner/{filename}"
 
@@ -696,6 +705,53 @@ class HomepageGallerySection(models.Model):
     class Meta:
         verbose_name_plural = "Homepage Gallery Section"
 
+class ServingsGuideInfo(models.Model):
+    heading = models.CharField()
+    paragraph = models.TextField()
+
+    def save(self, *args, **kwargs):
+        if self.__class__.objects.count():
+            self.pk = self.__class__.objects.first().pk
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.heading
+
+    class Meta:
+        verbose_name_plural = "Servings Guide Info"
+
+
+class ServingsOfRoundCake(models.Model):
+    size_in_inches = models.IntegerField()
+    standard_serves = models.IntegerField()
+    coffee_serves = models.IntegerField()
+
+    class Meta:
+        ordering = [
+            "size_in_inches",
+            "standard_serves",
+            "coffee_serves",
+        ]
+
+    class Meta:
+        verbose_name_plural = "Servings Of Round Cakes"
+
+
+class ServingsOfSquareCake(models.Model):
+    size_in_inches = models.IntegerField()
+    standard_serves = models.IntegerField()
+    coffee_serves = models.IntegerField()
+
+    class Meta:
+        ordering = [
+            "size_in_inches",
+            "standard_serves",
+            "coffee_serves",
+        ]
+
+    class Meta:
+        verbose_name_plural = "Servings Of Square Cakes"
+
 
 class Video(models.Model):
     title = models.CharField(max_length=100, unique=True)
@@ -708,7 +764,7 @@ class Video(models.Model):
     price_id = models.CharField(max_length=100, blank=True, editable=False)
 
     original_name = None
-    
+
     def __str__(self):
         return self.title
 
@@ -724,21 +780,21 @@ class Video(models.Model):
                 stripe_price = stripe.Price.retrieve(stripe_product.default_price)
 
                 # Price changed or not
-                if ((self.price * 100) != stripe_price.unit_amount):
+                if (self.price * 100) != stripe_price.unit_amount:
                     # Price changed
 
                     price = stripe.Price.create(
-                        product= self.product_id,
+                        product=self.product_id,
                         unit_amount=int(self.price * 100),
-                        currency='aud',
+                        currency="aud",
                     )
-                
+
                     stripe.Product.modify(
                         self.product_id,
                         name=self.title,
-                        description= self.description,
-                        active = self.active,
-                        default_price= price.id
+                        description=self.description,
+                        active=self.active,
+                        default_price=price.id,
                     )
 
                     stripe.Price.modify(
@@ -750,31 +806,28 @@ class Video(models.Model):
                     stripe.Product.modify(
                         self.product_id,
                         name=self.title,
-                        description= self.description,
-                        active = self.active,
+                        description=self.description,
+                        active=self.active,
                     )
             else:
                 # Create a new coupon in Stripe
                 product = stripe.Product.create(
-                    name = self.title,
-                    description = self.description,
-                    active = self.active,
+                    name=self.title,
+                    description=self.description,
+                    active=self.active,
                 )
                 self.product_id = product.id
 
                 # Create the price
                 price = stripe.Price.create(
-                    product= product.id,
+                    product=product.id,
                     unit_amount=int(self.price * 100),
-                    currency='aud',
+                    currency="aud",
                 )
                 self.price_id = price.id
 
                 # Make price default price
-                stripe.Product.modify(
-                    self.product_id,
-                    default_price= price.id
-                )
+                stripe.Product.modify(self.product_id, default_price=price.id)
 
             if self.video and self.original_name:
                 # Generate a unique filename based on the original title
@@ -785,7 +838,7 @@ class Video(models.Model):
                     self.video.name = f"/{filename}"
                 else:
                     self.video.name = filename
-                
+
             super().save(*args, **kwargs)
 
         except stripe.error.StripeError as e:
@@ -810,7 +863,7 @@ class Video(models.Model):
         except stripe.error.StripeError as e:
             # Handle any other errors that occur during the API request
             raise ValidationError(f"Failed to delete Stripe product: {str(e)}")
-        
+
         # Delete the associated video from the bucket
         if self.video:
             video_path = self.video.name
@@ -835,7 +888,7 @@ class UserFirstOrder(models.Model):
     madeFirstOrder = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.username 
+        return self.user.username
 
     class Meta:
         ordering = ["user"]
@@ -845,33 +898,49 @@ class UserFirstOrder(models.Model):
 class UserPurchaseManager(models.Manager):
     def create_with_related(self, user, videos_data, cakes_data, amount_paid):
         user_purchase = self.create(user=user, amount_paid=amount_paid)
-        
+
         for video_id in videos_data:
-            UserVideoPurchase.objects.create(user_purchase=user_purchase, video=Video.objects.get(id=video_id))
+            UserVideoPurchase.objects.create(
+                user_purchase=user_purchase, video=Video.objects.get(id=video_id)
+            )
 
         for cake_id in cakes_data:
             try:
-                UserCakePurchase.objects.create(user_purchase=user_purchase, cake_variant=CakeVariant.objects.get(id=cake_id))
+                UserCakePurchase.objects.create(
+                    user_purchase=user_purchase,
+                    cake_variant=CakeVariant.objects.get(id=cake_id),
+                )
             except CakeVariant.DoesNotExist:
-                UserProductPurchase.objects.create(user_purchase=user_purchase, products=Product.objects.get(id=cake_id))
+                UserProductPurchase.objects.create(
+                    user_purchase=user_purchase,
+                    products=Product.objects.get(id=cake_id),
+                )
 
         return user_purchase
 
+
 class UserPurchase(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    videos = models.ManyToManyField(Video, blank=True, through='UserVideoPurchase')
-    products = models.ManyToManyField(Product, blank=True, through='UserProductPurchase')
-    cake_variant = models.ManyToManyField(CakeVariant, blank=True, through='UserCakePurchase')
+    videos = models.ManyToManyField(Video, blank=True, through="UserVideoPurchase")
+    products = models.ManyToManyField(
+        Product, blank=True, through="UserProductPurchase"
+    )
+    cake_variant = models.ManyToManyField(
+        CakeVariant, blank=True, through="UserCakePurchase"
+    )
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     time_submitted = models.DateTimeField(auto_now=True)
+
 
 class UserVideoPurchase(models.Model):
     user_purchase = models.ForeignKey(UserPurchase, on_delete=models.CASCADE)
     video = models.ForeignKey(Video, on_delete=models.SET_NULL, null=True)
 
+
 class UserCakePurchase(models.Model):
     user_purchase = models.ForeignKey(UserPurchase, on_delete=models.CASCADE)
     cake_variant = models.ForeignKey(CakeVariant, on_delete=models.SET_NULL, null=True)
+
 
 class UserProductPurchase(models.Model):
     user_purchase = models.ForeignKey(UserPurchase, on_delete=models.CASCADE)
@@ -900,8 +969,7 @@ class UserCustomerID(models.Model):
                     or original.customer_id != self.customer_id
                 ):
                     raise ValidationError(
-                        "Cannot update fields.",
-                        code='restricted_fields'
+                        "Cannot update fields.", code="restricted_fields"
                     )
             except UserCustomerID.DoesNotExist:
                 # Promotion object with the given primary key does not exist, so try adding or modifying
@@ -915,12 +983,12 @@ class UserCustomerID(models.Model):
                 # modify
                 stripe.Customer.modify(
                     self.customer_id,
-                    name = f'{self.user.first_name} {self.user.last_name}'
+                    name=f"{self.user.first_name} {self.user.last_name}",
                 )
             else:
                 response = stripe.Customer.create(
-                    email = self.user.email,
-                    name = f'{self.user.first_name} {self.user.last_name}'
+                    email=self.user.email,
+                    name=f"{self.user.first_name} {self.user.last_name}",
                 )
                 self.customer_id = response.id
 
@@ -929,7 +997,6 @@ class UserCustomerID(models.Model):
         except stripe.error.StripeError as e:
             # Handle the Stripe API error
             raise ValidationError(f"Failed to create Stripe Customer: {str(e)}")
-
 
     def delete(self, *args, **kwargs):
         # Delete on stripe:
@@ -953,15 +1020,35 @@ class UserCustomerID(models.Model):
 ############################################ Coupons and Promotions ############################################
 class StripeCoupon(models.Model):
     name = models.CharField(max_length=50, unique=True, primary_key=True)
-    amount_off = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, help_text='You cannot change this field after creating the Coupon.')
-    percent_off = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True, help_text='You cannot change this field after creating the Coupon.')
-    max_redemptions = models.PositiveIntegerField(null=True, blank=True, help_text='You cannot change this field after creating the Coupon.')
-    redeem_by = models.DateTimeField(null=True, blank=True, help_text='You cannot change this field after creating the Coupon.')
+    amount_off = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        help_text="You cannot change this field after creating the Coupon.",
+    )
+    percent_off = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        help_text="You cannot change this field after creating the Coupon.",
+    )
+    max_redemptions = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        help_text="You cannot change this field after creating the Coupon.",
+    )
+    redeem_by = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="You cannot change this field after creating the Coupon.",
+    )
     stripe_coupon_id = models.CharField(max_length=100, blank=True, editable=False)
-    # maybe add applies_to to just allow certain cakes and cupcakes 
+    # maybe add applies_to to just allow certain cakes and cupcakes
 
     def __str__(self):
-        return self.name 
+        return self.name
 
     class Meta:
         ordering = ["name"]
@@ -982,7 +1069,7 @@ class StripeCoupon(models.Model):
                 ):
                     raise ValidationError(
                         "Cannot update fields other than 'name'",
-                        code='restricted_fields'
+                        code="restricted_fields",
                     )
             except ObjectDoesNotExist:
                 # Coupon object with the given primary key does not exist, so try adding or modifying
@@ -991,25 +1078,26 @@ class StripeCoupon(models.Model):
         try:
             stripe.api_key = settings.STRIPE_SECRET_KEY
             if self.stripe_coupon_id:
-                stripe.Coupon.modify(
-                    self.stripe_coupon_id,
-                    name=self.name
-                )
+                stripe.Coupon.modify(self.stripe_coupon_id, name=self.name)
             else:
                 redeem_by_aest = None
                 if self.redeem_by:
                     # Convert redeem_by to AEST
-                    tz_aest = pytz.timezone('Australia/Melbourne')
+                    tz_aest = pytz.timezone("Australia/Melbourne")
                     redeem_by_aest = self.redeem_by.astimezone(tz_aest)
 
                 # Create a new coupon in Stripe
                 coupon = stripe.Coupon.create(
-                    currency='AUD',
+                    currency="AUD",
                     name=self.name,
-                    amount_off=int((self.amount_off) * 100) if self.amount_off else None,  # Convert to cents
+                    amount_off=int((self.amount_off) * 100)
+                    if self.amount_off
+                    else None,  # Convert to cents
                     percent_off=self.percent_off,
                     max_redemptions=self.max_redemptions,
-                    redeem_by=int(redeem_by_aest.timestamp()) if redeem_by_aest else None,
+                    redeem_by=int(redeem_by_aest.timestamp())
+                    if redeem_by_aest
+                    else None,
                 )
                 self.stripe_coupon_id = coupon.id
 
@@ -1036,21 +1124,43 @@ def delete_stripe_coupon(sender, instance, **kwargs):
             # Handle any other errors that occur during the API request
             raise ValidationError(f"Failed to delete Stripe coupon: {str(e)}")
 
+
 ############### Promotion ###############
 class StripePromotion(models.Model):
-    code = models.CharField(max_length=50, blank=True, unique=True, primary_key=True, help_text='You cannot change this field after creating the promotion.')
-    coupon = models.ForeignKey(StripeCoupon, on_delete=models.CASCADE, help_text='You cannot change this field after creating the promotion.') 
+    code = models.CharField(
+        max_length=50,
+        blank=True,
+        unique=True,
+        primary_key=True,
+        help_text="You cannot change this field after creating the promotion.",
+    )
+    coupon = models.ForeignKey(
+        StripeCoupon,
+        on_delete=models.CASCADE,
+        help_text="You cannot change this field after creating the promotion.",
+    )
     stripe_promotion_id = models.CharField(max_length=100, blank=True, editable=False)
     # Frontend:
     is_displayed = models.BooleanField(default=False)
-    display_after = models.IntegerField(default=30, help_text='Set this field to display the popup after the given amount of seconds. (Recommended 30 seconds)')
+    display_after = models.IntegerField(
+        default=30,
+        help_text="Set this field to display the popup after the given amount of seconds. (Recommended 30 seconds)",
+    )
     only_logged_in_users = models.BooleanField(default=False)
-    only_first_purchase_of_user = models.BooleanField(default=False, help_text='You cannot change this field after creating the promotion.')
-    minimum_amount = models.DecimalField(max_digits=5, decimal_places=2, default=0.0, help_text='You cannot change this field after creating the Coupon.')
+    only_first_purchase_of_user = models.BooleanField(
+        default=False,
+        help_text="You cannot change this field after creating the promotion.",
+    )
+    minimum_amount = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        default=0.0,
+        help_text="You cannot change this field after creating the Coupon.",
+    )
     description = models.TextField(blank=True)
 
     def __str__(self):
-        return self.code 
+        return self.code
 
     class Meta:
         ordering = ["code"]
@@ -1064,13 +1174,15 @@ class StripePromotion(models.Model):
                 if (
                     original_promotion.code != self.code
                     or original_promotion.coupon != self.coupon
-                    or original_promotion.stripe_promotion_id != self.stripe_promotion_id
-                    or original_promotion.only_first_purchase_of_user != self.only_first_purchase_of_user
+                    or original_promotion.stripe_promotion_id
+                    != self.stripe_promotion_id
+                    or original_promotion.only_first_purchase_of_user
+                    != self.only_first_purchase_of_user
                     or original_promotion.minimum_amount != self.minimum_amount
                 ):
                     raise ValidationError(
                         "Cannot update fields other than 'is_displayed', 'display_after', 'only_logged_in_users' or 'description'",
-                        code='restricted_fields'
+                        code="restricted_fields",
                     )
             except StripePromotion.DoesNotExist:
                 # Promotion object with the given primary key does not exist, so try adding or modifying
@@ -1079,26 +1191,27 @@ class StripePromotion(models.Model):
         # Either edit is_displayed and description, or create new promotion
         try:
             stripe.api_key = settings.STRIPE_SECRET_KEY
-            if not self.stripe_promotion_id: # Create a new promotion in Stripe
-
+            if not self.stripe_promotion_id:  # Create a new promotion in Stripe
                 restrictions = {}
                 if self.only_first_purchase_of_user:
-                    restrictions['first_time_transaction'] = self.only_first_purchase_of_user
+                    restrictions[
+                        "first_time_transaction"
+                    ] = self.only_first_purchase_of_user
                 if self.minimum_amount > 0.0:
-                    restrictions['minimum_amount'] = self.minimum_amount * 100
-                    restrictions['minimum_amount_currency'] = 'aud'
+                    restrictions["minimum_amount"] = self.minimum_amount * 100
+                    restrictions["minimum_amount_currency"] = "aud"
 
-                if (self.code): # If admin gave a code
+                if self.code:  # If admin gave a code
                     stripe_promotion = stripe.PromotionCode.create(
                         code=self.code,
                         coupon=self.coupon.stripe_coupon_id,
-                        restrictions = restrictions,
+                        restrictions=restrictions,
                     )
                 else:
                     # If code empty, stripe will create it
                     stripe_promotion = stripe.PromotionCode.create(
                         coupon=self.coupon.stripe_coupon_id,
-                        restrictions = restrictions,
+                        restrictions=restrictions,
                     )
                     self.code = stripe_promotion.code
                 self.stripe_promotion_id = stripe_promotion.id
@@ -1112,7 +1225,7 @@ class StripePromotion(models.Model):
             # Handle the Stripe API error
             raise ValidationError(f"Failed to update Stripe coupon: {str(e)}")
 
+
 # There is no delete api for promotion codes
 
 ################################################################################################################
-

@@ -421,6 +421,36 @@ def flavours_and_servings_info(request):
         flavours_servings_info = FlavoursAndServingsInfo.objects.first()
         serializer = FlavoursAndServingsInfoSerializer(flavours_servings_info)
         return Response(serializer.data)
+    
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def servings_guide_info(request):
+    if request.method == "GET":
+        servings_guide_info = ServingsGuideInfo.objects.first()
+        serializer = ServingsGuideInfoSerializer(servings_guide_info)
+        return Response(serializer.data)
+    
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def servings_round_cake(request):
+    if request.method == "GET":
+        servings = ServingsOfRoundCake.objects.all()
+        serializer = ServingsRoundCakeSerializer(servings, many=True)
+        return Response(serializer.data)
+    
+@api_view(["GET"])
+@permission_classes(
+    [AllowAny]
+)  ###### Add this to allow users to access despite not being logged in
+def servings_square_cake(request):
+    if request.method == "GET":
+        servings = ServingsOfSquareCake.objects.all()
+        serializer = ServingsSquareCakeSerializer(servings, many=True)
+        return Response(serializer.data)
 
 
 @api_view(["GET"])

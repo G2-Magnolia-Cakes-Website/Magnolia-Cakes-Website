@@ -60,6 +60,10 @@ class FlavoursAndServingsInfoSerializer(serializers.ModelSerializer):
         model = FlavoursAndServingsInfo
         fields = "__all__"
 
+class ServingsGuideInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServingsGuideInfo
+        fields = "__all__"
 
 class AboutUsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -116,6 +120,15 @@ class SocialMediasSerializer(serializers.ModelSerializer):
         model = SocialMedias
         fields = "__all__"
 
+class ServingsRoundCakeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServingsOfRoundCake
+        fields = "__all__"
+
+class ServingsSquareCakeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServingsOfSquareCake
+        fields = "__all__"
 
 class LocationPageContentSerializer(serializers.ModelSerializer):
     class Meta:

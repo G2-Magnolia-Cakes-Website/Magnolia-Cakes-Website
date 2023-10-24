@@ -47,6 +47,15 @@
   font-size: 20px;
 }
 
+.servings-tables-wrapper {
+  margin: 5rem auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (max-width: 1440px) {
   .flavours-and-servings {
     padding: 8rem 15rem 8rem 15rem;
@@ -88,6 +97,10 @@
 @media (max-width: 580px) {
   .flavours-and-servings .flav-serv-lists {
     display: block;
+    margin: 2rem auto 2rem auto;
+  }
+
+  .servings-tables-wrapper {
     margin: 2rem auto 2rem auto;
   }
 }

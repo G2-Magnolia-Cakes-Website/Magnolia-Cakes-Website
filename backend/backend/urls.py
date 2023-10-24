@@ -59,6 +59,21 @@ urlpatterns = [
         views.flavours_and_servings_info,
         name="flavours-and-servings-info",
     ),
+    path(
+        "api/servings-guide-info/",
+        views.servings_guide_info,
+        name="servings-guide-info",
+    ),
+    path(
+        "api/servings-round-cake/",
+        views.servings_round_cake,
+        name="servings-round-cake",
+    ),
+    path(
+        "api/servings-square-cake/",
+        views.servings_square_cake,
+        name="servings-square-cake",
+    ),
     path("api/about-us/", views.about_us, name="about-us"),
     path("api/footer-location/", views.footer_location, name="footer-location"),
     path("api/footer-contact-us/", views.footer_contact_us, name="footer-contact-us"),
