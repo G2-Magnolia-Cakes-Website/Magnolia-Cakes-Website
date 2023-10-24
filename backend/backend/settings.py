@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Uncomment this if you work locally
 #BASE_URL = 'http://127.0.0.1:8000/'
-#BACKEND_URL = '127.0.0.1:8000'
+#BACKEND_URL = '127.0.0.1'
 
 # Uncomment this if you about to deploy to cloud
 BASE_URL = 'https://backend-dot-alpine-avatar-399423.ts.r.appspot.com/'

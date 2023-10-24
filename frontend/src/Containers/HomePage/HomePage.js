@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { AuthContext } from "../../AuthContext";
@@ -10,6 +11,7 @@ import WelcomeSection from "./Sections/WelcomeSection";
 import WelcomePopup from "Components/WelcomePopup/WelcomePopup";
 import { parseStringToParagraphsByNewline } from "utils/parseStringsToArray";
 import CupcakesBanner from "Components/CupcakesBanner/CupcakesBanner";
+import { Helmet } from 'react-helmet';
 
 const HomePage = ({ api }) => {
   const { user } = useContext(AuthContext);
@@ -72,6 +74,10 @@ const HomePage = ({ api }) => {
 
   return (
     <>
+      <Helmet>
+        <title>Magnolia Cakes & Cupcakes</title>
+        <meta name="description" content="Experience the Magic of Our Melbourne-Based Cake Studio, Where Artistry and the Love for Cake Making Harmoniously Combine" />
+      </Helmet>
       {user &&
         showWelcomePopup &&
         ReactDOM.createPortal(
