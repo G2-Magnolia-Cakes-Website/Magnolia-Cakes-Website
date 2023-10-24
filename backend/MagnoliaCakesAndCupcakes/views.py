@@ -228,7 +228,7 @@ def contact(request):
             admin_email = ContactUsEmail.objects.first()
             backup_emails = BackupEmail.objects.all()
 
-            to_emails = [admin_email]
+            to_emails = [admin_email.your_email]
 
             for e in backup_emails:
                 to_emails.append(e.email)

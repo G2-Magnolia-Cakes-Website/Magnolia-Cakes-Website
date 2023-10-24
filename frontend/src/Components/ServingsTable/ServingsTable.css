@@ -22,6 +22,15 @@
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
+.servings-table-heading {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 32px;
+  margin-bottom: 2rem;
+  font-family: "Fredoka", sans-serif;
+  text-align: center;
+}
+
 @media (max-width: 1440px) {
   .servings-table {
     width: 700px;
@@ -48,6 +57,11 @@
   .servings-table tr td {
     font-size: 18px;
   }
+
+  .servings-table-heading {
+    font-size: 28px;
+    margin-bottom: 1.5rem;
+  }
 }
 
 @media (max-width: 625px) {
@@ -69,5 +83,10 @@
   .servings-table tr th,
   .servings-table tr td {
     font-size: 14px;
+  }
+
+  .servings-table-heading {
+    font-size: 24px;
+    margin-bottom: 1.5rem;
   }
 }

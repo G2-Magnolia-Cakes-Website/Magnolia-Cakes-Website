@@ -104,8 +104,8 @@ const FlavoursAndServings = ({ api }) => {
         <p className="description">{p}</p>
       ))}
       <div className="servings-tables-wrapper">
-        <ServingsTable data={servingsRoundCake} />
-        <ServingsTable data={servingsSquareCake} />
+        <ServingsTable data={servingsRoundCake} heading="Round Cake" />
+        <ServingsTable data={servingsSquareCake} heading="Square Cake" />
       </div>
     </div>
   );
