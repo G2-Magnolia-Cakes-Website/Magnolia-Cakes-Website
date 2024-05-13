@@ -10,21 +10,21 @@ from decouple import config
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Uncomment this if you work locally
-BASE_URL = 'http://127.0.0.1:8000/'
-BACKEND_URL = '127.0.0.1'
+# BASE_URL = 'http://127.0.0.1:8000/'
+# BACKEND_URL = '127.0.0.1'
 
 # Uncomment this if you about to deploy to cloud
-#BASE_URL = 'https://backend-dot-alpine-avatar-399423.ts.r.appspot.com/'
-#BACKEND_URL = 'backend-dot-alpine-avatar-399423.ts.r.appspot.com'
+BASE_URL = 'https://backend-dot-alpine-avatar-399423.ts.r.appspot.com/'
+BACKEND_URL = 'backend-dot-alpine-avatar-399423.ts.r.appspot.com'
 
 # Uncomment this if you work locally
-FRONTEND_APP_URL = "http://localhost:3000"
+# FRONTEND_APP_URL = "http://localhost:3000"
 
 # Uncomment this if you want to test the basic cloud deployment 
 # FRONTEND_APP_URL = "https://alpine-avatar-399423.ts.r.appspot.com"
 
 # Uncomment this if you want to deploy onto the actual domain
-#FRONTEND_APP_URL = "https://magnoliacake.com.au"
+FRONTEND_APP_URL = "https://magnoliacake.com.au"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -33,7 +33,7 @@ FRONTEND_APP_URL = "http://localhost:3000"
 SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [BACKEND_URL]
 
